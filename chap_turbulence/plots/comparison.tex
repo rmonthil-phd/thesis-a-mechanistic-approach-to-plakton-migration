@@ -1,0 +1,299 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				%y descriptions at=edge left,
+				horizontal sep=0.1\linewidth,
+				vertical sep=0.1\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.66\textwidth,
+			height=0.62\textwidth,
+			% layers
+			set layers,
+			% legend
+			legend style={
+				draw=none, 
+				fill=none, 
+				/tikz/every even column/.append style={column sep=8pt}, 
+			},
+			legend cell align=left,
+			legend columns=1,
+		]
+		% % average arrival time
+		% \nextgroupplot[
+			% % x
+			% xlabel=$t / \omega_{\mathrm{rms}}^{-1}$,
+			% xmin=0,
+			% xmax=90,
+			% % y
+			% % ylabel=$\left\langle T_{\mathrm{arrival}} \right\rangle / \omega_{\mathrm{rms}}^{-1}$,
+			% ylabel=$N_{\mathrm{arrival}}$,
+			% ymin=0,
+			% ymax=200,
+			% % legend
+			% legend style={
+				% %yshift=17pt,
+			% },
+			% legend pos=north west,
+		% ]
+			% %% tau= 0.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %omega_rms = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_0o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_0o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!0!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!0!colorstraight,
+				% only marks,
+				% mark=*,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_0o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$0$}
+			% %% tau= 1.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_1o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_1o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!20!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!20!colorstraight,
+				% only marks,
+				% mark=pentagon,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_1o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$\omega_{\mathrm{rms}}^{-1}$}
+			% %% tau= 2.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_2o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_2o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!40!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!40!colorstraight,
+				% only marks,
+				% mark=square*,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_2o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$2 \omega_{\mathrm{rms}}^{-1}$}
+			% %% tau= 3.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_3o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_3o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!60!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!60!colorstraight,
+				% only marks,
+				% mark=diamond,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_3o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$3 \omega_{\mathrm{rms}}^{-1}$}
+			% %% tau= 4.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_4o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_4o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!80!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!80!colorstraight,
+				% only marks,
+				% mark=triangle*,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_4o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$4 \omega_{\mathrm{rms}}^{-1}$}
+			% %% tau= 5.0
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_5o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/surfer__surftimeconst_5o0__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colortss!100!colorstraight, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colortss!100!colorstraight,
+				% only marks,
+				% mark=star,
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/surfer__surftimeconst_5o0__arrival_number__distance_0o02.csv};
+			% \addlegendentry{$5 \omega_{\mathrm{rms}}^{-1}$}
+			% %% alageshan
+			% %%% 95 CI
+			% % \addplot[name path=A, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} - \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/alageshan_2__average_arrival_time__distance_0o02.csv};
+			% % \addplot[name path=B, draw=none, forget plot] table [
+				% % x expr={\thisrowno{0} * 8.07},
+				% % y expr={(\thisrowno{1} + \thisrowno{2}) * 8.07}, %\tau_\eta = 8.07
+				% % col sep=comma,
+				% % comment chars=\#,
+			% % ] {data/comparison_trackers/alageshan_2__average_arrival_time__distance_0o02.csv};
+			% % \addplot[colorasym, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot[
+				% colorasym,
+				% only marks,
+				% mark=asterisk,
+				% forget plot
+			% ] table [
+				% x expr={\thisrowno{0} * 8.07},
+				% y expr={\thisrowno{1}},
+				% col sep=comma,
+				% comment chars=\#,
+			% ] {data/comparison_trackers/alageshan_2__arrival_number__distance_0o02.csv};\label{plt:test};
+			% %\addlegendentry{Alageshan}
+			% \node[anchor=west] at (axis cs:42,350) {$\TimeHorizon$:};
+			% \node[anchor=south east] at (axis cs:90,0) {\ref{plt:test} Alageshan et al. 2020};
+		
+		% average distance
+		\nextgroupplot[
+			% x
+			xlabel=$\TimeHorizon / \omega_{\mathrm{rms}}^{-1}$,
+			xmin=0,
+			xmax=5,
+			% y
+			ylabel=$\Performance / \SwimmingVelocity$,
+			ymin=0,
+			ymax=1,
+			% legend
+			legend pos=south west,
+		]
+			%% surf
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{3}},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (1.5 * 0.42)}, % u_rms = 0.41
+				col sep=comma,
+				comment chars=\#,
+			] {chap_turbulence/data/comparison_navigators/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{3}},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (1.5 * 0.42)}, % u_rms = 0.41
+				col sep=comma, 
+				comment chars=\#,
+			] {chap_turbulence/data/comparison_navigators/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{3}},
+				y expr={\thisrowno{1} / (1.5 * 0.42)},
+				col sep=comma,
+				comment chars=\#,
+			] {chap_turbulence/data/comparison_navigators/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{surf}
+			%% alageshan
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot, domain=0:5, samples=2] {(4.137481826171874877e-01 + 6.974547989322253672e-03) / (1.5 * 0.42)};
+			\addplot[name path=B, draw=none, forget plot, domain=0:5, samples=2] {(4.137481826171874877e-01 - 6.974547989322253672e-03) / (1.5 * 0.42)};
+			\addplot[ColorAsym, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[ColorAsym, dashed, domain=0:5, samples=2] {4.137481826171874877e-01 / (1.5 * 0.42)};
+			\addlegendentry{reinf. learn. (Alageshan et al, 2020)}
+			%% bottom-heavy
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot, domain=0:5, samples=2] {(3.720016531819647643e-01 + 7.911456816039937751e-03) / (1.5 * 0.42)};
+			\addplot[name path=B, draw=none, forget plot, domain=0:5, samples=2] {(3.720016531819647643e-01 - 7.911456816039937751e-03) / (1.5 * 0.42)};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[ColorBh, domain=0:5, samples=2] {3.720016531819647643e-01 / (1.5 * 0.42)};
+			\addlegendentry{naive (bottom-heavy)}
+	\end{groupplot}
+	% % labels
+	% \node[anchor=west] at (rel axis cs:0.52,0.92) {$\SwimmingVelocity$:};
+	% \node[anchor=west] at (rel axis cs:1.62,0.92) {$\SwimmingVelocity$:};
+	% \node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	% \node[anchor=west] at (rel axis cs:1.68,-0.34) {$\ReorientationTime$:};
+	% % stuff
+	% \node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameTss}};
+	% \node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameStraight}};
+	% \node[anchor=north west] at (rel axis cs:-0.07,-0.25) {\textbf{(c) \NameTss}};
+	% \node[anchor=north west] at (rel axis cs:1.03,-0.25) {\textbf{(d) \NameStraight}};
+\end{tikzpicture}

@@ -1,0 +1,86 @@
+\begin{tikzpicture}
+	\begin{axis} [
+		% more
+		axis on top,
+		% size
+		width=0.7\textwidth,
+		height=0.62\textwidth,
+		% y
+		ylabel={$\TimeHorizon/\KolmogorovTimeScale$},
+		y label style={yshift=-4pt},
+		ymin=0,
+		ymax=6,
+		% x
+		xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+		x label style={yshift=4pt},
+		xmin=0,
+		xmax=20,
+		% legend
+		legend style={draw=none, fill=none},
+		legend pos=south west,
+		legend cell align=left,
+		legend columns=4,
+	]
+		% tau estimated
+		\addplot
+		[
+		color=ColorSym,
+		opacity=1.0,
+		mark=o,
+		%only marks,
+		]
+		table[
+			x index=0,
+			y expr={0.35 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/correlation_time/time_direction.csv};
+		\addlegendentry{0.35 $\CorrelationTime^a$}
+		% tau estimated
+		\addplot
+		[
+		color=ColorAsym,
+		opacity=1.0,
+		mark=triangle,
+		%only marks,
+		]
+		table[
+			x index=0,
+			y expr={0.11 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/correlation_time/time_norm.csv};
+		\addlegendentry{0.11 $\CorrelationTime^b$}
+		% tau estimated
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		%only marks,
+		mark=asterisk,
+		]
+		table[
+			x index=0,
+			y expr={0.55 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/correlation_time/time_sq_tr_j_2.csv};
+		\addlegendentry{0.55 $\CorrelationTime^c$}
+		% tau opt (fit)
+		\addplot
+		[
+		color=ColorSurf,
+		opacity=1.0,
+		solid, 
+		only marks,
+		mark=square*,
+		]
+		table[
+			x index=0, 
+			y expr={\thisrowno{2}},
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/main_results/fits_max.csv};
+		\addlegendentry{$\TimeHorizonOpt$}
+	\end{axis}
+\end{tikzpicture}

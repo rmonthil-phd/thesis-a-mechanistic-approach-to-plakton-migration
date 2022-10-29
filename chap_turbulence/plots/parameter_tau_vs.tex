@@ -1,0 +1,470 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (3.6,5.3) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.04\linewidth,
+			%vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% y
+		ymin=0,
+		ymax=2.5,
+		ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+	]
+		\nextgroupplot[
+			axis on top,
+			% y
+			extra y ticks={0.5, 1.5, 2.5},
+			% x
+			xmin=0,
+			xmax=8,
+		]
+			\node[anchor=north west] at (axis cs:0.0,2.5) {\textbf{(a):} $\mathit{Re}_{\lambda} = 418$};
+			%% us 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=3,
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=3, 
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=3, 
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{1} / (1.0 * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/fits_low.csv};
+			%%%% model
+			%\addplot
+			%[
+			%color=colortss!33!colorus,
+			%opacity=1.0,
+			%dashed,
+			%forget plot
+			%]
+			%table[
+			%    x index=0, 
+			%    y expr={cos(deg(0.24 * (4.4 - \thisrowno{0}))) / cos(deg(0.24 * 4.4))}, %u_\eta = 0.066
+			%    %y expr={cos(deg(\thisrowno{0}))}, %u_\eta = 0.066
+			%    col sep=comma, 
+			%    comment chars=\#,
+			%    unbounded coords=discard,
+			%]{data/jhtdb_more/fits_average_velocity_axis_0__agent.csv};
+			%% us 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=3, 
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=3, 
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon
+			]
+			table[
+				x index=3, 
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addlegendentry{$4 \KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{2} / (4.0 * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/fits_more.csv};
+			%%%% model
+			%\addplot
+			%[
+			%color=colortss!66!colorus,
+			%opacity=1.0,
+			%dashed,
+			%forget plot
+			%]
+			%table[
+			%    x index=0, 
+			%    y expr={cos(deg(0.24 * (3.37 - \thisrowno{0}))) / cos(deg(0.24 * 3.37))}, %u_\eta = 0.066
+			%    %y expr={cos(deg(\thisrowno{0}))}, %u_\eta = 0.066
+			%    col sep=comma, 
+			%    comment chars=\#,
+			%    unbounded coords=discard,
+			%]{data/jhtdb_more/fits_average_velocity_axis_0__agent.csv};
+			%% us 8.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=3, 
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{8.0:8.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=3, 
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{8.0:8.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addplot[ColorSurf!0!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=*
+			]
+			table[
+				x index=3, 
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{8.0:8.0},
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/merge.csv};
+			\addlegendentry{$8 \KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{6} / (8.0 * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_turbulence/data/main_results/fits_even_more.csv};
+			%%%% model
+			%\addplot
+			%[
+			%color=colortss!100!colorus,
+			%opacity=1.0,
+			%dashed,
+			%forget plot
+			%]
+			%table[
+			%    x index=0, 
+			%    y expr={cos(deg(0.24 * (2.57 - \thisrowno{0}))) / cos(deg(0.24 * 2.57))}, %u_\eta = 0.066
+			%    %y expr={cos(deg(\thisrowno{0}))}, %u_\eta = 0.066
+			%    col sep=comma, 
+			%    comment chars=\#,
+			%    unbounded coords=discard,
+			%]{data/jhtdb_more/fits_average_velocity_axis_0__agent.csv};
+			%% y = x
+			\addplot
+			[
+			color=gray!50!white,
+			opacity=1.0,
+			%line width=1pt, 
+			solid, 
+			on layer=axis background,
+			domain=0:10,
+			]{1};
+
+		\nextgroupplot[
+			axis on top,
+			% x
+			xmin=0,
+			xmax=8,
+		]
+			\node[anchor=north west] at (axis cs:0.0,2.5) {\textbf{(b):} $\mathit{Re}_{\lambda} = 11$};
+			% %% us 0.5
+			% %%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{0.5:0.5},
+				% unbounded coords=discard,
+			% ]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{0.5:0.5},
+				% unbounded coords=discard,
+			% ]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			% \addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot
+			% [
+			% color=ColorSurf!100!ColorVs,
+			% opacity=1.0,
+			% only marks,%solid
+			% mark=triangle*
+			% ]
+			% table[
+				% x index=4,
+				% y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{0.5:0.5},
+				% unbounded coords=discard,
+			% ]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			% \addlegendentry{$\KolmogorovVelocityScale/2$}
+			% %%% fit
+			% \addplot
+			% [
+			% color=ColorSurf!100!ColorVs,
+			% opacity=1.0,
+			% solid,
+			% forget plot
+			% ]
+			% table[
+				% x index=0,
+				% y expr={\thisrowno{3} / (0.5 * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% unbounded coords=discard,
+			% ]{data/surfers__flow__n_128__re_250/surfer__fits_average_velocity_axis_0.csv};
+			%% us 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$\KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{1} / (1.0 * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__fits_average_velocity_axis_0.csv};
+			%% us 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$4 \KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{2} / (4.0 * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__fits_average_velocity_axis_0.csv};
+			%% us 8.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!0!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=*
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$8 \KolmogorovVelocityScale$}
+			%%% fit
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			solid,
+			forget plot
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{4} / (8.0 * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__fits_average_velocity_axis_0.csv};
+			%% y = x
+			\addplot
+			[
+			color=gray!50!white,
+			opacity=1.0,
+			%line width=1pt, 
+			solid, 
+			on layer=axis background,
+			domain=0:8,
+			]{1};
+	\end{groupplot}
+\end{tikzpicture}

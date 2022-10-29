@@ -1,0 +1,144 @@
+\begin{tikzpicture}[
+		arrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2) %node[]{#1}
+			}
+		},
+		marrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2)
+			}
+		},
+		ga/.cd,
+		length/.initial=0.0001,
+		arrow/.style={-stealth,black!20!white,solid,thick},
+		marrow/.style={-stealth,black!20!white,solid,thick},
+		]
+	% plot
+	\begin{axis}[
+		% more
+		hide axis,
+		width=0.46\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-4.0,
+		ymax=4.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+		% flow seed 0
+		\addplot3 [
+			domain=-4.0:4.0,
+			domain y=-4.0:4.0,
+			samples=50,
+			contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
+		] {-0.23877790427740347 * x * y + 0.851066605494797 * y^2 / 2.0 - -0.4020644946639108 * x^2 / 2.0 + 0.9698253216979433 * y - -0.24380083140440792 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+		[arrow/.list={0.0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8}] [marrow/.list={0.9, 1.0}];
+	% end axis
+	\end{axis}
+
+
+
+	\begin{axis}[
+		at={(0.32\linewidth, 0.0)},
+		% more
+		hide axis,
+		width=0.46\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-4.0,
+		ymax=4.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+		% flow seed 0 skew sym
+		\addplot3 [
+			domain=-4.0:4.0,
+			domain y=-4.0:4.0,
+			samples=50,
+			contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
+		] {0.0 * x * y + 0.6265655500793539 * y^2 / 2.0 - -0.6265655500793539 * x^2 / 2.0 + 0.9698253216979433 * y - -0.24380083140440792 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+		[arrow/.list={0.2, 0.3, 0.4, 0.5, 0.6, 0.7}] [marrow/.list={0.0, 0.1, 0.8, 0.9, 1.0}];
+	\end{axis}
+
+
+
+	\begin{axis}[
+		at={(0.64\linewidth, 0.0)},
+		% more
+		hide axis,
+		width=0.46\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-4.0,
+		ymax=4.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+		% flow seed 0 sym
+		\addplot3 [
+			domain=-4.0:4.0,
+			domain y=-4.0:4.0,
+			samples=50,
+			contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
+		] {-0.23877790427740347 * x * y + 0.22450105541544307 * y^2 / 2.0 - 0.22450105541544307 * x^2 / 2.0 + 0.9698253216979433 * y - -0.24380083140440792 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+		[arrow/.list={0.6, 0.7, 0.8, 0.9, 1.0}] [marrow/.list={0.0, 0.1, 0.2, 0.3, 0.4, 0.5}];
+		\draw[black,->,-stealth] (axis cs:2.7,-1.48) -- (axis cs:3.25,0.0) node [anchor=west, pos=0.5, text opacity=1] {$\hat{\vec{e}}_{\alpha}$};
+		\draw[black,->,-stealth] (axis cs:2.7,-1.48) -- (axis cs:1.28,-0.93) node [anchor=north, pos=0.5, text opacity=1] {$\hat{\vec{e}}_{\beta}$};
+	% end axis
+	\end{axis}
+	% letter
+	\node[] at (0.8, 2.0) {=};
+	\node[] at (5.52, 2.0) {+};
+	\node[] at (-2.2, 4.0) {$\FlowVelocity = \FlowVelocity_0 + \Gradients \cdot \vec{x}$};
+	\node[] at (3.0, 4.0) {$\FlowVelocity = \FlowVelocity_0 + \GradientsAsym \cdot \vec{x}$};
+	\node[] at (7.6, 4.0) {$\FlowVelocity = \FlowVelocity_0 + \GradientsSym \cdot \vec{x}$};
+\end{tikzpicture}

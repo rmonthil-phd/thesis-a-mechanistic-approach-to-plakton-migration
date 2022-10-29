@@ -1,0 +1,261 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (2.9,4.7) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+   		group style={
+   			group size=2 by 1,
+   			%y descriptions at=edge left,
+   			%x descriptions at=edge bottom,
+   			horizontal sep=0.14\linewidth,
+   			%vertical sep=0.04\linewidth,
+   		},
+   		% size
+   		width=0.45\textwidth,
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		xmin=0,
+		xmax=6,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+   	]
+	
+	\nextgroupplot[
+		axis on top,
+		% y
+		ylabel={$\left\langle \varOmega_{\mathrm{rel.}}^2 \right\rangle \, \KolmogorovTimeScale^2 / (1 + \SwimmingVelocity/\KolmogorovVelocityScale)$},
+		ymin=0.1,
+		ymax=100,
+		ymode=log
+	]
+		\node[anchor=north west] at (axis cs:0.0,100) {\textbf{(a)}};
+		%% us 1.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$\KolmogorovVelocityScale$}
+		%% us 4.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$4\KolmogorovVelocityScale$}
+		%% us 8.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$8\KolmogorovVelocityScale$}
+		% %% sqrt
+		% \addplot
+		% [
+		% color=black,
+		% opacity=1.0,
+		% solid,
+		% domain=0:8,
+		% samples=20,
+		% ] {x^2};
+
+	\nextgroupplot[
+		axis on top,
+		% y
+		ymin=0.01,
+		ymax=1,
+		ymode=log,
+		ylabel={$\mu \KolmogorovScale \KolmogorovVelocityScale E$},
+	]
+		\pgfplotstableread[col sep=comma]{data/surfers/surfer__merge_average_velocity_axis_0.csv}\TableVelocity
+		\pgfplotstableread[col sep=comma]{data/surfers/surfer__merge_rotating_power_consumption.csv}\TablePower
+		\pgfplotstablegetcolumnnamebyindex{1}\of{\TablePower}\to\TablePowerColumnFour
+		\pgfplotstablecreatecol[create col/copy column from table=\TablePower{\TablePowerColumnFour}]{omega_active^2}\TableVelocity
+		\pgfplotstablegetcolumnnamebyindex{0}\of{\TableVelocity}\to\TablePowerColumnZero
+		\pgfplotstablegetcolumnnamebyindex{1}\of{\TableVelocity}\to\TablePowerColumnOne
+		\pgfplotstablegetcolumnnamebyindex{2}\of{\TableVelocity}\to\TablePowerColumnTwo
+		\pgfplotstablegetcolumnnamebyindex{3}\of{\TableVelocity}\to\TablePowerColumnThree
+		\pgfplotstablegetcolumnnamebyindex{4}\of{\TableVelocity}\to\TablePowerColumnFour
+		\pgfplotstablegetcolumnnamebyindex{5}\of{\TableVelocity}\to\TablePowerColumnFive
+
+		\node[anchor=north west] at (axis cs:0.0,1.0) {\textbf{(b)}};
+		% us 1.0
+		%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x=\TablePowerColumnFour, 
+			y expr={\thisrow{\TablePowerColumnOne} / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		% us 4.0
+		%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x=\TablePowerColumnFour, 
+			y expr={\thisrow{\TablePowerColumnOne} / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		% us 8.0
+		%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{8.0:8.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x=\TablePowerColumnFour,
+			y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{8.0:8.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x=\TablePowerColumnFour, 
+			y expr={\thisrow{\TablePowerColumnOne} / 0.066 / (9.4 * \thisrow{\TablePowerColumnThree}^2 * 0.5 + 3.1 * \thisrow{\TablePowerColumnFive} * 0.0424^2 * 0.5^3)}, %\eta = 0.00280, u_\eta = 0.066, tau_\eta = 0.0424
+			restrict expr to domain={\thisrow{\TablePowerColumnThree}}{8.0:8.0},
+			unbounded coords=discard,
+		] {\TableVelocity};
+	\end{groupplot}
+\end{tikzpicture}

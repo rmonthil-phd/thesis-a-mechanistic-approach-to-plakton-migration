@@ -1,0 +1,162 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 2,
+				%y descriptions at=edge left,
+				horizontal sep=0.1\linewidth,
+				vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.47\textwidth,
+			%ymode=log,
+			% layers
+			set layers ,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.1)}, anchor=south},
+			%legend pos=north east,
+			legend cell align=left,
+			legend columns=-1,
+		]
+		% n_{surf, z}
+		\nextgroupplot[
+			% x
+			xlabel=$\FlowVorticityScalar_y \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			ylabel=$\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, \DirectionScalar} \rangle$,
+			ymin=-1,
+			ymax=1,
+			ytick={-1,0,1},
+		]
+			% tau 1.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__vorticity_z__p_x.csv};
+			\addlegendentry{$\SwimmingDirection = \SwimmingDirectionOpt$, $\TimeHorizon = \KolmogorovTimeScale$}
+			% reorientationtime 1.0
+			\addplot[
+				ColorBh!100!ColorDuration,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/spherical_riser__vs_1o0__reorientationtime_1o0__vorticity_z__p_x.csv};
+			\addlegendentry{$\SwimmingDirection = \Direction$, $\ReorientationTime = \KolmogorovTimeScale$}
+		% n_{surf, x}
+		\nextgroupplot[
+			% x
+			xlabel=$\FlowVorticityScalar_y \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			ylabel=$\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, x} \rangle$,
+			ymin=-1,
+			ymax=1,
+			ytick={-1,0,1},
+		]
+			% tau 1.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__vorticity_z__p_y.csv};
+			% reorientationtime 1.0
+			\addplot[
+				ColorBh!100!ColorDuration,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/spherical_riser__vs_1o0__reorientationtime_1o0__vorticity_z__p_y.csv};
+		% angle_{surf, y}
+		\nextgroupplot[
+			% x
+			xlabel=$\FlowVorticityScalar_y \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			ylabel=$\theta _{\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, y} \rangle}$,
+			ymin=-0.5*pi,
+			ymax=0.5*pi,
+			ytick={-0.5*pi,0,0.5*pi},
+			yticklabels={$-\pi/2$,0,$\pi/2$},
+		]
+			% tau 1.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__vorticity_z__angle_z.csv};
+			% reorientationtime 1.0
+			\addplot[
+				ColorBh!100!ColorDuration,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/spherical_riser__vs_1o0__reorientationtime_1o0__vorticity_z__angle_z.csv};
+		% angle_{surf, y}
+		\nextgroupplot[
+			% x
+			xlabel=$(\partial \FlowVelocityScalar_{\DirectionScalar}/ \partial \FlowVelocityScalar_{x}) \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			%ylabel=$\theta _{\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, y} \rangle}$,
+			ymin=-0.5*pi,
+			ymax=0.5*pi,
+			ytick={-0.5*pi,0,0.5*pi},
+			yticklabels={$-\pi/2$,0,$\pi/2$},
+		]
+			% tau 1.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__duxdy__angle_z.csv};
+			% reorientationtime 1.0
+			\addplot[
+				ColorBh!100!ColorDuration,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/spherical_riser__vs_1o0__reorientationtime_1o0__duxdy__angle_z.csv};
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,243 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (0.7,5.35) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			%y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.08\linewidth,
+			%vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.05)}, anchor=south},
+		legend cell align=left,
+		legend columns=3,
+	]
+		% spectrum
+		\nextgroupplot[
+			axis on top,
+			% y
+			ymode=log,
+			ymin=0.5,
+			ymax=10,
+			ylabel={$\left\langle I(\omega) \right\rangle_N$},
+			% x
+			xmode=log,
+			xlabel=$\omega / \omega_{\KolmogorovTimeScale}$,
+			xmin=0.001,
+			xmax=10,
+		]
+			\node[anchor=north west] at (axis cs:0.001,10) {\textbf{(a)}};
+			% us 1.0
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} - \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_1o0__surftimeconst_0o0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} + \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_1o0__surftimeconst_0o0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot] fill between[of=A and B];
+			% us 4.0
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} - \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_4o0__surftimeconst_0o0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} + \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_4o0__surftimeconst_0o0.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot] fill between[of=A and B];
+			% us 8.0
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} - \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_8o0__surftimeconst_0o0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1} + \thisrowno{2})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_8o0__surftimeconst_0o0.csv};
+			\addplot[ColorSurf!0!ColorVs, opacity=0.25, forget plot] fill between[of=A and B];
+
+			% us 1.0
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			only marks,
+			mark=square*
+			]
+			table[
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{0} * 0.0424}{0.0:20.0},
+				%unbounded coords=discard,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_1o0__surftimeconst_0o0.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			% us 4.0
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			only marks,
+			mark=pentagon
+			]
+			table[
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{0} * 0.0424}{0.0:20.0},
+				%unbounded coords=discard,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_4o0__surftimeconst_0o0.csv};
+			\addlegendentry{$4 \KolmogorovVelocityScale$}
+			% us 8.0
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			only marks,
+			mark=*
+			]
+			table[
+				x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+				y expr={sqrt(\thisrowno{1})}, 
+				col sep=comma, 
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{0} * 0.0424}{0.0:20.0},
+				%unbounded coords=discard,
+				%skip coords between index={0}{1},
+			]{chap_turbulence/data/correlation_time/average_fft_tr(J^2)__agent__us_8o0__surftimeconst_0o0.csv};
+			\addlegendentry{$8 \KolmogorovVelocityScale$}
+			%% exp
+			%\addplot
+			%[
+			%color=colorsym,
+			%opacity=1.0,
+			%dashed, 
+			%]
+			%table[
+			%    x expr={\thisrowno{0} * 0.0424 / (2.0 * pi)}, %\tau_\eta = 0.0424
+			%    y expr={1/pi * 0.2/((\thisrowno{0} * 0.0424 / (2.0 * pi))^2 + 0.04)}, 
+			%    col sep=comma, 
+			%    comment chars=\#,
+			%    %skip coords between index={0}{1},
+			%]{data/jhtdb_even_more/average_fft_||J.z||__agent__us_8o0__surftimeconst_0o0.csv};
+			%\addlegendentry{exp}
+			% more
+
+
+		
+		% correlation time
+		\nextgroupplot[
+			axis on top,
+			% y
+			ylabel={$\TimeHorizonOpt/\KolmogorovTimeScale$},
+			ymin=0,
+			ymax=6,
+			% x
+			xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+			xmin=0,
+			xmax=20,
+		]
+			\node[anchor=north west] at (axis cs:0,6) {\textbf{(b)}};
+			% tau estimated
+			\addplot
+			[
+			color=black,
+			opacity=1.0,
+			%only marks,
+			mark=asterisk,
+			]
+			table[
+				x index=0,
+				y expr={0.55 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/correlation_time/time_sq_tr_j_2.csv};
+			\addlegendentry{0.55 $\CorrelationTime$}
+			% tau estimated
+			\addplot
+			[
+			color=ColorSym,
+			opacity=1.0,
+			mark=o,
+			%only marks,
+			]
+			table[
+				x index=0,
+				y expr={0.35 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/correlation_time/time_direction.csv};
+			\addlegendentry{0.35 $\CorrelationTime^b$}
+			% tau estimated
+			\addplot
+			[
+			color=ColorAsym,
+			opacity=1.0,
+			mark=triangle,
+			%only marks,
+			]
+			table[
+				x index=0,
+				y expr={0.11 * \thisrowno{1} / 0.0424}, % \tau_\eta = 0.0424
+				col sep=comma,
+				comment chars=\#,
+			]{chap_turbulence/data/correlation_time/time_norm.csv};
+			\addlegendentry{0.11 $\CorrelationTime^c$}
+			% tau opt (fit)
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			solid, 
+			only marks,
+			mark=square*,
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{2}},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/main_results/fits_max.csv};
+			\addlegendentry{$\TimeHorizonOpt$}
+			% model
+			\addplot
+			[
+			color=gray,
+			dashed, 
+			domain=0.5:20,
+			samples=100,
+			]{4.368 / (1 + 0.08 * x)};
+			\addlegendentry{Eq.~(3.18)}
+	\end{groupplot}
+\end{tikzpicture}

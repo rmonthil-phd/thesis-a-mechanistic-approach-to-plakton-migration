@@ -1,0 +1,95 @@
+\chapter{Runge kutta method}\label{app:runge_kutta_method}
+
+Numerical solvers are used to solve initial value problems of ordinary differential equations
+\begin{equation}
+	\frac{d \vec{y}}{dt} = \vec{f}(t, \vec{y}), \quad \vec{y}(t_0) = \vec{y}_0.
+\end{equation}
+Starting from $t = t_0$ for which $\vec{y} = \vec{y}_0$ is known, we can directly compute the slope $\vec{k}_1 = \vec{f}(t_0, \vec{y}_0)$ of this function.
+Then approximating $\vec{y}$ to its linear approximation $\vec{y}(t) \approx \vec{y}_0 + (t - t_0) \, \vec{k}_1$, one can obtain the value $\vec{y}_1 = \vec{y}_0 + \varDelta t \, \vec{k} \approx \vec{y}(t + \varDelta t)$ for a prescribed time step $\varDelta t$.
+Performing this operation repeatedly leads to the integration of $\vec{y}$ using the Euler method, defined by the following recursion equation
+\begin{equation}
+	\vec{y}_{n+1} = \vec{y}_n + \varDelta t \, f(y_n, t_n),
+\end{equation}
+where $\vec{y}_n = y(t + n \, \varDelta t)$ and $t_n = t + n \, \varDelta t$.
+Despite the appeal due to its simplicity, this method remains an first-order numerical integration method, meaning the error is proportional to the step size $\varDelta t$.
+Any error produced by the method may accumulate over iterations and lead to a large errors over time.
+\begin{wraptable}[9]{L}[0.5\width]{0.45\textwidth}
+	\vspace{-10pt}
+	\center
+	\begin{tabular}{ r | l l l l l }
+		$c_1$ & & & & & \\
+		$c_2$ & $a_{2,1}$ & & & & \\
+		$c_3$ & $a_{3,1}$ & $a_{3,2}$ & & & \\
+		$\vdots$ & $\vdots$ & & $\ddots$ & & \\
+		$c_s$ & $a_{s,1}$ & $a_{s,2}$ & $\cdots$ & $a_{s,s-1}$ & \\
+		\midrule
+		 & $b_1$ & $b_2$ & $\cdots$ & $b_{s-1}$ & $b_s$
+	\end{tabular}
+	\captionsetup{width=0.4\textwidth}
+
+	\caption{
+		Butcher's table.
+	}
+	\label{tab:butcher_table}
+\end{wraptable}
+
+To overcome this issue, one can rely on higher orders methods such as the Runge-Kutta method, that can be seen as a generalization of the Euler method.
+In this study,the equation of motion is integrated numerically using a $4^{\mathrm{th}}$ order explicit Runge-Kutta method.
+This method relies on the following recursion law
+\begin{equation}
+	\vec{y}_{n+1} = \vec{y}_n + \varDelta t \sum_{i = 1}^s b_i \vec{k}_i
+\end{equation}
+where $b_i$ are numerical coefficients, called \textit{weights}, that are specific to each particular Runge-Kutta method.
+The values $k_i$ correspond to the slope $\vec{f}$ evaluated for various intermediate values in time between $t_{n}$ and $t_{n+1}$ (Fig.~\ref{fig:runge_kutta}).
+\begin{figure}
+	\centering
+	\def\svgwidth{0.6\textwidth}
+	\input{chap_numeric/schemes/runge_kutta.pdf_tex}
+	%\captionsetup{width=0.3\textwidth}
+  	\caption{
+  		Illustration of the Runge-Kutta method.
+  	}
+  	\label{fig:runge_kutta}
+\end{figure}
+These slope values are evaluated as follows
+\begin{equation}
+	k_i = f(t_n + c_i \varDelta t, \, y_n + \varDelta t \sum_{j=1}^{i-1} a_{i,j} k_j)
+\end{equation}
+with the coefficients $c_i$ called \textit{nodes} and the coefficients $a_{i,j}$ named the Runge-Kutta matrix.
+All coefficients are generally summed up into the Butcher table to describe a method of the Runge-Kutta family (Tab.~\ref{tab:butcher_table}).
+Note that the coefficients of the method need to be chosen carefully so that it converges consistently towards the solution.
+
+In other words, while the Euler method only relies on a single slope $\vec{k}$ evaluated at $t = t_n$, the Runge-Kutta relies on $s$ measures of the slope $\vec{k}_i$ in between $t_n$ and $t_{n+1}$.
+Moreover the Euler method corresponds to the Runge-Kutta case {\normalsize\begin{tabular*}{33pt}{ r | l }
+	0 & \\
+	\midrule
+	 & 1
+\end{tabular*}} with $s=1$.
+
+In this study a fourth-order Runge-Kutta-Fehlberg method, characterized by the Butcher's table given in Tab.~\ref{tab:runge_kutta_fehlberg_table} \citep{fehlberg1968classical},
+\begin{table}
+	\center
+	\begin{tabular}{ r | l l l l l l }
+		0 & & & & & & \\
+		1/4 & 1/4 & & & & & \\
+		3/8 & 3/32 & 9/32 & & & & \\
+		12/13 & 1932/2197 & 7200/2197 & 7296/2197 & & & \\
+		1 & 439/216 & -8 & 	3680/513 & -845/4104 & & \\
+		1/2 & -8/27 & 2 & -3544/2565 & 1859/4104 & -11/40 & \\
+		\midrule
+		 & 16/135 & 0 & 6656/12825 & 28561/56430 & -9/50 & 2/55 \\
+		 & 25/216 & 0 & 1408/2565 & 2197/4104 & -1/5 & 0
+	\end{tabular}
+
+	\caption[Butcher's table of the Runge-Kutta-Fehlberg method.]{
+		Butcher's table of the Runge-Kutta-Fehlberg method.
+		The first row of $b_i$ coefficients at the bottom of the table gives a fifth-order method.
+		The second row corresponds to a fourth-order method.
+	}
+	\label{tab:runge_kutta_fehlberg_table}
+\end{table}
+is used in our in-house open-source code \textit{SHELD0N} \footnote{Our in-house code is available at \url{http://www.github.com/C0PEP0D/sheld0n}.}, to integrate the equation of motion.
+The code can be setup to integrate plankter trajectories by automatically querying various flow fields of John Hopkins turbulence database at plankton positions through simulations.
+It is also able to use local flow databases generated from \textit{SNOOPY} simulations (or from any fluid solver with the same output format) by interpolating the flow field at plankter positions.
+In this study, we used a fourth-order Lagrange polynomial interpolation to integrate trajectories in our own flow databases while a sixth-order interpolation is performed on query when using the Johns Hopkins turbulence database.
+Implementation of various analytical flow velocity fields are also provided in which microswimmers trajectories can be integrated.

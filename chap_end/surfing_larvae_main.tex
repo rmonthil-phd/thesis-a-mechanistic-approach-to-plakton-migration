@@ -1,0 +1,163 @@
+\section{Surfing larvae}
+
+\paragraph{Note} In the following, both orientation $\theta$ and vorticity $\omega$ are oriented positively clockwise.
+
+\subsection{Expected orientation with respect to vorticity}
+
+\paragraph{Bottom-heavy expected orientation.}
+The orientation of a small spherical bottom-heavy plankter can be modeled as the following:
+\begin{equation}\label{eq:spherical_bottom_heavy_orientation}
+	\frac{d \SwimmingDirection}{d t}  =
+	\frac{1}{2} \FlowVorticity (\ParticlePosition, t) \times \SwimmingDirection + \frac{1}{2 \ReorientationTime} \left[ \Direction - (\Direction \cdot \SwimmingDirection) \SwimmingDirection \right],
+\end{equation},
+with $\SwimmingDirection$ the swimming axis of the plankter, $\FlowVorticity = \vec{\nabla} \times \FlowVelocity$ the flow vorticity and $\ReorientationTime$ the characteristic alignment time towards the vertical $\Direction$ due to bottom-heaviness.
+An equilibrium orientation exists if $1/\ReorientationTime > \FlowVorticity_{\perp \Direction}$ and can be formulated as follows:
+\begin{equation}\label{eq:spherical_bottom_heavy_orientation}
+	\theta_{\mathrm{\NameBhShort}} = \mathrm{arcsin} \, \ReorientationTime \FlowVorticity_{\perp \Direction}
+\end{equation},
+with $\theta$ the angle to the vertical and $\FlowVorticity_{\perp \Direction} = \FlowVorticity - (\FlowVorticity \cdot \Direction) \Direction$ the vorticity projected orthogonaly to $\Direction$.
+
+\paragraph{Surfing expected orientation.}
+In case of a pure vortex flow, the gradients matrix is skew symmetric.
+As the matrix exponential of a skew symmetric matrix is rotation matrix, the surfing strategy can the be simplified to:
+\begin{equation}
+	\label{eq:optimal_swimming_direction_partial_asym}
+	\SwimmingDirectionOpt(\TimeHorizon) = \matr{R}_{\hat{\FlowVorticity}}(-\omega \TimeHorizon/2) \, \Direction,
+\end{equation}
+with $\matr{R}_{\hat{\FlowVorticity}}(-\FlowVorticityScalar \TimeHorizon/2)$ the rotation matrix of angle $-\FlowVorticityScalar \TimeHorizon/2$ with $\omega = \norm*{\vec{\nabla} \times \FlowVelocity}$ and of axis $\hat{\FlowVorticity}$, the normalized vorticity.
+The surfing direction's angle to the vertical can then be expressed as the following:
+\begin{equation}\label{eq:surfing_orientation}
+	\theta_{\mathrm{\NameSurfShort}} = -\frac{1}{2} \ReorientationTime \FlowVorticity_{\perp \Direction},
+\end{equation}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/vorticity_angle_to_the_vertical}
+	\caption{
+		Expected angle to the vertical $\theta$ as a function of flow vorticity for surfers ($\theta_{\mathrm{\NameSurfShort}}$) and for bottom-heavy swimmer ($\theta_{\mathrm{\NameBhShort}}$).
+	}
+	\label{fig:vorticity_angle_to_the_vertical}
+\end{figure}
+
+\subsection{Expected orientation with respect to shear}
+
+\paragraph{Bottom-heavy expected orientation.}
+We would expect bottom-heavy swimmers to orient with the underlying average vorticity.
+In that case, bottom-heavy swimmers would orient preferentially towards their average equilibrium orientation (same as before):
+\begin{equation}\label{eq:spherical_bottom_heavy_orientation}
+	\theta_{\mathrm{\NameBhShort}} = \mathrm{arcsin} \, -\ReorientationTime \frac{\partial v}{\partial x}
+\end{equation}
+
+\paragraph{Surfing expected orientation.}
+In case of a vertical simple shear flow, the matrix exponential of the gradients reduces to its two first terms, as a consequence surfing reduces to the following:
+\begin{equation}
+	\label{eq:optimal_swimming_direction_partial_asym}
+	\SwimmingDirectionOpt(\TimeHorizon) = \frac{\SwimmingDirectionOptNN}{\norm{\SwimmingDirectionOptNN}} \quad \text{with} \quad \SwimmingDirectionOptNN = \Direction + \TimeHorizon \frac{\partial v}{\partial x} \, \vec{e}_x,
+\end{equation}
+The surfing direction's angle to the vertical can then be expressed as the following:
+\begin{equation}\label{eq:surfing_orientation}
+	\theta_{\mathrm{\NameSurfShort}} = \mathrm{arcsin} \, \frac{\TimeHorizon (\partial v / \partial x)}{\sqrt{1 + \TimeHorizon^2 (\partial v / \partial x)^2}}.
+\end{equation}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/shear_angle_to_the_vertical}
+	\caption{
+		Expected angle to the vertical $\theta$ as a function of flow shear $\partial v/\partial x$ for surfers ($\theta_{\mathrm{\NameSurfShort}}$) and for bottom-heavy swimmer ($\theta_{\mathrm{\NameBhShort}}$).
+	}
+	\label{fig:shear_angle_to_the_vertical}
+\end{figure}
+
+\subsection{Expected orientation with respect to pure shear}
+
+\paragraph{Bottom-heavy expected orientation.}
+We would not expect any preferred spherical bottom-heavy swimmers orientation with pure shear.
+
+\paragraph{Surfing expected orientation.}
+In case of a vertical simple shear flow, the matrix exponential of the gradients reduces to its symmetric part, as a consequence, writing the surfing strategy in the eigen basis of the gradients ($\vec{e}_1, \vec{e}_2$) for which the respective eigen values are noted $\lambda_1, \lambda_2$ and are sorted in descending order $\lambda_1 > \lambda_2$:
+\begin{equation}
+	\label{eq:optimal_swimming_direction_partial_asym}
+	\SwimmingDirectionOpt(\TimeHorizon) = \frac{\SwimmingDirectionOptNN}{\norm{\SwimmingDirectionOptNN}} \quad \text{with} \quad \SwimmingDirectionOptNN = 
+	\begin{pmatrix}
+		e^{\lambda_1 \tau} & 0\\
+		0 & e^{\lambda_2 \tau}
+	\end{pmatrix} \cdot
+	\begin{pmatrix}
+		\cos \psi \\
+		\sin \psi
+	\end{pmatrix},
+\end{equation}
+with $\psi$ the orientation angle $\vec{e}_1$ to the vertical.
+Thus the surfing direction's angle to the vertical can then be expressed as the following:
+\begin{equation}\label{eq:surfing_orientation}
+	\theta_{\mathrm{\NameSurfShort}} = \mathrm{arccos} \, \frac{e^{\lambda_1 \TimeHorizon} \cos^2 \psi + e^{\lambda_2 \TimeHorizon} \sin^2 \psi}{\sqrt{e^{2\lambda_1 \TimeHorizon} \cos \psi + e^{2\lambda_2 \TimeHorizon} \sin \psi}}.
+\end{equation}
+Note that for $(\lambda_1 - \lambda_2) \TimeHorizon \gg 1$:
+\begin{equation}\label{eq:surfing_orientation}
+	\theta_{\mathrm{\NameSurfShort}} \approx \psi
+\end{equation}
+\quest{Would you get better correlations if you filtered your data to match that condition? (using the value $\TimeHorizon = 0.7 \KolmogorovTimeScale$ I have roughly fitted in the following)}
+Anyway, even though that does not work better, it might still be interesting to discuss what are these larvae are actually measuring.
+
+% \subsection{Preferential flow sampling}
+% 
+% Surfers exploit the turbulent flow by biasing the sampling of vertical flow velocities. This bias is illustrated in Fig.~\ref{fig:surfing_velocity_sampled},
+% \begin{figure}%[H]
+	% \centering
+	% \input{chap_turbulence/plots/velocity_sampled}
+	% \caption{
+		% Probability density function of the vertical flow velocity sampled along trajectories of passives particles, bottom-heavy swimmers and surfers.
+		% Parameters: $\SwimmingVelocity = \KolmogorovVelocityScale$ and $\TimeHorizon_{\mathrm{\NameSurf}} = 5 \KolmogorovTimeScale \approx \TimeHorizonOpt$
+	% }
+	% \label{fig:surfing_velocity_sampled}
+% \end{figure}
+% where we show the distribution of the vertical velocity component of the turbulent flow sampled by surfers, bottom-heavy swimmers, and passive particles.
+% One can see that the Gaussian distribution is not centered on zero but shifted toward positive values in the case of surfers.
+% 
+% As a consequence, the mean vertical velocity $\overline{v_f}$ sampled/interpolated along larva trajectories would be another nice interesting metric to assess if larvae are able to exploit the flow.
+
+\subsection{Data renormalization and surfing parameter $\TimeHorizon$}
+
+I did a quick renormalization test (Fig. \ref{fig:renormalization}) here to see how well the data renormalizes to the Kolmogorov time scale $\KolmogorovTimeScale$ (values in table \ref{tab:turbulence_data}).
+Might be cleaner if the renormalization was done before binning the data?
+I also did a quick fit to the surfing strategy. 
+It would correspond to a surfing strategy of parameter $\TimeHorizon \approx 0.7 \KolmogorovTimeScale$.
+\begin{table}
+	\center
+	\begin{tabular}{ l l l l }
+		\toprule
+		Turbulence level & Low & Medium & High \\
+		 %& (mm) & (mm\,s$^{-1}$) & (s$^{-1}$) & (s$^{-1}$) \\[5pt]
+		\midrule
+		$\KolmogorovTimeScale$ (s) & 2.0 & 1.1 & 0.67 \\
+		$\KolmogorovVelocityScale$ (cm/s) & 0.07 & 0.10 & 0.12 \\
+		\bottomrule
+	\end{tabular}
+	\caption{
+		Kolmogorov time and velocity scales.
+	}
+	\label{tab:turbulence_data}
+\end{table}
+Note that larvae swimming velocity of the order of the Kolmogorov velocity scale or smaller for all turbulence levels considered ($\SwimmingVelocity \lesssim \KolmogorovVelocityScale$).
+This corresponds to the range of swimming velocity for which surfing is the most beneficial and the expected optimal parameter $\TimeHorizonOpt$ is the largest ($\TimeHorizonOpt \gtrsim 3 \KolmogorovTimeScale$. Figure \ref{fig:surfing_parameter_tau_larvae} shows an optimum for $\TimeHorizonOpt \approx 3 \KolmogorovTimeScale$ for $\mathit{Re}_{\lambda} = 11$ while the surfing on turbulence paper shows an optimum for $\TimeHorizonOpt \approx 4 \KolmogorovTimeScale$ for $\mathit{Re}_{\lambda} = 418$ so there is a small Reynolds dependance).
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/renormalization_test}
+	\caption{
+		Quick renormalization test.
+	}
+	\label{fig:renormalization}
+\end{figure}
+Note how small the fitted surfing parameter $\TimeHorizon = 0.7 \KolmogorovTimeScale$ on larvae data is small compared to the expected optimal value $\TimeHorizonOpt \gtrsim 3 \KolmogorovTimeScale$.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/reynolds/parameter_tau_vs}
+	\caption{
+		Surfing performance as a function of the surfing parameter $\TimeHorizon$ for various swimming speeds $\SwimmingVelocity$. $\mathit{Re}_{\lambda} = 11$.
+	}
+	\label{fig:surfing_parameter_tau_larvae}
+\end{figure}
+The surfing strategy has been derived and evaluated without considering the energetic cost of active orientation.
+As a higher value of $\TimeHorizon$ would induce a stronger rotation against vorticity, we might expect higher values of $\TimeHorizon$ to be more energy consuming if the energetic rotation cost is considered.
+This could be one way to explain why the fitted value of $\TimeHorizon$ is so small compared to the surfing optimum (if this value of $\TimeHorizon = 0.7 \KolmogorovTimeScale$ corresponds to an energetic optimum).
+Another simple way to explain this difference would be a limitation of the active swimming torque (which seems obvious but maybe hard to evaluate).

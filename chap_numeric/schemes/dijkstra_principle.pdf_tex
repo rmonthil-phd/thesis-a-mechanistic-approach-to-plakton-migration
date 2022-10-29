@@ -1,0 +1,102 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'dijkstra_principle.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{786.07220988bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.28052981)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{dijkstra_principle.pdf}}%
+    \put(0.12488104,0.00671692){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(a)\end{tabular}}}}%
+    \put(0.08320575,0.25618098){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.00881596,0.19812432){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0.01190576,0.10614742){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.0820515,0.11151171){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.08033777,0.03580185){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0.14528297,0.11035201){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0.16680297,0.16520542){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}4\end{tabular}}}}%
+    \put(0.23583674,0.19383945){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.16387858,0.22600294){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0.16473891,0.03907526){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3\end{tabular}}}}%
+    \put(0.08404577,0.17852851){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{dijkstra_principle.pdf}}%
+    \put(0.29804783,0.15715401){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{dijkstra_principle.pdf}}%
+    \put(0.38303722,0.07001682){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{dijkstra_principle.pdf}}%
+    \put(0.29577339,0.06972117){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{dijkstra_principle.pdf}}%
+    \put(0.54935907,0.15696627){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{dijkstra_principle.pdf}}%
+    \put(0.63434848,0.07001682){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{dijkstra_principle.pdf}}%
+    \put(0.54708463,0.06972117){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{dijkstra_principle.pdf}}%
+    \put(0.63434848,0.15679555){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{dijkstra_principle.pdf}}%
+    \put(0.80678713,0.15787887){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{dijkstra_principle.pdf}}%
+    \put(0.89177655,0.07001682){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{dijkstra_principle.pdf}}%
+    \put(0.97615981,0.06905631){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{dijkstra_principle.pdf}}%
+    \put(0.80451269,0.06972117){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{dijkstra_principle.pdf}}%
+    \put(0.88981388,0.15686367){\color[rgb]{1,0.50196078,0.50196078}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\underline{\textbf{\Large4}}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{dijkstra_principle.pdf}}%
+    \put(0.5476217,0.24299716){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3\end{tabular}}}}%
+    \put(0.80465488,0.2427471){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3\end{tabular}}}}%
+    \put(0.38804014,0.00671692){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(b)\end{tabular}}}}%
+    \put(0.03705122,0.06906259){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0\end{tabular}}}}%
+    \put(0.63935132,0.00671692){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(c)\end{tabular}}}}%
+    \put(0.89677933,0.00671692){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}(d)\end{tabular}}}}%
+    \put(0.23260251,0.10827115){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

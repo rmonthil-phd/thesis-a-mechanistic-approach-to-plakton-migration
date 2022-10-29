@@ -1,0 +1,71 @@
+\chapter{Surfing with more information}\label{chap:more_information}
+
+\section{Surfing with memory}\label{sec:memory}
+
+However this may suggest the need of the ability to change the parameter $\TimeHorizon$ as a function of the measure of the flow.
+While without prior knowledge of the flow nor memory, this seems impossible, with memory abilities a plankter could estimate how fast the gradient is changing:
+\begin{equation}
+ 	\Gradients(t) \approx \left( \Gradients \right)_0 + t \left( \frac{\partial \Gradients}{\partial t} \right)_0 + \frac{1}{2} t^2 \left( \frac{\partial^2 \Gradients}{\partial t^2} \right)_0
+\end{equation}
+We may then compute the relative gradient error $\norm*{\Gradients(t) - \left( \Gradients \right)_0} / \norm*{\left( \Gradients \right)_0}$ and define a threshold $\epsilon$ for which consider the linearization broken. 
+This leads to a measure dependent estimation of $\TimeHorizon$:
+\begin{equation}
+ 	\TimeHorizon \quad \text{so that} \quad \norm*{\TimeHorizon \left( \frac{\partial \Gradients}{\partial t} \right)_0 + \frac{1}{2} \TimeHorizon^2 \left( \frac{\partial^2 \Gradients}{\partial t^2} \right)_0} = \epsilon \norm*{\left( \Gradients \right)_0}
+\end{equation}
+Dropping the subscript $._0$ for simplicity, if $\partial^2 \Gradients / \partial t^2 = \matr{0}$, then the expression of $\TimeHorizon$ reduces to the following.
+\begin{equation}
+	\label{eq:time_horizon_based_on_a_time_derivative_first_order}
+	\TimeHorizon = \norm*{\frac{\partial \Gradients}{\partial t}}^{-1} \epsilon \norm*{\Gradients}
+\end{equation}
+If on the contrary, $\partial \Gradients / \partial t$ is null, $\TimeHorizon$ can be evaluated as the following.
+\begin{equation}
+	\TimeHorizon = \sqrt{2 \epsilon \norm*{\Gradients} \norm*{\frac{\partial^2 \Gradients}{\partial t^2}}^{-1}}
+\end{equation}
+In all other cases, $\TimeHorizon$ can be majored:
+\begin{equation}
+	\TimeHorizon \le \norm*{\frac{\partial^2 \Gradients}{\partial t^2}}^{-1} \left( \sqrt{\norm*{\frac{\partial \Gradients}{\partial t}}^2 + 2 \epsilon \norm*{\Gradients} \norm*{\frac{\partial^2 \Gradients}{\partial t^2}}} - \norm*{\frac{\partial \Gradients}{\partial t}} \right),
+\end{equation}
+Note that, equation \ref{eq:time_horizon_based_on_a_time_derivative_first_order} is actually the result at first order.
+This estimate should be enough in most cases, however when $\partial \Gradients/\partial t \to 0$, this estimated time horizon $\TimeHorizon$ would diverge to infinity.
+We can use the second order expansion for which $\partial \Gradients/\partial t = 0$ to regularize our estimated value:
+\begin{equation}
+	\TimeHorizon = \min \left( \norm*{\frac{\partial \Gradients}{\partial t}}^{-1} \epsilon \norm*{\Gradients}, ~~ \sqrt{2 \epsilon \norm*{\Gradients} \norm*{\frac{\partial^2 \Gradients}{\partial t^2}}^{-1}} \right)
+\end{equation}
+
+\section{Higher order surfing}
+
+Based on the definition of the matrix exponential, the surfing strategy can be written as the following.
+\begin{equation}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad 
+	\ControlDirectionOptNN = \sum_{k = 0}^{\infty} \frac{\TimeHorizon^k}{k!} \left[  \left( \Gradients \right)^k \right]^T \cdot \Direction = \Direction + \TimeHorizon \, \vec{\nabla} \left( \FlowVelocity \cdot \Direction \right) + \dotsb
+\end{equation}
+The surfing strategy can then be seen as a the weighted average of a sequence of directions $( \Direction_n )$ with $\Direction_k = \left[  \left( \Gradients \right)^k \right]^T \cdot \Direction / \norm*{\left[  \left( \Gradients \right)^k \right]^T \cdot \Direction}$ thus $\TimeHorizon^k \, \norm*{\left[  \left( \Gradients \right)^k \right]^T \cdot \Direction} / (k!)$ acting as decreasing weights. We may note that $\forall k > 1$, the direction $\Direction_k$ corresponds to the direction of the gradient of $\FlowVelocity \cdot \Direction_{k-1}$, i.e. $\Direction_k = \vec{\nabla} \left( \FlowVelocity \cdot \Direction_{k-1} \right) / \norm*{\vec{\nabla} \left( \FlowVelocity \cdot \Direction_{k-1} \right)}$.
+\todo{Add scheme to explain this stuff}
+
+This observation leads to a recursive definition of surfing:
+\begin{equation}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, ~~ \text{with} ~~
+	\ControlDirectionOptNN = \sum_{k = 0}^{\infty} \ControlDirectionNN_{1,k} ~~ \text{with}
+	\begin{cases}
+		\ControlDirectionNN_{1,k} = f_{1,k}(\ControlDirectionNN_{1,k-1}) & k > 0 \\
+		\ControlDirectionNN_{1,0} = \Direction & k = 0
+	\end{cases}
+\end{equation}
+with $f_{1,k}$ the operator defined as follow:
+\begin{equation}
+	f_{1,k}(\vec{x}) = \frac{\TimeHorizon}{k} \left[ \Gradients \right]^T \cdot \vec{x}
+\end{equation}
+If now the the hessian of the flow velocity, $\Hessian$, is accessible as a measure by the plankter we consider, we may adapt this operator accordingly and apply the same protocol.
+\begin{equation}
+	f_{2,k}(\vec{x}) = \frac{\TimeHorizon}{k} \left[ \Gradients \right]^T \cdot \vec{x} + \frac{\TimeHorizon^2 \SwimmingVelocity}{2k} \vec{x}^T \cdot \left[ \Hessian \right]^T \cdot \vec{x}
+\end{equation}
+
+\section{Gradient (or turbulence) foraging}
+
+If the Hessian tensor of the flow velocity $\Hessian$ is known, one can search for the direction that maximizes the norm of the gradient.
+
+\begin{equation}
+	\left( \vec{\nabla} \norm*{\Gradients} \right)_k = \frac{1}{\norm*{\Gradients}} \sum_i \sum_j \frac{\partial \FlowVelocity_i}{\partial \vec{x}_j} \frac{\partial^2 \FlowVelocity_i}{\partial \FlowVelocity_j \partial \vec{x}_k}
+\end{equation}
+
+\section{Summary}

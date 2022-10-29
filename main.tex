@@ -1,0 +1,209 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The updated version of this document should be downloaded from
+%%      https://github.com/jp-um/university_of_malta_LaTeX_dissertation_template
+%%
+%% In case of any difficulties please contact Dr JP Ebejer on jean.p.ebejer@um.edu.mt
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Before you embark on this quest you should probably read some of:
+%% Deadly sins - http://mirrors.ctan.org/info/l2tabu/english/l2tabuen.pdf
+%% Writing a thesis in LaTeX - http://tug.org/pracjourn/2008-1/mori/mori.pdf
+
+\RequirePackage[l2tabu, orthodox]{nag} % tells you of any bad LaTeX usage
+									   % must be first thing in class (with the exception of comments)
+
+%% There is one option you should define; oneside or twoside
+%% Use twoside for your viva docs (examiners hate long docs they need to carry around)
+%% and oneside for the final thing you submit to the library.  Note that margins will
+%% change accordingly
+
+\documentclass[twoside]{um}  % custom University of Malta project/dissertation/thesis 
+
+
+%% **************** (Your) Packages (Start) ******************
+
+% \listfiles % uncomment this to know which packages you are using
+			  % the list of packages will be in the bottom of the .log file
+
+%% Note that packges may already be loaded from the um (and memoir) classes.
+%% Do not add your packages to the template, but rather add them here.
+
+\usepackage{nomencl}   %% for the list of symbols
+\makenomenclature
+
+\usepackage{etoolbox}
+\renewcommand\nomgroup[1]{%
+  \item[\color{DissertationColor}\Large\bfseries
+  \ifstrequal{#1}{A}{Typography}{%
+  	\ifstrequal{#1}{D}{Nabla}{%
+  		\ifstrequal{#1}{B}{Greek symbols}{%
+  			\ifstrequal{#1}{C}{Letters}{
+  				\ifstrequal{#1}{G}{Functions and operators}{
+  					\ifstrequal{#1}{E}{Dimensionless numbers}{
+  						\ifstrequal{#1}{F}{Subscripts and superscripts}{}
+  					}
+  				}
+  			}
+  		}
+  	}
+  }%
+]}
+
+\usepackage{cite}      %% various packages from notes
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{colortbl}
+
+\usepackage{tikz}
+\usetikzlibrary{math}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=./export_figures/]
+%\tikzset{external/force remake}
+\usepackage{pgf}
+\usepackage{pgfplots, pgfplotstable}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=newest}
+
+\usepackage{pgf}
+\usepackage{wrapfig}
+\usepackage{transparent}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\DeclareUnicodeCharacter{2217}{*}
+\DeclareUnicodeCharacter{03C6}{$\phi$}
+
+%% \usepackage[uline]{hhtensor}
+\usepackage[arrow]{hhtensor}
+\usepackage{breqn}
+\usepackage{siunitx}
+
+\usepackage{float}
+\usepackage{wrapfig}
+
+\usepackage{algorithm2e}
+
+\usepackage{upgreek} % up greek letters
+
+\usepackage{ccicons} % creative commons symbols
+
+\usepackage{afterpage} % group some figures with tables
+
+%% import external preamble files
+
+\input{notations}
+\input{colors}
+
+%% ***************** (Your) Packages (End) *******************
+
+
+%% **************** (Your) Data (Start) ******************
+
+\title{A mechanistic approach to plankton migration}  % use \\ here otherwise you get a justified title
+									 % note capitalization of the title (only common 
+									 % words in lower case)
+\tagline{Une approche mécaniste à la migration du plancton}      % tag line
+\author{Rémi Monthiller}             % your full name
+%\authorID{123456M}                  % your University Identifier
+\supervisor{Dr Christophe Eloy}      % your supervisor(s) name - no . in Dr
+\cosupervisor{Dr Benjamin Favier}    % your cosupervisor(s) name - no . in Dr *OPTIONAL* 
+									 % simply comment out the above line if absent
+\department{IRPHE}   % your department (e.g. Artificial Intelligence)
+\faculty{Centrale Méditerannée}       % your faculty (e.g. ICT)
+\degreeName{PhD in Fluid Physics and Mechanics defended at Centrale Méditerranée}       % the degree you are reading
+									 % note the \ after the dot, so not to consider it a fullstop
+\doctype{dissertation}                     % the type of document (fyp, dissertation, thesis)
+% \degreeDate{\monthyeardate\today}    % when did you submit (officially after your corrections)
+\degreeDate{December 20, 2022}    % when did you submit (officially after your corrections)
+%%\subjectcode{ICS5200}                % the study unit-code (currently not used)
+
+%% ***************** (Your) Data (End) *******************
+
+
+%% ******** (Your) Document Settings (Start) *************
+
+% You should have an images directory in every chapX subdir
+% NOTE:  Trailing / for subdirs is required.
+\graphicspath{
+	{./images/}
+	{./chap_intro/schemes/}
+	{./chap_intro/images/}
+	{./chap_surfing/schemes/}
+	{./chap_numeric/schemes/}
+	{./chap_turbulence/schemes/}
+	{./chap_more/schemes/}
+	{./chap_more/visu/}
+	{./chap_end/schemes/}
+}   % Paths where to look for images, if defined "images" must always be there as it holds the images in-use by the template.
+
+\makeindex
+
+%% ********* (Your) Document Settings (End) **************
+
+\begin{document}
+% \frontmatter
+	%\maketitle
+	\setcounter{page}{4}
+	%\input{frontmatter/copyright}
+	%% The originality statement is *NOT* part of the dissertation but submitted separately.
+	%\input{frontmatter/dedication}        % include a dedication.tex file
+	%\input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
+	\input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
+	\input{frontmatter/resumes}\if@openright\cleardoublepage\else\clearpage\fi
+	\tableofcontents*\if@openright\cleardoublepage\else\clearpage\fi
+	\listoffigures*\if@openright\cleardoublepage\else\clearpage\fi
+	\listoftables*\if@openright\cleardoublepage\else\clearpage\fi
+	%\input{frontmatter/abbreviations}\if@openright\cleardoublepage\else\clearpage\fi
+	\input{frontmatter/symbols}\if@openright\cleardoublepage\else\clearpage\fi
+
+%% Note: always use \input as you cannot nest \includes (amongst other things)
+\pagestyle{umpage}
+\floatpagestyle{umpage}
+\mainmatter
+	\input{chap_intro/introduction_main}
+	\input{chap_surfing/the_surfing_strategy_main}
+	\input{chap_turbulence/surfing_in_turbulence_main}
+	\input{chap_turbulence/surfing_robustness_main}
+	\input{chap_turbulence/navigation_main}
+	\input{chap_end/biological_discussion_main}
+	\input{chap_end/more_navigation_problems_main}
+	\appendix
+		\input{app_additional_motion/additional_motion_main}
+		\input{app_larval_dispersion/larval_dispersion_main}
+		\input{app_energetic_cost/energetic_cost_main}
+		%\input{app_orientation_statistics/orientation_statistics_main}
+		\input{app_runge_kutta/runge_kutta_main}
+
+\pagestyle{umpageback}
+{\backmatter
+	% Bibliography
+	\if@openright\cleardoublepage\else\clearpage\fi
+
+	\bibliographystyle{um-plainnat} %% specific plainnat does not show url for articles
+	% Use something like https://flamingtempura.github.io/bibtex-tidy/ to clean all your bibtex entries
+	{ 	\scriptsize\bibliography{
+		chap_intro/introduction_biblio,
+		chap_surfing/the_surfing_strategy_biblio,
+		chap_numeric/numerical_methods_biblio,
+		chap_turbulence/surfing_in_turbulence_biblio, 
+		chap_more/passive_processes_biblio, 
+		chap_more/towards_the_energy_efficiency_problem_biblio,
+		chap_end/biological_discussion_biblio,
+		chap_end/surfing_larvae_biblio,
+		article
+	}}
+	\printindex
+}
+
+\end{document}
+
+%%% The End %%%

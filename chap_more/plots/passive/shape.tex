@@ -1,0 +1,145 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			%y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.14\linewidth,
+			%vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.45\textwidth,
+		% x
+		xlabel=$\varLambda_{\mathrm{shape}}$,
+		xmin=0,
+		xmax=1,
+		% layers
+		set layers,
+		% legend
+		%legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}},
+		legend pos=north east,
+   		legend cell align=left,
+   		legend columns=-1,
+	]
+		\nextgroupplot[
+			% y
+			ymin=0.2,
+			ymax=0.5,
+			ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+			ytick={0.2,0.3,0.4,0.5},
+		]
+			\node[anchor=north west] at (axis cs:0,0.5) {\textbf{(a)}};
+			% aditional lines:
+			%% reorientationtime 2.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={(\thisrowno{5} - 1)/(\thisrowno{5} + 1)},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={(\thisrowno{5} - 1)/(\thisrowno{5} + 1)},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x expr={(\thisrowno{5} - 1)/(\thisrowno{5} + 1)},
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_velocity_axis_0.csv};
+			% %%% fit
+			% \addplot
+			% [
+			% color=ColorSurf,
+			% opacity=1.0,
+			% solid,
+			% forget plot
+			% ]
+			% table[
+				% x index=0,
+				% y expr={\thisrowno{1} / (1.0 * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% unbounded coords=discard,
+			% ]{data/inertial_risers__flow__n_128__re_250/inertial_riser__fits_average_velocity_axis_0.csv};
+
+		\nextgroupplot[
+			% y
+			ymin=-0.25,
+			ymax=-0.1,
+			ylabel={$\langle \FlowVelocityScalar_\DirectionScalar(\ParticlePosition) \rangle_N / \SwimmingVelocity$},
+			ytick={-0.25,-0.2,-0.15,-0.1},
+		]
+			\node[anchor=north west] at (axis cs:0,-0.1) {\textbf{(b)}};
+			% aditional lines:
+			%% reorientationtime 2.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={(\thisrowno{9} - 1)/(\thisrowno{9} + 1)},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{7} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{8}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_sampled_flow_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={(\thisrowno{9} - 1)/(\thisrowno{9} + 1)},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{7} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{8}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_sampled_flow_velocity.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x expr={(\thisrowno{9} - 1)/(\thisrowno{9} + 1)},
+				y expr={\thisrowno{1} / (\thisrowno{7} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{8}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/bottom_heavy_spheroidal_swimmers__flow__n_128__re_250/bottom_heavy_spheroidal_swimmer__merge_average_sampled_flow_velocity.csv};
+			% %%% fit
+			% \addplot
+			% [
+			% color=ColorSurf,
+			% opacity=1.0,
+			% solid,
+			% forget plot
+			% ]
+			% table[
+				% x index=0,
+				% y expr={\thisrowno{1} / (1.0 * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% unbounded coords=discard,
+			% ]{data/inertial_risers__flow__n_128__re_250/inertial_riser__fits_average_velocity_axis_0.csv};
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,140 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.04\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.55\textwidth,
+			height=0.45\textwidth,
+			% more
+			axis on top,
+			set layers,
+			% x
+			xlabel=$\FlowVorticityScalar \, \KolmogorovTimeScale$,
+			xmin=-1,
+			xmax=1,
+			% y
+			ylabel={$\theta$},
+			ymin=-pi/4,
+			ymax=pi/4,
+			ytick={-pi/4, -pi/8, 0, pi/8, pi/4},
+			yticklabels={$-\pi/4$, $-\pi/8$, 0, $\pi/8$, $\pi/4$},
+			% legend
+			legend style={draw=none, fill=none, at={(1.0, -0.25)}, anchor=north},
+			%legend style={draw=none, fill=none},
+			%legend pos=south west,
+			legend cell align=left,
+			legend columns=-1,
+		]
+	\nextgroupplot[
+		title={Early}
+	]
+		\addplot
+		[
+		color=ColorTurbLow,
+		opacity=1.0,
+		mark=*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 2},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/early_low.csv};
+		\addlegendentry{low}
+		\addplot
+		[
+		color=ColorTurbMedium,
+		opacity=1.0,
+		mark=triangle*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 1.1},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/early_medium.csv};
+		\addlegendentry{medium}
+		\addplot
+		[
+		color=ColorTurbHigh,
+		opacity=1.0,
+		mark=square*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 0.67},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/early_high.csv};
+		\addlegendentry{high}
+		% surf
+		\addplot
+		[
+			color=ColorSurf,
+			opacity=1.0,
+			solid, 
+			domain=-1:1,
+			samples=10,
+			mark=pentagon,
+		]{-x * 0.7 / 2.0};
+		\addlegendentry{surf, $\TimeHorizon = 0.7 \KolmogorovTimeScale$}
+	\nextgroupplot[
+		title={Late}
+	]
+		\addplot
+		[
+		color=ColorTurbLow,
+		opacity=1.0,
+		mark=*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 2},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/late_low.csv};
+		%\addlegendentry{low}
+		\addplot
+		[
+		color=ColorTurbMedium,
+		opacity=1.0,
+		mark=triangle*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 1.1},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/late_medium.csv};
+		%\addlegendentry{medium}
+		\addplot
+		[
+		color=ColorTurbHigh,
+		opacity=1.0,
+		mark=square*,
+		%only marks,
+		] table[
+			x expr={\thisrowno{0} * 0.67},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+		]{chap_end/data/late_high.csv};
+		%\addlegendentry{high}
+		% surf
+		\addplot
+		[
+			color=ColorSurf,
+			opacity=1.0,
+			solid, 
+			domain=-1:1,
+			samples=10,
+			mark=pentagon,
+		]{-x * 0.7 / 2.0};
+		%\addlegendentry{surf, $\TimeHorizon = 0.7 \KolmogorovTimeScale$}
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,115 @@
+\chapter{Surfing towards a target}
+
+Most of the time, when studying navigation problems, the problem of reaching a target is often considered.
+
+\section{Tracking a fixed Eulerian target}
+
+\begin{wrapfigure}{L}{0.3\textwidth}
+	\centering
+	\def\svgwidth{0.3\textwidth}
+	\input{chap_more/schemes/problem_target.pdf_tex}
+  	\caption{Illustration of performance evaluation.}
+\end{wrapfigure}
+We formalize the problem as follows. We consider a plankter in homogeneous, isotropic turbulence initially placed at a distance $\TargetDistance(0) = \TargetDistance_0$ from the position of its target, $\TargetPosition$, of radius $\TargetRadius$. Its task is to reach a given fixed target as fast as possible. We model the plankter as an acttive particle with position $\ParticlePosition(t)$, swimming in direction $\SwimmingDirection(t)$ at constant speed $\SwimmingVelocity$ in a 3D flow velocity field $\FlowVelocity(\vec{x}, t)$ of vorticity $\FlowVorticity(\vec{x}, t) = \vec{\nabla} \times \FlowVelocity$. The plankter is assumed to be inertialess, neutrally buoyant, and small compared to the Kolmogorov scale $\KolmogorovScale$. It actively controls its orientatio by choosing a preferred direction $\ControlDirection$. We start by assuming that the swimming direction $\SwimmingDirection$ is always aligned with its preferred direction $\ControlDirection$ (instantaneous reorientation). Under these assumptions, the equations of motion are
+\begin{subequations}\label{eq:surfing_motion}
+	\begin{align}
+		\frac{d \ParticlePosition}{dt} & =
+		 \FlowVelocity (\ParticlePosition, t) + \SwimmingVelocity \, \SwimmingDirection, \label{eq:surfing_x_motion}\\
+		\SwimmingDirection(t) & = \ControlDirection(t) .\label{eq:surfing_p_motion}
+	\end{align}
+\end{subequations}
+
+We assume that the plankter senses the local flow velocity gradient $\Gradients$ and the direction towards the target $\TargetDirection = \TargetPosition/\TargetDistance$.
+It responds to this information by choosing a preferred direction $\ControlDirection(\Gradients,\TargetDirection)$, without any memory.
+Several metrics can be used to quantify the performance of plankters:
+\begin{itemize}
+	\item The median time $\ArrivalTime^{50\%}$, the time for half of the swimmers sample to reach the target. Any other proportion can also be used. All plankters may not reach the target by the end of a numerical experiment thus preventing us to use the average arrival time $\left\langle \ArrivalTime \right\rangle$ as a metric. Furthermore, this metric may be relevant for biophysical applications as many planktonic larvae die before reaching their adult state. Thus only the performance of the ``best'' ones matter.
+	\item The proportion of plankters $p_T$ having reached the target after a given time $T$. If the minimal performance that ensures individual survival is known, maximizing the proportion of individuals meeting this performance criteria should maximize the species chances of survival.
+	\item The steady state average distance $\left\langle \TargetDistance \right\rangle_{\infty}$ of the plankters from the target. If the swimming speed of plankters is not strong enough, $\left\langle \TargetDistance \right\rangle_{\infty}$ should be greater than $0$. This metric is particularly useful as it should not depend on the target size $a$ neither the initial distance $\TargetDistance_0$. 
+\end{itemize}
+\begin{wrapfigure}{R}{0.3\textwidth}
+	\centering
+	\def\svgwidth{0.3\textwidth}
+	\input{chap_more/schemes/random_walk_step.pdf_tex}
+  	\caption{Illustration of the effect of random walk on the distance to a target.}
+\end{wrapfigure}
+
+Before introducing swimming velocity, one may be interested of how passive particles would perform such a task. 
+To do so, we can rely on the literature of particle dispersion in turbulence. \todo{Cite and explain litterature.}
+
+For swimmers to reach a specific target, they need to overcome the dispersive effect of turbulence. 
+To quantify the level of the challenge of reaching a specific target, we need to quantify the effect of dispersion as a function of distance $\TargetDistance$ and flow properties.
+Dispersion problem are often tackled using random walk problems. \todo{Cite and explain litterature.}
+We will use this approach to estimate the dispersion velocity that statistically pushes plankters away from their targets.
+Assuming a flow moves passive particles at a velocity $\left\langle \norm{\FlowVelocity} \right\rangle$ in a randomly directed straight line for a time $\CorrelationTime$ leads to a random walk process of step stize $l = \left\langle \norm{\FlowVelocity} \right\rangle \CorrelationTime$.
+Considering a plankter at a given distance $\TargetDistance$ from its target, the average distance to the target after a time $\CorrelationTime$ can be expressed as follows:
+\begin{equation}
+	\left\langle r(t + \CorrelationTime) \right\rangle = \frac{1}{\pi} \int_0^\pi \sqrt{\TargetDistance(t)^2 + l^2 + 2 \TargetDistance l \cos \theta }  \, d\theta \, , \\
+\end{equation}
+with $\theta$ the direction angle.
+We can then deduce the expression of the dispersion velocity as a function of distance:
+\begin{align}
+	\DispersionVelocity(\TargetDistance) &= \frac{\left\langle \TargetDistance(t + \CorrelationTime) \right\rangle - \TargetDistance(t)}{\CorrelationTime} \\
+	&= \frac{1}{\pi} \int_0^\pi \sqrt{( r/\CorrelationTime )^2 + \left\langle \norm{\FlowVelocity} \right\rangle^2 + 2 (r / \CorrelationTime) \left\langle \norm{\FlowVelocity} \right\rangle \cos \theta }  \, d\theta - \frac{r}{\CorrelationTime}
+\end{align}
+Note that $\DispersionVelocity(0) = \left\langle \FlowVelocity \right\rangle$ and $\forall \TargetDistance > 0,~\lim_{\CorrelationTime \to 0} \DispersionVelocity = 0$.
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/trackers/dispersion_velocity}
+	\caption{
+		Dispersion velocity test.
+	}
+	\label{fig:dispersion_velocity}
+\end{figure}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/trackers/tracking_distance}
+	\caption{
+		Average distance to the target as function of time for different swimming velocities.
+	}
+	\label{fig:tracking_distance}
+\end{figure}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/trackers/surfing_distance}
+	\caption{
+		Average distance to the target as function of time for different surfing parameter $\TimeHorizon$.
+	}
+	\label{fig:surfing_distance}
+\end{figure}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/risers/dispersion_swimming_velocity}
+	\caption{
+		Dispersion as function of time for different swimming velocities.
+	}
+	\label{fig:dispersion_swimming_velocity}
+\end{figure}
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/risers/dispersion_coefficient}
+	\caption{
+		Dispersion coefficient.
+	}
+	\label{fig:dispersion_coefficient}
+\end{figure}
+
+\section{Tracking a passive Lagrangian target}
+
+\section{Tracking a fleeing Lagrangian target}
+
+% \section{Comparison to reinforcement learning literature}
+% 
+% It is interesting to compare the proposed surfing strategy to ``smart'' plankters trained by reinforcement learning.
+% In a recent study, an agent was trained in a 3D turbulent flow to minimize the time to reach a fixed target using a local measure of vorticity \cite{Alageshan2020}.
+% The best agent swims $1.19$ times faster than a naive agent that always swims towards the target.
+% The surfing strategy can be adapted to solve the same problem by replacing directly in Eq. \eqref{eq:optimal_swimming_direction} the direction $\Direction$ by the instantaneous direction towards the fixed target.
+% For the same dimensionless parameters ($\SwimmingVelocity = 1.5 u_\mathrm{rms}$, $\ReorientationTime = 0.5 \KolmogorovT$), initial distance and target radius, we find that surfers perform $1.25 \pm 0.02$ times better than naive bottom-heavy swimmers.
+% Although this comparison is only indicative as the Reynolds number of the flow is different, it shows that the surfing strategy is competitive and could be used as a reference in reinforcement learning problems.
+
+\section{Summary}

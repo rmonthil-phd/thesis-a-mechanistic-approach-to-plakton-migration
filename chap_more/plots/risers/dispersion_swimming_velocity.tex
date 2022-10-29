@@ -1,0 +1,237 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.02\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.55\textwidth,
+			height=0.45\textwidth,
+			% more
+			axis on top,
+			set layers,
+			% y
+			ylabel={$\sigma_{\hat{\vec{e}}_i} / (\left\langle \norm{\FlowVelocityScalar_i} \right\rangle \KolmogorovTimeScale)$},
+			y label style={yshift=-4pt},
+			ymin=0,
+			ymax=20,
+			% x
+			xlabel=$t / \KolmogorovTimeScale$,
+			x label style={yshift=4pt},
+			xmin=0,
+			xmax=120,
+			% legend
+			legend style={draw=none, fill=none, at={(1.0, 1.05)}, anchor=south},
+			%legend pos=north west,
+			legend cell align=left,
+			legend columns=7,
+		]
+	\node[anchor=south east] at (3.5,5.35) {$\SwimmingVelocity =$};
+	\node[anchor=center] at (1.0,4.6) {\textbf{(a)} $\hat{\vec{e}}_i = \Direction$};
+	\node[anchor=center] at (8.1,4.6) {\textbf{(b)} $\hat{\vec{e}}_i \cdot \Direction = 0$};
+	\nextgroupplot[
+	]
+		\addplot
+		[
+		color=ColorPassive,
+		opacity=1.0,
+		mark=asterisk,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma,
+			comment chars=\#,
+		]{data/tracers__flow__n_128__re_250/tracer__standard_deviation.csv};
+		\addlegendentry{$0$}
+		\addplot
+		[
+		color=ColorBh!100!ColorVs,
+		opacity=1.0,
+		mark=triangle*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_0o5__standard_deviation.csv};
+		\addlegendentry{$\KolmogorovVelocityScale / 2$}
+		\addplot
+		[
+		color=ColorBh!80!ColorVs,
+		opacity=1.0,
+		mark=square,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_1o0__standard_deviation.csv};
+		\addlegendentry{$\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!60!ColorVs,
+		opacity=1.0,
+		mark=pentagon*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_2o0__standard_deviation.csv};
+		\addlegendentry{$2\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!40!ColorVs,
+		opacity=1.0,
+		mark=o,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_4o0__standard_deviation.csv};
+		\addlegendentry{$4\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!20!ColorVs,
+		opacity=1.0,
+		mark=*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_8o0__standard_deviation.csv};
+		\addlegendentry{$8\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!00!ColorVs,
+		opacity=1.0,
+		mark=star,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_16o0__standard_deviation.csv};
+		\addlegendentry{$16\KolmogorovVelocityScale$}
+
+	\nextgroupplot[
+	]
+		\addplot
+		[
+		color=ColorPassive,
+		opacity=1.0,
+		mark=asterisk,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma,
+			comment chars=\#,
+		]{data/tracers__flow__n_128__re_250/tracer__standard_deviation.csv};
+		%\addlegendentry{$0$}
+		\addplot
+		[
+		color=ColorBh!100!ColorVs,
+		opacity=1.0,
+		mark=triangle*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_0o5__standard_deviation.csv};
+		%\addlegendentry{$\KolmogorovVelocityScale / 2$}
+		\addplot
+		[
+		color=ColorBh!80!ColorVs,
+		opacity=1.0,
+		mark=square,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_1o0__standard_deviation.csv};
+		%\addlegendentry{$\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!60!ColorVs,
+		opacity=1.0,
+		mark=pentagon*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_2o0__standard_deviation.csv};
+		%\addlegendentry{$2\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!40!ColorVs,
+		opacity=1.0,
+		mark=o,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_4o0__standard_deviation.csv};
+		%\addlegendentry{$4\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!20!ColorVs,
+		opacity=1.0,
+		mark=*,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_8o0__standard_deviation.csv};
+		%\addlegendentry{$8\KolmogorovVelocityScale$}
+		\addplot
+		[
+		color=ColorBh!00!ColorVs,
+		opacity=1.0,
+		mark=star,
+		only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{3} / (0.63 * 0.088)},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__vs_16o0__standard_deviation.csv};
+		%\addlegendentry{$16\KolmogorovVelocityScale$}
+	\end{groupplot}
+\end{tikzpicture}

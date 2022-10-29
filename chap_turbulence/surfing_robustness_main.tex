@@ -1,0 +1,557 @@
+\chapter{Surfing robustness and adaptation}\label{chap:surfing_robustness}
+
+While the surfing strategy has been shown to be effective in homogeneous, isotropic turbulence, its relevance to actual plankters remains to be proven.
+Real life plankton may have to face more complex environments and their sensing and locomotion skills may not be perfect.
+In this chapter, we relax a number of assumptions to assess the robustness of the surfing behavior in more realistic situations.
+
+\section{Adapting to variations of turbulence intensity}\label{sec:adaptive_strategy}
+
+\subsection{Adaptive surfing strategy}\label{sec:adaptive_strategy_subsec}
+
+Up to this point, we considered forced homogeneous isotropic turbulence at a steady state.
+Oceanic turbulence intensity is known however to fluctuate widely on short time scales \citep{franks2022oceanic}.
+Moreover turbulence is known to be particularly heterogeneous near flow obstacles and boundaries.
+This may appear as a problem since surfers need to evaluate the value of $\KolmogorovTimeScale$ of their local environment to choose the optimal time horizon $\TimeHorizonOpt$.
+But in practice $\KolmogorovTimeScale$ can be estimated from the velocity gradient itself since $\KolmogorovTimeScale \sim 1/\abs{\mathrm{sym} \Gradients}$ where $\abs{.}$ is the Frobenius norm \citep{yu_lagrangian_2010}.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/adaptive_surf}
+	\caption[Turbulence adaptive surfers perform as well as surfers with a constant time horizon.]{
+		Turbulence adaptive surfers perform as well as surfers with a constant time horizon.
+		Performance [$\Performance$, Eq.~\eqref{eq:surfing_performance}] of adapative surfers using a time dependent time horizon. Plotted as a function of the dimensionless constant $\alpha_{\TimeHorizon}$ [Eq.~\eqref{eq:tau_adapt}] for various swimming velocities $\SwimmingVelocity$ and Reynolds numbers $\mathit{Re}_{\lambda}$.
+		Shaded area represents the 95\% confidence interval.
+		Solid lines represent a fit with Chebyshev polynomials of degree 3.
+	}
+	\label{fig:surfing_adaptive_surf}
+\end{figure}
+This suggests a refinement of the surfing strategy where $\TimeHorizon$ in Eq.~\eqref{turb:eq:surfing_swimming_direction_final} is replaced by
+\begin{equation}
+	\label{eq:tau_adapt}
+	\TimeHorizon = \frac{\alpha}{\norm{\mathrm{sym} \Gradients}},
+\end{equation}
+with $\alpha$ a dimensionless parameter, which can be viewed as a dimensionless time horizon.
+In Fig.~\ref{fig:surfing_adaptive_surf}, we show that surfers using this adaptive strategy perform as well as surfers with a constant time horizon $\TimeHorizon$ with the additional benefit that they can adapt to changes in turbulence intensity.
+For $\SwimmingVelocity = \KolmogorovVelocityScale$, the optimal value of the parameter $\alpha$ is $\alpha^* \approx 2$ for $\mathit{Re}_{\lambda} = 418$ and $\alpha^* \approx 1.5$ for $\mathit{Re}_{\lambda} = 11$.
+This value is presumably independent of the turbulence intensity in the limit $\mathit{Re}_{\lambda} \gg 1$.
+
+\subsection{Turbulence heterogeneity}\label{sec:num_channel_flow}
+
+To quantify the advantages of this adaptive surfing strategy, we can consider navigating in a flow where turbulence is not homogeneous.
+Planktonic navigation in heterogeneous flows is particularly relevant for numerous mollusks larvae that need to settle on see beds to reach maturity.
+
+As a model flow, we consider the case of a turbulent channel flow, corresponding to the turbulent counterpart of the Poiseuille flow presented in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:surfing_poiseuille_flow}.
+To evaluate the performance in such a flow, we also use the open access Johns Hopkins turbulence database \citep{li2008public, perlman2007data}.
+
+\subsubsection{Description of the channel flow simulation}
+
+The database represents a wall bounded flow with periodic boundary conditions in the longitudinal and transverse directions.
+The direction of the mean flow is noted $\hat{\vec{e}}_1$, the direction normal to the walls is noted $\hat{\vec{e}}_2$ and the transverse direction is noted $\hat{\vec{e}}_3$ (Fig.~\ref{fig:scheme_channel}).
+The dimensions of the channel are $l_1 \times l_2 \times l_3 = 8\pi h \times 2 h \times 3 \pi h$ with $h$ the half–channel height (Fig.~\ref{fig:scheme_channel}).
+\begin{figure}
+	\centering
+	\def\svgwidth{0.8\textwidth}
+	\input{chap_numeric/schemes/jhtdb_channel.pdf_tex}
+	%\captionsetup{width=0.3\textwidth}
+  	\caption{
+  		Schematic of the channel flow of the Johns Hopkins Databases.
+  	}
+  	\label{fig:scheme_channel}
+\end{figure}
+No-slip boundary conditions are applied to both horizontal walls.
+The data have been generated from a direct numerical simulation using a pseudo-spectral method for the longitudinal and transverse direction and a seventh-order Basis-splines collocation method is used in the wall normal direction.
+The flow is forced by applying a time dependent uniform mean pressure gradient forcing term that ensures a constant mass flux through the channel.
+
+The channel flow is further characterized by its bulk velocity $U_b$ (average flow velocity in the channel) and its friction velocity $\FlowVelocityScalar_{\nu}$
+\begin{equation}
+	\FlowVelocityScalar_{\nu} = \sqrt{\nu \left\langle \frac{\partial \FlowVelocityScalar_1}{\partial x_2} \right\rangle_{x_2=-h,t}}
+\end{equation}
+evaluated at the bottom wall and $\delta_\nu = \nu / \FlowVelocityScalar_{\nu}$ the viscous length scale.
+Averaging over the bottom plane and over time is noted $\left\langle \cdot \right\rangle_{x_2=-h,t}$.
+The velocity $\FlowVelocityScalar_1$ denotes $\FlowVelocityScalar \cdot \hat{\vec{e}}_1$.
+
+The parameters of the simulation are summed up in Tab.~\ref{tab:jhtdb_channel_simulation_parameters}.
+\begin{table}
+	\center
+	\begin{tabular}{w{c}{0.15\linewidth}w{c}{0.15\linewidth}w{c}{0.23\linewidth}w{c}{0.15\linewidth}}
+		\rowcolor{ColorTabularParameters}
+		$\mathit{Re}_{\nu}$ & $\mathit{Re}_b$ & $n_1 \times n_2 \times n_3$ & $l_x/h$ \\[4pt]
+		\rowcolor{ColorTabularValues}
+		5186 & $1.25\times10^{5}$ & $10240 \times 1536 \times 7680$ & $8\pi$ \\[4pt]
+		\rowcolor{ColorTabularParameters}
+		$L_y/h$ & $L_z/h$ & $\delta_{\nu}/h$ & $u_{\tau}/U_b$ \\[4pt]
+		\rowcolor{ColorTabularValues}
+		2 & $3\pi$ & $1.9\times10^{-4}$ & $4.15\times10^{-2}$
+	\end{tabular}
+	\caption[Flow parameters and characteristics of the turbulent channel flow of the Johns Hopkins Turbulence Database.]{
+		Flow parameters and characteristics of the turbulent channel flow of the Johns Hopkins Turbulence Database \citep{li2008public, perlman2007data}.
+		$\mathit{Re}_{\nu} = \FlowVelocityScalar_{\nu} h / \nu$ and $\mathit{Re}_{b} = \FlowVelocityScalar_{b} h / \nu$ denote the friction velocity Reynolds number and the bulk Reynolds number respectively.
+	}
+	\label{tab:jhtdb_channel_simulation_parameters}
+\end{table}
+More details are provided at \url{http://turbulence.pha.jhu.edu/Channel5200.aspx}.
+A visualization of the flow is provided in Fig.~\ref{fig:laminar_turbulent_channels}.
+
+\subsubsection{Evaluation of surfing performance}\label{sec:channel_surfing_robustness}
+
+It should be noted that in our simulations, simulated plankters are able to reach and pass through the walls thanks to their active swimming.
+When that occurs, the flow is also considered periodic in the direction of the wall normals and these microswimmers thus stay in the simulation.
+This enables to integrate trajectories over larger distances.
+As our goal is simply to assess the effect of turbulence heterogeneity on surfing, all near-wall effects on the plankter dynamics are neglected. 
+The results near the flow boundaries should then be taken carefully.
+
+In such a flow, the turbulence heterogeneity develops along the wall normal (in the direction $\hat{\vec{e}}_2$).
+Despite the shear being maximal near walls, the flow viscous effects cause the flow to develop a viscous sublayer near the walls.
+In these laminar areas, the flow is parallel to the walls.
+Just above this viscous sublayer, turbulence is generated due to the strong shear and turbulent intensity peaks not far from the wall.
+The turbulence intensity then decays slowly as one gets further from the wall.
+
+This flow is used to assess the adaptability of surfing to turbulence heterogeneity, the target direction for the migration problem is chosen to be the direction of the wall normal $\Direction \equiv \hat{\vec{e}}_2$.
+This forces simulated plankters to pass through the turbulence intensity profile.
+This direction is therefore referred to as the vertical in this section.
+
+The effective swimming velocity $\Performance$ for an optimal value of the time horizon $\TimeHorizon = \TimeHorizonOpt$ is plotted as a function of swimming velocity in Fig.~\ref{fig:channel_perf_y}.
+\begin{figure}
+	\centering
+	\input{chap_turbulence/plots/channel/comparison_y_better.tex}
+	\caption[In average, adaptive surfers perform almost as well as non-adaptive surfers in turbulence heterogeneity.]{
+		In average, adaptive surfers perform almost as well as non-adaptive surfers in turbulence heterogeneity.
+		Evaluation of performance for surfers and adaptive surfers in a channel flow with $\Direction = \hat{\vec{e}}_2$.
+		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] as a function of swimming speed $\SwimmingVelocity$ for non-adaptive surfers and for adaptive surfers, evaluated for their optimal value of their respective parameter: $\TimeHorizonOpt$ and  $\alpha_{\TimeHorizon}^*$.
+	}
+	\label{fig:channel_perf_y}
+\end{figure}
+Contrary to the Poiseuille flow that surfers cannot exploit with such an alignment of $\Direction$ (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:surfing_poiseuille_flow}), the presence of turbulence enables surfers to exploit small flow fluctuations along the way, regardless if the strategy is adaptive or not.
+This shows that this strategy is robust to turbulence heterogeneities.
+Surprisingly however, the improvement provided by the adaptive strategy is marginal.
+
+To understand why we need to look closer to how performance distributes along the vertical position $x_2$.
+We plot then the effective vertical velocity $\Performance$ as a function of the vertical position $x_2$ for surfers with a constant time horizon $\TimeHorizon$ in Fig.~\ref{fig:channel_perf_y}\textbf{(a)} and for adaptive surfers in Fig.~\ref{fig:channel_perf_y}\textbf{(b)}.
+Note the logarithmic scale of the vertical position.
+The bottom of the figure corresponds to the near wall region and the top of the figure corresponds to the centerline of the channel.
+\begin{figure}
+	\centering
+	\input{chap_turbulence/plots/channel/binned_velocity_axis_y.tex}
+	\caption[Adaptive surfers show actual adaptation to turbulence heterogeneity in contrast to non-adaptive surfers.]{
+		Adaptive surfers show actual adaptation to turbulence heterogeneity in contrast to non-adaptive surfers.
+		Performance of constant time horizon surfers \textbf{(a)} and adaptive surfers \textbf{(b)} in a channel flow with $\Direction = \hat{\vec{e}}_2$ as a function of the vertical position $x_2$. 
+		In addition a Eulerian measure of flow exploitability is plotted in \textbf{(c)}.
+	}
+	\label{fig:channel_binned_velocity_y}
+\end{figure}
+
+In addition, we plot the norm horizontal gradient of the vertical velocity $\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}} = \norm{\vec{\nabla}_{13} \FlowVelocityScalar_2}$ as a function of the vertical position $x_2$ in Fig.~\ref{fig:channel_perf_y}\textbf{(c)}.
+This quantity is normalized by the Kolmogorov time scale $\langle \KolmogorovTimeScale \rangle_V$ averaged over the whole volume of the channel.
+When there are no horizontal gradient of vertical velocity, the best one can do is to swim straight in the target direction $\Direction$.
+This quantity then characterizes how much the flow can be exploited.
+Note however, as observed in Chap.~\ref{chap:surfing_on_turbulence}, Sec.\ref{sec:surfing_time_horizon}, surfing performance also depends on the flow correlation time.
+This correlation time is captured at first order by the Kolmogorov time scale $\KolmogorovTimeScale$ that also varies with vertical position.
+To capture how much one can exploit the flow in more details, the intensity of the gradient $\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$ is normalized by a local vale of $\langle \KolmogorovTimeScale \rangle_{x_2}(x_2)$ averaged over a plane of constant altitude $x_2$.
+Close to the wall, in the viscous sublayer, the flow is completely parallel to the flow hence no gradient of vertical velocity.
+As velocity fluctuations develop away from the wall, the gradient intensity increase until a maximum is reached at $x_2 \approx h / 20$.
+Higher, the intensity of the gradient decrease until the centerline of the flow is reached.
+However, at the same time, the local Kolmogorov time scale of the flow $\langle \KolmogorovTimeScale \rangle_{x_2}(x_2)$ increases with altitude and compensate for this decrease of the gradient intensity.
+Therefore the value of $\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}} \langle \KolmogorovTimeScale \rangle_{x_2}(x_2)$ plateaus in the bulk of the flow.
+This predicts that maximal surfing performance should be reached in the bulk of the flow.
+
+Focusing first on surfers using a constant time horizon $\TimeHorizon$ [Fig.~\ref{fig:channel_perf_y}\textbf{(a)}], we observe a strong dependence of surfing performance with the vertical position $x_2$.
+While as expected, surfers achieve good performance in the bulk where turbulence intensity is relatively homogeneous, we observe that surfing becomes disadvantageous ($\Performance < 1$) in the transition region between the viscous sublayer and the bulk.
+The time horizon $\TimeHorizon$ being constant for the whole channel, surfers are unable to adapt to turbulence heterogeneity.
+Even though this parameter $\TimeHorizon$ can be well tuned for the bulk, leading to even better performance than adaptive surfers for $x_2 \approx h/5$, its value makes the strategy overreacts to the gradient near the wall and causes this drastic performance drop.
+\begin{figure}
+	\centering
+	\input{chap_turbulence/plots/channel/max_binned_velocity_axis_y.tex}
+	\caption[The optimal value of the free parameter of the adaptive strategy ($\alpha_{\TimeHorizon}$) is almost constant in the channel.]{
+		The optimal value of the free parameter of the adaptive strategy ($\alpha_{\TimeHorizon}$) is almost constant in the channel.
+		Optimal surfing parameter of surfers \textbf{(a)} $\TimeHorizonOpt$ and adaptive surfers \textbf{(b)} $\alpha_{\TimeHorizon}^*$ in a channel flow with $\Direction = \hat{\vec{e}}_2$ as a function altitude. 
+		In addition the Kolmogorov time scale is plotted as a function of the vertical position in \textbf{(c)}.
+	}
+	\label{fig:max_channel_binned_velocity_y}
+\end{figure}
+
+On the contrary, the adaptive strategy [Fig.~\ref{fig:channel_perf_y}\textbf{(b)}] is able to adapt to local turbulence intensity, remaining advantageous ($\Performance \ge 1$) in the whole channel.
+The layer where this difference occurs is however very thin ($\approx h/20$) compared to the actual bulk.
+As the actual effective velocity is the result of the trajectories passing through the whole channel, this small region does not account for much of the overall performance.
+That is why this advantage is barely visible in Fig.~\ref{fig:channel_perf_y}.
+
+To further emphasize the benefit of the adaptive surfing strategy, we evaluate the maximal optimal parameter of both strategies, $\TimeHorizon^*$ and $\alpha^*$, that lead to maximal performance as a function of the surfer's distance to the wall $x_2$ (Fig.~\ref{fig:max_channel_binned_velocity_y}).
+As expected, the optimal surfing parameter $\TimeHorizonOpt$ strongly depends on depth $x_2$ [Fig.~\ref{fig:max_channel_binned_velocity_y}\textbf{(a)}] compared to $\alpha^{*}$ for the adaptive strategy.
+Note as the near flow region is not exploitable ($\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}} = 0$), the performance is independent of the surfing parameter ($\TimeHorizon$ or $\alpha$), hence the almost random optimal values of these parameters we obtain for $x_2 \lesssim 0.01 h$.
+
+Overall this shows the proposed navigation strategy can be adapted to account for variations of turbulence intensity.
+Evaluated in a turbulent channel flow, surfing remains effective in heterogeneous turbulence, more representative of plankton habitats.
+
+\section{Accounting for limited plankter skills}\label{sec:plankter_limitations}
+
+We expect the actual sensing, motor and processing skills of real planktonic organisms to be limited.
+While these limitations are hard to evaluate quantitatively in practice, one can evaluate the influence of such limitations in our simulations.
+In this section, we then demonstrate the robustness of the surfing strategy to these various limitations in simulated homogeneous isotropic turbulence (cf. Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit}).
+We first discuss the limitation of processing skills by evaluating the performance of surfers that are limited in the order of the computation of their surfing direction.
+Then we introduce limited sensing through partial flow measures, filtered measures or noisy measures.
+Finally we relax the assumption of instantaneous reorientation.
+
+\subsection{Limited processing skills}\label{sec:computational_power}
+
+Even if some plankters such as copepods have neurons, their ``computational'' skills are definitely limited to some extent.
+The main processing challenge of the surfing strategy [Eq.~\eqref{turb:eq:surfing_swimming_direction_final}] lies in the evaluation of the matrix exponential.
+The surfing strategy can be approximated by the following series (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_interpretation}).
+\begin{equation}\label{eq:exp_series}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad 
+	\ControlDirectionOptNN = \sum_{k = 0}^{\infty} \frac{\TimeHorizon^k}{k!} \left[  \left( \Gradients \right)^k \right]^T \cdot \Direction = \Direction + \TimeHorizon \, \vec{\nabla} \FlowVelocity_z + \dotsb
+\end{equation}
+In practice, the series cannot be evaluated with an infinite number of terms and one has to stop eventually after $n+1$ term.
+Doing so result in an approximation of order $n$ in term of $\TimeHorizon \norm{\Gradients}$.
+To assess the impact of a limited computational power, we performed simulations for which the order $n$ of the computation of the surfing direction varies (Fig.~\ref{fig:surfing_exp_order}).
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/reynolds/parameter_tau_order_better}
+	\caption[A first order computation of the matrix exponential is enough to capture most of surfing performance.]{
+	A first order computation of the matrix exponential is enough to capture most of surfing performance.
+	Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] as a function of the computational order $n$ of the matrix exponential.
+	Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:surfing_exp_order}
+\end{figure}
+
+We note that the high-order computations only lead to a slight increase of the resulting effective swimming velocity $\Performance$ compared to that achieved with the first order $n=1$.
+This is particularly true for the low turbulence case $\mathit{Re}_{\lambda} = 11$.
+This discrepancy between the two turbulent environments can be understood as the value $\TimeHorizonOpt / \KolmogorovTimeScale$, for which this maximal performance is evaluated, is smaller for the case $\mathit{Re}_{\lambda} = 11$ than for the case $\mathit{Re}_{\lambda} = 418$ (cf. Fig.~\ref{fig:surfing_parameter_tau_vs}).
+Being smaller a lower order computation is enough to obtain an accurate estimate of the matrix exponential.
+
+If the power consumption is directly linked to the processing complexity of the strategy, we can expect power consumption to evolves linearly with $n$.
+Thus, for actual plankters, we would expect the actual accuracy of the computation to be a compromise between the computational cost of the strategy and its benefits.
+The performance enhancement of a high-order computation ($n > 2$) being marginal compared to $n = 1$, even for a high Reynolds number, suggests the relevance of the reduction of surfing to its linear expansion
+\begin{equation}\label{eq:exp_series_n_1}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad 
+	\ControlDirectionOptNN = \Direction + \TimeHorizon \, \vec{\nabla} \FlowVelocityScalar_\DirectionScalar.
+\end{equation}
+The surfing direction $\ControlDirectionOpt$ then reduces to the weighted average of the target direction $\Direction$ and the direction of the vertical velocity gradient $\vec{\nabla} \FlowVelocityScalar_\DirectionScalar$ where the surfing time horizon $\TimeHorizon$ acts as an averaging weight (also discussed in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_interpretation}).
+As such, the resulting strategy only relies on the gradients of vertical velocity $\vec{\nabla} \FlowVelocityScalar_\DirectionScalar$. 
+That represents only three components of the gradient $\Gradients$, out of eight independent components (accounting for incompressibility).
+Not content with reducing the processing power required, limiting surfing to its linear expansion also reduces the amount of information that needs to be measured.
+
+Overall this shows that even with limited processing skills, turbulence could still be exploited by plankters.
+However the strategy still requires at least to evaluate a linear function which requires computational skills to apply it.
+
+\subsection{Limited sensing skills}\label{sec:sensing_limitations}
+
+In this section, we continue the analysis of limited sensing already initiated in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:partial}.
+While above we focused on the contribution of the various flow components, the aim here is to show that limited sensing, that actual plankters would have to face, can be accounted for in the strategy we propose.
+
+\subsubsection{Partial measure of $\Gradients$}\label{sec:rob_partial_measure}
+
+In order to assess the contributions of flow components on navigation efficiency, sensing was limited to both parts of the symmetric decomposition, $\GradientsSym$ and $\GradientsAsym$, of $\Gradients$ in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:partial}.
+We demonstrated the robustness of surfing performance to such limited performance and highlighted how the measure of vorticity (equivalent to $\GradientsAsym$) contributes to the overall performance.
+
+In this section, we further limit plankter sensing to match the discussion of Chap.~\ref{chap:intro}, Sec.~\ref{sec:intro_flow_sensing}.
+When the flow is perceived through the use of gravity sensing (thanks to statochists for instance), flow sensing should be limited to \textbf{horizontal vorticity} rather than measuring all components of vorticity ($\GradientsAsym$) or the full measure of gradient tensor $\Gradients$.
+To assess the impact of this limitation, we consider the surfing strategy limited to the measure of horizontal vorticity.
+This behaviour is formally defined as
+\begin{equation}
+	\ControlDirectionOptAsymHorizontal = \frac{\ControlDirectionOptAsymHorizontalNN}{\norm{\ControlDirectionOptAsymHorizontalNN}}, \quad \text{with} \quad \ControlDirectionOptAsymHorizontalNN = \left[ \exp \left( \TimeHorizon \, \GradientsAsym^{\bot \Direction} \right) \right]^T \cdot \Direction,
+\end{equation}
+with $\GradientsAsym^{\bot \Direction} = \asym (\FlowVorticity - \FlowVorticityScalar_z \Direction) / 2 = \GradientsAsym - [\hat{\vec{e}}_y \cdot (\GradientsAsym \cdot \hat{\vec{e}}_x)] (\hat{\vec{e}}_x \otimes \hat{\vec{e}}_y) - [\hat{\vec{e}}_x \cdot (\GradientsAsym \cdot \hat{\vec{e}}_y)] (\hat{\vec{e}}_y \otimes \hat{\vec{e}}_x)$.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/statochist}
+	\caption[The sensing of horizontal vorticity is sufficient to navigate efficiently in turbulence.]{
+		The sensing of horizontal vorticity is sufficient to navigate efficiently in turbulence.
+		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] of surfers limited to the measure of horizontal vorticity compared to surfers using the full vorticty and the full velocity gradient tensor.
+		The flow simulation corresponds to the case $\mathit{Re}_{\lambda}$.
+		Plotted as a function of the surfing time horizon $\TimeHorizon$.
+		The swimming speed of plankters is set to $\SwimmingVelocity = \KolmogorovVelocityScale$.
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:statochist}
+\end{figure}
+
+Evaluated in our simulation of homogeneous isotropic turbulence of $\mathit{Re}_{\lambda} = 11$, the vertical effective velocity $\Performance$ reached by such surfers ($\GradientsAsym^{\bot \Direction}$) is plotted as a function of the time horizon $\TimeHorizon$ in Fig.~\ref{fig:statochist}.
+This performance is compared to that of surfers either using the full vorticity ($\GradientsAsym$) and the full velocity gradient tensor ($\Gradients$).
+The maximal performance (for $\TimeHorizon \approx 2.5$) is barely affected by this limitation when compared to the performance of surfers that use the full vorticity.
+This can be understood by the fact that horizontal vorticity does not provide any information concerning gradients of vertical velocity.
+As such the vertical vorticity component $\FlowVorticity_z$ would only contribute to the high-order terms ($n > 1$) of the surfing strategy.
+As shown in the previous section (cf. Fig.~\ref{fig:surfing_exp_order}), the high-order terms do not contribute much to the overall performance.
+
+This further highlights the navigation importance of certain components of the flow velocity gradients (ie. horizontal vorticity) relatively to other components (ie. gradients of horizontal velocity).
+
+To go further towards more accurate models of plankter flow sensing, one could take into account the influence of orientation.
+Indeed, in practice statochists can only evaluate the angle with respect to vertical, therefore the actual single component of vorticity such plankters can measure is the one along $\SwimmingDirection \times \Direction$ and therefore depends on their orientation.
+Moreover in the context of the measure of strain using setae it has been shown that the orientation of plankters influences the detection of predators by certain copepods \citep{fields2010orientation}.
+We would then expect a similar impact on navigation that could be accounted for in future numerical studies.
+
+\subsubsection{Filtered measure of $\Gradients$}\label{sec:rob_filtered_measure}
+
+Our simulations are developed with the hypothesis that plankters are smaller than the Kolmogorov scale $\KolmogorovScale$ [Eq.~\ref{eq:kolmogorov_scale}].
+While this hypothesis is reasonable for the smallest plankters in most habitats, it is not necessarily true for bigger plankters, such as copepods (0.1-10mm), in the most turbulent regions of the ocean $\KolmogorovScale \approx 1$mm.
+
+Among other effects, finite-size plankters would likely filter out small-scale flow fluctuations \citep{qureshi2007turbulent, capecelatro2014numerical}.
+This observation raises the question of how a filtered measure of the flow would impact surfing performance.
+
+To answer this question, we performed simulations of surfers, replacing directly the flow velocity gradients $\Gradients$ by its volume averaged value $\Gradients |_{\FilterLength}$ defined as follows
+\begin{equation}\label{eq:filter_length}
+	\Gradients |_{\FilterLength} (\ParticlePosition, t) = \frac{1}{\FilterLength^3} \iiint_{-\FilterLength/2}^{-\FilterLength/2} \Gradients(\ParticlePosition + \vec{x}, t) \, d^3 x,
+\end{equation}
+with $\FilterLength$ the characteristic averaging length and $\ParticlePosition$ the position of the plankter.
+The volume averaged gradient tensor $\Gradients |_{\FilterLength}$ actually corresponds to the value of $\Gradients$ averaged over a cube of side length $\FilterLength$ around the position of the plankter.
+We do not expect the shape of the averaging volume to influence much the qualitative conclusions, thus a cube has been chosen for computational convenience.
+A sphere would have been another sensible choice.
+
+We plot the surfing performance as a function of the averaging length $\FilterLength$ for various plankter swimming speed $\SwimmingVelocity$ for $\mathit{Re}_{\lambda} = 418$ and $\mathit{Re}_{\lambda} = 11$ in Fig.~\ref{fig:surfing_filtered}.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/reynolds/parameter_tau_filter_length_better}
+	\caption[An optimal filtering length $\FilterLength^*$ exists for a given swimming velocity $\SwimmingVelocity$.]{
+	An optimal filtering length $\FilterLength^*$ exists for a given swimming velocity $\SwimmingVelocity$.
+	Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] of surfers as a function of filtering length $\FilterLength$ for various swimming speeds $\SwimmingVelocity$.
+	Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:surfing_filtered}
+\end{figure}
+Surprisingly, the strategy displays remarkable robustness with respect to the averaging length $\FilterLength$, particularly for the case $\mathit{Re}_{\lambda} = 418$.
+Still, for a smaller Reynolds number $\mathit{Re}_{\lambda} = 11$, performance decreases with $\FilterLength$ for all swimming speeds $\SwimmingVelocity$, leading $\Performance = \SwimmingVelocity$ when $\FilterLength = 8 \KolmogorovScale$.
+This largest filter length is actually of the order of half of the integral scale $L = 19 \KolmogorovScale$ (Tab.~\ref{tab:snoopy_simulation_parameters}). 
+The filtering surfer then averages the gradient over a large part of the flow and therefore the intensity of the measure itself should drop, that explains their poor performance.
+
+For $\mathit{Re}_{\lambda} = 418$, the effective vertical velocity $\Performance$ displays interesting features [Fig.~\ref{fig:surfing_filtered}\textbf{(a)}].
+First for the slowest swimming velocity $\SwimmingVelocity = \KolmogorovVelocityScale$, as one would expect, we observe that performance decrease with the filter length $\FilterLength$.
+Indeed, as the averaging length $\FilterLength$ increases, the measure of the flow is degraded: the gradient measured does not correspond exactly to the actual gradient at the position of the plankter, hence the performance decreases.
+However, as swimming speed increases, $\Performance$ is not a monotonic function of $\FilterLength$ anymore.
+Performance starts increasing with the averaging length $\FilterLength$ until an optimal value $\FilterLength^*$ is reached for which the performance is maximal (for instance $\FilterLength^* = 4 \KolmogorovScale$ for $\SwimmingVelocity = 8 \KolmogorovVelocityScale$).
+This suggests that averaging the flow measure could actually be beneficial for the navigation of plankton given large enough swimming speeds $\SwimmingVelocity \gg \KolmogorovVelocityScale$.
+
+\begin{figure}
+	\centering
+	\def\svgwidth{0.8\textwidth}
+	\input{chap_turbulence/schemes/filtering_surfers.pdf_tex}
+	%\captionsetup{width=0.3\textwidth}
+  	\caption[Illustrative cartoon that discusses the benefit of filtering for fast surfers.]{
+  		Illustrative cartoon that discusses the benefit of filtering for fast surfers.
+  		We consider a plankter in a small flow structure of the size of the Kolmogorov scale $\KolmogorovScale$ (represented as simple shear here). This flow feature has a given lifetime that scales with the Kolmogorov time scale $\KolmogorovTimeScale$.
+  		\textbf{(a)} Case of slow swimming surfers $\SwimmingVelocity \ll \eta \KolmogorovTimeScale$.
+  		\textbf{(b)} Case of fast surfers $\SwimmingVelocity \gg \eta \KolmogorovTimeScale$.
+  		\textbf{(c)} Case of fast filtering surfers.
+  	}
+  	\label{fig:filtering_surfers}
+\end{figure}
+We propose a possible explanation for this phenomenon illustrated in Fig.~\ref{fig:filtering_surfers}.
+If the plankter swimming speed $\SwimmingVelocity \ll \eta \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(a)}] is small enough, the plankter does not have the time to reach the limit of the flow feature before that structure is dissipated after a time $\sim \KolmogorovTimeScale$. 
+This would lead to the foraging of a vertical velocity of $\FlowVelocity_{\DirectionScalar}(\ParticlePosition) \propto \SwimmingVelocity \KolmogorovTimeScale \norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$.
+If however the plankter swimming speed is large enough, $\SwimmingVelocity \gg \eta \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(b)}], the plankter reaches the limit of the flow feature before that structure is dissipated.
+The surfing strategy then reaches a local optimum and as it relies on gradient ascent method, it is not able to get out of it.
+This limits the foraging of vertical flow velocity to $\FlowVelocity_{\DirectionScalar}(\ParticlePosition) \propto \KolmogorovScale \norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$.
+If however the plankter is able to filter the gradients [Fig.~\ref{fig:filtering_surfers}\textbf{(c)}], it may ignore the smaller gradients.
+This enables surfers to exploit gradients on larger scales, thus enabling to forage a potential larger vertical flow velocity that would scale with $\FlowVelocity_{\DirectionScalar}(\ParticlePosition) \propto \FilterLength \norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}}$.
+
+% One can then continue the analysis and account for the known energy spectrum of turbulence $E(k) \propto \epsilon^{2/3} k^{-5/3}$ in homogeneous isotropic turbulence [Eq.~\eqref{eq:kolmogorov_spectrum}, Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit}].
+% This expression states that the characteristic velocity of flow corresponding to a scale $l = 1/k$ reads $\FlowVelocityScalar_l^2 \propto \epsilon^{2/3} l^{5/3}$.
+% By taking the spatial derivative of this expression we deduce that $\FlowVelocityScalar_l \nabla \FlowVelocityScalar_l \propto \epsilon^{2/3} l^{2/3}$
+% Finally for a given filter length $\FilterLength$, we expect the filtered gradient intensity to scale with
+% \begin{equation}\label{eq:scaling_filtered_gradient}
+	% \norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \FilterLength^{-1/6}.
+% \end{equation}
+% Note that the intensity of the gradient is predicted decrease as function of $\FilterLength$.
+% This effect should reduce surfing performance, unless swimming velocity is large enough to pass seamlessly through the smaller scales of the flow.
+% The potential flow velocity that can be foraged should then scale with
+% \begin{equation}
+	% \FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \FilterLength^{-1/6}.
+% \end{equation}
+% Finally, given a swimming velocity $\SwimmingVelocity$, the optimal averaging length should scale with $\FilterLength^* \propto \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}$ for which maximal preferential sampling is reached: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{1/3}  (\FilterLength^*)^{5/6}$.
+% Now while the lifetime of Eulerian turbulence features of size $l$ are expected to scale with $\TimeHorizon_l \propto \epsilon^{1/3}  l^{-1/6}$ [same as Eq.~\eqref{eq:scaling_filtered_gradient}], the lifetime of Lagrangian features of size $l$, $\TimeHorizon_{l,\mathrm{corr.}}$, is less clear.
+% However using $\TimeHorizon_l$ as an estimate, under the limit of this assumption, we deduce that $\FilterLength^* \propto \epsilon^{2/7} \SwimmingVelocity^{6/7}$ which increases with swimming velocity as observed in Fig.~\ref{fig:surfing_filtered}\textbf{(a)}.
+% One may then estimate preferential sampling for the optimal filter length as a function of swimming velocity $\SwimmingVelocity$: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{5/21} \SwimmingVelocity^{5/7}$.
+% Even though for high swimming velocities $\SwimmingVelocity$, flow filtering increases surfing performance, the overall preferential sampling with respect to swimming velocity $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \SwimmingVelocity \propto \epsilon^{5/21} \SwimmingVelocity^{-2/7}$ decreases as swimming velocity increases.
+% This causes the an overall decrease of performance $\Performance / \SwimmingVelocity$ with swimming speed, regardless of the ability to filter the flow.
+
+The resolution of our simulations is however limited due to the challenging numerical computation of $\Gradients |_{\FilterLength}$ they require.
+The averaging volume needs to be discretized to query the actual value of the gradient tensor in several positions.
+The averaged gradient is then computed by averaging all the values obtained.
+For each of these intermediate positions, the value of the gradient is obtained either by interpolating the value in that position in our flow database, either by querying the value of the gradients at that position in the Johns Hopkins turbulence database.
+These operations constitute the main bottleneck of our simulation code \textit{Sheld0n} in terms of computation time efficiency.
+Increasing the averaging length $\FilterLength$ then drastically impacts the computational cost of our simulations.
+This influenced the uncertainty of our results and the range of parameters we explored.
+
+Overall this result suggests that accessing larger scales of the flow could be beneficial for navigation as the swimming speed of the organisms increases.
+This statement is yet to be confirmed with future research, but if confirmed, this might have implications when taking into account the size of the plankters.
+
+% We further note that the maximum performance shifts towards lower values of the surfing time horizon $\TimeHorizon$ [particularly visible in Fig.~\ref{fig:surfing_filtered}(b)].
+% This suggests that the performance drop is linked to a smaller correlation timescales of the filtered measure.
+% This can be explained by the diffusive effect of turbulence presented in Chap.~\ref{chap:numeric}, Sec.~\ref{sec:turbulence}.
+% Indeed, the averaged velocity gradient tensor is also subject to ``subgrid'' turbulence, which tends to enhance mixing and diffusion, hence shorter correlation timescales.
+% As a consequence, even though the averaging length $\FilterLength$ does not have much influence on surfing performance at high Reynolds number ($\mathit{Re}_{\lambda} \gg 1$), planktonic organisms should measure the flow velocity gradients as finely as possible to get the most of the surfing strategy.
+
+\subsubsection{Noisy measures and control}\label{sec:noisy_measure_and_control}
+
+Sensing and motor control of real organisms are subject to biological noise.
+These sensing and control imperfection are completely left out of the previous simulations.
+In order to quantify the impact of noise on navigation we assess here how robust is the surfing strategy to various noise sources. 
+We first evaluate robustness to noisy measures of (1) the target direction $\Direction$ and (2) the velocity gradients $\Gradients$.
+We also assess the effect of noisy control of (3) the swimming direction $\SwimmingDirection$.
+
+To this end, we introduce an additive Wiener noise with standard deviation $\sigma$ on each of the components of the measure.
+For instance, the noisy measure of the target direction is expressed as
+\begin{equation}
+	\stepcounter{equation}
+	\label{eq:noise}
+	\Direction_{\textrm{measure}} = \frac{\DirectionNN_{\textrm{measure}}}{\norm{\DirectionNN_{\textrm{measure}}}}, \quad \text{with} \quad \DirectionNN_{\textrm{measure}} = \Direction + \vec{\xi}_{\sigma_{\Direction}} \text{,}
+\end{equation}
+with $\vec{\xi}_{\sigma}$ a Gaussian white noise so that $\left\langle \vec{\xi}_i(t)\vec{\xi}_j(t') \right\rangle = \sigma^2 \delta_{i,j} \delta(t - t')$.
+
+Results are summarized in Fig.~\ref{fig:surfing_noise}.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/noise}
+	\caption[Demonstration of surfing robustness to various noise sources.]{
+		Demonstration of surfing robustness to various noise sources.
+		Performance as a function of noise intensity on:
+		\textbf{(a)} the measure of $\Direction$,
+		\textbf{(b)} the flow velocity gradients $\Gradients$ sensing,
+		\textbf{(c)} the control of the swimming direction $\SwimmingDirection$.
+		The noise is modeled as a Gaussian white noise of standard deviation $\sigma$.
+		The shaded area represents the 95\% confidence interval.
+		Parameters: $\mathit{Re}_{\lambda} = 11$, $\SwimmingVelocity = 4 \KolmogorovVelocityScale$ and $\ReorientationTime = 0$.
+	}
+	\label{fig:surfing_noise}
+\end{figure}
+Figure \ref{fig:surfing_noise}(a) illustrates the influence of a noisy measure of the target direction. 
+Below $\sigma_{\Direction} = 25\%$, noise has a low impact on performance. 
+When the noise intensity reaches the magnitude of the signal measured ($\sigma_{\Direction} = 100\%$), performance of surfers and bottom-heavy swimmers decreases significantly.
+Real plankters might measure $\Direction$ using either gravity sensing or photoreceptors.
+As gravity sensing would be based on a measure of acceleration, we could expect noise to be due to flow acceleration.
+Note however that in the ocean, flow acceleration is at it strongest of the order of $0.3$ m.s$^{-2}$ \citep{fuchs2016seascape}. 
+That corresponds to a noise intensity of $\sigma_{\Direction} = 3\%$ and would not significantly impact performance in practice.
+
+Robustness of the surfing strategy to a noisy measure of $\Gradients$ is illustrated in Fig.~\ref{fig:surfing_noise}(b).
+A noise of intensity lower or equal to $25\%$ leaves the performance essentially unchanged. 
+However when the noise magnitude is equal to that of the signal measured ($\sigma_{\Gradients}/\KolmogorovTimeScale = 100\%$), performance of surfers decreases significantly.
+
+The effect of a noisy control of the swimming direction $\SwimmingDirection$ is shown in Fig.~\ref{fig:surfing_noise}(c).
+Noise intensity has a low impact on performance until it reaches $\sigma_{\SwimmingDirection} = 100\%$, when performance decreases significantly.
+
+Overall, surfing is robust to these various sources of noise: small noise intensities leave the performance essentially unchanged, and the effective speed $\left\langle \Performance \right\rangle_N$ remains greater than the swimming speed $\SwimmingVelocity$ up to noise intensities of $25\%$ of the signal intensity.
+
+\subsection{Limited reorienting skills}\label{sec:surfing_on_turbulence_rtime}
+
+So far we assumed the instantaneous reorientation of plankters that lead to the equations of motion \eqref{turb:eq:motion}.
+This assumption holds for plankters that are able to exert a large reorientation torque compared to the one induced by the flow.
+
+\subsubsection{Finite reorientation time}
+
+When the active torque plankters can produced is limited compared to the flow induced torque, the equation of plankter orientation, Eq.~\eqref{turb:eq:p_motion}, introduced in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_problem}, should be replaced by \citep{Pedley1992}
+\begin{equation}\label{eq:turb_pedley}
+		\frac{d \SwimmingDirection}{d t}  =
+		\frac{1}{2} \FlowVorticity (\ParticlePosition, t) \times \SwimmingDirection + \frac{1}{2 \ReorientationTime} \left[ \ControlDirection - (\ControlDirection \cdot \SwimmingDirection) \SwimmingDirection \right],
+\end{equation}
+where $\ReorientationTime$ is a characteristic reorientation time that arises from the balance between the viscous torque and the aligning torque (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_problem}).
+This aligning torque can either arise from active orientation or passive reorientation due to bottom-heaviness for instance.
+In this section, the preferred direction $\ControlDirection$ now differs from the swimming direction $\SwimmingDirection$ that is described by Eq.~\eqref{eq:turb_pedley}.
+
+The performance of surfers ($\ControlDirection=\ControlDirectionOpt$) and bottom-heavy swimmers ($\ControlDirection=\ControlDirection_{\mathrm{b-h}}=\Direction$) is plotted as a function of the reorientation time $\ReorientationTime$ in Fig.~\ref{fig:surfing_reorientation_time_alt} for $\mathit{Re}_\lambda = 418$ and $\mathit{Re}_\lambda = 11$.
+We observe for both turbulence intensities that the vertical effective velocity $\Performance$ decreases with $\ReorientationTime$.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/reynolds/rtime_alt}
+	\caption[Demonstration of surfing robustness to finite reorientation time $\ReorientationTime$.]{
+		Demonstration of surfing robustness to finite reorientation time $\ReorientationTime$.
+		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] of surfers compared to that of bottom-heavy plankters as a function of reorientation time $\ReorientationTime$.
+		The swimming velocity of plankters is set to $\SwimmingVelocity = \KolmogorovVelocityScale$.
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:surfing_reorientation_time_alt}
+\end{figure}
+This loss of performance is essentially due to the flow vorticity, which acts as a noise tilting the plankters away from their preferred direction.
+Note however that bottom-heavy swimmers (with $\ReorientationTime > 0$) are also known to sample preferentially downwelling regions of the flow \citep{kessler1985hydrodynamic, durham2013turbulence} that also contributes to this poor performance.
+This effect is discussed further in App.~\ref{app:additional_motion}, Sec.~\ref{sec:add_bh}.
+Nevertheless, surfers are still able to outperform bottom-heavy swimmers for the same reorientation time $\ReorientationTime$.
+Besides, as long as $\ReorientationTime \lesssim \KolmogorovTimeScale$, the maximal effective speed $\Performance$ that surfers can reach remains larger that their swimming speed $\SwimmingVelocity$ for both Reynolds numbers considered.
+This observation demonstrates the robustness of the surfing strategy to a finite reorientation time.
+A discussion about the relative value of the alignment time and the Kolmogorov time for actual plankters is differed to Chap.~\ref{chap:bio_discussion}.
+
+\subsubsection{Adapting the reorientation control}\label{sec:surfing_on_turbulence_p_control}
+
+In the precedent section, we use the equation of \eqref{eq:turb_pedley} to model the evolution of orientation of plankters.
+This model has been developed in the context of passively reorienting bottom-heavy microswimmers for which the reorientation dynamics are fixed.
+However the orientation dynamics of actively reorienting plankters depend on their behavior.
+Applying the same optimality driven approach employed to derive the surfing strategy, we can search for the optimal reorientation behavior that minimizes the time to reach a target direction $\ControlDirection_{\mathrm{target}}$.
+
+Starting from Eq.~\eqref{eq:turb_pedley}, we look for the the optimal control $\ControlDirection (t)$ that minimizes the time to reach a target orientation $\SwimmingDirection = \ControlDirection_{\mathrm{target}}$.
+Note that in Eq.~\eqref{eq:turb_pedley}, the controlled preferred direction $\ControlDirection(t)$ can always be chosen so that
+\begin{equation}
+	\label{eq:active_velocity}
+	\frac{d \SwimmingDirection}{d t} = \left[ \frac{1}{2} \FlowVorticity + \SwimmingAngularVelocityVector(t) \right] \times \SwimmingDirection
+\end{equation}
+with $\norm{\SwimmingAngularVelocityVector(t)} \in \left[ -\SwimmingAngularVelocity^{\max}, \SwimmingAngularVelocity^{\max} \right]$ and $\SwimmingAngularVelocity^{\max} = 1/(2\ReorientationTime)$.
+As a consequence the problem reduces to finding $\SwimmingAngularVelocityVector(t)$ that maximizes the alignment with the target orientation ($\SwimmingDirection \cdot \ControlDirection_{\mathrm{target}}$) over time.
+In a linear flow, $\SwimmingDirection \cdot \ControlDirection_{\mathrm{target}}$ is maximized for
+\begin{equation}
+	\label{eq:control_solution}
+	\SwimmingAngularVelocityVector = \min \left( \SwimmingAngularVelocity^{\max}, \norm{\SwimmingAngularVelocityVector^*} \right) \frac{\SwimmingAngularVelocityVector^*}{\norm{\SwimmingAngularVelocityVector^*}} ~ \text{ with } ~ \SwimmingAngularVelocityVector^* = \frac{\theta_{\SwimmingDirection, \ControlDirection_{\mathrm{target}}}}{\tau_{\mathrm{react}}} \frac{\SwimmingDirection \times \ControlDirection_{\mathrm{target}}}{\norm{\SwimmingDirection \times \ControlDirection_{\mathrm{target}}}} - \frac{1}{2} \FlowVorticity^{\perp \SwimmingDirection},
+\end{equation}
+with $\theta_{\SwimmingDirection, \ControlDirection_{\mathrm{target}}}$ the angle between $\SwimmingDirection$ and $\ControlDirection_{\mathrm{target}}$, $\tau_{\mathrm{react}}$ the delay between two consecutive choices of $\SwimmingAngularVelocityVector$ and $\FlowVorticity^{\perp \SwimmingDirection} = \FlowVorticity - ( \FlowVorticity \cdot \SwimmingDirection ) \SwimmingDirection$ the projection of the vorticity in the plane orthogonal to $\SwimmingDirection$.
+This expression actually matches the classic proportional control algorithm \citep{bequette2003process}.
+
+Note that when $\tau_{\mathrm{react}} \to 0$ and $\SwimmingAngularVelocity^{\max} \to +\infty$, we have
+\begin{equation}
+		\SwimmingAngularVelocityVector(t) =
+			\delta(t) \, \theta_{\SwimmingDirection_0, \ControlDirection_{\mathrm{target}}} \, \frac{\SwimmingDirection_0 \times \ControlDirection_{\mathrm{target}}}{\norm{\SwimmingDirection_0 \times \ControlDirection_{\mathrm{target}}}} - \frac{1}{2} \FlowVorticity^{\perp \SwimmingDirection}
+\end{equation}
+with $\delta$ the Dirac delta function.
+We then recover the assumption of instantaneous reorientation ($\SwimmingDirection = \ControlDirection_{\mathrm{target}}$).
+
+This improved active reorientation model [Eq.~\eqref{eq:control_solution}] is tested in numerical simulations of turbulence.
+To do so, we replace the finite reorientation dynamics described by Eq.~\eqref{eq:turb_pedley} with Eq.~\eqref{eq:active_velocity} for which the active velocity is prescribed by Eq.~\eqref{eq:control_solution}.
+Plankter migration performance is then evaluated for $\ControlDirection_{\mathrm{target}} = \ControlDirectionOpt$ and $\ControlDirection_{\mathrm{target}} = \Direction$ and compared to the migration performance of plankters that reorient using the classic orientation model of \citet{Pedley1992}.
+Results are plotted in Fig.~\ref{fig:surfing_reorientation_time}.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/reynolds/rtime}
+	\caption[Adapting the reorientation control further increase surfing performance.]{
+		Adapting the reorientation control further increase surfing performance.
+		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] of surfers and ``naive'' swimmers ($\ControlDirection = \Direction$) as a function of reorientation time $\ReorientationTime$.
+		Filled symbols corresponds to proportional control, Eq.~\eqref{eq:control_solution} and open symbol to the ``gyrotactic'' model of \citet{Pedley1992}.
+		The swimming velocity of plankters is set to $\SwimmingVelocity = \KolmogorovVelocityScale$. 
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:surfing_reorientation_time}
+\end{figure}
+We observe a slight but significant increase of surfing performance for $\ReorientationTime > 0$ which demonstrate numerically the efficiency of this approach.
+This approach can be used regardless of the strategy, and also leads to significant improvement even in the case of a naive strategy aiming to swim upwards.
+This model provides an control-based alternative to the widely used model of \citet{Pedley1992} for directional control by active reorientation \citep{colabrese2017flow, gustavsson2017finding, lange2021sperm}.
+
+Note furthermore that when relaxing some of the assumptions concerning the plankters we consider, such as the assumption of neutral buoyancy or the assumption of spherical shape, other torques appear enriching the rotation dynamics.
+However, most of this additional depend only on the local flow velocity gradients $\Gradients$ and plankter parameters.
+These effects can then easily be accounted for in this model by replacing the vorticity induced rotation $-\FlowVorticityScalar/2$ by the overall flow induced rotation.
+Refer to App.~\ref{app:additional_motion}, Sec.~\ref{sec:additional_rotation} for additional details.
+
+% Note that if we consider a spheroidal swimmer of aspect ration $A$ and we define $\beta$ as $\beta = (A - 1)/(A + 1)$.
+% The orientation of such a swimmer is described by:
+% \begin{equation}
+	% \label{eq:active_velocity}
+	% \frac{d \SwimmingDirection}{d t} = \left[ \frac{1}{2} \FlowVorticity + \beta \, \SwimmingDirection \times \mathrm{sym} \Gradients \cdot \SwimmingDirection + \vec{\omega}_{\mathrm{active}}(t) \right] \times \SwimmingDirection
+% \end{equation}
+% So to minimize the time to reach $\SwimmingDirection_{\mathrm{target}}$:
+% \begin{equation}
+	% \label{eq:solution}
+	% \vec{\omega}_{\mathrm{active}}^* = \frac{\theta_{\SwimmingDirection, \SwimmingDirection_{\mathrm{target}}}}{\tau_{\mathrm{react}}} \frac{\SwimmingDirection \times \SwimmingDirection_{\mathrm{target}}}{\norm{\SwimmingDirection \times \SwimmingDirection_{\mathrm{target}}}} - \frac{1}{2} \FlowVorticity^{\perp \SwimmingDirection} - \beta \, \SwimmingDirection \times \mathrm{sym} \Gradients \cdot \SwimmingDirection
+% \end{equation}
+
+\section{Summary}
+
+In this chapter, we demonstrated that the surfing strategy
+\begin{itemize}
+	\item it is robust to \textbf{variations of turbulence intensity} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:adaptive_strategy}):
+		\begin{itemize}
+			\item it can be \textbf{adapted} to account for these variations (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:adaptive_strategy_subsec})
+			\item it is robust to \textbf{turbulence spatial heterogeneity} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:num_channel_flow})
+		\end{itemize}
+	\item it is robust to \textbf{plankton limitations} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:plankter_limitations}):
+		\begin{itemize}
+			\item it is robust to \textbf{limited processing skills} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:computational_power})
+			\item it is robust to \textbf{sensing limitation} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:sensing_limitations}):
+				\begin{itemize}
+					\item it is robust to a \textbf{partial measure of the velocity gradients $\Gradients$} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_partial_measure})
+					\item it is robust to a \textbf{filtered measure of the velocity gradients $\Gradients$} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_filtered_measure})
+					\item it is robust to \textbf{various noise sources} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:noisy_measure_and_control})
+				\end{itemize}
+			\item it is robust to \textbf{limited reorientation skills} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:surfing_on_turbulence_rtime})
+		\end{itemize}
+\end{itemize}
+Furthermore, this analysis of surfing robustness brought to light the \textbf{benefit of spatial filtering} of the measure of the gradients $\Gradients$ for fast surfers and the proposition of another \textbf{control-based active reorientation model} for plankters.

@@ -1,0 +1,137 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (3.6,4.97) {$t =$};
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				horizontal sep=0.12\textwidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.47\textwidth,
+			% layers
+			set layers,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.25, 1.05)}, anchor=south},
+			legend cell align=left,
+			legend columns=-1,
+		]
+		% const surfer
+		\nextgroupplot[
+			% x
+			xlabel=$\SwimmingVelocity / U_b$,
+			xmin=0,
+			xmax=0.8,
+			% y
+			ylabel=$\left( \left\langle \Performance \right\rangle - U_b \right) / \SwimmingVelocity$,
+			ymin=0.5,
+			ymax=2.5,
+			%xmode=log,
+		]
+			\node[anchor=north east] at (axis cs:1.0,2.5) {\textbf{(a)}};
+			% us = 0.05
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{3}}, 
+				y expr={(\thisrowno{1} - 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_x/surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{3}}, 
+				y expr={(\thisrowno{1} - 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_x/surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!100!ColorVs,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{3}},
+				y expr={(\thisrowno{1} - 1.0) / \thisrowno{3}},
+				%y expr={\thisrowno{4}},
+				col sep=comma,
+				comment chars=\#,
+			] {data/adaptive_surfers_in_channel_flow_x/surfer__max_average_velocity_axis_0.csv};
+			% y = 1
+			\addplot[
+				black,
+				solid,
+				opacity=0.5,
+				domain=0:0.8,
+				samples=2,
+			] {1};
+
+		% adaptive
+		\nextgroupplot[
+			% x
+			xlabel=$c$,
+			xmin=0,
+			xmax=2.5,
+			% y
+			ylabel=$x_2/h$,
+			ymin=1e-3,
+			ymax=1e-0,
+			ymode=log,
+		]
+			\node[anchor=north west] at (axis cs:0.0,1.0) {\textbf{(b)}};
+			\addplot[
+				ColorBh!100!ColorDuration,
+				%only marks,
+				mark=triangle,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_x/surfer__us_0o05__surftimeprefactor_2o25__concentration_axis_1__t_0o0.csv};
+			\addlegendentry{0}
+			\addplot[
+				ColorBh!66!ColorDuration,
+				%only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_x/surfer__us_0o05__surftimeprefactor_2o25__concentration_axis_1__t_8o6645.csv};
+			\addlegendentry{0.4$h/\SwimmingVelocity$}
+			\addplot[
+				ColorBh!33!ColorDuration,
+				%only marks,
+				mark=pentagon,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_x/surfer__us_0o05__surftimeprefactor_2o25__concentration_axis_1__t_17o329.csv};
+			\addlegendentry{0.9$h/\SwimmingVelocity$}
+			\addplot[
+				ColorBh!00!ColorDuration,
+				%only marks,
+				mark=*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_x/surfer__us_0o05__surftimeprefactor_2o25__concentration_axis_1__t_25o9935.csv};
+			\addlegendentry{1.4$h/\SwimmingVelocity$}
+
+		
+	\end{groupplot}
+	% labels
+	%\node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	% stuff
+	%\node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameTss}};
+	%\node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameStraight}};
+\end{tikzpicture}

@@ -1,0 +1,89 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'biological_pump.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{937.44720219bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.80481996)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{biological_pump.pdf}}%
+    \put(0.78746029,0.57912517){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}respiration\end{tabular}}}}%
+    \put(0.73450894,0.67208217){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}zooplankton\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{biological_pump.pdf}}%
+    \put(0.54554262,0.56588254){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}grazing\end{tabular}}}}%
+    \put(0.37570677,0.66599502){\color[rgb]{0.74901961,0.8627451,0.59215686}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}phytoplankton\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{biological_pump.pdf}}%
+    \put(0.16013111,0.74672837){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ocean/atmosphere exchanges (mixing, dissolution...)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{biological_pump.pdf}}%
+    \put(0.26832113,0.52270934){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}photosynthesis,\\calcification\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{biological_pump.pdf}}%
+    \put(0.81057733,0.4899397){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}excretion\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{biological_pump.pdf}}%
+    \put(0.59124142,0.45725279){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}agregation\end{tabular}}}}%
+    \put(0.60090306,0.29875472){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sinking\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{biological_pump.pdf}}%
+    \put(0.42429849,0.33590861){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}bacterial\\decomposition\end{tabular}}}}%
+    \put(0.37094909,0.08636565){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}dissolution\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{biological_pump.pdf}}%
+    \put(0.92693497,0.41533945){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}vertical \\migration\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{biological_pump.pdf}}%
+    \put(0.72752708,0.14759057){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}consumption\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{biological_pump.pdf}}%
+    \put(0.59094926,0.00882994){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}carbon trapping\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{biological_pump.pdf}}%
+    \put(0.12915321,0.38229307){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}oceanic\\mixing\end{tabular}}}}%
+    \put(0.58053435,0.2260845){\color[rgb]{0.84705882,0.75294118,0.55294118}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}marine snow\end{tabular}}}}%
+    \put(0.16336113,0.5902408){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CO$_2$, HCO$_3^-$\end{tabular}}}}%
+    \put(0.92983215,0.6537611){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CO$_2$\end{tabular}}}}%
+    \put(0.2560767,0.15784044){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CO$_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{biological_pump.pdf}}%
+    \put(0.14225795,0.78559124){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CO$_2$\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

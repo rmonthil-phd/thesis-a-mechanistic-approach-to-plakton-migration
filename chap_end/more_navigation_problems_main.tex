@@ -1,0 +1,235 @@
+\chapter{Conclusion and perspectives}\label{chap:perspectives}
+
+The surfing strategy describes a reactive behavior that directly links the measures of the vertical $\Direction$ and the flow velocity gradients $\Gradients$ to a preferred swimming direction $\ControlDirectionOpt$ (cf. Chap.~\ref{chap:the_surfing_strategy})
+\begin{equation}
+	\label{end:eq:surfing_swimming_direction_final}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad \ControlDirectionOptNN = \left[ \exp \left( \TimeHorizon \Gradients \right) \right]^T \cdot \Direction.
+\end{equation}
+After characterizing this strategy in simple flow, we demonstrated its benefit in the context of vertical migration in simulations of turbulence: it leads to \textbf{+100\% speedup of vertical migration speed with respect to the actual swimming speed $\SwimmingVelocity$} for small swimming velocities relative to the scale of the smallest turbulent features $\SwimmingVelocity \lesssim \KolmogorovVelocityScale$ (cf. Chap.~\ref{chap:surfing_on_turbulence}).
+Moreover, this ``surfing performance'' \textbf{remains robust to} (cf. Chap.~\ref{chap:surfing_robustness}):
+\begin{itemize}
+	\item \textbf{variations of turbulence intensity} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:adaptive_strategy}):
+		\begin{itemize}
+			\item it can be \textbf{adapted} to account for these variations (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:adaptive_strategy_subsec})
+			\item it is robust to \textbf{turbulence spatial heterogeneity} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:num_channel_flow})
+		\end{itemize}
+	\item \textbf{plankton limitations} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:plankter_limitations}):
+		\begin{itemize}
+			\item it is robust to \textbf{limited processing skills} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:computational_power})
+			\item it is robust to \textbf{sensing limitation} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:sensing_limitations}):
+				\begin{itemize}
+					\item it is robust to a \textbf{partial measure of the velocity gradients $\Gradients$} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_partial_measure})
+					\item it is robust to a \textbf{filtered measure of the velocity gradients $\Gradients$} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_filtered_measure})
+					\item it is robust to \textbf{various noise sources} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:noisy_measure_and_control})
+				\end{itemize}
+			\item it is robust to \textbf{limited reorientation skills} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:surfing_on_turbulence_rtime})
+		\end{itemize}
+\end{itemize}
+This demonstrated robustness \textbf{strengthens the relevance of this strategy for biophysics}: it is expected to remain beneficial for actual, limited, plankters.
+We also compared qualitatively the surfing strategy to other navigation methods.
+We demonstrated that while not being optimal, \textbf{the surfing strategy is competitive with other navigation methods} and has the advantage of simplicity (cf. Chap.~\ref{chap:navigation}).
+Finally, we evaluated the expected surfing performance in the ocean as a function of oceanic tubulence intensity and demonstrated its potential benefit over a wide range of plankton habitats (Chap.~\ref{chap:bio_discussion}, Sec.~\ref{sec:how_plankton_perform}, Fig.~\ref{fig:surfing_bio}).
+Overall, \textbf{this strategy highlights the role of the gradient $\Gradients$} in the choice of the preferred swimming direction $\ControlDirection$, which could be used to evaluate experimentally the ability of plankters to navigate efficiently in flows (Chap.~\ref{chap:bio_discussion}, Sec.~\ref{sec:do_they_surf}).
+
+While the surfing strategy [$\ControlDirectionOpt$, Eq.~\eqref{end:eq:surfing_swimming_direction_final}] has been developed in the context of the vertical migration problem, it may have broader significance.
+Indeed, this strategy is a reactive behavior that directly links the measure of a target direction, $\Direction$, and the local measure of the flow velocity gradients, $\Gradients$, to the preferred swimming direction $\ControlDirection$.
+Up to this point, the target direction $\Direction$ considered is independent of time and corresponds to the vertical.
+However any target direction can be considered in practice.
+As a consequence, by setting $\Direction$ appropriately, one can use the surfing strategy to address additional navigation problems.
+Note that in the case that $\Direction$ also evolves in time (characterizing the direction towards a prey to catch for instance), we expect the time horizon $\TimeHorizon$ to depend on temporal statistics of both the measures: $\TimeHorizon \lesssim \min(1/\norm{d\Direction/dt}, 1/\norm{d\Gradients/dt})$.
+
+We conclude this thesis by pointing out the main challenges that remain to be addressed towards the better description of the plankter behavior in response to local flow measure.
+We first discuss of the fundamental question of the flow sampled by swimmers.
+Then we discuss of the question of deducing the target direction from flow measure.
+Finally we discuss of the ability to upscale the use of the strategy for broader applications.
+
+\section{Towards a better description of the flow sampled}
+
+Throughout our whole study, a large number of the phenomena we observed was related to the importance of the statistics of the flow sampled by swimming plankters.
+We first faced the problem in the context of the parameterization of the surfing strategy: its optimal time horizon $\TimeHorizonOpt$ is strongly dependant of the temporal statistics of the flow velocity gradients ($\Gradients$) sampled along plankter trajectories (Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:surfing_on_turbulence_IHT}).
+On top of the flow properties themselves, the temporal statistics of the flow measured by simulated plankters are strongly impacted by swimming speed, therefore influencing their navigation behavior.
+Furthermore we observed that the application of the surfing behavior influences the flow velocity sampled by swimmers (effect the surfing strategy is designed for) but also impacts its own measure of the flow velocity gradient $\Gradients$ (effect the surfing strategy is \textbf{not} designed for).
+Therefore, a better fundamental description of how moving particles sample the flow velocity gradients $\Gradients$ is essential for a broader understanding of most of the phenomena described in this study.
+Furthermore, the statistics of the sampled $\Gradients$ is directly linked to the flow information plankters may extract from the flow, regardless of their behavior in response to it.
+As a consequence the analysis of these statistics is not limited to the study of plankton vertical migrations but is of broader significance: it may be essential to the modelling of the general behavior of flow-informed plankters.
+
+We also observed large differences in the response of surfers to the strain part of the flow, $\GradientsSym$, velocity compared to the response to the rotational part of the flow, $\GradientsAsym$ (Chap.~\ref{chap:the_surfing_strategy}, \ref{sec:the_surfing_strategy_linear}).
+Furthermore, both these flow components do not contribute to the same extent to navigation efficiency (Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:estimating_surfing_performance}) while being known to behave differently in turbulence \citep{buaria2022vorticity}.
+This suggests the need for an even finer analysis that separates the different flow contributions to the flow velocity gradients sampled by microswimmers.
+The horizontal flow vorticity, that contributes for the most part to surfing performance (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_partial_measure}), would constitute a first good candidate to start such an analysis.
+
+The need for this analysis also arose when accounting for the local spatial filtering of the flow measure (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:rob_filtered_measure}).
+Essential for the study of the settling of inertial particles\footnote{Note that the settling of inertial particles is also discussed in App.~\ref{app:additional_motion}, Sec.~\ref{sec:passive_processes_inertial_effects}.} \citep{maxey1986gravitational, tom2019multiscale}, the statistics of the coarse grain gradients is the subject of recent interest, extensively discussed in \citet{tom2022investigation} for instance.
+But, even in the context of passive particles, the temporal statistics of the Lagrangian, locally filtered, velocity gradients remains to be described.
+Therefore, due to the significant importance of these statistics in both the context of plankter behavior and more generally the physics of particles in fluid flows, future research should continue the efforts towards their accurate description.
+
+\section{Towards other planktonic navigation problems}\label{sec:additional_navigation}
+
+In this section we discuss the use of the surfing strategy in the context of additional navigation problems. 
+We start by discussing the problem of larval horizontal dispersion and settlement.
+In particular, we show that the mean direction of the flow and the direction to flow boundaries can be deduced from second order spatial derivatives of the flow velocity.
+We then discuss long range navigation towards passive targets, detected through vision.
+Finally we briefly discuss possible approaches to address the problem of the planktonic odor tracking problem.
+
+\subsection{Larval horizontal dispersion and settlement}\label{sec:horizontal_dispersion}
+
+Many marine organisms, such as oysters and many of the sea snails, are sedentary during their adult stage.
+Their only chance to disperse and find new habitats to settle in is during their larval stage as plankters.
+It takes then a few generations for a population to migrate.
+This larval dispersion is then essential to explore the widest horizontal surface possible.
+To do so, many of these larvae navigate upwards when first released to escape the seafloor and catch up with strong surface horizontal currents \citep{mcedward2020ecology, welch2001flood, kingsford2002sensory}.
+When ready to settle, they navigate back downwards to find a substrate.
+Understanding the dynamics of this phenomenon is essential as it drives an important part of the behavior of planktonic larvae in nature and controls their spatial distribution.
+
+The larval dispersion dynamics can be decomposed in four phases corresponding to different navigation problems:
+\begin{itemize}
+	\item the vertical migration to escape the seafloor,
+	\item the foraging of large scale horizontal currents,
+	\item the downward vertical migration to get closer to the seafloor,
+	\item and the proper settlement on the final substrate.
+\end{itemize}
+Vertical migration has already been extensively treated throughout this study.
+Moreover, the particular case of navigating in the direction of a idealized flow boundary has been characterized in Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:channel_surfing_robustness} where we showed surfing to remain effective despite turbulence heterogeneity.
+
+However the issues of how to (1) forage for large scale horizontal currents and (2) forage for substrates to settle on remain untreated in this study.
+The later is particularly challenging in the case of the settlement of a vertical substrate.
+In that particular case relying on gravity alone is not enough to find these potential settling habitats.
+Therefore the ability of deducing the direction towards nearby vertical substrates from local flow sensing would provide an essential evolutionary advantage.
+
+These problems are particularly challenging in the perspective of navigation problems as it includes two aspects of navigation: (1) determining where the target is (2) and navigating efficiently towards it.
+While the later can be addressed using the surfing strategy described above, the former needs to be addressed.
+Moreover both aspects of the problem may interconnect so that the optimal solution might also define a trajectory that favours flow sampling that helps the determination of the target.
+While a first physics-based approach to address the problem is presented in App.~\ref{app:horizontal_dispersion}, much room is left for improvement in term of the complexity of the flow environment (simulate an actual seacoast) and the strategy considered (how well would reinforcement learning perform?).
+
+\subsection{Navigating to a passive target}\label{sec:navigating_passive_target}
+
+Navigating to a target is a common problem for planktonic organisms when they predate on other plankters.
+The close range dynamics of this problem is complex: it requires to account for hydrodynamic interactions between the prey and the predator.
+Despite its complexity, this navigation problem has been addressed in various contexts using either control theory \citep{zhu2022optimising} or reinforcement learning \citep{zhu2022optimising, borra2022reinforcement}.
+Even though the surfing strategy could be applied in this context, we would expect poor performance compared to the previously cited approach as it would neither account for the presence of hydrodynamic interactions, neither for the behavior of the prey (if it has one).
+
+\begin{wrapfigure}{R}{0.3\textwidth}
+	\centering
+	\def\svgwidth{0.3\textwidth}
+	\input{chap_more/schemes/random_walk_step.pdf_tex}
+  	\caption{Illustration of the effect of random walk on the distance to a target.}
+  	\label{fig:distance_target}
+\end{wrapfigure}
+However in the context of navigating towards a long range target, for instance detectable through light sensing if it is bioluminescent, those limitations may vanish.
+In that case the surfing strategy can be straightforwardly adapted by setting the target direction $\Direction$ to point towards the prey.
+However, note that the target direction, noted $\Direction_r$ in this context, then becomes time dependant.
+Therefore, as stated above, the optimal time horizon $\TimeHorizon$ depends as much on the temporal evolution of the local gradients, $\Gradients$, as on that of the local target direction $\Direction_r$.
+Therefore the temporal variation of $\Direction_r$ need to be characterized to discuss the application of the surfing strategy, as is, to this problem.
+To characterize this dependance as a function of the distance to the target $\TargetDistance$, a rough scaling in the inertial range can be deduced from the Eulerian statistics of the flow velocity in turbulence, characterized by the Kolmogorov spectrum (Eq.~\ref{eq:kolmogorov_spectrum}, Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit})
+\begin{equation}
+	\norm*{\frac{d \Direction_r}{dt}} \propto \epsilon^{1/3} r^{-1/6} + \alpha_\TargetDistance \, \SwimmingVelocity r^{-1},
+\end{equation}
+with $\epsilon$ the turbulence dissipation rate, $\SwimmingVelocity$ the plankter swimming velocity and $\alpha_\TargetDistance \ge 0$ a coefficient that depends on plankter behavior and that quantifies how much the plankter tends to swim orthogonally to $\Direction_r$.
+The naive behavior of swimming strait in the direction of the target would result in $\alpha_\TargetDistance = 0$ but any behavior that differs from it would lead to $\alpha_\TargetDistance > 0$.
+Overall this highlights the expected dependence of the adapted surfing strategy (or any navigation strategy) on the distance to the target $\TargetDirection$.
+This already highlight one of additional challenges of this problem.
+
+Another challenge of this problem lies in particle dispersion.
+Two particle placed in turbulence always eventually move away from each other.
+This phenomenon has received extensive interest in past research, reviewed in \citet{salazar2009two} for instance.
+
+A simple way to illustrate this phenomenon is to model it as a random walk problem:
+a plankter is placed in turbulence and the flow causes that plankter to move in random direction as successive steps of distance $\RandomWalkStepSize$ .
+Each step is separated by a time $\CorrelationTime$, characterizing the time correlations of the flow.
+This correlation time can be defined so that the step size is directly linked to the average velocity norm of the flow: $\RandomWalkStepSize = \langle \norm{\FlowVelocity} \rangle_{x, t} \CorrelationTime$.
+If now a target is given, and the distance $\TargetDistance$ to the target is monitored, how does $\TargetDistance$ evolve with time?
+Illustrated in Fig.~\ref{fig:distance_target}, even if the movement is random, the plankter has more chances to end up further away from the target that closer.
+We can then deduce an estimate of the dispersion velocity, $\DispersionVelocity(\TargetDistance)$, that pushes the plankter away from the target
+\begin{subequations}
+	\begin{align}
+		\DispersionVelocity(\TargetDistance) &= \frac{\left\langle \TargetDistance(t + \CorrelationTime) \right\rangle - \TargetDistance(t)}{\CorrelationTime} \\
+		\left\langle \TargetDistance(t + \CorrelationTime) \right\rangle &= \frac{1}{4\pi} \int_0^\pi \sqrt{r^2 + \left\langle \norm{d \TargetPosition / dt} \right\rangle_{x,t}^2 + 2 r \left\langle \norm{d \TargetPosition / dt} \right\rangle_{x,t} \cos \theta } \, \sin \theta  \, d\theta
+	\end{align}
+\end{subequations}
+with $\left\langle \norm{d \TargetPosition / dt} \right\rangle_{x,t}$ the average velocity difference between the predator and the target.
+This dispersion velocity characterizes the dispersion effects that predators have to overcome to reach their prey.
+As previously described this average velocity difference is also expected to be a function of both $\TargetDistance$ and the behavior of the plankton.
+
+In the case of the dispersion of passive particle, the phenomenon of particle dispersion is fairly well understood \citep{salazar2009two}.
+But as highlighted above, the active behavior of plankters may strongly influence the temporal statistics of the flow they sample, thereby impacting the correlation time $\CorrelationTime$ for instance (discussed in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:surfing_time_horizon})
+
+The significance of this predation problem for plankton ecology makes it interesting to study in the context of navigation.
+However, the additional effects that are to be accounted for makes it much more challenging to address than the vertical migration problem addressed here.
+Furthermore, the dynamics of dispersion in turbulence alone remains unclear in the context of actively swimming particles.
+The understanding of these dynamics is therefore essential and provide insight future navigation studies but also to interpret the results of past studies that address similar navigation problems \citep{alageshan2020machine}.
+
+\subsection{Navigating to an odor source}\label{sec:navigating_odor_source}
+
+Following an odor trail is another common navigation problem that plankters have to solve.
+For instance, some female copepods leave trails of pheromones for males to follow \citep{weissburg1998following, bagoien2005blind, yen2010chemical}.
+These odor trails are often characterized by their very low diffusion (corresponding to a high Péclet number $\mathrm{Pe}$) that makes them particularly challenging to model numerically.
+Therefore, the problem of the diffusion of these odors in turbulence itself is subject of ongoing research \citep{roberts2002turbulent}.
+
+However the recent development of the \textit{diffusive sheet method} \citep{martinez2018diffusive} makes the numerical modeling of this diffusion regime accessible.
+This enables the numerical modeling of the planktonic version of the odor tracking problem.
+\begin{figure}
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{chap_more/visu/filament__600.pdf_tex}
+    \caption{
+    	Simulation of a scalar filament in turbulence, as part of the implementation of the \textit{diffusive sheet method}, implemented in our homemade code \textit{Sheld0n}.
+    }
+    \label{fig:filament}
+\end{figure}
+As a first step to address this problem, we implemented this method in our open-source code \textit{Sheld0n} (Fig.~\ref{fig:filament}) ready to be used for future research.
+
+Note that numerous line-following navigation methods receive recent interest in various context \citep{yao2020path}.
+The particularity of odor following and its main challenge is to account for flow disturbance of that ``line''.
+
+\subsection{Collective navigation}
+
+Numerous planktonic organisms are known for their collective behaviors \citep{mukherjee2019photosensing, tsang2014flagella}.
+For instance, in the context of vertical migration, \citet{lovecchio2019chain} investigate the navigation advantage of collective chain formation.
+These chains are formed by cells remaining attached after cellular division.
+This effect is observed over a wide range phytoplankton species.
+Illustrated in Fig.~\ref{fig:chain_formation}, it is showed to influence significantly vertical migration.
+\begin{figure}
+    \centering
+    \def\svgwidth{0.6\textwidth}
+    \input{chap_end/schemes/chain_formation.pdf_tex}
+    \caption[Representation of the influence of chain formation on the plankter alignment with the flow.]{
+    	Representation of the influence of chain formation on the plankter alignment with the flow.
+    	No chain formed, $\textbf{(a)}$, implies little preferential alignment with the flow whereas, $\textbf{(b)}$, long chains tend to align with the extension axes of the flow.
+    }
+    \label{fig:chain_formation}
+\end{figure}
+This effect is essentially explained through the preferential alignment with the flow that is caused by shape elongation (discussed in more details in App.~\ref{app:additional_motion}, Sec.~\ref{sec:spheroids}).
+
+Overall, modeling the dynamics of plankton collective behavior is particularly important as they may also be responsible of part of the aggregation of planktonic organisms \citep{falgueras2022aggregated}.
+Therefore it eventually causes the formation of marine snow and may result in a large contribution to the ``biological pump'' (Chap.~\ref{chap:intro}).
+
+In the context of the surfing strategy proposed here, the flow generated by nearby plankters have not been considered.
+Similarly to the exploitation of background turbulence, this flow induced by nearby plankters could be exploited in the same way.
+We would then expect surfers to display a \textit{drafting} behavior, similar to that performed by cyclists when racing.
+The characterization of this effect is essential to understand the implications of a surfing-like behavior in weakly turbulent environments and its potential impact on aggregation.
+To this end, the stokesian dynamics approach (extensively described in \citep{townsend2017mechanics}), extended to the squirmer-like models \citep{ito2019swimming}, could be used to characterizes these phenomena numerically.
+
+\section{Surfing towards broader applications}
+
+As stated in our review (Chap.~\ref{chap:navigation}), the problem of navigation is the topic of interest of numerous field in a multitude of different contexts.
+Despite its application here in the context of the navigation of plankton, the surfing strategy, in its general form (Chap.~\ref{chap:navigation}, Sec.~\ref{sec:surfing_generalisation})
+\begin{equation}
+	\ControlDirection^* = \frac{\ControlDirectionNN^*}{\norm{\ControlDirectionNN^*}}, \quad \text{with} \quad \ControlDirectionNN^* = \exp \left[ \sum_{k=0}^\infty \left( \frac{d^k \Gradients}{dt^k} \right)^T \, \frac{\TimeHorizon^{k+1}}{(k+1)!} \, dt \right] \cdot \Direction,
+\end{equation}
+contributes to the list of optimal navigation strategies in the context of \textbf{directional} Zermelo navigation problem (ie. given a constant target direction $\Direction$ to follow and a final time $\FinalTime$).
+This solution has the fundamental advantage of directly linking the optimal preferred swimming direction (or steering direction) to a local flow measure.
+The locality of the flow measure is an important limitation for plankton but also for any kind of animal that contrary to humans cannot rely on flow information on a global scale to navigate.
+Therefore, in contrast with recent approaches, such as that of \citet{hays2014route} that uses Zermelo equation, this surfing strategy might also be of use to model long range migrations of larger marine animals \citep{fossette2015current, putman2014inherited, luschi2013long, hays2014route}, of aerial insects \citep{chapman2015long} and of birds \citep{wehner2001bird}.
+On top of these alternative applications to marine biophysics, this strategy could be readily implemented in unmaned vehicles with on-board controllers for autonomous navigation to be used in association or challenged with current navigation methods used in aerial \citep{reddy2018glider} or marine \citep{tranzatto2015navigation} vehicles.
+
+However attempting to upscale this strategy requires accounting for finite-size (and finite-mass) effects from which plankters are exempted for the most parts.
+Even for moderate size animals (such as fishes), the effects caused by finite-size are numerous, some of which a reviewed in \citet{brandt2022particle} in the context of idealized passive particles.
+Therefore we expect these effects to influence navigation and justify the need to account for them in future studies.
+One of these effects is that small scale flow fluctuations of smaller size than the size of the finite-size animal considered are filtered out (already discussed to some extent in Chap.~\ref{chap:surfing_robustness}, Sec.\ref{sec:rob_filtered_measure} by considering a filtered measure of the gradients $\Gradients$).
+
+Another of these effects is particle inertia.
+Among other effects, it may cause a delay between the dynamics of the particle with respect to the dynamics of the flow.
+This challenges the surfing strategy as its derivation assumes that the motion is described by the kinematics alone of the swimmers ($d^2 \ParticlePosition / dt^2 = \vec{0}$).
+However we show in App.~\ref{app:additional_motion}, Sec.~\ref{sec:passive_processes_inertial_effects} (1) that in the limit of small inertia, a kinematic equation of motion can be recovered that helps accounting for this effect and (2) that, even without accounting for inertia the surfing strategy remains surprisingly beneficial in this inertial context.
+This shows the surfing strategy as competitive in an inertial context and could be further compared to other physics based approaches such as the one proposed by \citet{bollt2021extract} in the future.
+Despite this promising performance the multitude of effects that would need to be accounted for in practice leaves much room for future research.

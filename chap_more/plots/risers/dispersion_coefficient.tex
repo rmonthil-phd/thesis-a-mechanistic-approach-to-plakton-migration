@@ -1,0 +1,102 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.08\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.55\textwidth,
+			height=0.45\textwidth,
+			% more
+			axis on top,
+			set layers,
+			% x
+			xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+			x label style={yshift=4pt},
+			xmin=0,
+			xmax=16,
+			% legend
+			%legend style={draw=none, fill=none, at={(1.0, 1.05)}, anchor=south},
+			legend style={draw=none, fill=none},
+			legend pos=south west,
+			legend cell align=left,
+			legend columns=1,
+		]
+	\node[anchor=center] at (5.7,4.6) {\textbf{(a)} $\hat{\vec{e}}_i = \Direction$};
+	\node[anchor=center] at (13.2,4.6) {\textbf{(b)} $\hat{\vec{e}}_i \cdot \Direction = 0$};
+	\nextgroupplot[
+		% y
+		ylabel={$D/\nu$},
+		y label style={yshift=-4pt},
+		ymin=0,
+		ymax=4,
+	]
+		\addplot
+		[
+		color=Color0,
+		opacity=1.0,
+		mark=square*,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1} / (1.0/250.0)},
+			col sep=comma,
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__diffusion_coefficient.csv};
+		\addlegendentry{$D_{\hat{\vec{e}}_i = \Direction}$}
+		\addplot
+		[
+		color=Color2,
+		opacity=1.0,
+		mark=o,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{3} / (1.0/250.0)},
+			col sep=comma,
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__diffusion_coefficient.csv};
+		\addlegendentry{$D_{\hat{\vec{e}}_i \cdot \Direction = 0}$}
+
+	\nextgroupplot[
+		% y
+		ylabel={$\CorrelationTime / \KolmogorovTimeScale$},
+		y label style={yshift=-4pt},
+		ymin=0,
+		ymax=3,
+	]
+		\addplot
+		[
+		color=Color0,
+		opacity=1.0,
+		mark=square*,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={6 * \thisrowno{1} / (0.6266*0.6266) / 0.088}, % time = 6 * D / U^2 and \tau_eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__diffusion_coefficient.csv};
+		\addlegendentry{$\tau_{\mathrm{corr.}, \hat{\vec{e}}_i = \Direction}$}
+		\addplot
+		[
+		color=Color2,
+		opacity=1.0,
+		mark=o,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={6 * \thisrowno{3} / (0.6266*0.6266) / 0.088}, % time = 6 * D / U^2 and \tau_eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+		]{data/risers__flow__n_128__re_250/riser__diffusion_coefficient.csv};
+		\addlegendentry{$\tau_{\mathrm{corr.}, \hat{\vec{e}}_i \cdot \Direction = 0}$}
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,135 @@
+% Display as a list of symbols
+\renewcommand{\nomname}{List of Symbols}
+%\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document}
+
+%% Typography:
+
+\nomenclature[A, 1]{\(a\)}{Scalar}
+\nomenclature[A, 2]{\(\vec{a},~\vec{A}\)}{Vector}
+\nomenclature[A, 3]{\(\hat{\vec{a}}\)}{Unit vector}
+\nomenclature[A, 4]{\(\matr{A}\)}{Matrix}
+
+%% Greek symbols
+
+\nomenclature[B, 01]{\(\alpha\)}{Largest eigenvalue of $\GradientsSym$ or dimensionless surfing time horizon [Eq.~\eqref{eq:tau_adapt}]}
+\nomenclature[B, 02]{\(\beta\)}{Intermediate (or smallest in 2D) eigenvalue of $\GradientsSym$ or bearing of vehicle}
+\nomenclature[B, 03]{\(\gamma\)}{Smallest eigenvalue of $\GradientsSym$, shear value in a simple shear flow}
+\nomenclature[B, 04]{\(\delta\)}{Defined as $\delta \equiv \alpha$}
+\nomenclature[B, 05]{\(\varDelta x\)}{Spatial increment}
+\nomenclature[B, 06]{\(\epsilon\)}{Turbulent energy dissipation rate [Eq.~\eqref{eq:dissipation_rate}]}
+\nomenclature[B, 07]{\(\KolmogorovScale\)}{Kolmogorov scale [Eq.~\eqref{eq:kolmogorov_scale}]}
+\nomenclature[B, 08]{\(\theta\)}{Signed angle from $\Direction$ to $\SwimmingDirection$ or latitude}
+\nomenclature[B, 09]{\(\theta_{\gamma}\)}{Signed angle from $\Direction$ to the direction of shear}
+\nomenclature[B, 10]{\(\theta_{\mathrm{\NameSurfShort}}\)}{Signed angle from $\Direction$ to $\ControlDirectionOpt$ (axis depends on the context)}
+\nomenclature[B, 11]{\(\lambda\)}{Taylor microscale [Eq.~\eqref{eq:taylor_microscale}] or length horizon in the local Dijkstra approach}
+\nomenclature[B, 12]{\(\varLambda\)}{Final length to reach}
+\nomenclature[B, 13]{\(\nu\)}{Fluid kinematic viscosity}
+\nomenclature[B, 14]{\(\mu\)}{Fluid dynamic viscosity}
+\nomenclature[B, 15]{\(\rho_f\)}{Fluid density}
+\nomenclature[B, 16]{\(\rho_p\)}{Plankter density}
+\nomenclature[B, 17]{\(\sigma\)}{Standard deviation}
+\nomenclature[B, 18]{\(\TimeHorizon\)}{Surfing time horizon [Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}]}
+\nomenclature[B, 19]{\(\KolmogorovTimeScale\)}{Kolmogorov time scale [Eq.~\eqref{eq:kolmogorov}]}
+\nomenclature[B, 20]{\(\InertialDelayRot\)}{Inertial rotation delay [Eq.~\eqref{eq:stokes_rotation}]}
+\nomenclature[B, 21]{\(\ReorientationTime\)}{Reorientation time [Eq.~\eqref{eq:pedley_orientation}]}
+\nomenclature[B, 22]{\(\InertialDelay\)}{Inertial delay [Eq.~\eqref{eq:stokes_motion}]}
+\nomenclature[B, 23]{\(\phi\)}{Longitude}
+\nomenclature[B, 24]{\(\phi_{\Direction}\)}{Orientation of $\Direction$ with respect with the flow}
+\nomenclature[B, 25]{\(\FlowVorticity\)}{Flow vorticity}
+\nomenclature[B, 26]{\(\FlowVorticityScalar\)}{Flow vorticity norm}
+\nomenclature[B, 27]{\(\FlowVorticityScalar_{f}\)}{Temporal pulsation}
+\nomenclature[B, 28]{\(\FlowVorticityScalar_{\max}\)}{Maximal flow vorticity norm}
+\nomenclature[B, 29]{\(\vec{\varOmega}\)}{Plankter angular velocity}
+\nomenclature[B, 30]{\(\varOmega_{\mathrm{swim}}\)}{Plankter active angular velocity}
+\nomenclature[B, 31]{\(\GradientsAsym\)}{Skew symmetric part of the flow velocity gradient tensor [Eq.~\eqref{eq:sym_def}]}
+
+%% Letters
+
+\nomenclature[C, 01]{\(d\)}{Plankter diameter}
+\nomenclature[C, 02]{\(\hat{\vec{e}}_{\alpha}\)}{Normalized eigenvector of $\GradientsSym$ associated to the eigenvalue $\alpha$}
+\nomenclature[C, 03]{\(\hat{\vec{e}}_{\beta}\)}{Normalized eigenvector of $\GradientsSym$ associated to the eigenvalue $\beta$}
+\nomenclature[C, 04]{\(\hat{\vec{e}}_{\gamma}\)}{Normalized eigenvector of $\GradientsSym$ associated to the eigenvalue $\gamma$}
+\nomenclature[C, 05]{\(E\)}{Spectral energy density or set of graph edges}
+\nomenclature[C, 06]{\(\mathcal{E}\)}{Total kinetic energy of the flow}
+\nomenclature[C, 07]{\(\vec{f}_{\mathrm{ext.}}\)}{Resultant of external volumic forces on the fluid}
+\nomenclature[C, 08]{\(\vec{F}_{\mathrm{flow}}\)}{Resultant of flow forces on the plankter}
+\nomenclature[C, 09]{\(h\)}{Height of a viscous channel flow or half height of a turbulent channel flow}
+\nomenclature[C, 10]{\(I(\omega_f)\)}{Module of the temporal Fourier transform of an invariant of the velocity gradient tensor, defined in Tab.\ref{tab:invariants}}
+\nomenclature[C, 11]{\(k\)}{Iterator or vector number}
+\nomenclature[C, 12]{\(k_{\max}\)}{Maximal vector number resolve in a simulation}
+\nomenclature[C, 13]{\(l\)}{Turbulent flow length scale that ranges from $\KolmogorovScale$ to $L$ or filter length [Eq.~\eqref{eq:filter_length}]}
+\nomenclature[C, 14]{\(L\)}{Taylor-Green vortex cell length scale or the turbulence integral scale [Eq.~\eqref{eq:integral_scale}]}
+\nomenclature[C, 15]{\(\ControlDirection\)}{Preferred orientation of the plankter}
+\nomenclature[C, 16]{\(\ControlDirection_{a \to b}\)}{Control to apply to get from vertex $a$ to vertex $b$ [Eq.~\eqref{eq:dijkstra_edge_direction}]}
+\nomenclature[C, 17]{\(N\)}{Number of simulated plankters}
+\nomenclature[C, 18]{\(m\)}{Dimension of the problem: $m=2$ for 2D and $m=3$ for 3D}
+\nomenclature[C, 19]{\(p\)}{Flow pressure or probability function}
+\nomenclature[C, 20]{\(\SwimmingDirection\)}{Plankter orientation/swimmming direction}
+\nomenclature[C, 21]{\(r_c\)}{Connectivity radius (Fig.~\ref{fig:dijkstra_edges})}
+\nomenclature[C, 22]{\(\matr{R}_{\hat{\vec{x}}}(\theta)\)}{Rotation matrix of axis $\hat{\vec{x}}$ and angle $\theta$}
+\nomenclature[C, 23]{\(\GradientsSym\)}{Symmetric part of the flow velocity gradient tensor [Eq.~\eqref{eq:sym_def}]}
+\nomenclature[C, 24]{\(t\)}{Time}
+\nomenclature[C, 25]{\(\FinalTime\)}{Final time}
+\nomenclature[C, 26]{\(T_{a \to b}\)}{Edge weight corresponding to the time to get from vertex $a$ to the vertex $b$ [Eq.~\eqref{eq:dijkstra_edge_time}]}
+\nomenclature[C, 27]{\(T_{L}\)}{Large-eddy turnover time}
+\nomenclature[C, 27]{\(T_{\mathrm{flow}}\)}{Resultant of flow torques on the plankter}
+\nomenclature[C, 28]{\(\FlowVelocity\)}{Flow velocity}
+\nomenclature[C, 29]{\(\FlowVelocityScalar\)}{Flow velocity norm}
+\nomenclature[C, 30]{\(\FlowVelocityScalar_{\max}\)}{Maximal flow velocity norm}
+\nomenclature[C, 31]{\(\FlowVelocityScalar_{\mathrm{rms}}\)}{Root mean square velocity}
+\nomenclature[C, 32]{\(\KolmogorovVelocityScale\)}{Kolmogorov velocity scale [Eq.~\eqref{eq:kolmogorov}]}
+\nomenclature[C, 33]{\(U\)}{Large scale flow velocity}
+\nomenclature[C, 34]{\(D\)}{Large scale flow length}
+\nomenclature[C, 35]{\(V\)}{Volume or set of graph vertices}
+\nomenclature[C, 36]{\(\Performance\)}{Effective upward velocity [Eq.~\eqref{eq:surfing_performance}]}
+\nomenclature[C, 37]{\(\SwimmingVelocity\)}{Plankter swimming speed}
+\nomenclature[C, 38]{\(\vec{x}\)}{Position in space}
+\nomenclature[C, 39]{\(\ParticlePosition\)}{Plankter position}
+\nomenclature[C, 40]{\(\Direction\)}{Target direction, vertical direction (upward)}
+
+%% Nabla
+
+% \nomenclature[D, 1]{\(\vec{\nabla} = \begin{pmatrix}[1.8] \displaystyle \frac{\partial}{\partial x} \\ \displaystyle \frac{\partial}{\partial y} \\ \displaystyle \frac{\partial}{\partial z} \end{pmatrix}\)}{Gradient operator}
+% \nomenclature[D, 2]{\(\vec{\nabla} \cdot \FlowVelocity = \displaystyle \frac{\partial \FlowVelocityScalar_x}{\partial x} + \frac{\partial \FlowVelocityScalar_y}{\partial y} + \frac{\partial \FlowVelocityScalar_z}{\partial z}\)}{Divergence of flow velocity}
+% \nomenclature[D, 3]{\(\vec{\nabla} \FlowVelocity = \begin{pmatrix}[1.8] \displaystyle \frac{\partial \FlowVelocityScalar_x}{\partial x} & \displaystyle \frac{\partial \FlowVelocityScalar_x}{\partial y} & \displaystyle \frac{\partial \FlowVelocityScalar_x}{\partial z} \\ \displaystyle \frac{\partial \FlowVelocityScalar_y}{\partial x} & \displaystyle \frac{\partial \FlowVelocityScalar_y}{\partial y} & \displaystyle \frac{\partial \FlowVelocityScalar_y}{\partial z} \\ \displaystyle \frac{\partial \FlowVelocityScalar_z}{\partial x} & \displaystyle \frac{\partial \FlowVelocityScalar_z}{\partial y} & \displaystyle \frac{\partial \FlowVelocityScalar_z}{\partial z} \end{pmatrix}\)}{Gradient tensor of flow velocity}
+% \nomenclature[D, 4]{\(\vec{\nabla}^2 \FlowVelocity = \begin{pmatrix}[1.8] \displaystyle \frac{\partial^2 \FlowVelocityScalar_x}{\partial x^2} \\ \displaystyle \frac{\partial^2 \FlowVelocityScalar_y}{\partial y^2} \\ \displaystyle \frac{\partial^2 \FlowVelocityScalar_z}{\partial^2 z} \end{pmatrix}\)}{Laplacian of flow velocity}
+
+\nomenclature[D, 1]{\(\vec{\nabla} a\)}{Gradient vector operator}
+\nomenclature[D, 1]{\(\vec{\nabla} \vec{a}\)}{Gradient tensor operator}
+\nomenclature[D, 2]{\(\vec{\nabla} \cdot \vec{a}\)}{Divergence operator}
+\nomenclature[D, 3]{\(\vec{\nabla}^2 \vec{a}\)}{Laplacian operator}
+
+%% Dimensionless numbers
+
+\nomenclature[E, 1]{\(\displaystyle \mathit{Re}\)}{Reynolds number [Eq.~\eqref{eq:reynolds_number}]}
+\nomenclature[E, 2]{\(\displaystyle \mathit{Re_{\lambda}}\)}{Taylor scale Reynolds number [Eq.~\eqref{eq:taylor_scale_reynolds}]}
+\nomenclature[E, 3]{\(\displaystyle \mathit{Re_p}\)}{Particle Reynolds number [Eq.~\eqref{eq:particle_reynolds_number}]}
+\nomenclature[E, 4]{\(\displaystyle \mathit{St}\)}{Stokes number [Eq.~\eqref{eq:stokes_number}]}
+
+%% Subscripts and superscripts
+
+\nomenclature[F, 1]{\(\displaystyle a_0\)}{Refers to "initial", at $t=0$ or the first term of a series}
+\nomenclature[F, 2]{\(\displaystyle a_{\mathrm{\NameBhShort}}\)}{Refers to "bottom-heavy plankter"}
+\nomenclature[F, 3]{\(\displaystyle a_{\mathrm{\NameSurfShort}}\)}{Refers to "surfer"}
+\nomenclature[F, 4]{\(\displaystyle a^{*}\)}{Characterizes optimality}
+
+%% Operators
+
+\nomenclature[G, 01]{\(\displaystyle \norm{a}\)}{Absolute value for scalars or cardinal for sets}
+\nomenclature[G, 02]{\(\displaystyle \norm{\vec{a}}\)}{Frobenius norm}
+\nomenclature[G, 03]{\(\displaystyle \norm{\matr{A}}\)}{Frobenius norm}
+\nomenclature[G, 04]{\(\displaystyle \frac{\partial a}{\partial t}\)}{Eulerian temporal derivative}
+\nomenclature[G, 05]{\(\displaystyle \frac{D a}{D t}\)}{Particle derivative (along a flow particle trajectory)}
+\nomenclature[G, 06]{\(\displaystyle \frac{d a}{d t}\)}{Derivative along a plankter trajectory}
+\nomenclature[G, 07]{\(\displaystyle \exp \matr{A}\)}{Matrix exponential}
+\nomenclature[G, 08]{\(\displaystyle \sgn a\)}{Sign function}
+\nomenclature[G, 09]{\(\displaystyle \asym \matr{A}\)}{Skew symmetric part of a matrix}
+\nomenclature[G, 10]{\(\displaystyle \sym \matr{A}\)}{Symmetric part of a matrix}
+\nomenclature[G, 11]{\(\displaystyle \tr \matr{A}\)}{Matrix trace}
+\nomenclature[G, 12]{\(\displaystyle \matr{A}^T\)}{Matrix transpose}
+\nomenclature[G, 13]{\(\displaystyle a \equiv b\)}{Definition of $a$ as $b$}
+\nomenclature[G, 14]{\(\displaystyle \left\langle a \right\rangle_N\)}{Average over $N$ simulated plankters}
+\nomenclature[G, 15]{\(\displaystyle \left\langle a \right\rangle_{N, \Direction}\)}{Average over $N$ simulated plankters and over random orientations of $\Direction$}
+\nomenclature[G, 16]{\(\displaystyle \vec{a}^{\bot \hat{\vec{b}}}\)}{Projection of $\vec{a}$ in the plane orthogonal to $\hat{\vec{b}}$: $\vec{a} - (\vec{a} \cdot \hat{\vec{b}}) \hat{\vec{b}}$}
+
+\printnomenclature

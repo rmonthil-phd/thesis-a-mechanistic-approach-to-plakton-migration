@@ -1,0 +1,92 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'bio_relevance.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{195.23838043bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.22926802)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.7123832,1.10479245){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}surf zone\end{tabular}}}}%
+    \put(0.0648766,0.34069356){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\left\langle \Performance \right\rangle / \SwimmingVelocity$\end{tabular}}}}}%
+    \put(0.07024578,0.06731155){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-10}$\end{tabular}}}}%
+    \put(0.89231773,0.06731155){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-2}$\end{tabular}}}}%
+    \put(0.08200593,0.10135672){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$0$\end{tabular}}}}%
+    \put(0.46290326,0.9210729){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\KolmogorovVelocityScale$ (m\,s$^{-1}$)\end{tabular}}}}%
+    \put(0.44283553,0.01386512){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\epsilon$ (m$^{2}$\,s$^{-3}$)\end{tabular}}}}%
+    \put(0.58483089,0.59499678){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}copepod\end{tabular}}}}%
+    \put(0.22485123,0.58920247){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}larva\end{tabular}}}}%
+    \put(0.49115433,0.74391145){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}dinoflagellate\end{tabular}}}}%
+    \put(0.18122784,0.19484374){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}surfer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{bio_relevance.pdf}}%
+    \put(0.17996441,0.14736086){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}bottom-heavy\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{bio_relevance.pdf}}%
+    \put(0.69256193,0.06731155){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-4}$\end{tabular}}}}%
+    \put(0.48512321,0.06731155){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-6}$\end{tabular}}}}%
+    \put(0.28536741,0.06731155){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-8}$\end{tabular}}}}%
+    \put(0.08200593,0.41635625){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$1$\end{tabular}}}}%
+    \put(0.08200593,0.72367291){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$2$\end{tabular}}}}%
+    \put(0.07024578,0.8740177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-4}$\end{tabular}}}}%
+    \put(0.89231773,0.8740177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-2}$\end{tabular}}}}%
+    \put(0.48512321,0.8740177){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-3}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{bio_relevance.pdf}}%
+    \put(0.07024578,1.14987605){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{2}$\end{tabular}}}}%
+    \put(0.89231773,1.14987605){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-2}$\end{tabular}}}}%
+    \put(0.6771961,1.14987605){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{-1}$\end{tabular}}}}%
+    \put(0.48512321,1.14987605){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{0}$\end{tabular}}}}%
+    \put(0.28536741,1.14987605){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$10^{1}$\end{tabular}}}}%
+    \put(0.49513393,1.20166601){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\KolmogorovTimeScale$ (s)\end{tabular}}}}%
+    \put(0.3065367,0.98269104){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}open ocean\end{tabular}}}}%
+    \put(0.37354373,1.02509682){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}continental shelf\end{tabular}}}}%
+    \put(0.51902506,1.06961207){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}estuaries\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{bio_relevance.pdf}}%
+    \put(0.12416108,0.82728848){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\xleftarrow[\SwimmingVelocity \gg \KolmogorovVelocityScale]{}$\end{tabular}}}}%
+    \put(0.75668032,0.82728848){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\xrightarrow[\ReorientationTime \gg \KolmogorovTimeScale]{}$\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

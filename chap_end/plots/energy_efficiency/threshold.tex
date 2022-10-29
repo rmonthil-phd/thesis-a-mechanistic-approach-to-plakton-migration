@@ -1,0 +1,295 @@
+\begin{tikzpicture}
+	% gain as a function of the free parameter $\tau$
+	\begin{groupplot}[
+   		group style={
+   			group size=2 by 1,
+   			y descriptions at=edge left,
+   			horizontal sep=0.08\linewidth,
+   		},
+   		% size
+   		width=0.5\textwidth,
+		% x
+		xlabel=$\theta_{\mathrm{th}}$,
+		xmin=0.1,
+		xmax=0.5,
+		xtick={0.1, 0.2, 0.3, 0.4, 0.5},
+		xticklabels={$\pi/10$, $\pi/5$, $3\pi/10$, $2\pi/5$, $\pi/2$},
+		% y
+		ymin=0,
+		ymax=0.6,
+		ylabel={$\left\langle \Performance \right\rangle_N / \sqrt{\left\langle P_{\mathrm{swim}} \right\rangle_{N, t}/24 \pi \mu d}$},
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+   	]
+		\nextgroupplot[
+			axis on top,
+		]
+
+			\pgfplotstableread[col sep=comma]{data/on_off_risers__flow__n_128__re_250/on_off_riser__merge_average_velocity_axis_0.csv}\TableVelocity
+			\pgfplotstableread[col sep=comma]{data/on_off_risers__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv}\TablePower
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TablePower}\to\TablePowerColumnFour
+			\pgfplotstablecreatecol[create col/copy column from table=\TablePower{\TablePowerColumnFour}]{velocity^2}\TableVelocity
+			\pgfplotstablegetcolumnnamebyindex{0}\of{\TableVelocity}\to\TablePowerColumnZero
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TableVelocity}\to\TablePowerColumnOne
+			\pgfplotstablegetcolumnnamebyindex{2}\of{\TableVelocity}\to\TablePowerColumnTwo
+			\pgfplotstablegetcolumnnamebyindex{3}\of{\TableVelocity}\to\TablePowerColumnThree
+			\pgfplotstablegetcolumnnamebyindex{4}\of{\TableVelocity}\to\TablePowerColumnFour
+			\pgfplotstablegetcolumnnamebyindex{5}\of{\TableVelocity}\to\TablePowerColumnFive
+		
+			\node[anchor=north west] at (axis cs:0.1,0.6) {\textbf{(a)}: $P_{\mathrm{swim}, \mathrm{target}} = (3/2) \pi \mu d \KolmogorovVelocityScale^2$};
+			%% riser
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x index=\TablePowerColumnFour,
+				y expr={\thisrow{\TablePowerColumnOne} / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addlegendentry{\NameBhShort}
+
+			\pgfplotstableread[col sep=comma]{data/on_off_surfers__flow__n_128__re_250/on_off_surfer__merge_average_velocity_axis_0.csv}\TableVelocity
+			\pgfplotstableread[col sep=comma]{data/on_off_surfers__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv}\TablePower
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TablePower}\to\TablePowerColumnFour
+			\pgfplotstablecreatecol[create col/copy column from table=\TablePower{\TablePowerColumnFour}]{velocity^2}\TableVelocity
+			\pgfplotstablegetcolumnnamebyindex{0}\of{\TableVelocity}\to\TablePowerColumnZero
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TableVelocity}\to\TablePowerColumnOne
+			\pgfplotstablegetcolumnnamebyindex{2}\of{\TableVelocity}\to\TablePowerColumnTwo
+			\pgfplotstablegetcolumnnamebyindex{3}\of{\TableVelocity}\to\TablePowerColumnThree
+			\pgfplotstablegetcolumnnamebyindex{4}\of{\TableVelocity}\to\TablePowerColumnFour
+			\pgfplotstablegetcolumnnamebyindex{5}\of{\TableVelocity}\to\TablePowerColumnFive
+
+			%% surf
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=\TablePowerColumnFour,
+				y expr={\thisrow{\TablePowerColumnOne} / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{1.0:1.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addlegendentry{\NameSurfShort \quad\quad\quad\quad $\alpha_{\mathrm{\NameSurfShort}}=$}
+
+			%%% models
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			solid,
+			domain=0.1:0.5,
+			]{0.25 * sin(deg(x * pi))^2/sqrt(1 - cos(deg(x * pi)))};
+			\addlegendentry{$1$}
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			solid,
+			domain=0.1:0.5,
+			]{1.7 * 0.25 * sin(deg(x * pi))^2/sqrt(1 - cos(deg(x * pi)))};
+			\addlegendentry{$1.7$}
+			
+			% %% y = x
+			% \addplot
+			% [
+			% color=gray!50!white,
+			% opacity=1.0,
+			% %line width=1pt,
+			% solid,
+			% on layer=axis background,
+			% domain=0:16,
+			% ]{1};
+
+
+		\nextgroupplot[
+			axis on top,
+			% legend
+			legend style={at={(0.52, 1.05)}, anchor=south},
+		]
+			\node[anchor=north west] at (axis cs:0.1,0.6) {\textbf{(b)}: $P_{\mathrm{swim}, \mathrm{target}} = (3/2) \pi \mu d (4\KolmogorovVelocityScale)^2$};
+
+			\pgfplotstableread[col sep=comma]{data/on_off_risers_fast__flow__n_128__re_250/on_off_riser__merge_average_velocity_axis_0.csv}\TableVelocity
+			\pgfplotstableread[col sep=comma]{data/on_off_risers_fast__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv}\TablePower
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TablePower}\to\TablePowerColumnFour
+			\pgfplotstablecreatecol[create col/copy column from table=\TablePower{\TablePowerColumnFour}]{velocity^2}\TableVelocity
+			\pgfplotstablegetcolumnnamebyindex{0}\of{\TableVelocity}\to\TablePowerColumnZero
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TableVelocity}\to\TablePowerColumnOne
+			\pgfplotstablegetcolumnnamebyindex{2}\of{\TableVelocity}\to\TablePowerColumnTwo
+			\pgfplotstablegetcolumnnamebyindex{3}\of{\TableVelocity}\to\TablePowerColumnThree
+			\pgfplotstablegetcolumnnamebyindex{4}\of{\TableVelocity}\to\TablePowerColumnFour
+			\pgfplotstablegetcolumnnamebyindex{5}\of{\TableVelocity}\to\TablePowerColumnFive
+		
+			\node[anchor=north west] at (axis cs:0.6,0.0) {\textbf{(a)}: $P_{\mathrm{swim}, \mathrm{target}} = (3/2) \pi \mu d \KolmogorovVelocityScale^2$};
+			%% riser
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o,
+			forget plot
+			]
+			table[
+				x index=\TablePowerColumnFour,
+				y expr={\thisrow{\TablePowerColumnOne} / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			%\addlegendentry{\NameBhShort}
+
+			\pgfplotstableread[col sep=comma]{data/on_off_surfers_fast__flow__n_128__re_250/on_off_surfer__merge_average_velocity_axis_0.csv}\TableVelocity
+			\pgfplotstableread[col sep=comma]{data/on_off_surfers_fast__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv}\TablePower
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TablePower}\to\TablePowerColumnFour
+			\pgfplotstablecreatecol[create col/copy column from table=\TablePower{\TablePowerColumnFour}]{velocity^2}\TableVelocity
+			\pgfplotstablegetcolumnnamebyindex{0}\of{\TableVelocity}\to\TablePowerColumnZero
+			\pgfplotstablegetcolumnnamebyindex{1}\of{\TableVelocity}\to\TablePowerColumnOne
+			\pgfplotstablegetcolumnnamebyindex{2}\of{\TableVelocity}\to\TablePowerColumnTwo
+			\pgfplotstablegetcolumnnamebyindex{3}\of{\TableVelocity}\to\TablePowerColumnThree
+			\pgfplotstablegetcolumnnamebyindex{4}\of{\TableVelocity}\to\TablePowerColumnFour
+			\pgfplotstablegetcolumnnamebyindex{5}\of{\TableVelocity}\to\TablePowerColumnFive
+
+			%% surf
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} - \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=\TablePowerColumnFour,
+				y expr={(\thisrow{\TablePowerColumnOne} + \thisrow{\TablePowerColumnTwo}) / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*,
+			forget plot
+			]
+			table[
+				x index=\TablePowerColumnFour,
+				y expr={\thisrow{\TablePowerColumnOne} / sqrt(2*\thisrow{\TablePowerColumnFive})}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrow{\TablePowerColumnThree}}{4.0:4.0},
+				unbounded coords=discard,
+			]{\TableVelocity};
+			%\addlegendentry{\NameSurfShort \quad\quad\quad\quad $\alpha_{\mathrm{\NameSurfShort}}=$}
+
+			%%% models
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			solid,
+			domain=0.1:0.5,
+			forget plot,
+			]{0.25 * sin(deg(x * pi))^2/sqrt(1 - cos(deg(x * pi)))};
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			dashed,
+			domain=0.1:0.5,
+			]{1.2 * 0.25 * sin(deg(x * pi))^2/sqrt(1 - cos(deg(x * pi)))};
+			\addlegendentry{$1.2$}
+			
+			% %% y = x
+			% \addplot
+			% [
+			% color=gray!50!white,
+			% opacity=1.0,
+			% %line width=1pt,
+			% solid,
+			% on layer=axis background,
+			% domain=0:16,
+			% ]{1};
+	\end{groupplot}
+\end{tikzpicture}

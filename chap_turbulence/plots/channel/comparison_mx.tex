@@ -1,0 +1,290 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (2.2,5.35) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				y descriptions at=edge left,
+				horizontal sep=0.04\textwidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.5\textwidth,
+			% y
+			ylabel=$\left( \left\langle \Performance \right\rangle + U_b \right) / \SwimmingVelocity$,
+			ymin=0.0,
+			ymax=4.0,
+			% layers
+			set layers,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+			legend cell align=left,
+			legend columns=-1,
+		]
+		
+		% const surfer
+		\nextgroupplot[
+			% x
+			xlabel=$\TimeHorizon$,
+			xmin=0,
+			xmax=3,
+			%xmode=log,
+		]
+			\node[anchor=north west] at (axis cs:0.0,3.0) {\textbf{(a)}};
+			% us = 0.05
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!100!ColorVs,
+				only marks,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+			] {data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$U_b/20$}
+			% us = 0.1
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!66!ColorVs,
+				only marks,
+				mark=square,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+			] {data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$U_b/10$}
+			% us = 0.2
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!33!ColorVs,
+				only marks,
+				mark=pentagon*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+			] {data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$U_b/5$}
+			% us = 0.4
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+				unbounded coords=discard,
+			]{data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!00!ColorVs,
+				only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+			] {data/surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$2U_b/5$}
+
+		% const surfer
+		\nextgroupplot[
+			% x
+			xlabel=$\alpha$,
+			xmin=0,
+			xmax=3,
+			%xmode=log,
+		]
+			\node[anchor=north west] at (axis cs:0.0,3.0) {\textbf{(b)}};
+			% us = 0.05
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!100!ColorVs,
+				only marks,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.04:0.06},
+			] {data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$U_b / 20$}
+			% us = 0.1
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!66!ColorVs,
+				only marks,
+				mark=square,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.09:0.11},
+			] {data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$U_b / 20$}
+			% us = 0.2
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!33!ColorVs,
+				only marks,
+				mark=pentagon*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.19:0.21},
+			] {data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$U_b / 20$}
+			% us = 0.4
+			\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 - \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+				x expr={\thisrowno{4}}, 
+				y expr={(\thisrowno{1} + 1.0 + \thisrowno{2}) / \thisrowno{3}},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+				unbounded coords=discard,
+			]{data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			\addplot[
+				ColorSurf!00!ColorVs,
+				only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{1} + 1.0) / \thisrowno{3}},
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.39:0.41},
+			] {data/adaptive_surfers_in_channel_flow_mx/surfer__merge_average_velocity_axis_0.csv};
+			%\addlegendentry{$U_b / 20$}
+	\end{groupplot}
+	% labels
+	%\node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	% stuff
+	%\node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameTss}};
+	%\node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameStraight}};
+\end{tikzpicture}

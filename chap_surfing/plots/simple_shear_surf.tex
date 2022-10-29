@@ -1,0 +1,293 @@
+\begin{tikzpicture}[
+		arrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2) %node[] {#1}
+			}
+		},
+		marrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2)
+			}
+		},
+		ga/.cd,
+		length/.initial=0.0001,
+		arrow/.style={-stealth,black!20!white,solid,thick},
+		marrow/.style={-stealth,black!20!white,solid,thick},
+		]
+	% plot
+	\begin{axis}[
+		% more
+		hide axis,
+		width=0.6\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=7.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	% % flow seed 3
+	% \addplot3 [
+		% domain=-4.0:4.0,
+		% domain y=-1.0:7.0,
+		% samples=50,
+		% contour filled={levels={-8.0, -7.5, -7.0, -6.5, -6.0, - 5.5, -5.0, -4.5, -4.0, -3.5, -3.0,-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0}},
+	% ] {-1.0 * x^2 / 2.0}; % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	\addplot3 [
+		opacity=1.0,
+		domain=-4.0:4.0,
+		domain y=-1.0:7.0,
+		samples=50,
+		contour gnuplot={levels={-8.0, -7.5, -7.0, -6.5, -6.0, - 5.5, -5.0, -4.5, -4.0, -3.5, -3.0,-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0}, labels=false, draw color=black!20!white},
+	] {-1.0 * x^2 / 2.0} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	[arrow/.list={0.05, 0.125, 0.175, 0.25, 0.325, 0.375, 0.45, 0.525, 0.575, 0.65, 0.725, 0.775, 0.85, 0.925, 0.975}] [marrow/.list={0.025, 0.075, 0.15, 0.225, 0.275, 0.35, 0.425, 0.475, 0.55, 0.625, 0.675, 0.75, 0.825, 0.875, 0.95}];
+	\node[anchor=north west] at (axis cs:-4.0, 7.0) {\textbf{(a)}};
+	% time 1.0
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_1o0__direction_0o_1o__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 1$};
+	\addplot3 [ColorSurf!00!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={20},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_1o0__direction_0o_1o__surfer_trajectory.csv};
+	% time 2.0
+	\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_2o0__direction_0o_1o__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 2$};
+	\addplot3 [ColorSurf!50!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_2o0__direction_0o_1o__surfer_trajectory.csv};
+	% time 3.0
+	\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_3o0__direction_0o_1o__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 3$};
+	\addplot3 [ColorSurf!100!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_3o0__direction_0o_1o__surfer_trajectory.csv};
+
+	% start position
+	\addplot[mark=*, mark size=1.2mm] coordinates {(0,0)} node[black, text opacity=1, below, pos=1, anchor=north west, xshift=+0.01\linewidth]{start};
+	\draw[black,->,-stealth] (axis cs:3.0,0.0) -- (axis cs:3.0,1.4) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+	% end axis
+	\end{axis}
+
+
+
+	\begin{axis}[
+		at={(0.42\linewidth, 0.0)},
+		% more
+		hide axis,
+		width=0.6\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=7.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	% flow seed 3
+	% \addplot3 [
+		% domain=-4.0:4.0,
+		% domain y=-1.0:7.0,
+		% samples=50,
+		% contour filled={levels={-8.0, -7.5, -7.0, -6.5, -6.0, - 5.5, -5.0, -4.5, -4.0, -3.5, -3.0,-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0}},
+	% ] {-1.0 * x^2 / 2.0}; % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	\addplot3 [
+		opacity=1.0,
+		domain=-4.0:4.0,
+		domain y=-1.0:7.0,
+		samples=50,
+		contour gnuplot={levels={-8.0, -7.5, -7.0, -6.5, -6.0, - 5.5, -5.0, -4.5, -4.0, -3.5, -3.0,-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0}, labels=false, draw color=black!20!white},
+	] {-1.0 * x^2 / 2.0} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	[arrow/.list={0.05, 0.125, 0.175, 0.25, 0.325, 0.375, 0.45, 0.525, 0.575, 0.65, 0.725, 0.775, 0.85, 0.925, 0.975}] [marrow/.list={0.025, 0.075, 0.15, 0.225, 0.275, 0.35, 0.425, 0.475, 0.55, 0.625, 0.675, 0.75, 0.825, 0.875, 0.95}];
+	\node[anchor=north west] at (axis cs:-4.0, 7.0) {\textbf{(b)}};
+	% time 1.0
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_1o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 1$};
+	\addplot3 [ColorSurf!00!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={20},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_1o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv};
+	% time 2.0
+	\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_2o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 2$};
+	\addplot3 [ColorSurf!50!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_2o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv};
+	% time 3.0
+	\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_3o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv} node[pos=1, anchor=east]{$\FinalTime \gamma_{\mathrm{sh.}} = 3$};
+	\addplot3 [ColorSurf!100!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/simple_shear_flow/flow_simple_shear__final_time_3o0__direction_-0o70710678__0o70710678__surfer_trajectory.csv};
+	% start position
+	\addplot[mark=*, mark size=1.2mm] coordinates {(0,0)} node[black, text opacity=1, below, pos=1, anchor=north west, xshift=+0.01\linewidth]{start};
+	\draw[black,->,-stealth] (axis cs:3.0,0) -- (axis cs:3.0+1.4*-0.70710678,0+1.4*0.70710678) node [anchor=south west, pos=0.5, text opacity=1] {$\Direction$};
+	% end
+	\end{axis}
+\end{tikzpicture}

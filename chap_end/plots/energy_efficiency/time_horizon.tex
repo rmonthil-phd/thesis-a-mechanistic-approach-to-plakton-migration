@@ -1,0 +1,543 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (1.9,5.38) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+   		group style={
+   			group size=2 by 2,
+   			y descriptions at=edge left,
+   			x descriptions at=edge bottom,
+   			horizontal sep=0.04\linewidth,
+   			vertical sep=0.04\linewidth,
+   		},
+   		% size
+   		width=0.5\textwidth,
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		xmin=0,
+		xmax=6,
+		% y
+		ymin=0,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+   	]
+	\nextgroupplot[
+		axis on top,
+		% y
+		ylabel={$\left\langle \varOmega_{\mathrm{rel.}}^2 \right\rangle \, \KolmogorovTimeScale^2$},
+		ymax=80,
+	]
+		\node[anchor=north west] at (axis cs:0.0,80) {\textbf{(a)}: $\mathit{Re}_{\lambda} = 11$};
+		%% us 1.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.088^2}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$\KolmogorovVelocityScale$}
+		%% us 4.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.088^2}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$4\KolmogorovVelocityScale$}
+		%% us 8.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.088^2}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.088^2}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addlegendentry{$8\KolmogorovVelocityScale$\quad\quad\quad\quad}
+		%% sqrt
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		solid,
+		domain=0:8,
+		samples=20,
+		] {x^2};
+		\addlegendentry{$(\TimeHorizon/\KolmogorovTimeScale)^2$}
+
+
+
+
+
+
+	\nextgroupplot[
+		axis on top,
+		ymin=0,
+		ymax=80,
+	]
+		\node[anchor=north west] at (axis cs:0.0,80) {\textbf{(b)}: $\mathit{Re}_{\lambda} = 418$};
+		%% us 1.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%% us 4.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%% us 8.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) * 0.0424^2}, %tau_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} * 0.0424^2}, %u_\eta = 0.0424
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%% sqrt
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		solid,
+		domain=0:8,
+		samples=20,
+		] {x^2};
+
+
+
+
+
+
+
+		
+
+	\nextgroupplot[
+		axis on top,
+		ylabel={$\left\langle \varOmega_{\mathrm{rel.}}^2 \right\rangle \, \KolmogorovTimeScale^2 / (1 + \SwimmingVelocity/\KolmogorovVelocityScale)$},
+		ymax=40,
+	]
+		\node[anchor=north west] at (axis cs:0.0,80) {\textbf{(c)}: $\mathit{Re}_{\lambda} = 11$};
+		%% us 1.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		%% us 4.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		%% us 8.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers__flow__n_128__re_250/surfer__merge_rotating_power_consumption.csv};
+		%% sqrt
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		solid,
+		domain=0:8,
+		samples=20,
+		] {x^2};
+
+
+
+
+
+
+
+
+
+
+
+
+	\nextgroupplot[
+		axis on top,
+		ymax=40,
+	]
+		\node[anchor=north west] at (axis cs:0.0,80) {\textbf{(d)}: $\mathit{Re}_{\lambda} = 418$};
+		%% us 1.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!66!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!66!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%\addlegendentry{$\KolmogorovVelocityScale$}
+		%% us 4.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!33!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!33!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%\addlegendentry{$4\KolmogorovVelocityScale$}
+		%% us 8.0
+		%%% 95 CI
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} - \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %tau_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=4,
+			y expr={(\thisrowno{1} + \thisrowno{2}) / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		%%% average
+		\addplot
+		[
+		color=ColorSurf!00!ColorVs,
+		opacity=1.0,
+		only marks,%solid
+		mark=o
+		]
+		table[
+			x index=4,
+			y expr={\thisrowno{1} / ((1.0 / 0.088)^2 * (1.0 + \thisrowno{3}))}, %u_\eta = 0.088
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+			unbounded coords=discard,
+		]{data/surfers/surfer__merge_rotating_power_consumption.csv};
+		%\addlegendentry{$8\KolmogorovVelocityScale$}
+		%% sqrt
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		solid,
+		domain=0:8,
+		samples=20,
+		] {x^2};
+		%\addlegendentry{$\left( \frac{\TimeHorizon}{\KolmogorovTimeScale} \right)^2$}
+	\end{groupplot}
+\end{tikzpicture}

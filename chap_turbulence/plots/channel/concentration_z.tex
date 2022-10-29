@@ -1,0 +1,138 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (1.45,5.35) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				y descriptions at=edge left,
+				horizontal sep=0.04\textwidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.5\textwidth,
+			% x
+			xlabel=$c$,
+			xmin=0,
+			xmax=2,
+			% y
+			ylabel=$x_2/h$,
+			ymin=1e-4,
+			ymax=1e-0,
+			ymode=log,
+			% layers
+			set layers,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+			legend cell align=left,
+			legend columns=-1,
+		]
+
+		% swimming velocity
+		\nextgroupplot[
+		]
+			\node[anchor=north west] at (axis cs:0.0,1.0) {\textbf{(a)}};
+			\addplot[
+				ColorSurf!100!ColorVs,
+				%only marks,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers_in_channel_flow_z/surfer__us_0o05__surftimeconst_0o75__concentration_axis_1__t_25o9935.csv};
+			\addlegendentry{$U_b/20$}
+			\addplot[
+				ColorSurf!66!ColorVs,
+				%only marks,
+				mark=square,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers_in_channel_flow_z/surfer__us_0o1__surftimeconst_0o25__concentration_axis_1__t_25o9935.csv};
+			\addlegendentry{$U_b/10$}
+			\addplot[
+				ColorSurf!33!ColorVs,
+				%only marks,
+				mark=pentagon*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers_in_channel_flow_z/surfer__us_0o2__surftimeconst_0o25__concentration_axis_1__t_25o9935.csv};
+			\addlegendentry{$U_b/5$}
+			\addplot[
+				ColorSurf!00!ColorVs,
+				%only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers_in_channel_flow_z/surfer__us_0o4__surftimeconst_0o25__concentration_axis_1__t_25o9935.csv};
+			\addlegendentry{$2U_b/5$}
+
+		% adaptive
+		\nextgroupplot[
+		]
+			\node[anchor=north west] at (axis cs:0.0,1.0) {\textbf{(b)}};
+			\addplot[
+				ColorSurf!100!ColorVs,
+				%only marks,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_z/surfer__us_0o05__surftimeprefactor_0o75__concentration_axis_1__t_25o9935.csv};
+			\addplot[
+				ColorSurf!66!ColorVs,
+				%only marks,
+				mark=square,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_z/surfer__us_0o1__surftimeprefactor_0o25__concentration_axis_1__t_25o9935.csv};
+			\addplot[
+				ColorSurf!33!ColorVs,
+				%only marks,
+				mark=pentagon*,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_z/surfer__us_0o2__surftimeprefactor_0o25__concentration_axis_1__t_25o9935.csv};
+			\addplot[
+				ColorSurf!00!ColorVs,
+				%only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{1}},
+				y expr={\thisrowno{0}},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/adaptive_surfers_in_channel_flow_z/surfer__us_0o4__surftimeprefactor_0o25__concentration_axis_1__t_25o9935.csv};
+			
+	\end{groupplot}
+	% labels
+	%\node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	% stuff
+	%\node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameTss}};
+	%\node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameStraight}};
+\end{tikzpicture}

@@ -1,0 +1,235 @@
+\begin{tikzpicture}[
+		arrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2) %node[] {#1}
+			}
+		},
+		marrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2)
+			}
+		},
+		ga/.cd,
+		length/.initial=0.0001,
+		arrow/.style={-stealth,black!20!white,solid,thick},
+		marrow/.style={-stealth,black!20!white,solid,thick},
+		]
+	% plot
+	\begin{axis}[
+		% more
+		hide axis,
+		width=0.6\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-2.0,
+		ymax=6.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	\node[anchor=north east] at (axis cs:4.0, 6.0) {\textbf{(a)}};
+	% flow seed 3
+	% \addplot3 [
+		% domain=-4.0:4.0,
+		% domain y=-2.0:6.0,
+		% samples=50,
+		% contour filled={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}},
+	% ] {0.0 * x * y + 0.7071067811865476 * y^2 / 2.0 - -0.7071067811865476 * x^2 / 2.0 + 0.0 * y - 0.0 * x}; % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	\addplot3 [
+		domain=-4.0:4.0,
+		domain y=-2.0:6.0,
+		samples=50,
+		contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
+	] {0.0 * x * y + 0.7071067811865476 * y^2 / 2.0 - -0.7071067811865476 * x^2 / 2.0 + 0.0 * y - 0.0 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	[arrow/.list={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8}] [marrow/.list={0.9, 1.0}];
+	% bottom-heavy
+	\addplot
+		[
+		color=ColorBh,
+		%mark=*,
+		%mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_16o0__bottom_heavy_trajectory.csv} node[pos=0.95, anchor=north]{\NameBhShort};
+	% time 1.0
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_1o0__surfer_trajectory.csv} node[pos=1, anchor=west]{$\FinalTime \FlowVorticityScalar = 2$};
+	\addplot3 [ColorSurf!00!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={20},
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_1o0__surfer_trajectory.csv};
+	% time 2.0
+	\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_2o0__surfer_trajectory.csv} node[pos=1, anchor=west]{$\FinalTime \FlowVorticityScalar = 4$};
+	\addplot3 [ColorSurf!50!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_2o0__surfer_trajectory.csv};
+	% time 4.0
+	\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_4o0__surfer_trajectory.csv} node[pos=1, anchor=west]{$\FinalTime \FlowVorticityScalar = 8$};
+	\addplot3 [ColorSurf!100!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_skew_flow/flow_skew_symmetric_linear_incompressible_parameters__seed_3__final_time_4o0__surfer_trajectory.csv};
+
+	% start position
+	\addplot[mark=*, mark size=1.2mm] coordinates {(0,0)} node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.0\linewidth]{start};
+	\draw[black,->,-stealth] (axis cs:3.0,0.0) -- (axis cs:3.0,1.4) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+	% end axis
+	\end{axis}
+
+
+
+	\begin{axis}[
+		at={(0.42\linewidth, 0.0)},
+		% more
+		hide axis,
+		width=0.6\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-4.0,
+		xmax=4.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-4.0,
+		ymax=4.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	\node[anchor=north east] at (axis cs:4.0, 4.0) {\textbf{(b)}};
+	% % flow seed 3
+	% \addplot3 [
+		% domain=-4.0:4.0,
+		% domain y=-4.0:4.0,
+		% samples=50,
+		% contour filled={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}},
+	% ] {0.0 * x * y + 0.7071067811865476 * y^2 / 2.0 - -0.7071067811865476 * x^2 / 2.0 + 0.0 * y - 0.0 * x}; % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	\addplot3 [
+		domain=-4.0:4.0,
+		domain y=-4.0:4.0,
+		samples=50,
+		contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
+	] {0.0 * x * y + 0.7071067811865476 * y^2 / 2.0 - -0.7071067811865476 * x^2 / 2.0 + 0.0 * y - 0.0 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
+	[arrow/.list={}] [marrow/.list={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0}];
+		% values of tau
+		\draw[ColorSurf!00!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:0.0,3.0) node [anchor=south west, pos=1.0, text opacity=1] {$\TimeHorizon \FlowVorticityScalar = 0$};
+		\draw[ColorSurf!25!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:3*-6.496369390800624810e-01,3*7.602445970756301907e-01) node [anchor=south east, pos=1.0, text opacity=1] {$\TimeHorizon \FlowVorticityScalar = 2$};
+		\draw[ColorSurf!50!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:3*-9.877659459927355945e-01,3*1.559436947653745076e-01) node [anchor=north, pos=1.0, text opacity=1] {$\TimeHorizon \FlowVorticityScalar = 4$};
+		\draw[ColorSurf!75!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:3*-3.080717423630445762e-01,3*-9.513631281258475569e-01) node [anchor=east, pos=1.0, text opacity=1] {$\TimeHorizon \FlowVorticityScalar = 8$};
+		\draw[ColorSurf!100!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:3*5.861761930033725365e-01,3*8.101836031147957584e-01) node [anchor=south west, pos=1.0, text opacity=1] {$\TimeHorizon \FlowVorticityScalar = 16$};
+		\draw[->,-stealth,ColorSurf] (axis cs:0.0,3*0.6) arc
+		[
+			start angle=90,
+			end angle=413,
+			x radius=3*0.6,
+			y radius=3*0.6
+		];
+		% more
+		\draw[black,->,-stealth] (axis cs:3.0,0.0) -- (axis cs:3.0,1.4) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		\draw[ColorSurf!00!ColorDuration,->,-stealth] (axis cs:0.0,0.0) -- (axis cs:0.0,3.0) node [anchor=west, pos=0.5, text opacity=1] {$\ControlDirection$};
+	\end{axis}
+\end{tikzpicture}

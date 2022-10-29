@@ -1,0 +1,183 @@
+\chapter{Larval horizontal dispersion and settlement}\label{app:horizontal_dispersion}
+
+Many marine organisms, such as oysters and many of the see snails, are sedentary during their adult stage.
+Their only chance to disperse and find new habitats to settle is during their larval stage as plankters.
+It then takes a few generations for a population to migrate.
+This larval dispersion is then essential to explore the widest horizontal surface possible.
+To do so, many of these larvae navigate upwards when first released to escape the seafloor and catch up with strong surface horizontal currents \citep{mcedward2020ecology, welch2001flood, kingsford2002sensory}.
+When ready to settle, they navigate back downwards to find a substrate.
+
+The dynamics can then be decompose in four phases corresponding to different navigation problems:
+\begin{itemize}
+	\item the vertical migration to escape the seafloor,
+	\item the foraging of large scale horizontal currents,
+	\item the downward vertical migration to get closer to the seafloor,
+	\item and the proper settlement on the final substrate.
+\end{itemize}
+Vertical migration has already been extensively treated throughout this study and wont be further discussed in this section.
+Therefore the following discussion first focuses on the settlement on a substrate.
+We particularly focus on the case of vertical substrate that cannot be reached following gravity alone.
+We then discuss on how plankters could forage large scale horizontal currents.
+We further show that, as is, the surfing strategy can already be used to this end.
+
+\section{Foraging flow boundaries: a turbophoretic strategy}
+
+Numerous marine species need to settle immersed rocks or any other submerged solid substrate in their larval stage to progress to their adult stage \citep{eckman1998larval, crimaldi2002hydrodynamics, fuchs2007effects}.
+Oyster larvae, \citep{fuchs2013active, fuchs2015hydrodynamic} and barnacle larvae \citep{larsson2016instantaneous} are a few examples in many.
+
+To do so, many larvae are know to display a sinking behavior in response to turbulence while swimming upwards in quiescent waters \citep{fuchs2007effects, crimaldi2002hydrodynamics}.
+Oyster larvae even tend to actively dive in response to turbulence \citep{fuchs2013active}.
+Their natural settling habitat being strongly turbulent, this sinking and diving behavior enhances the settling rate on the seafloor in suitable habitats.
+However, relying on gravity alone is not enough to settle on vertical substrates.
+Therefore, if the direction towards a vertical substrate can be deduced from local flow sensing, this ability would provide an essential evolutionary advantage that enables to find more suitable habitats.
+So how can plankter use flow sensing be used to migrate towards these nearby substrates?
+
+\begin{wrapfigure}[10]{L}[0.4\width]{0.38\textwidth}
+	\vspace{10pt}
+	\centering
+	\def\svgwidth{0.36\textwidth}
+	\input{chap_numeric/schemes/jhtdb_channel_small.pdf_tex}
+	\captionsetup{width=0.36\textwidth}
+  	\caption{
+  		Schematic of the channel flow of the Johns Hopkins Databases.
+  	}
+  	\label{fig:scheme_channel_small}
+\end{wrapfigure}
+Before addressing this question, we highlight that passive mechanisms can reproduce the same effect. 
+For instance heavy inertial particles are well known to exhibit this very behavior, generally called \textit{turbophoresis} \citep{caporaloni1975transfer, reeks1983transport}.
+This effect causes inertial particles to move out intense turbulent regions.
+Such particles then eventually end up in the near-walls viscous region \citep{guha1997unified, guha2008transport, johnson2020turbophoresis}.
+Rather than a passive effect, we look for an active behavior that causes similar \textit{turbophoretic} dynamics using only a local measure of the flow.
+
+To discuss this question, we consider the turbulent channel flow of the Johns Hopkins databases.
+We briefly describe this case here while extensive details have been provided in Chap.~\ref{chap:surfing_robustness} Sec.~\ref{sec:num_channel_flow}.
+The simulation case corresponds to the a fluid flow between two walls separated by a height of $2h$.
+The boundary conditions are set periodic in the longitudinal and transverse directions.
+We note, $\hat{\vec{e}}_1$ the direction of the mean flow, $\hat{\vec{e}}_2$ the direction normal to the walls, and $\hat{\vec{e}}_3$ the transverse direction (Fig.~\ref{fig:scheme_channel_small}).
+We also refer to $\hat{\vec{e}}_2$ as the vertical below.
+
+The flow viscosity always imposes the velocity of flows to match the velocity of their solid boundaries near them.
+Their presence in flows then causes the generation of strong velocity gradients at proximity.
+Therefore, in general, the strongest flow velocity gradients are found near solid flow boundaries.
+Given the ability to sense the flow, plankters could then look for the direction $\Direction_{\mathrm{turb.}}$ in which the gradient intensity, $\norm{\Gradients}$, increases.
+Using a gradient ascent approach, this direction is simply obtained by taking the gradient of this quantity: $\vec{\nabla} \norm{\Gradients}$.
+The direction to follow can then be expressed as
+\begin{equation}\label{eq:turbophoresis_direction}
+	\Direction_{\mathrm{turb.}} = \frac{\DirectionNN_{\mathrm{turb.}}}{\norm{\DirectionNN_{\mathrm{turb.}}}} \quad \text{with} \quad \DirectionScalar_{\mathrm{turb.},k} = \frac{1}{\norm{\Gradients}} \sum_i \sum_j \frac{\partial \FlowVelocityScalar_i}{\partial x_j} \frac{\partial^2 \FlowVelocityScalar_i}{\partial x_j \partial x_k},
+\end{equation}
+with $\DirectionScalar_{\mathrm{turb.},k} = \DirectionNN_{\mathrm{turb.}} \cdot \hat{\vec{e}}_k$.
+Note that, depending on the turbophoretic behavior wanted, a plankter may either swim in the direction $\ControlDirection_{\mathrm{turb.}}$ to search for solid substrates or try to swim in the opposite direction and then getting away from them.
+
+Note however that the evaluation of this direction however requires to measure the second order spatial derivatives of the flow velocity field.
+Plankters should be able to approximate these second order derivatives given that the flow velocity gradients $\Gradients$ are measured at several positions on their body.
+Moreover, locating the source of a flow intensity (and therefore, finding the maxima of gradient intensity) is a common problem for prey or predator detection for which some pankters are known to be very effective \citep{kiorboe1999predator, kiorboe1999hydrodynamic, jiang2002hydrodynamic}.
+Therefore even though the turbophoretic behavior is more complex behavior [for instance flow measure depends on plankter orientation \citep{fields2010orientation}] modelling turbophoretic plankters by making them swim in the direction $\Direction_{\mathrm{turb.}}$ should lead to the correct qualitative behavior overall.
+The effect would however be overestimated if sensing limitations are not taken into account.
+To model more complex and limited behaviors, one could use for instance the triangulation behavior proposed by \citet{redaelli2021efficient}.
+
+This turbophoretic behavior based on local flow information inherits the same curse that all gradient ascent possess: it leads towards the local maxima of the gradient tensor intensity.
+Due to turbulent fluctuations, most of the time, these local maxima would not correspond to the position of the wall, and $\Direction_{\mathrm{turb.}}$ would not necessarily point towards the wall at all times.
+This is illustrated in Fig.~\ref{fig:channel_flow_grad_norm_dir}\textbf{(a)} where we plot the instantaneous value of $\Direction_{\mathrm{turb.}}$ for various positions in the turbulent channel flow presented above.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/channel/grad_norm_dir}
+	\caption{
+		The turbophoresis direction $\ControlDirection_{\mathrm{turb.}}$ [Eq.~\eqref{eq:turbophoresis_direction}] give the direction to the nearest wall.
+		(a) Instantaneous value $\ControlDirection_{\mathrm{turb.}}$ in the vertical centerplane and (b) averaged value $\langle \ControlDirectionNN_{\mathrm{turb.}} \rangle_{x_3,t} / \norm{\langle \ControlDirectionNN_{\mathrm{turb.}} \rangle_{x_3,t}}$ as a function of position in the channel flow of the Johns Hopkins turbulence databases.
+	}
+	\label{fig:channel_flow_grad_norm_dir}
+\end{figure}
+Therefore, to be useful, this information has to be averaged either over time (either through memory or by repeatedly swimming in that direction over time) or over space if the size of the sensors enables such average.
+This is illustrated in Fig.~\ref{fig:channel_flow_flow_dir}\textbf{(b)} where we plot the value of $\langle \DirectionNN_{\mathrm{turb.}} \rangle_{x_3,t} / \norm{\langle \DirectionNN_{\mathrm{turb.}} \rangle_{x_3,t}}$ (average over the transverse direction and over time) for various positions of the vertical centerplane in the turbulent channel flow presented above.
+
+Once the direction in which to go is determined, the question of how to control the preferred swimming direction $\ControlDirection$ to migrate as fast as possible in that direction arises.
+Therefore, combining the direction $\Direction_{\mathrm{turb.}}$ with the surfing strategy leads to a first attempt of simple physics-based navigation method that could be used to navigate efficiently towards flow boundaries.
+This model may be further improved using an adaptive time horizon proposed in Chap.~\ref{chap:surfing_robustness} Sec.~\ref{sec:adaptive_strategy}, as this problem implies navigation through heterogeneous turbulence.
+Accounting for this arguments, this would result in the following
+\begin{equation}
+	\label{end:eq:surfing_turb_direction_final}
+	\ControlDirection_{\mathrm{\NameSurfShort}, \mathrm{turb.}} = \frac{\ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{turb.}}}{\norm{\ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{turb.}}}}, \quad \text{with} \quad \ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{turb.}} = \left[ \exp \left( \alpha_{\TimeHorizon} \Gradients / \norm{\GradientsSym} \right) \right]^T \cdot \Direction_{\mathrm{turb.}}.
+\end{equation}
+To complete the model, if an average value the average value $\langle \ControlDirectionNN_{\mathrm{turb.}} \rangle / \norm{\langle \ControlDirectionNN_{\mathrm{turb.}} \rangle}$ cannot be evaluted due to memory or filtering limitations, one may consider to modulate swimming velocity $\SwimmingVelocityTurb \propto \norm{\DirectionNN_{\mathrm{turb.}}}$ so that the average preferred swimming direction reads
+\begin{equation}
+	\label{end:eq:surfing_vel_direction_final}
+	\frac{\left\langle \SwimmingVelocityTurb \ControlDirection_{\mathrm{turb.}} \right\rangle_{\ParticlePosition, t}}{\left\langle \SwimmingVelocityTurb \right\rangle_{\ParticlePosition, t}} = \langle \DirectionNN_{\mathrm{turb.}} \rangle_{\ParticlePosition,t} / \norm{\langle \DirectionNN_{\mathrm{turb.}} \rangle_{\ParticlePosition,t}}
+\end{equation}
+Beneficial surfing performance was observed when the target direction $\Direction$ was oriented normal to the flow boundaries (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:num_channel_flow}), thus demonstrating the flow can also be used to reach faster flow boundaries.
+However, the wall normal $\hat{\vec{e}}_{2}$ was directly given.
+So how does this holds for an uncertain estimate of this direction $\Direction_{\mathrm{turb.}}$, dependent of the local flow measure?
+The strategy defined by Eqs.~\eqref{end:eq:surfing_turb_direction_final} and \eqref{end:eq:surfing_vel_direction_final} could be used as a reference navigation model to answer this question in future studies.
+
+Note that turbophoresis is a navigation problem that has significance for larval dispersion but also to describe active responses of planktonic organisms to turbulence.
+Indeed, many planktonic species are known to react to turbulence intensity.
+For example, some copepod species exhibit turbulence escaping behaviors \citep{visser2001observations, schmitt2011direct}.
+This behaviour is generally believed to mitigate their food foraging efficiency with predation risks \citep{visser2009swimming}.
+When no mean flow is present, the intensity of the flow velocity gradients is maximal in strong turbulence.
+Therefore a strategy that maximizes or minimizes the gradient intensity, as the one described, could lead to similar responses to turbulence.
+
+Overall this navigation problem is particularly complex and interesting as it includes two aspects of navigation: (1) determining where the target is (2) and navigating efficiently towards it.
+In the model proposed above, both these aspects of the problem are treated separately and combined afterwards to obtain the preferred swimming direction $\ControlDirection_{\mathrm{\NameSurfShort}, \mathrm{turb.}}$.
+Future approaches that do not rely on this separation would certainly bring to light more intricate behaviors that account for the interdependence off these two aspects of the problem.
+In regard of the recent advances, the use of reinforcement learning techniques would certainly be particularly appropriate to this end, using the model above as a reference model.
+
+\section{Foraging large scale horizontal currents}
+
+We now focus on the stage corresponding to the foraging of strong large scale currents, which would contribute actively to the horizontal dispersion of planktonic larvae.
+Formally, our interest relies here in a single point dispersion problem where the horizontal displacement with respect to an Eulerian initial position (corresponding to where the larvae was released for instance) is to be maximized, after a large time $\FinalTime$, regardless of the horizontal direction of that displacement.
+We further focus on the case for which a mean horizontal flow exists, represented by the turbulent channel flow given obtained from the Johns Hopkins turbulence databases. 
+Simplified by these assumptions, we also separate the problem in two aspects: (1) finding the direction of the mean flow and (2) maximizing the overall displacement in that direction.
+
+Being unable to measure directly the flow velocity, computing the direction of the mean flow from the flow velocity gradients alone requires to be crafty.
+We may start by evaluating the previously described direction $\Direction_{\mathrm{turb.}}$, that estimates the direction towards the nearest wall.
+Knowing that the mean flow is orthogonal to the wall normal, we expect an estimate of the mean flow direction to be expressed as a cross product of $\Direction_{\mathrm{turb.}}$.
+Furthermore, as we expect the mean flow velocity gradient to form along the wall normal, the mean flow vorticity is in the plane orthogonal to both the wall normal and the mean flow velocity, therefore the mean flow velocity could be estimated as
+\begin{equation}\label{eq:flow_direction}
+	\Direction_{\mathrm{flow}} = \frac{\DirectionNN_{\mathrm{flow}}}{\norm{\DirectionNN_{\mathrm{flow}}}} \quad \text{with} \quad \DirectionNN_{\mathrm{flow.}} = \DirectionNN_{\mathrm{turb.}} \times \FlowVorticity
+\end{equation}
+This expression is evaluated as a function of space in the vertical centerplane of the flow in Fig.~\ref{fig:channel_flow_flow_dir}\textbf{(a)}.
+As a comparison, we also plot the average value of $\langle \ControlDirectionNN_{\mathrm{flow}} \rangle_{x_3, t} / \norm{\langle \ControlDirectionNN_{\mathrm{flow}} \rangle_{x_3, t}}$ in Fig.~\ref{fig:channel_flow_flow_dir}\textbf{(b)}.
+\begin{figure}%[H]
+	\centering
+	\input{chap_turbulence/plots/channel/flow_dir}
+	\caption{
+		Estimated flow direction $\ControlDirection_{\mathrm{flow}}$ [Eq.~\eqref{eq:flow_direction}] as function of a local flow measure.
+		(a) Instantaneous value $\ControlDirection_{\mathrm{flow}}$ in the vertical centerplane and (b) averaged value $\langle \ControlDirectionNN_{\mathrm{flow}} \rangle_{x_3, t} / \norm{\langle \ControlDirectionNN_{\mathrm{flow}} \rangle_{x_3, t}}$ as a function of position in the channel flow of the Johns Hopkins turbulence databases.
+	}
+	\label{fig:channel_flow_flow_dir}
+\end{figure}
+
+In a similar manner as the previous section, we can deduce a model navigation strategy for the problem of horizontal dispersion
+\begin{subequations}
+	\begin{align}
+		\ControlDirection_{\mathrm{\NameSurfShort}, \mathrm{flow}} &= \frac{\ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{flow}}}{\norm{\ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{flow}}}}, \quad \text{with} \quad \ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{flow}} = \left[ \exp \left( \alpha_{\TimeHorizon} \Gradients / \norm{\GradientsSym} \right) \right]^T \cdot \Direction_{\mathrm{flow}}\\ %\label{end:eq:surfing_flow_direction_final}
+		\SwimmingVelocityTurb &\propto \norm{\DirectionNN_{\mathrm{flow}}} %\label{end:eq:surfing_flow_velocity_final}
+	\end{align}
+\end{subequations}
+
+As a first step towards the characterization of this navigation problem, we start looking to the performance of adaptive surfers (parameterized by the parameter $\alpha_{\TimeHorizon}$) that surf along the direction of the mean flow.
+To further simplify the problem, the direction of the mean flow is directly given to the surfers $\Direction = \hat{\vec{e}}_1$ rather than evaluated using through the local evaluation of $\Direction_{\mathrm{flow}}$.
+As a consequence, their swimming velocity, $\SwimmingVelocity$, is also fixed.
+We plot the resulting surfing performance, evaluated as $(\langle \Performance \rangle_N - U_b)/\SwimmingVelocity$, as a function of $\SwimmingVelocity$ in Fig.~\ref{fig:channel_perf_x}\textbf{(a)}.
+The performance metric corresponds to the average effective velocity $\langle \Performance \rangle_N$ reached by surfers in the direction of the mean flow direction $\hat{\vec{e}}_x$ centered by the bulk velocity $U_b$ (mean flow averaged in the whole channel) and normalized by the swimming velocity $\SwimmingVelocity$.
+This ensures that the performance of passive particles ($\langle \Performance \rangle_N = U_b$) is $0$ and that the performance of plankters swimming straight ($\langle \Performance \rangle_N = U_b + \SwimmingVelocity$) is $1$.
+\begin{figure}
+	\centering
+	\input{chap_turbulence/plots/channel/comparison_x_better.tex}
+	\caption{
+		Performance of surfers and adaptive surfers in a channel flow with $\Direction = \vec{e}_1$. Effective upward velocity as a function of \textbf{(a)} the free parameter $\TimeHorizon$ for surfers or \textbf{(b)} the free parameter $\alpha$ for adaptive surfers.
+	}
+	\label{fig:channel_perf_x}
+\end{figure}
+
+These results demonstrates the ability  surfers to exploit the flow, but how do surfers do so?
+In a turbulent flow with no mean, surfers exploit the small turbulent fluctuations to forages small, yet significant currents that carry surfers forward and enhance the overall migration along the target direction $\Direction$.
+In this case, the presence of a mean large scale gradients changes that if exploited would lead to the centerline where the flow velocity is maximal.
+By successively applying the surfing strategy using the local measure of the gradients, acting as a gradient ascent of $\FlowVelocityScalar_1$, surfers should also exploit the mean flow velocity gradient in average.
+Therefore, surfers should converge towards the center of the channel.
+Indeed this is the effect we show in Fig.~\ref{fig:channel_perf_x}\textbf{(b)} where plot the concentration of surfers $c$ as a function of the vertical position $x_2$ for various simulation times.
+The concentration starts initially homogeneous in the whole channel then surfers quickly concentrate towards the center of the channel by exploiting the mean flow velocity gradient of the flow.
+This demonstrates then the ability of surfers to not only exploit small scale flow fluctuations but also larger scale flow structures by provoking a mean displacement in response to the mean flow velocity gradient.
+
+Overall the larval dispersion provides a challenging problem to address in the context of plankton migration, that might drive an important part of the behavior of planktonic larvae in nature.
+While the first steps are presented to characterize this problem in the context of the surfing strategy developed in this paper, the case considered here overly simplified.
+There is much room for improvement in term of the complexity of the flow environment (simulate an actual seacoast) and the strategy considered (how well would reinforcement learning perform?).

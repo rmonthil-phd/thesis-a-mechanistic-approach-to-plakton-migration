@@ -1,0 +1,190 @@
+\chapter{The energetic cost of surfing}\label{app:energetic_cost}
+
+It has been shown in Chap.~\ref{chap:bio_discussion}, Sec.~\ref{sec:optimality}, that the metabolic power corresponds to the main source of power consumption in the context of the vertical navigation problem.
+Therefore we deduced that the application of the surfing strategy would cause be particularly beneficial due to its low energetic cost.
+However (1) this deduction relies on strong assumptions and (2) the surfing strategy can be applied in a broader context (such as the navigation of artificial microswimmers).
+Therefore we consider below the case of low metabolic power consumption (relative to the power consumption of the active power): $P_{\mathrm{meta.}} = 0$.
+
+\section{The cost of active reorientation}\label{sec:energetic_cost}
+
+Considering the interesting limit for which $P_{\mathrm{swim}} \gg P_{\mathrm{meta}}$ and $P_{\mathrm{turn}} \gg P_{\mathrm{meta}}$, we evaluate numerically the value of $\left\langle \Performance \right\rangle$ and $\left\langle \SwimmingAngularVelocity^2 \right\rangle$ from our numerical simulations for any surfing parameter $\TimeHorizon$.
+Figure \ref{fig:energy_efficiency_time_horizon}\textbf{(a)} shows that $P_{\mathrm{turn}}$ evolves as $\TimeHorizon^2$.
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/energy_efficiency/better}
+	\caption[Influence of the surfing parameter $\TimeHorizon$ and swimming velocity on rotating power consumption.]{
+		Influence of the surfing parameter $\TimeHorizon$ and swimming velocity $\SwimmingVelocity$ on rotating energy consumption $P_{\mathrm{turn}} \propto \SwimmingAngularVelocity^2$ [Eq.~\eqref{eq:p_turn}].
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:energy_efficiency_time_horizon}
+\end{figure}
+This is expected due to the linear dependence on $\TimeHorizon$ of the swimming angular velocity $\SwimmingAngularVelocity \approx \TimeHorizon \norm{d(\Gradients)^T/dt}$.
+This can be deduced from the expression of the surfing strategy given in Eq~\eqref{end:eq:surfing_swimming_direction_final} for which the derivative can be expressed as the following
+\begin{equation}
+	\frac{d \ControlDirectionOpt}{dt} = \TimeHorizon \left( \matr{\mathit{Id}} - \ControlDirectionOpt \otimes \ControlDirectionOpt \right) \cdot \frac{d \left( \Gradients \right)^T}{dt} \cdot \ControlDirectionOpt.
+\end{equation}
+Moreover, one observes a strong dependence on the swimming velocity $\SwimmingVelocity$ of the power consumption.
+Passing faster through the flow, fast micro-swimmers increase the temporal derivative of their measure.
+This force surfers to react faster to flow variations, leading to a higher energetic cost.
+
+Using this computed value of $P_{\mathrm{turn.}}$, we then compare the energetic efficiency $E_{\mathrm{eff.}}$ of surfers of various swimming speed $\SwimmingVelocity$ in Fig.~\ref{fig:energy_efficiency_time_horizon}\textbf{(b)} (still assuming that $P_{\mathrm{meta.}} \approx 0$).
+We observe that the maximal energetic performance is slightly shifted towards smaller values of the surfing parameter $\TimeHorizon$, for instance $\TimeHorizonOpt \approx 2 \KolmogorovTimeScale$ for $\SwimmingVelocity = 4 \KolmogorovVelocityScale$, compared to the case without taking energetic cost into account, for which $\TimeHorizonOpt \approx 3 \KolmogorovTimeScale$ for $\SwimmingVelocity = 4 \KolmogorovVelocityScale$ (Fig.~\ref{fig:surfing_parameter_tau_vs}).
+Note furthermore that swimming speed itself, $\SwimmingVelocity$, has an important impact on energetic performance $E_{\mathrm{eff.}}$, the smaller the swimming velocity, the best the performance.
+
+
+While surfing could enable plankton to migrate faster for higher values of $\TimeHorizon$, the energetic cost may not be worth it.
+This discriminates the cases where power consumption is important.
+However, if the metabolic power $P_{\mathrm{meta.}}$ is high enough, the problem is independent of the power consumption due to active orientation $P_{\mathrm{turn.}}$.
+
+% \subsubsection{Optimal swimming velocity.}
+% 
+% As observed in Fig.~\ref{fig:energy_efficiency_time_horizon}, energetic performance is also function of swimming velocity $\SwimmingVelocity$.
+% In this context, a optimal plankter swimming velocity exists, that maximizes energetic efficiency.
+% The effective velocity of surfers evolves mostly lineary with swimming speed $\left\langle \Performance \right\rangle \approx \alpha_{\mathrm{\NameSurfShort}} \, \SwimmingVelocity$.
+% This is especially true for $\SwimmingVelocity \lesssim \KolmogorovVelocityScale$, for which $\alpha_{\mathrm{\NameSurfShort}} \approx 1.7$ (Fig~\ref{fig:surfing_parameter_tau_vs}b) and for $\SwimmingVelocity \gg \KolmogorovVelocityScale$ for which $\alpha_{\mathrm{\NameSurfShort}} = 1$.
+% Assuming $\alpha_{\mathrm{\NameSurfShort}}$ constant over the optimization range, $E$ is maximized for:
+% \begin{align}
+	% \SwimmingVelocity &= \sqrt{\frac{1}{3 \pi \mu d} \left( P_{\mathrm{turn}} + P_{\mathrm{meta.}} \right)} \\
+	% &= \sqrt{\frac{1}{3} \left(d^2 \SwimmingAngularVelocity^2 + \frac{P_{\mathrm{meta.}}}{\pi\mu d} \right)}.
+% \end{align}
+% Replacing the metabolic power by the Kleiber estimate (Eq. \eqref{eq:kleiber}):
+% \begin{equation}
+% \SwimmingVelocity = \sqrt{\frac{1}{3} \left(d^2 \SwimmingAngularVelocity^2 + \frac{0.144}{6^{3/4} \pi^{1/4}} \frac{\rho_{\mathrm{plank.}}^{3/4}}{\mu} d^{5/4} \right)}.
+% \end{equation}
+% Then assuming that most plankton have roughly the same density as water $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}}$, the problem ends up depending of two last parameters: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diamater) $d$.
+% As $\SwimmingAngularVelocity$ depend on average solely of the surfing parameter $\TimeHorizon$, the latter and the plankter size $d$ remain the sole parameters of the problem.
+
+\subsection{The cost of swimming: the on/off strategy}\label{sec:on_off}
+
+Until now, the swimming velocity $\SwimmingVelocity$ of plankters was imposed constant. 
+However, if a constant swimming speed $\SwimmingVelocity$ is not prescribed, an energy efficient plankter may modulate it to achieve energy efficient vertical migration. 
+While the surfing strategy remains the solution of the \textit{average} swimming direction, one can ask how velocity could be distributed around this average to minimize energy consumption.
+
+As the general problem may be too challenging to address, we consider in this section a spherical swimming plankter with no preferred reorientation.
+The plankter is neither bottom-heavy, neither controls actively its orientation.
+The evolution of its position $\ParticlePosition$ and swimming axis $\SwimmingDirection$ is then described by
+\begin{subequations}\label{eq:spherical_motion}
+	\begin{align}
+		\frac{d \ParticlePosition}{dt} & =
+		 \FlowVelocity (\ParticlePosition, t) + \SwimmingVelocity(t) \, \SwimmingDirection,\\
+		\frac{d \SwimmingDirection}{dt} & = \frac{1}{2} \FlowVorticity \times \SwimmingDirection,
+	\end{align}
+\end{subequations}
+with $\SwimmingVelocity(t)$ the time dependent swimming speed and $\FlowVorticity$ the flow vorticity at the plankter's position.
+Furthermore, we restrict the possible swimming speed to an off/off behavior.
+Swimming is then triggered when a measured quantity passes over a given threshold.
+Commonly found in literature, it is often used to model plankton behavior \citep{wheeler2019not, yamazaki2003modeling, dodson1997daphnia}.
+In our study, we consider the following threshold:
+\begin{equation}\label{eq:on_off_behavior}
+	\SwimmingVelocity(t) =
+	\begin{cases}
+		\SwimmingVelocity & \forall \, \theta(t) > \theta_{\mathrm{th.}} \\
+		0 & \mathrm{else}
+	\end{cases}
+\end{equation}
+with $\theta_{\mathrm{th.}}$ a threshold angle and $\theta = \theta_{\langle \ControlDirection \rangle_{\theta, \phi}, \SwimmingDirection}$ the angle between $\langle \ControlDirection \rangle_{\theta, \phi} (\Gradients, \Direction)$ and $\SwimmingDirection$ with $\langle \ControlDirection \rangle_{\theta, \phi}$ the preferred average swimming direction of the swimmer.
+
+\begin{wrapfigure}[11]{R}[0.5\width]{0.35\textwidth}
+	\centering
+	\def\svgwidth{0.3\textwidth}
+	\input{chap_end/schemes/optimal_threshold.pdf_tex}
+	\captionsetup{width=0.3\textwidth}
+  	\caption{Illustration of the optimal threshold angle $\theta_{\mathrm{th.}}^*$.}
+  	\label{fig:optimal_threshold}
+\end{wrapfigure}
+We first asses the power consumption of such a swimmer.
+As we consider a plankter with no reorientation torque, we can assume in turbulence its orientation is uniformly distributed in all possible orientations.
+The average swimming power consumed is then obtained by integrating the swimming power consumed over all possible directions
+\begin{align}
+	\left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi} &= \frac{1}{4\pi} \iint F_{\mathrm{swim}} \SwimmingVelocity(\theta) \sin \theta \, d\theta \, d\phi \nonumber \\
+	&= \frac{1}{2} \int_0^{\theta_{\mathrm{th.}}} 3 \pi \mu d \SwimmingVelocity^2 \sin \theta \, d\theta \nonumber \\
+	&= \frac{3}{2} \pi \mu d \SwimmingVelocity^2 \left( 1 - \cos \theta_{\mathrm{th.}} \right).
+\end{align}
+This results in a estimate of the swimming power as a function of both the swimming velocity $\SwimmingVelocity$ and the threshold angle $\theta_{\mathrm{th.}}$
+
+The question is to swim as fast a possible in the direction $\Direction$ for a given, prescribed swimming power $P_{\mathrm{swim}}$.
+The only parameter to optimize is the threshold angle $\theta_{\mathrm{th.}}$.
+We first evaluate the swimming velocity $\SwimmingVelocity$ as a function of $\theta_{\mathrm{th.}}$ that ensures the same average power consumption $\left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi}$
+\begin{equation}\label{eq:energy_swimming_velocity}
+	\SwimmingVelocity =  \sqrt{\frac{2 \left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi}}{3 \pi \mu d (1 - \cos \theta_{\mathrm{th.}})}}.
+\end{equation} 
+Then, we assess how the vertical effective swimming velocity evolves with $\theta$.
+For naive swimmers for which $\ControlDirection = \Direction$, we expect the average effective vertical velocity $\Performance$ being directly proportional to $\cos \theta$. 
+It can then be expressed as the following
+\begin{equation}\label{eq:perf_naive}
+	\left\langle \Performance \right\rangle_{\mathrm{naive}} = \frac{\SwimmingVelocity}{2} \int_0^{\theta_{\mathrm{th.}}} \cos \theta \sin \theta \, d\theta = \frac{\SwimmingVelocity}{4} \sin^2 \theta_{\mathrm{th.}} = \sqrt{\frac{\left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi}}{24 \pi \mu d}} \frac{\sin^2 \theta_{\mathrm{th.}}}{\sqrt{1 - \cos \theta_{\mathrm{th.}}}}
+\end{equation}
+that is maximized for $\theta_{\mathrm{th.}}^* = \arcos (1/3) \approx 0.39 \pi$ (Fig.~\ref{fig:optimal_threshold})
+
+As for reorienting surfers, we expect on/off surfers ($\ControlDirection = \ControlDirectionOpt$) to perform better than naive on/off swimmers.
+If the same improvement is obtained, we expect $\left\langle \Performance \right\rangle_{\mathrm{\NameSurfShort}} / \left\langle \Performance \right\rangle_{\mathrm{naive}} = \alpha_{\mathrm{\NameSurfShort}} \approx 1.7$ (Fig~\ref{fig:surfing_parameter_tau_vs}b) and
+\begin{equation}\label{eq:perf_surf}
+	\left\langle \Performance \right\rangle_{\mathrm{\NameSurfShort}} = \alpha_{\mathrm{\NameSurfShort}} \sqrt{\frac{\left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi}}{24 \pi \mu d}} \frac{\sin^2 \theta_{\mathrm{th.}}}{\sqrt{1 - \cos \theta_{\mathrm{th.}}}}.
+\end{equation}
+
+To test this theory, we simulate numerical on/off plankton [Eq.~\eqref{eq:on_off_behavior}] in a turbulent environment of Reynolds number $\mathit{Re}_{\lambda} = 11$.
+Micro-swimmers are characterizes by their strategy [$\ControlDirection(t) = \Direction$ or $\ControlDirection(t) = \ControlDirectionOpt$], their angular threshold [$\theta_{\mathrm{th.}}$, Eq.\eqref{eq:on_off_behavior}] and their average swimming power $\left\langle P_{\mathrm{swim}} \right\rangle_{\theta, \phi}$.
+Both the naive upward strategy, $\ControlDirection = \Direction$, and the surfing strategy, $\ControlDirection = \ControlDirectionOpt$, are tested varying $\theta_{\mathrm{th.}}$ from $\pi/10$ to $\pi/2$.
+
+To ensure the same swimming power is used by each micro-swimmer, their swimming velocity when swimming is given by Eq.~\eqref{eq:energy_swimming_velocity} with $\langle P_{\mathrm{swim}} \rangle_{\theta, \phi} = P_{\mathrm{swim}, \mathrm{target}}$.
+This expression relies on the hypothesis of a uniform angular distribution.
+This assumption may break down.
+Simulated micro-swimmers rotate with flow vorticity $\FlowVorticity$. 
+When swimming velocity increases, the correlation time of $\FlowVorticity$ sampled decreases.
+This should lead to slightly smaller rotational diffusion, thus biasing the orientation distribution (Fig.~\ref{fig:swimming_velocity_rigidification}).
+\begin{figure}
+	\centering
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\def\svgwidth{0.6\textwidth}
+		\input{chap_end/schemes/swimming_velocity_rigidification.pdf_tex}
+		\captionsetup{width=0.9\textwidth}
+	  	\caption{Illustration of the rotational diffusion reduction when swimming cause a swimmer to swim more than expected.}
+	  	\label{fig:swimming_velocity_rigidification}
+	\end{minipage}%
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\def\svgwidth{0.6\textwidth}
+		\input{chap_end/schemes/swimming_velocity_surfing_flexification.pdf_tex}
+		\captionsetup{width=0.9\textwidth}
+	  	\caption{Illustration of the increase of rotational diffusion of the surfing direction causing a swimmer to swim less than expected.}
+	  	\label{fig:swimming_velocity_surfing_flexification}
+	\end{minipage}
+\end{figure}
+The swimming state being more probable than expected, the swimmers with the lowest threshold $\theta_{\mathrm{th.}}$ (and thus swimming the fastest instantaneously) should consume slightly more swimming power.
+As observed in Fig.~\ref{fig:energy_efficiency_threshold_power}\textbf{(a)}, this decrease in rotational diffusion is negligible and does not cause any effect on the average swimming power consumption of the naive swimmer ($\ControlDirection = \Direction$).
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/energy_efficiency/threshold_power}
+	\caption[Influence of the angular threshold on swimming power consumption.]{
+		Influence of the angular threshold $\theta_{\mathrm{th.}}$ [Eq.~\eqref{eq:on_off_behavior}] on swimming power consumption $P_{\mathrm{swim}} \propto \left\langle \SwimmingVelocity(t)^2 \right\rangle$ for naive swimmers and surfers and two target swimming powers.
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:energy_efficiency_threshold_power}
+\end{figure}
+
+However, the decrease of the correlation time of the flow velocity gradient $\Gradients$ impacts the surfers.
+Indeed, their flow measure controls their preferred direction $\ControlDirection = \ControlDirectionOpt$.
+When swimming $\ControlDirectionOpt$ varies faster, thus reducing the time for which $\theta$ [Eq.~\eqref{eq:energy_swimming_velocity}] remains below the swimming threshold $\theta_{\mathrm{th.}}$ (Fig.~\ref{fig:swimming_velocity_surfing_flexification}).
+This decreases the overall time spent in the swimming state compared to the waiting state, thus biasing orientation out of a uniform distribution of orientation of $\SwimmingDirection$ with respect to $\ControlDirection$.
+Eq.~\eqref{eq:energy_swimming_velocity} thus underestimates the necessary swimming velocity to keep a constant average swimming power $P_{\mathrm{swim}, \mathrm{target}}$.
+% The lower the threshold $\theta_{\mathrm{th.}}$, the higher is the swimming velocity and the stronger this effect reducing the swimming power consumption becomes.
+
+We can then compare the effective vertical swimming velocity $\Performance$ reached by on/off naive swimmers and surfers for various swimming thresholds $\theta_{\mathrm{th.}}$ (Fig.~\ref{fig:energy_efficiency_threshold}).
+\begin{figure}%[H]
+	\centering
+	\input{chap_end/plots/energy_efficiency/threshold}
+	\caption[Influence of the angular threshold on effective upward velocity.]{
+		Influence of the angular threshold $\theta_{\mathrm{th.}}$ [Eq.~\eqref{eq:on_off_behavior}] on effective upward velocity $\Performance$ for naive swimmers and surfers and two target swimming powers.
+		Shaded area represents the 95\% confidence interval.
+		Solid lines represent the theory [Eq.~\eqref{eq:perf_surf}].
+	}
+	\label{fig:energy_efficiency_threshold}
+\end{figure}
+We first notice that performance of naive swimmers is correctly predicted by the model described in Eq.~\eqref{eq:perf_naive}.
+The performance of surfers is however not completely captured by Eq.~\eqref{eq:perf_surf} for the smallest values of $\theta_{\mathrm{th.}}$.
+This discrepancy is due to the dependence of surfing performance with swimming velocity (which also caused low surfing performance in Fig.~\ref{fig:energy_efficiency_threshold}\textbf{(b)} corresponding to high swimming power).
+Indeed, $\alpha_{\mathrm{surf}}$ was considered constant to derive the model but in practice it varies and decreases with the swimming velocity $\SwimmingVelocity$.
+As a consequence, performance slightly drops for the lowest thresholds $\theta_{\mathrm{th.}}$ corresponding to the highest swimming speeds.
+
+Overall, the surfing framework can also be used to find efficient strategies in the context of minimal power consumption.

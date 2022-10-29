@@ -1,0 +1,104 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				y descriptions at=edge left,
+				horizontal sep=0.04\textwidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.65\textwidth,
+			% x
+			xlabel=$\SwimmingVelocity / U_b$,
+			xmin=0.05,
+			xmax=0.8,
+			xmode=log,
+			xtick={0.05, 0.1, 0.2, 0.4, 0.8},
+			xticklabels={0.05, 0.1, 0.2, 0.4, 0.8},
+			% y
+			ylabel=$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$,
+			ymin=0.8,
+			ymax=1.4,
+			% layers
+			set layers,
+			% legend
+			%legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}},
+			legend pos=south west,
+			legend cell align=left,
+			legend columns=-1,
+		]
+			\nextgroupplot[
+			]
+				% const
+				\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+					x expr={\thisrowno{3}} ,
+					y expr={(\thisrowno{1} - \thisrowno{2}) / \thisrowno{3}},
+					col sep=comma, 
+					comment chars=\#,
+					unbounded coords=discard,
+				]{data/surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+					x expr={\thisrowno{3}}, 
+					y expr={(\thisrowno{1} + \thisrowno{2}) / \thisrowno{3}},
+					col sep=comma, 
+					comment chars=\#,
+					unbounded coords=discard,
+				]{data/surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				\addplot[
+					ColorSurf,
+					only marks,
+					mark=square*,
+				] table [
+					x expr={\thisrowno{3}},
+					y expr={(\thisrowno{1}) / \thisrowno{3}},
+					col sep=comma,
+					comment chars=\#,
+				] {data/surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addlegendentry{const $\TimeHorizon$}
+
+				% adaptive
+				\addplot[name path=A, draw=none, forget plot, on layer=axis background] table [
+					x expr={\thisrowno{3}},
+					y expr={(\thisrowno{1} - \thisrowno{2}) / \thisrowno{3}},
+					col sep=comma,
+					comment chars=\#,
+					unbounded coords=discard,
+				]{data/adaptive_surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addplot[name path=B, draw=none, forget plot, on layer=axis background] table [
+					x expr={\thisrowno{3}}, 
+					y expr={(\thisrowno{1} + \thisrowno{2}) / \thisrowno{3}},
+					col sep=comma, 
+					comment chars=\#,
+					unbounded coords=discard,
+				]{data/adaptive_surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addplot[ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				\addplot[
+					ColorVs,
+					only marks,
+					mark=*,
+				] table [
+					x expr={\thisrowno{3}},
+					y expr={(\thisrowno{1}) / \thisrowno{3}},
+					col sep=comma,
+					comment chars=\#,
+				] {data/adaptive_surfers_in_channel_flow_y/surfer__max_average_velocity_axis_1.csv};
+				\addlegendentry{adaptive $\alpha$}
+
+				% y = 1
+				\addplot[
+					black,
+					solid,
+					domain=0.05:0.8,
+					samples=2,
+				] {1};
+				\addlegendentry{$\left\langle \Performance \right\rangle_N = \SwimmingVelocity$}
+	\end{groupplot}
+	% labels
+	%\node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	% stuff
+	%\node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameTss}};
+	%\node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameStraight}};
+\end{tikzpicture}

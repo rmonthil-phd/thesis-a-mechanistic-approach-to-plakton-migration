@@ -1,0 +1,141 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.66\textwidth,
+			height=0.62\textwidth,
+		]
+	%\node[anchor=south east] at (1.4,4.3) {$t =$};
+	\nextgroupplot[
+		% y
+		ylabel={$p(\rho)$},
+		ymin=1e-3,
+		ymax=1e1,
+		ymode=log,
+		% x
+		xlabel=$\rho$,
+		xmin=-2.3,
+		xmax=9.21,
+		xtick={-2.3, 0, 2.3, 4.6, 6.9, 9.21},
+		xticklabels={$10^{-1}$, $10^0$, $10^1$, $10^2$, $10^3$, $10^4$},
+		%ymode=log,
+		% layers
+		set layers,
+		% legend
+		legend columns=3,
+		legend cell align=left,
+		%legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+		legend style={draw=none, fill=none},
+		legend pos=north east,
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_0o032__log_rho_pdf.csv};
+		\addlegendentry{$0.75 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!80!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_0o064__log_rho_pdf.csv};
+		\addlegendentry{$1.5 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!60!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_0o128__log_rho_pdf.csv};
+		\addlegendentry{$3 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!40!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_0o256__log_rho_pdf.csv};
+		\addlegendentry{$6 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!20!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_0o512__log_rho_pdf.csv};
+		\addlegendentry{$12 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!00!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_more/data/diffuselet/tracer__time_1o024__log_rho_pdf.csv};
+		\addlegendentry{$24 \KolmogorovTimeScale$ \quad}
+	\end{groupplot}
+\end{tikzpicture}

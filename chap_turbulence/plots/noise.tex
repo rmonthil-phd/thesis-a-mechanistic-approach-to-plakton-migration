@@ -1,0 +1,197 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=3 by 1,
+				y descriptions at=edge left,
+				horizontal sep=0.04\linewidth,
+			},
+			% size
+			width=0.36\textwidth,
+			% y
+			ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+			y label style={yshift=-4pt},
+			ymin=0,
+			ymax=2,
+			% x
+			x label style={yshift=4pt},
+			xtick={0, 1, 2},
+			xticklabels={0,100\%,200\%},
+			xmin=0,
+			xmax=2,
+			% layers
+			set layers,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.7, 1.05)}, anchor=south},
+	   		legend cell align=left,
+	   		legend columns=-1,
+		]
+		% noisy measure of target direction
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\sigma_{\Direction}$,
+		]
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{5}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{5}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{5}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{surfer}
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{5}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/merge_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{5}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/merge_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorBh,
+				only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{5}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/merge_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{bottom-heavy}
+		% noisy gradients sensing
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\sigma_{\Gradients} / \KolmogorovTimeScale$,
+		]
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{6}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{6}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{6}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+		% noisy gradients sensing
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\sigma_{\SwimmingDirection}$,
+		]
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{0.0:0.0},
+				restrict expr to domain={\thisrowno{6}}{0.0:0.0},
+				unbounded coords=discard,
+			] {chap_turbulence/data/noise/max_average_velocity_axis_0__surfer.csv};
+	\end{groupplot}
+	% stuff
+	\node[anchor=north west] at (rel axis cs:0.83,1) {\textbf{(a)}};
+	\node[anchor=north west] at (rel axis cs:1.98,1) {\textbf{(b)}};
+	\node[anchor=north west] at (rel axis cs:3.14,1) {\textbf{(c)}};
+\end{tikzpicture}

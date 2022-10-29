@@ -1,0 +1,95 @@
+\begin{tikzpicture}[
+	arrow/.style={
+		insert path={
+			coordinate[pos=#1,sloped]  (aux-1)
+			coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+			(aux-1) edge[/tikz/ga/arrow] 
+			(aux-2) %node[] {#1}
+		}
+	},
+	marrow/.style={
+		insert path={
+			coordinate[pos=#1,sloped]  (aux-1)
+			coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+			(aux-1) edge[/tikz/ga/arrow] 
+			(aux-2) %node[] {#1}
+		}
+	},
+	ga/.cd,
+	length/.initial=0.0001,
+	arrow/.style={-stealth,black!20!white,solid,thick},
+	marrow/.style={-stealth,black!20!white,solid,thick},
+	]
+	% plot
+	\begin{axis}[
+		% more
+		hide axis,
+		width=\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.68, % -1.58
+		xmax=4.82, % 4.72
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.68, % -1.58
+		ymax=1.98, % 1.58
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(2.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		% flow
+		\addplot3 [
+			domain=-1.68:4.82,
+			domain y=-1.68:1.68,
+			samples=50,
+			contour gnuplot={levels={-1.0, -0.9 -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0}, labels=false, draw color=black!20!white},
+			forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.0,0.1,0.2,0.3,0.4,0.5}] [marrow/.list={0.6,0.7,0.8,0.9,1.0}];
+		% surf
+		\addplot3 [
+			ColorSurf,
+			%very thick,
+			-stealth,
+			quiver={
+				u={\thisrowno{2}},
+				v={\thisrowno{3}},
+				scale arrows=0.3,
+			},
+		] table[
+			x index=0,
+			y index=1,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__direction_angle_0o0__surfer__tau_0o7853981633974483_strategy_swimming_direction.csv};
+		\addplot [
+			ColorSurf,
+			thick,
+			only marks,
+			mark=*,
+			mark size=0.5pt,
+		] table[
+			x index=0,
+			y index=1,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__direction_angle_0o0__surfer__tau_0o7853981633974483_strategy_swimming_direction.csv};
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:1.57,-0.5) -- (axis cs:1.57,0.2) node [anchor=south, pos=1.0, text opacity=1] {$\Direction$};
+	\end{axis}
+\end{tikzpicture}

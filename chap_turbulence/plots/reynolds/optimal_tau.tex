@@ -1,0 +1,133 @@
+\begin{tikzpicture}
+	%\node[anchor=center] at (3.6,5.3) {$\TimeHorizon =$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			%y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.04\linewidth,
+			%vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+   		legend cell align=left,
+   		legend columns=-1,
+		% x
+		xlabel={$\SwimmingVelocity / \KolmogorovVelocityScale$},
+		xmin=0,
+		xmax=8,
+	]
+		\nextgroupplot[
+			axis on top,
+			% y
+			ymin=0,
+			%ymax=5,
+			ylabel={$\cdot / \KolmogorovTimeScale$},
+			%ytick={0,1,2},
+		]
+			\node[anchor=north west] at (axis cs:0.0,5.0) {\textbf{(a):} $\mathit{Re}_{\lambda} = \mathbf{418}$};
+			%% us 1.0
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			only marks,
+			mark=*
+			]
+			table[
+				x index=1, 
+				y expr={1.0 / (\thisrowno{0} * 0.0424^2)}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{0.0:0.0},
+				unbounded coords=discard,
+			]{data/surfers/surfer__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addlegendentry{$\GradVarTime$}
+			% tau opt (fit)
+			\addplot
+			[
+			color=ColorSurf,
+			only marks,
+			mark=square*,
+			]
+			table[
+				x index=0, 
+				y expr={\thisrowno{2}},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/main_results/fits_max.csv};
+			\addlegendentry{$\TimeHorizonOpt$}
+			% model
+			\addplot
+			[
+			color=black,
+			solid,
+			domain=0:8,
+			] {1.0 / (1.0 + 1.0 * x)};
+
+		\nextgroupplot[
+			axis on top,
+			% y
+			ymin=0,
+			ymax=4,
+			%ytick={0,1,2},
+		]
+			\node[anchor=north west] at (axis cs:0.0,4.0) {\textbf{(a):} $\mathit{Re}_{\lambda} = \mathbf{11}$};
+			%% us 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{2} - \thisrowno{3}) / 0.088}, % \tau_\eta = 0.088
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/risers__flow__n_128__re_250/riser__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{2} + \thisrowno{3}) / 0.088}, % \tau_\eta = 0.088
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/risers__flow__n_128__re_250/riser__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			only marks,
+			mark=*
+			]
+			table[
+				x index=4, 
+				%y expr={\thisrowno{2} / 0.088}, % \tau_\eta = 0.088
+				y expr={1.0 / (\thisrowno{0} * 0.088^2)}, % \tau_\eta = 0.088
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{data/risers__flow__n_128__re_250/riser__merge_averaged_norm_measured_gradient_derivative.csv};
+			% tau opt (fit)
+			\addplot
+			[
+			color=ColorSurf,
+			only marks,
+			mark=square*,
+			]
+			table[
+				x index=0,
+				y expr={\thisrowno{1}},
+				col sep=comma,
+				comment chars=\#,
+			]{data/surfers__flow__n_128__re_250/surfer__fits_max_average_velocity_axis_0.csv};
+			% model
+			\addplot
+			[
+			color=black,
+			solid,
+			domain=0:8,
+			] {1.0 / (1.0 + 1.0 * x)};
+	\end{groupplot}
+\end{tikzpicture}

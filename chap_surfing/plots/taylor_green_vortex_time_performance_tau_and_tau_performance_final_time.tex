@@ -1,0 +1,378 @@
+\begin{tikzpicture}
+	%\node[anchor=south] at (4.0,4.85) {$L=$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			y descriptions at=edge left,
+			horizontal sep=0.04\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% y
+		ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+		ymin=0,
+		ymax=2,
+		% layers
+		set layers,
+		% legend
+		legend style={
+			draw=none, 
+			fill=none, 
+			%/tikz/every even column/.append style={column sep=8pt},
+			xshift=-7pt,
+			yshift=1pt,
+		},
+		legend pos=north west,
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$t \, \FlowVorticityScalar_{\mathrm{max}}$,
+			xmin=0.1,
+			xmax=400,
+			xmode=log,
+		]
+			\node[anchor=south east] at (axis cs:400.0,0.0) {\textbf{(a)}};
+			%% tau 0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.0__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.0__average_effective_velocity.csv};
+			\addplot[ColorSurf!0!ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!0!ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x expr={\thisrowno{0} * 2},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.0__average_effective_velocity.csv};
+			\addlegendentry{\NameBhShort \hspace{0.5pt} $\TimeHorizon \FlowVorticityScalar_{\mathrm{max}}$:}
+			%% tau pi/9
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.20943951023931953__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.20943951023931953__average_effective_velocity.csv};
+			\addplot[ColorSurf!33!ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!33!ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon*
+			]
+			table[
+				x expr={\thisrowno{0} * 2},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.20943951023931953__average_effective_velocity.csv};
+			\addlegendentry{$0.14 \pi$}
+			%% tau pi/6
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.41887902047863906__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.41887902047863906__average_effective_velocity.csv};
+			\addplot[ColorSurf!66!ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!66!ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=square,
+			]
+			table[
+				x expr={\thisrowno{0} * 2},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.41887902047863906__average_effective_velocity.csv};
+			\addlegendentry{$0.27 \pi$}
+			%% tau pi/3
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.8377580409572781__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.8377580409572781__average_effective_velocity.csv};
+			\addplot[ColorSurf!100!ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!100!ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=triangle*,
+			]
+			table[
+				x expr={\thisrowno{0} * 2},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfer__tau_0.8377580409572781__average_effective_velocity.csv};
+			\addlegendentry{$0.54 \pi$}
+			%% y = x
+			\addplot
+			[
+			color=gray!50!white,
+			opacity=1.0,
+			%line width=1pt, 
+			solid, 
+			on layer=axis background,
+			domain=0.1:400.0,
+			]{1};
+
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\TimeHorizon \FlowVorticityScalar_{\mathrm{max}}$,
+			xmin=0,
+			xmax=2.0001*pi,
+			xtick={0, pi/2.0, pi, 3.0*pi/2.0, 2*pi},
+			xticklabels={0,$\pi/2$,$\pi$,$3\pi/2$,$2\pi$},
+			% legend
+			legend style={
+				draw=none, 
+				fill=none, 
+				%/tikz/every even column/.append style={column sep=8pt},
+				xshift=12pt,
+			},
+			legend pos=north east,
+			legend cell align=left,
+			legend columns=-1,
+		]
+			\node[anchor=south east] at (axis cs:2.0001*pi,0.0) {\textbf{(b)}};
+			\node[anchor=north east, xshift=-97pt, yshift=-3pt] at (axis cs:2.0001*pi,2.0) {$\FinalTime \FlowVorticityScalar_{\mathrm{max}} =$};
+			%% T 1
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_1.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_1.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[ColorSurf!0!ColorDuration, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!0!ColorDuration,
+			opacity=1.0,
+			only marks,%solid
+			mark=star
+			]
+			table[
+				x expr={\thisrowno{0} * 2.0},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_1.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addlegendentry{$2$}
+			%% T 2
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_2.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_2.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[ColorSurf!25!ColorDuration, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!25!ColorDuration,
+			opacity=1.0,
+			only marks,%solid
+			mark=*
+			]
+			table[
+				x expr={\thisrowno{0} * 2.0},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_2.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addlegendentry{$4$}
+			%% T 10
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_10.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_10.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[ColorSurf!50!ColorDuration, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!50!ColorDuration,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon
+			]
+			table[
+				x expr={\thisrowno{0} * 2.0},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_10.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addlegendentry{$20$}
+			%% T 100
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_100.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_100.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[ColorSurf!75!ColorDuration, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!75!ColorDuration,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x expr={\thisrowno{0} * 2.0},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_100.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addlegendentry{$200$}
+			%% T 200
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.5},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{0} * 2.0},
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addplot[ColorSurf!100!ColorDuration, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!100!ColorDuration,
+			opacity=1.0,
+			only marks,%solid
+			mark=triangle
+			]
+			table[
+				x expr={\thisrowno{0} * 2.0},
+				y expr={\thisrowno{1} / 0.5},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			]{chap_surfing/data/taylor_green_vortex_flow/flow_taylor_green_vortex__angle_0o0__l_1o0__T_200.0__swimming_speed_0.5__surfers__average_effective_velocity.csv};
+			\addlegendentry{$400$}
+			%% y = x
+			\addplot
+			[
+			color=gray!50!white,
+			opacity=1.0,
+			%line width=1pt, 
+			solid, 
+			on layer=axis background,
+			domain=0:2*pi,
+			]{1};
+	\end{groupplot}
+\end{tikzpicture}

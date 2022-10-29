@@ -1,0 +1,254 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.49\textwidth,
+			height=0.45\textwidth,
+		]
+	%\node[anchor=south east] at (1.4,4.3) {$t =$};
+	\nextgroupplot[
+		% y
+		ylabel={$p(C = c)$},
+		ymin=1e-9,
+		ymax=1e-5,
+		ymode=log,
+		% x
+		xlabel=$c$,
+		xmin=0,
+		xmax=1,
+		% layers
+		set layers,
+		% legend
+		legend columns=3,
+		legend cell align=left,
+		%legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+		legend style={draw=none, fill=none},
+		legend pos=north west,
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_0o032__sc_100o0__c_pdf.csv};
+		\addlegendentry{$0.75 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!80!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_0o064__sc_100o0__c_pdf.csv};
+		\addlegendentry{$1.5 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!60!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_0o128__sc_100o0__c_pdf.csv};
+		\addlegendentry{$3 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!40!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_0o256__sc_100o0__c_pdf.csv};
+		\addlegendentry{$6 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!20!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_0o512__sc_100o0__c_pdf.csv};
+		\addlegendentry{$12 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!0!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_1o024__sc_100o0__c_pdf.csv};
+		\addlegendentry{$24 \KolmogorovTimeScale$ \quad}
+
+	\nextgroupplot[
+		% y
+		ylabel={$p(C = c)$},
+		%ymin=1e-9,
+		%ymax=1e-5,
+		ymode=log,
+		% x
+		xlabel=$c$,
+		xmin=0,
+		xmax=1,
+		% layers
+		set layers,
+		% legend
+		legend columns=3,
+		legend cell align=left,
+		%legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+		legend style={draw=none, fill=none},
+		legend pos=north west,
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0}/0.6}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet__exp/intensity_pdf__time_1o2121212121212122.csv};
+		\addlegendentry{$1.2 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!80!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}/0.6}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet__exp/intensity_pdf__time_2o4242424242424243.csv};
+		\addlegendentry{$2.4 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!60!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}/0.6}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet__exp/intensity_pdf__time_4o848484848484849.csv};
+		\addlegendentry{$4.9 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!40!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}/0.6}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet__exp/intensity_pdf__time_9o696969696969697.csv};
+		\addlegendentry{$9.7 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!20!black,
+		opacity=1.0,
+		%only marks,%solid,
+		mark repeat=4,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}/0.6}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet__exp/intensity_pdf__time_19o393939393939394.csv};
+		\addlegendentry{$19 \KolmogorovTimeScale$ \quad}	
+	\end{groupplot}
+\end{tikzpicture}

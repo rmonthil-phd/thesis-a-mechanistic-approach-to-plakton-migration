@@ -1,0 +1,551 @@
+\begin{tikzpicture}[
+		arrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2) % node[] {\small #1}
+			}
+		},
+		marrow/.style={
+			insert path={
+				coordinate[pos=#1,sloped]  (aux-1)
+				coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+				(aux-1) edge[/tikz/ga/arrow] 
+				(aux-2) % node[] {\small #1}
+			}
+		},
+		ga/.cd,
+		length/.initial=0.0001,
+		arrow/.style={-stealth,black!20!white,solid,thick},
+		marrow/.style={-stealth,black!20!white,solid,thick},
+		]
+	% plot
+	\begin{axis}[
+		at={(0.0\linewidth, 0)},
+		% more
+		hide axis,
+		width=0.80\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.70,
+		xmax=1.70,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=10.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(2.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\addlegendimage{ColorBh,mark=*,mark options={mark indices={3}}}
+		\addlegendimage{ColorSurf,mark=square*,mark options={mark indices={3}}}
+		\addlegendimage{ColorAlt,mark=diamond*,mark options={mark indices={3}}}
+		% grid
+		\pgfplotsinvokeforeach{0,...,4}{\draw[gray!10!white](#1*0.07903377744879983 + 0.25*pi - 0.1978956002261287 + 0.5*0.07903377744879983, -0.1978956002261287 + 0.5*0.07903377744879983)--(#1*0.07903377744879983 + 0.25*pi - 0.1978956002261287 + 0.5*0.07903377744879983, 0.1978956002261287 - 0.5*0.07903377744879983)(0.25*pi - 0.1978956002261287 + 0.5*0.07903377744879983,#1*0.07903377744879983 - 0.1978956002261287 + 0.5*0.07903377744879983)--(0.25*pi + 0.1978956002261287 - 0.5*0.07903377744879983,#1*0.07903377744879983 - 0.1978956002261287 + 0.5*0.07903377744879983);}
+		% flow
+		\addplot3 [
+				domain=-1.70:1.70,
+				domain y=-1.0:10.0,
+				samples=50,
+				contour gnuplot={levels={-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8}, labels=false, draw color=black!20!white},
+				forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.3,0.32,0.34,0.46,0.48,0.5,0.52,0.54,0.56,0.58,0.6,0.62,0.64,0.66,0.68,0.7,0.72,0.74,0.76,0.78,0.8,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0}] [marrow/.list={0.0,0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.36,0.38,0.4,0.42,0.44}];
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			mark=*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__bottom_heavy_trajectory.csv};
+		\addlegendentry{\NameBhShort}
+		% time pi/4
+		\addplot
+		[
+			color=ColorSurf,
+			mark=square*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__surfer__tau_0o7853981633974483_trajectory.csv}; % node[pos=1, anchor=south, xshift=4pt]{$\TimeHorizon = \frac{\pi}{4}$};
+		\addlegendentry{\NameSurfShort}
+		% dijkstra
+		\addplot
+		[
+			color=ColorAlt,
+			mark=diamond*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__dijkstra__l_0o1978956002261287__dx_0o09894780011306435__connectivity_4_trajectory.csv};
+		\addlegendentry{Local Dijkstra}
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:-0.3,2.8) -- (axis cs:-0.3,3.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		% start position
+		\addplot[mark=*, mark size=0.6mm] coordinates {(0.25 * pi,0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% end axis
+	\end{axis}
+
+
+
+
+	\begin{axis}[
+		at={(0.2\linewidth, 0)},
+		% more
+		hide axis,
+		width=0.80\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.70,
+		xmax=1.70,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=10.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\pgfplotsinvokeforeach{0,...,8}{\draw[gray!10!white](#1*0.07903377744879983 + 0.25*pi - 0.3957912004522574 + 1.0*0.07903377744879983, -0.3957912004522574 + 1.0*0.07903377744879983)--(#1*0.07903377744879983 + 0.25*pi - 0.3957912004522574 + 1.0*0.07903377744879983, 0.3957912004522574 - 1.0*0.07903377744879983)(0.25*pi - 0.3957912004522574 + 1.0*0.07903377744879983,#1*0.07903377744879983 - 0.3957912004522574 + 1.0*0.07903377744879983)--(0.25*pi + 0.3957912004522574 - 1.0*0.07903377744879983,#1*0.07903377744879983 - 0.3957912004522574 + 1.0*0.07903377744879983);}
+		% flow
+		\addplot3 [
+			domain=-1.70:1.70,
+			domain y=-1.0:10.0,
+			samples=50,
+			contour gnuplot={levels={-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8}, labels=false, draw color=black!20!white},
+			forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.3,0.32,0.34,0.46,0.48,0.5,0.52,0.54,0.56,0.58,0.6,0.62,0.64,0.66,0.68,0.7,0.72,0.74,0.76,0.78,0.8,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0}] [marrow/.list={0.0,0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.36,0.38,0.4,0.42,0.44}];
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			mark=*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__bottom_heavy_trajectory.csv};
+		% time pi/4
+		\addplot
+		[
+			color=ColorSurf,
+			mark=square*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__surfer__tau_0o7853981633974483_trajectory.csv}; % node[pos=1, anchor=south, xshift=4pt]{$\TimeHorizon = \frac{\pi}{4}$};
+		% dijkstra
+		\addplot
+		[
+			color=ColorAlt,
+			mark=diamond*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__dijkstra__l_0o3957912004522574__dx_0o09894780011306435__connectivity_4_trajectory.csv};
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:-0.3,2.8) -- (axis cs:-0.3,3.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		% start position
+		\addplot[mark=*, mark size=0.6mm] coordinates {(0.25 * pi,0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% end axis
+	\end{axis}
+
+
+
+	\begin{axis}[
+		at={(0.4\linewidth, 0)},
+		% more
+		hide axis,
+		width=0.80\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.70,
+		xmax=1.70,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=10.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\pgfplotsinvokeforeach{0,...,16}{\draw[gray!10!white](#1*0.07903377744879983 + 0.25*pi - 0.7915824009045148 + 2.0*0.07903377744879983, -0.7915824009045148 + 2.0*0.07903377744879983)--(#1*0.07903377744879983 + 0.25*pi - 0.7915824009045148 + 2.0*0.07903377744879983, 0.7915824009045148 - 2.0*0.07903377744879983)(0.25*pi - 0.7915824009045148 + 2.0*0.07903377744879983,#1*0.07903377744879983 - 0.7915824009045148 + 2.0*0.07903377744879983)--(0.25*pi + 0.7915824009045148 - 2.0*0.07903377744879983,#1*0.07903377744879983 - 0.7915824009045148 + 2.0*0.07903377744879983);}
+		% flow
+		\addplot3 [
+			domain=-1.70:1.70,
+			domain y=-1.0:10.0,
+			samples=50,
+			contour gnuplot={levels={-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8}, labels=false, draw color=black!20!white},
+			forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.3,0.32,0.34,0.46,0.48,0.5,0.52,0.54,0.56,0.58,0.6,0.62,0.64,0.66,0.68,0.7,0.72,0.74,0.76,0.78,0.8,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0}] [marrow/.list={0.0,0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.36,0.38,0.4,0.42,0.44}];
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			mark=*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__bottom_heavy_trajectory.csv};
+		% time pi/4
+		\addplot
+		[
+			color=ColorSurf,
+			mark=square*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__surfer__tau_0o7853981633974483_trajectory.csv}; % node[pos=1, anchor=south, xshift=4pt]{$\TimeHorizon = \frac{\pi}{4}$};
+		% dijkstra
+		\addplot
+		[
+			color=ColorAlt,
+			mark=diamond*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__dijkstra__l_0o7915824009045148__dx_0o09894780011306435__connectivity_4_trajectory.csv};
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:-0.3,2.8) -- (axis cs:-0.3,3.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		% start position
+		\addplot[mark=*, mark size=0.6mm] coordinates {(0.25 * pi,0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% end axis
+	\end{axis}
+
+
+	\begin{axis}[
+		at={(0.6\linewidth, 0)},
+		% more
+		hide axis,
+		width=0.80\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.70,
+		xmax=1.70,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=10.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\pgfplotsinvokeforeach{0,...,32}{\draw[gray!10!white](#1*0.07903377744879983 + 0.25*pi - 1.5831648018090296 + 4.0*0.07903377744879983, -1.5831648018090296 + 4.0*0.07903377744879983)--(#1*0.07903377744879983 + 0.25*pi - 1.5831648018090296 + 4.0*0.07903377744879983, 1.5831648018090296 - 4.0*0.07903377744879983)(0.25*pi - 1.5831648018090296 + 4.0*0.07903377744879983,#1*0.07903377744879983 - 1.5831648018090296 + 4.0*0.07903377744879983)--(0.25*pi + 1.5831648018090296 - 4.0*0.07903377744879983,#1*0.07903377744879983 - 1.5831648018090296 + 4.0*0.07903377744879983);}
+		\addplot3 [
+			domain=-1.70:1.70,
+			domain y=-1.0:10.0,
+			samples=50,
+			contour gnuplot={levels={-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8}, labels=false, draw color=black!20!white},
+			forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.3,0.32,0.34,0.46,0.48,0.5,0.52,0.54,0.56,0.58,0.6,0.62,0.64,0.66,0.68,0.7,0.72,0.74,0.76,0.78,0.8,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0}] [marrow/.list={0.0,0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.36,0.38,0.4,0.42,0.44}];
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			mark=*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__bottom_heavy_trajectory.csv};
+		% time pi/4
+		\addplot
+		[
+			color=ColorSurf,
+			mark=square*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__surfer__tau_0o7853981633974483_trajectory.csv}; % node[pos=1, anchor=south, xshift=4pt]{$\TimeHorizon = \frac{\pi}{4}$};
+		% dijkstra
+		\addplot
+		[
+			color=ColorAlt,
+			mark=diamond*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__dijkstra__l_1o5831648018090296__dx_0o09894780011306435__connectivity_4_trajectory.csv};
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:-0.3,2.8) -- (axis cs:-0.3,3.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		% start position
+		\addplot[mark=*, mark size=0.6mm] coordinates {(0.25 * pi,0.0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% end axis
+	\end{axis}
+
+
+
+
+
+
+	\begin{axis}[
+		at={(0.8\linewidth, 0)},
+		% more
+		hide axis,
+		width=0.80\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-1.70,
+		xmax=1.70,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-1.0,
+		ymax=10.0,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.02)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+		\pgfplotsinvokeforeach{0,...,64}{\draw[gray!10!white](#1*0.07903377744879983 + 0.25*pi - 3.1663296036180593 + 8.0*0.07903377744879983, -3.1663296036180593 + 8.0*0.07903377744879983)--(#1*0.07903377744879983 + 0.25*pi - 3.1663296036180593 + 8.0*0.07903377744879983, 3.1663296036180593 - 8.0*0.07903377744879983)(0.25*pi - 3.1663296036180593 + 8.0*0.07903377744879983,#1*0.07903377744879983 - 3.1663296036180593 + 8.0*0.07903377744879983)--(0.25*pi + 3.1663296036180593 - 8.0*0.07903377744879983,#1*0.07903377744879983 - 3.1663296036180593 + 8.0*0.07903377744879983);}
+		% flow
+		\addplot3 [
+			domain=-1.70:1.70,
+			domain y=-1.0:10.0,
+			samples=50,
+			contour gnuplot={levels={-0.8, -0.6, -0.4, -0.2, 0.2, 0.4, 0.6, 0.8}, labels=false, draw color=black!20!white},
+			forget plot,
+		] {cos(deg(x)) * cos(deg(y))}
+		[arrow/.list={0.3,0.32,0.34,0.46,0.48,0.5,0.52,0.54,0.56,0.58,0.6,0.62,0.64,0.66,0.68,0.7,0.72,0.74,0.76,0.78,0.8,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1.0}] [marrow/.list={0.0,0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.36,0.38,0.4,0.42,0.44}];
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			mark=*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__bottom_heavy_trajectory.csv};
+		% time pi/4
+		\addplot
+		[
+			color=ColorSurf,
+			mark=square*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__surfer__tau_0o7853981633974483_trajectory.csv}; % node[pos=1, anchor=south, xshift=4pt]{$\TimeHorizon = \frac{\pi}{4}$};
+		% dijkstra
+		\addplot
+		[
+			color=ColorAlt,
+			mark=diamond*,
+			mark options={mark indices={41}},
+			%mark repeat=10,
+			%mark phase=9,
+			line width=1pt,
+			mark size=0.6mm
+		]
+		table[
+			x index=1,
+			y index=2,
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{chap_numeric/data/dijkstra/flow_taylor_green_vortex__angle_0o0__l_1o0__initial_position_0o78539816_0o______direction_angle_0o0__swimming_velocity_1o0__final_time_9o0__dijkstra__l_3o1663296036180593__dx_0o09894780011306435__connectivity_4_trajectory.csv};
+		% direction
+		\draw[black,->,-stealth, thick] (axis cs:-0.3,2.8) -- (axis cs:-0.3,3.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+		% start position
+		\addplot[mark=*, mark size=0.6mm] coordinates {(0.25 * pi,0.0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% end axis
+	\end{axis}
+	% letters
+	\node[anchor=west] at (-3.45, 0.125) {\textbf{(a)}: $\lambda=\pi L / 16$};
+	\node[anchor=west] at (-0.6, 0.125) {\textbf{(b)}: $\lambda=\pi L / 8$};
+	\node[anchor=west] at (2.35, 0.125) {\textbf{(c)}: $\lambda=\pi L / 4$};
+	\node[anchor=west] at (5.3, 0.125) {\textbf{(d)}: $\lambda=\pi L/ 2$};
+	\node[anchor=west] at (8.25, 0.125) {\textbf{(e)}: $\lambda=\pi L$};
+\end{tikzpicture}

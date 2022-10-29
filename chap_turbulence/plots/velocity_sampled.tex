@@ -1,0 +1,255 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+		group style={
+			group size=2 by 2,
+			y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.06\linewidth,
+			vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% y
+		ymode=log,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+	]
+		\nextgroupplot[
+			axis on top,
+			% x
+			xmin=-30,
+			xmax=30,
+			xtick={-30,-15,0,15,30},
+			% y
+			ylabel={$p(U = \FlowVelocityScalar)$},
+			ymin=0.001,
+			ymax=0.1,
+		]
+			\node[anchor=north west] at (axis cs:-30,0.1) {\textbf{(a)}: $\mathit{Re}_{\lambda}$ = 418};
+			%% passive
+			\addplot
+			[
+			color=black,
+			opacity=1.0,
+			%only marks,%solid
+			mark=asterisk,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_0__pagent.csv};
+			\addlegendentry{passive}
+			%% us 1.0 straight
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			%only marks,%solid
+			mark=o,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_0__agent__us_1o0__surftimeconst_0o0.csv};
+			\addlegendentry{\NameBh}
+			%% us 1.0 surf
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			%only marks,%solid
+			mark=square*,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_0__agent_full__us_1o0__surftimeconst_5o0.csv};
+			\addlegendentry{\NameSurf}
+
+
+
+		\nextgroupplot[
+			axis on top,
+			% x
+			xmin=-30,
+			xmax=30,
+			xtick={-30,-15,0,15,30},
+			% y
+			ymin=0.001,
+			ymax=0.1,
+		]
+			\node[anchor=north west] at (axis cs:-30,0.1) {\textbf{(b)}: $\mathit{Re}_{\lambda}$ = 418};
+			%% passive
+			\addplot
+			[
+			color=black,
+			opacity=1.0,
+			%only marks,%solid
+			mark=asterisk,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_2__pagent.csv};
+			%\addlegendentry{passive}
+			%% us 1.0 straight
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			%only marks,%solid
+			mark=o,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_2__agent__us_1o0__surftimeconst_0o0.csv};
+			%\addlegendentry{\NameBh}
+			%% us 1.0 surf
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			%only marks,%solid
+			mark=square*,
+			mark repeat=10,
+			]
+			table[
+				x expr={\thisrowno{0} / 0.066}, %u_\eta = 0.066
+				y expr={\thisrowno{1} * 0.066},
+				col sep=comma, 
+				comment chars=\#,
+			]{chap_turbulence/data/flow_sampled/pdf_u_2__agent_full__us_1o0__surftimeconst_5o0.csv};
+			%\addlegendentry{\NameSurf}
+
+
+
+
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\FlowVelocity_\DirectionScalar / \KolmogorovVelocityScale$,
+			xmin=-4,
+			xmax=4,
+			% y
+			ylabel={$p(U = \FlowVelocityScalar)$},
+			ymin=0.01,
+			ymax=1,
+		]
+			\node[anchor=north west] at (axis cs:-4,1) {\textbf{(c)}: $\mathit{Re}_{\lambda}$ = 11};
+			%% passive
+			\addplot[
+				ColorPassive,
+				%only marks,
+				mark=star,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{1} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/tracers__flow__n_128__re_250/tracer__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{passive}
+			%% bh
+			\addplot[
+				ColorBh,
+				%only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{1} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_0o0__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{\NameBh}
+			%% surfer
+			\addplot[
+				ColorSurf,
+				%only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{1} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_2o0__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{\NameSurf}
+
+
+
+
+		
+		\nextgroupplot[
+			axis on top,
+			% x
+			xlabel=$\FlowVelocityScalar_y / \KolmogorovVelocityScale$,
+			xmin=-4,
+			xmax=4,
+			% y
+			ymin=0.01,
+			ymax=1,
+		]
+			\node[anchor=north west] at (axis cs:-4,1) {\textbf{(d)}: $\mathit{Re}_{\lambda}$ = 11};
+			%% passive
+			\addplot[
+				ColorPassive,
+				%only marks,
+				mark=star,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{3} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/tracers__flow__n_128__re_250/tracer__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{passive}
+			%% bh
+			\addplot[
+				ColorBh,
+				%only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{3} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_0o0__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{\NameBh}
+			%% surfer
+			\addplot[
+				ColorSurf,
+				%only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0} / 0.21},
+				y expr={\thisrowno{3} * 0.21},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_2o0__flow_velocity_sampled_pdfs.csv};
+			%\addlegendentry{\NameSurf}
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,72 @@
+\begin{tikzpicture}
+	\begin{axis} [
+		% more
+		axis on top,
+		set layers,
+		% size
+		width=0.7\textwidth,
+		height=0.62\textwidth,
+		% y
+		ylabel={$V_{\mathrm{drift}}$},
+		y label style={yshift=-4pt},
+		ymin=0,
+		ymax=1.0,
+		% x
+		xlabel=$d_{\mathrm{target}} / L$,
+		x label style={yshift=4pt},
+		xmin=0,
+		xmax=2,
+		% legend
+		legend style={draw=none, fill=none},
+		legend pos=north east,
+		legend cell align=left,
+		legend columns=1,
+	]
+		% % tracers 95 CLI
+		% \addplot[name path=A, draw=none, forget plot] table [
+			% x index=0,
+			% y expr={(\thisrowno{1} - \thisrowno{2})},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+		% ]{data/tracers__re_250/tracer__average_dispersion_velocity.csv};
+		% \addplot[name path=B, draw=none, forget plot] table [
+			% x index=0,
+			% y expr={(\thisrowno{1} + \thisrowno{2})},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+		% ]{data/tracers__re_250/tracer__average_dispersion_velocity.csv};
+		% \addplot[black, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		% tracers
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		mark=*,
+		only marks,
+		]
+		table[
+			x index=0,
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/tracers__flow__n_128__re_250/tracer__average_dispersion_velocity.csv};
+		\addlegendentry{tracers}
+		% theory
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		%mark=square*,
+		%only marks,
+		]
+		table[
+			x index=0,
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/tracers__flow__n_128__re_250/theory__dispersion_velocity.csv};
+		\addlegendentry{model}
+	\end{axis}
+\end{tikzpicture}

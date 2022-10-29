@@ -1,0 +1,598 @@
+\chapter{Alternative navigation approaches}\label{chap:navigation}
+
+Apart from planktonic navigation problems, the general study of navigation has been subject to broad interest for a long time. 
+This chapter aims to review common navigation problems and the methods used to address them.
+We further discuss how these methods can be adapted to planktonic navigation problems.
+Compared to these methods, the benefits and drawbacks of surfing strategy are highlighted.
+
+Navigation is the art of monitoring and controlling the movement of an entity from one place to another.
+Considered as one the seven mechanical arts in 12$^{\mathrm{th}}$ century \citep{taylor1961didascalicon, stahl1971martianus}, it generally encompasses both the determination of the position and the orientation of such entity and the planning of its course.
+The latter is specifically called \textit{routing} in marine navigation.
+Navigation can be specific to the mean of transport (pedestrian, car, bike, boat, airplane...), and the terrain roamed (land, oceans, sky, outer space ...).
+
+Determining ones position already motivated extensive research and lead to the development of numerous tool to help navigation.
+For instance, one of the earliest known maps has been carved on a mammoth tusk, around 25,000 BC \citep{wolodtschenko2007prehistoric}, which stresses the past interest that has been attached to this problem.
+Beyond land cartography, navigators also mapped oceans currents and even oceans swell patterns [started in the Marshall Islands \citep{bagrow2017history}] that lead to the current knowledge in marine cartography.
+On top of cartography, tools such as the sextant were developed and offered accurate ways to determine ones position thanks to the observation of celestial objects.
+Since the implementation of global navigation satellite systems (Galileo for the Europeans, GPS for the Americans, GLONASS for the Russians and Beidou for the Chinese), determination of the position is particularly easy for marine navigation.
+
+The more accurate the maps and the measure of position became, the more the question of routing became relevant.
+Considering wind and ocean currents, what is the path that leads to the destination in minimal time or at minimal cost?
+
+One of the first formal step towards this goal was Mercator's projection \citep{snyder1997flattening}.
+Mercator proposed a projection of earth maps where north is always oriented up.
+This means a straight line on such map, a Rhumb line, corresponds to the trajectory achieved with a constant bearing $\beta_{\mathrm{bear.}}$.
+The bearing $\beta_{\mathrm{bear.}}$ is defined as the angle between the vessels orientation and the north.
+Despite not being optimal, following Rhumb lines was easier than great circle navigation.
+
+Great circles are the shortest routes between two points on the surface of a spherical object.
+Given the latitude $\theta_{\mathrm{lat.}}$ and longitude $\phi_{\mathrm{long.}}$ of the vessel and the destinations coordinates ($\theta_{\mathrm{dest.}}$, $\phi_{\mathrm{dest.}}$).
+One can easily compute the bearing $\beta_{\mathrm{bear.}}$, needed to follow a great circle path that leads to destination
+\begin{equation}
+	\tan \beta_{\mathrm{bear.}} = \frac{\cos \theta_{\mathrm{dest.}} \sin \left(\phi_{\mathrm{dest.}} - \phi_{\mathrm{long.}}\right)}{\cos \theta_{\mathrm{lat.}} \sin \theta_{\mathrm{dest.}} - \sin \theta_{\mathrm{lat.}} \cos \theta_{\mathrm{dest.}} \cos \left(\phi_{\mathrm{dest.}} - \phi_{\mathrm{long.}} \right)}.
+\end{equation}
+As the Earth is slighlty spheroidal, the great circle has been generalized to spheroidal objects, then called the great ellipse.
+
+For marine navigation, these methods shine thanks to their simplicity but lack some fundamental properties: they do not guaranty the path not to cross land and they do not take into account the weather, and ocean currents, that could influence the ship motion.
+While the great circle remains a reference for marine navigation, active research continues to develop methods to face these drawbacks which we summarize below.
+
+The routing problem can essentially by formalized in two different ways:
+\begin{itemize}
+	\item using a continuous control approach, one then relies on Pontryagin's maximum principle to solve the problem.
+	\item using a discrete control approach, one can then rely on the Bellman's principle of optimality to solve the problem.
+\end{itemize}
+In the context of navigation, this two approaches lead to two distinct navigation problems:
+\begin{itemize}
+	\item the \textbf{Zermelo navigation problem} using a continuous approach.
+	\item the \textbf{shortest path problem} using a discrete approach.
+\end{itemize}
+Both problems are presented below.
+
+\section{Zermelo navigation problem}
+
+Formulated by the mathematician \citet{zermelo1931navigationsproblem}, the problem consists of finding the best possible control for a boat (or any agent) of constant active velocity and navigating in a given velocity field $\FlowVelocity$, to reach its destination in a minimal time.
+While the shortest path is a straight line in the absence of currents, we expect the presence of currents to alter the optimal path.
+\begin{figure}%[H]
+	\centering
+	\input{chap_numeric/plots/taylor_green_vortex_zermelo}
+	\caption[Zermelo trajectories compared to surfing trajectories in Taylor-Green vortices.]{
+		Zermelo trajectories compared to surfing trajectories [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] in Taylor-Green vortices (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_taylor}) with $\SwimmingVelocity = \FlowVelocityScalar_{\max}/2$ and $\TimeHorizon \FlowVorticityScalar_{\max} = \pi/2$ for various initial angles $\theta_0$ of the Zermelo trajectories.
+		Trajectories of perfectly bottom-heavy plankton ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
+		The swimming speed is set to $\SwimmingVelocity = \FlowVelocityScalar_{\max}/2$, the final time to $\FinalTime \FlowVorticityScalar_{\max} = 18$ and the surfing time horizon to $\TimeHorizon \FlowVorticityScalar_{\max} = \pi/2$.
+	}
+	\label{fig:taylor_green_vortex_zermelo}
+\end{figure}
+
+This problem can be addressed using the Euler–Lagrange equations and leads to the description of the boat's steering $\theta$ by the following differential equation
+\begin{equation}
+	\label{eq:zermelo}
+	\frac{d \theta}{d t} 
+	= \sin^2\theta \frac{\partial u_y}{\partial x} 
+	+ \sin\theta \cos\theta \left(\frac{\partial u_x}{\partial x} - \frac{\partial u_y}{\partial y}
+	\right) - \cos^2\theta\frac{\partial u_x}{\partial y}
+	\quad \text{with} \quad \FlowVelocity = \begin{pmatrix}
+		u_x \\
+		u_y
+	\end{pmatrix}
+\end{equation}
+known as the Zermelo equation.
+Written here for a 2D case, this equation can be generalized to 3D cases \citep{guerrero2013uav}.
+Note that the Zermelo equation \eqref{eq:zermelo} can also be written in terms of steering direction $\ControlDirection$\footnote{Note that this equation also governs the evolution of various other physical process. It describes the orientation of the axis of symmetry inertialess oblate spheroids \citep{jeffery_motion_1922} or the orientation of the normal of a high Peclet number scalar surface in a fluid flow \citep{martinez2018diffusive}.}
+\begin{equation}
+	\label{eq:zermelo_p}
+	\frac{d \ControlDirectionNN}{d t}
+	= -\left( \Gradients \right)^T \cdot \ControlDirectionNN \quad \text{with} \quad \ControlDirectionNN = \begin{pmatrix}
+		\cos \theta \\
+		\sin \theta
+	\end{pmatrix}.
+\end{equation}
+For the sake of simplicity, this equation is formulated so that it does not guarantee the conservation of the norm.
+In a more formal way, one may use for example the method of Lagrange multipliers to enforce this constraint.
+In practice, the proper optimal steering direction $\ControlDirection$ is obtained by renormalizing $\ControlDirectionNN$ after integration.
+
+This theory however solely describes the evolution of the control without expressing the initial value of the control, $\theta_0$, that actually leads to the target destination.
+In the context of vertical migration, computing the optimal initial control $\theta_0^*$ requires to integrate the trajectory for arbitrary values $\theta_0$ and select the value $\theta_0^*$ that maximizes vertical displacement ($\theta_0^* \approx \pi/2$).
+This optimization can be done analytically if the flow velocity field is simple enough, but in most case one must rely on a numerical optimization method.
+\citet{brownlee2011clever}, among others, presents many algorithms that could be used to this end.
+Zermelo trajectories obtained by integrating numerically Eq.~\eqref{eq:zermelo} method for various initial steering $\theta_0$ are compared to the surfing strategy in Fig.~\ref{fig:taylor_green_vortex_zermelo}.
+
+Due to the proven optimality of Zermelo trajectories, a Zermelo swimmer is indeed able to perform better than a surfer if the initial control $\theta_0$ is well chosen.
+As obtaining the optimal value $\theta_0^*$ relies on the integration of trajectories, one must know the whole velocity field to apply this approach.
+And we show in Fig.~\ref{fig:taylor_green_vortex_zermelo}, arbitrarily chosen $\theta_0$ can lead anywhere.
+
+Apart from the needed knowledge to apply this navigation method, the chaoticity of flow velocity fields in nature prevents to integrate trajectories with absolute certainty.
+Thus in practice, this approach is mostly restricted to the context of idealized non-chaotic flow velocity fields for which Eq.~\eqref{eq:zermelo} can be integrated analytically \citep{liebchen2019optimal}.
+Moreover, despite some recent efforts to take into account a maximal curvature constraint on trajectories (denoted as the Zermelo-Markov-Dubins problem), this approach remains rather difficult to adapt to variations of the problem \citep{caillau2019zermelo, sacchelli2021zermelo}.
+
+\section{Shortest path problem}\label{sec:shortest_path}
+
+Introduced by \citet{dijkstra1959note}, the shortest path problem consists in finding the shortest path between two vertices of a graph.
+For instance, such graph can represent a road network in the context of land navigation, where roads a represented by graph edges and crossroads by graph vertices.
+Then, which path should be taken to minimize arrival time at destination?
+\begin{figure}
+	\centering
+	\def\svgwidth{0.8\textwidth}
+	\input{chap_numeric/schemes/dijkstra_edges.pdf_tex}
+  	\caption{
+  		Illustration of how the connectivity radius $r_c$ impacts the Dijkstra graph edges creation.
+  	}
+  	\label{fig:dijkstra_edges}
+\end{figure}
+
+The solution of \citet{dijkstra1959note}, is now the basis of most personal navigation assistant software.
+To formulate this solution, graph weights have to be associated to graph edges and would correspond for example to road length between crossroads in the land navigation analogy.
+This algorithm remains asymptotically the fastest known single-source shortest-path algorithm for arbitrary directed graphs with unbounded non-negative weights.
+In other words, it is the fastest algorithm that finds the shortest itinerary from a single specific starting position for a graph where road lengths are strictly positive.
+Note that faster options exists for specialized graphs \citep{dial1969algorithm, thorup2000ram}.
+
+In addition to its applications to land navigation problems, this method can also be applied to any navigation problem.
+In the case of a marine navigation problem, one needs to discretize space to define vertices.
+Then to define the edges of the graph, one must define connectivity between vertices.
+In our illustrative simulations, the graph connectivity is controlled by a discrete connectivity radius $r_c$.
+Each vertex $a$ are connected to all vertices $b$ within a radius $r_c \varDelta x$, with $\varDelta x$ the step size between vertices (Fig~\ref{fig:dijkstra_edges}).
+
+The time $T_{a \to b}$ necessary to move from one vertex $a$ to another vertex $b$ on a straight line then defines edges weights of the graph.
+This time $T_{a \to b}$ is deduced from the distance between the edges positions, the plankter swimming velocity and the flow velocity field and is expressed as
+\begin{equation}\label{eq:dijkstra_edge_time}
+	T_{a \to b} = \sqrt{\frac{\norm{\vec{x}_a - \vec{x}_b}^2}{\SwimmingVelocity^2 - \FlowVelocityScalar^2} + \left[ \frac{\left(\vec{x}_a - \vec{x}_b\right) \cdot \FlowVelocity}{\SwimmingVelocity^2 - \FlowVelocityScalar^2} \right]^2} - \frac{\left(\vec{x}_a - \vec{x}_b\right) \cdot \FlowVelocity}{\SwimmingVelocity^2 - \FlowVelocityScalar^2},
+\end{equation}
+with $\vec{x}_a$ the position of the vertex $a$, $\vec{x}_b$ the position of the vertex $b$, $\SwimmingVelocity$ the plankter swimming velocity, $\FlowVelocity \approx \FlowVelocity(\vec{x}_a) \approx \FlowVelocity(\vec{x}_b)$ the local flow velocity and $\FlowVelocityScalar = \norm{\FlowVelocity}$ its norm.
+The graph resolution must be fine enough to assume $\FlowVelocity \approx \FlowVelocity(\vec{x}_a) \approx \FlowVelocity(\vec{x}_b)$.
+In practice the local flow velocity $\FlowVelocity$ may be evaluated as $\FlowVelocity = \FlowVelocity([\vec{x}_a + \vec{x}_b]/2)$.
+A negative value of $T_{a \to b}$ means the vertex $b$ is not reachable from the vertex $a$. 
+Such edges are removed from the graph.
+For the remaining edges, one also associates the actual control $\ControlDirection_{a \to b}$ to apply in order to reach a vertex $b$ from a vertex $a$
+\begin{equation}\label{eq:dijkstra_edge_direction}
+	\ControlDirection_{a \to b} = \frac{1}{\SwimmingVelocity} \left[ \frac{\vec{x}_a - \vec{x}_b}{T_{a \to b}} - \FlowVelocity \right].
+\end{equation}
+
+Once the graph is generated, the Dijkstra algorithm can be applied.
+The principle of the algorithm is explained in the following and is illustrated in Fig~\ref{fig:dijkstra_principle}.
+
+Starting from a given initial crossroad (initial graph vertex), all possible roads (graph edges) starting their are first considered, each leading to a different intersections (other graph vertices).
+For each of these next crossroads, the distance (edge weight) traveled to reach these crossroads is noted and associated to them [Fig~\ref{fig:dijkstra_principle}(b)].
+The starting position is then tagged as explored.
+Then, based on the distances previously computed, the unexplored intersection that is the closest to the starting position is selected next [Fig~\ref{fig:dijkstra_principle}(c)].
+Again starting from the selected intersection, all possible roads leading to unexplored intersection are considered.
+Again the distance from the initial position to the associated edge is computed.
+This distance is calculated as the sum of the length of this last road taken and the original distance of the selected intersection.
+If one of these crossroads has already been explored and is already associated to a previously computed distance, the newly computed distance and the previous one are compared.
+If the recently computed distance is smaller than the original one, it means a new shorter path leading to that previously reached intersection has been found.
+The new distance then replaces the old one and the road that leads to it is now tagged as the best road to take to lead to that intersection [Fig~\ref{fig:dijkstra_principle}(d)].
+These operations are then repeated until the whole graph is explored.
+\begin{figure}
+	\centering
+	\def\svgwidth{\textwidth}
+	\input{chap_numeric/schemes/dijkstra_principle.pdf_tex}
+  	\caption[Illustration of four steps of the Dijkstra algorithm.]{
+  		Illustration of four steps of the Dijkstra algorithm.
+  		Circles represent vertices.
+  		Arrows represent edges.
+  		Filled circles represent explored vertices.
+  		Numbers represent edge weights in (a).
+  		Numbers represent computed vertex distances in (b-d).
+  	}
+  	\label{fig:dijkstra_principle}
+\end{figure}
+
+Originally designed to find the shortest path from a specific position to another, the algorithm must be slightly adapted to match the vertical migration problem.
+For instance, one may defined a final distance $\varLambda_{\mathrm{Dijk.}}$ and then define as targets all graph vertices $a$ located at $\vec{x}_a \cdot \Direction = \varLambda_{\mathrm{Dijk.}}$.
+Applying the Dijkstra algorithm, one then obtains all minimal paths that lead to each of these vertices and selects the path that minimizes the time to reach one of these vertices.
+The algorithm, including this nuance, is formally written as Alg.~\ref{alg:dijkstra}.
+\SetKwComment{Comment}{/* }{ */}
+\SetKwProg{Fn}{Function}{}{end}\SetKwFunction{Dijkstra}{Dijkstra}
+\SetKw{KwTo}{in}
+\SetKw{KwAnd}{and}
+\newcommand{\forcond}{$i=0$ \KwTo $n$}
+\begin{algorithm}[hbt!]
+	\caption{Dijkstra's algorithm \citep{dijkstra1959note}}\label{alg:dijkstra}
+	\KwData{$G$, graph representing the network, composed of vertices $V$ and edges $E$}
+	\KwData{$s$, source vertex to start the search from}
+	\KwData{$T$, set of target vertices}
+	\KwResult{$p$, previous vertex in the path that minimizes distance}
+	
+	\Comment{initialization}
+	$d \gets \emptyset$ \Comment*[r]{distance of vertices to the source $s$.}
+	$p \gets \emptyset$ \Comment*[r]{previous vertex in the path.}
+	$Q \gets \emptyset$ \Comment*[r]{queue containing unvisited vertices}
+	\ForEach{vertex $v$ \KwTo $G.V$}{
+		$d[v] \gets \infty$\;
+		$p[v] \gets undefined$\;
+		add $v$ to $Q$\;
+	}
+	$d[s] \gets 0$\;
+	
+	\Comment{search}
+	\While{$Q \neq \emptyset$}{
+		$u \gets v$ so that $d[v] = \min \left\{ d[q] \right\}, ~ \forall q \in Q$\;
+		remove $u$ from $Q$\;
+		\ForEach{neighbor $v$ of $u$ so that $v \in Q$}{
+			$a \gets d[u] + G.E(u, v)$\;
+			\If{$a < d[v]$}{
+				$d[v] \gets \infty$\;
+				$p[v] \gets u$\;
+			}
+		}
+	}
+	$t \gets v$ so that $d[v] = \min \left\{ d[v] \right\}, ~ \forall v \in T$\;
+	\Comment{the optimal path can then be deduced from $p$, starting from $p[t]$}
+\end{algorithm}
+
+This method is compared to the surfing strategy in Fig.~\ref{fig:taylor_green_vortex_dijkstra} for various spatial resolutions of the Dijkstra algorithm.
+\begin{figure}%[H]
+	\centering
+	\input{chap_numeric/plots/taylor_green_vortex_dijkstra}
+	\caption[Impact of the graph resolution on the trajectories performed by the Dijkstra algorithm.]{
+		Impact of the graph resolution on the trajectories performed by the Dijkstra algorithm.
+		Dijkstra algorithm compared to the surfing strategy [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] in Taylor-Green vortices (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_taylor}) with $\SwimmingVelocity = \FlowVelocityScalar_{\max}$ and $\TimeHorizon \FlowVorticityScalar_{\max} = \pi/2$ for various resolutions of the Dijkstra algorithm.
+		Trajectories of perfectly bottom-heavy plankton ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
+		The grid illustrates the resolution of the Dijkstra algorithm: line intersections represent graph vertices.
+		The  final time is set to $\FinalTime \FlowVorticityScalar_{\max} \approx 11.7$ and the initial position to $\ParticlePosition_0/L = (\pi/4, 0)$.
+	}
+	\label{fig:taylor_green_vortex_dijkstra}
+\end{figure}
+As expected, provided with the information of the full flow velocity field, the Dijkstra algorithm leads to much better performance compared to the surfing strategy in Taylor-Green vortices.
+Increasing the spatial resolution of the Dijkstra algorithm smoothens the trajectory obtained that gets closer to the optimal.
+This algorithm performs however at the cost of much larger time complexity, especially when spatial resolution increases.
+
+The result can be further smoothed by increasing the graph's number of edges, increasing at the same time the number of possible trajectories explored by the algorithm (Fig.~\ref{fig:dijkstra_edges}), observed in Fig.~\ref{fig:taylor_green_vortex_dijkstra_connectivity}.
+Note that this enhancement is also at the cost of time complexity discussed below.
+\begin{figure}%[H]
+	\centering
+	\input{chap_numeric/plots/taylor_green_vortex_dijkstra_connectivity}
+	\caption[Impact of the connectivity radius on the trajectories performed by the Dijkstra algorithm.]{
+		Impact of the connectivity radius on the trajectories performed by the Dijkstra algorithm.
+		Dijkstra algorithm compared to the surfing strategy [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] in Taylor-Green vortices (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_taylor}) with $\SwimmingVelocity = \FlowVelocityScalar_{\max}$ and $\TimeHorizon \FlowVorticityScalar_{\max} = \pi/2$ for various connectivity radius $r_c$ of the Dijkstra algorithm.
+		Trajectories of perfectly bottom-heavy plankton ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
+		The grid illustrates the resolution of the Dijkstra algorithm: line intersections represent graph vertices.
+		The  final time is set to $\FinalTime \FlowVorticityScalar_{\max} \approx 11.7$ and the initial position to $\ParticlePosition_0/L = (\pi/4, 0)$.
+	}
+	\label{fig:taylor_green_vortex_dijkstra_connectivity}
+\end{figure}
+
+The definition of the graph can be widely adapted to the needs of the navigation problems. 
+Highly flexible, this method enables edges weights to allow for any cost function.
+While the method works for travel time minimization, one may also add for instance fuel consumption and risk level into the equation.
+Particularly flexible, this method further allows to remove the vertices of the graph with respect to various constraints.
+For instance, graph vertices corresponding to the harshest weather conditions can be removed from the graph to ensure the safety of the planned route.
+In the contexte of marine navigation, the presence of storm, wave risk or collision risk among others can easily be taken into account.
+
+The \citet{dijkstra1959note} algorithm is not the sole algorithm that solves shortest path problems.
+Indeed this algorithm is actually a particular case of dynamic programming introduced later by \citet{bellman1966dynamic}.
+The Bellman–Ford algorithm \citep{ford1956network, bellman1958routing} for example is more general.
+At the cost of time complexity, it enables to find shortest paths in graphs with negative edge weights.
+
+This discrete approaches however raise an important issue, the computational cost is function of the size and the complexity of the graph.
+Indeed the worst case, performance complexity of the Dijkstra algorithm is $O(\norm{E} + \norm{V} \log \norm{V})$ with $\norm{E}$ the number of edges and $\norm{V}$ the number of vertices \citep{fredman1987fibonacci}.
+The dynamic programming approach is even worse, $O(\norm{E} \norm{V})$, using the Bellman–Ford algorithm \citep{ford1956network, bellman1958routing}.
+
+In the context of navigation, the accuracy of the trajectory obtained is directly related to the resolution of the discretization.
+The higher the resolution is, the larger is the graph necessary to represent the problem and leads to poor computational performance using the Dijkstra algorithm. 
+This issue is called the \textit{curse of dimensionality} \citep{bellman1957dynamic}.
+
+This observation motivated numerous approaches to minimize computational cost.
+The first natural approach is to try to minimize the size of the graph as much as possible.
+Indeed, in the context of marine navigation, one solely discretizes space around the great circle trajectory \citep{kobayashi2017advanced}.
+The size of the graph is thus minimized drastically and leads to better computational performance.
+This approach however limits the search of the optimal in a narrower region.
+The algorithm might then miss out some advantageous wider trajectories.
+
+When the Dijkstra algorithm reaches the destination for a given path length, at least all possible trajectories of the same length from the source are explored.
+This ensures the optimality of the resulting trajectory but is time consuming.
+Without changing the size of the graph, one can try to explore the graph in a particular way so that the smallest possible part of the graph is explored.
+Doing so one achieves less computational cost but one gives up on the insurance that the resulting trajectory is optimal.
+
+For example, widely used in video games for land navigation, the $A^*$ algorithm uses a heuristic to prioritize the progress through the graph \citep{hart1968formal}.
+The distance, as the crow flies, to the destination can be used as heuristic for instance.
+Then the $A^*$ algorithm prioritize the progress of paths through the graph that are the closest, as the crow flies, from the destination rather than prioritizing the closest from the starting position.
+The algorithm then stops when the destination is reached even if the path found is not the optimal one.
+This reduces drastically the proportion of the graph explored by the algorithm.
+
+In practice any kind of optimization algorithm can be used and a wide variety have been tested and developed for the sake of marine navigation.
+For instance many rely on genetic algorithms \citep{avgouleas2014fuel, vettor2016development} while others on Powell's method \citep{kobayashi2017advanced}, on Nelder-Mead method \citep{pipchenko201120} and some even on ant colony algorithm \citep{tsou2013ant}.
+\citet{brownlee2011clever}, among others, describes numerous additional algorithms that could be used to this end.
+
+\section{Local methods}
+
+The methods previously described can be referred to \textit{global} optimization methods \citep{todorov2009iterative}.
+While in theory, these methods lead to optimal solutions, they may face the \textit{curse of dimensionality},  previously described, and lead to poor performance in practice.
+
+To overcome this difficulty, an interesting approaches involves reducing the global problem to a ``local'' problem that can be solved at a lower cost.
+Solving such a problem iteratively along a swimmers trajectory leads to an approximate optimal solution.
+Iterative dynamic programming and its derivatives lie into this class of solutions \citep{todorov2009iterative, luus2019iterative}.
+While the solution is not guaranteed to be optimal anymore, it solves the issue caused by the \textit{curse of dimensionality} and is also widely used in marine navigation \citep{avgouleas2008optimal, avgouleas2014fuel}.
+
+In the context  of planktonic navigation, where the steering direction $\ControlDirection$ is actually the swimming direction $\SwimmingDirection$, these local approaches feel particularly relevant.
+Indeed, due to their limited knowledge of the surrounding flow and their expected limited computational power, the global approaches are out of reach of such organisms.
+
+\subsection{Local Dijkstra algorithm}
+
+We first discuss how the Dijkstra algorithm can be used locally to adapt it to solve planktonic navigation problems.
+Starting from a given position $\ParticlePosition$ of a plankter, one first defines a length horizon $\lambda_{\mathrm{Dijk.}}$ (as opposed to the surfing time horizon $\TimeHorizon$) that controls the distance of the local target vertices from the microswimmer position.
+Then a local graph of size $2\lambda_{\mathrm{Dijk.}} \times 2\lambda_{\mathrm{Dijk.}}$ is generated centered on the plankter position $\ParticlePosition$ and is updated at all times when $\ParticlePosition$ changes.
+It is then fed to a Dijkstra algorithm that computes the shortest path that leads to one of target edges of the graph. 
+The control steering direction $\ControlDirection_{\mathrm{Loc. Dij.}}(t)$ is finally deduced from the control $\ControlDirection_{a \to b}$ [Eq.~\eqref{eq:dijkstra_edge_direction}] corresponding to the first graph edge $a \to b$ of that shortest path.
+
+To apply this algorithm to plaktonic navigation problems, an additional modification is required when computing the graph using Eq.~\eqref{eq:dijkstra_edge_time} and Eq.~\eqref{eq:dijkstra_edge_direction}.
+Indeed as stated in the problem description in Chap.~\ref{chap:the_surfing_strategy}, as they are advected by the fluid flow, planktonic organisms are not able to measure directly the flow velocity $\FlowVelocity(\ParticlePosition)$.
+Thus $\FlowVelocity(\vec{x})$ is replaced by $\FlowVelocity(\vec{x}) - \FlowVelocity(\ParticlePosition)$ in the expressions used to compute the graph\footnote{If written as a Taylor expansion, $\FlowVelocity(\vec{x}) - \FlowVelocity(\ParticlePosition)$, can be directly computed from spatial derivatives of the flow velocity.}.
+Thankfully, as proven below, the optimal control that leads to the maximization of vertical migration is independent of $\FlowVelocity(\ParticlePosition)$ and this limitation is not affecting navigation performance \footnote{This is only valid in the context of vertical migration. If the aim of the plankter is to reach an Eulerian target, $\FlowVelocity(\ParticlePosition)$ is of primordial importance.}.
+
+\begin{figure}%[H]
+	\centering
+	\input{chap_numeric/plots/taylor_green_vortex_iterative_local_dijkstra}
+	\caption[Local iterative Dijkstra algorithm compared to the surfing strategy in Taylor-Green vortices.]{
+		Local iterative Dijkstra algorithm compared to the surfing strategy [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] in Taylor-Green vortices (Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_taylor}) for various length horizons $\lambda_{\mathrm{Dijk.}}$, with $\SwimmingVelocity = \FlowVelocityScalar_{\max}$, $\TimeHorizon \FlowVorticityScalar_{\max} = \pi/2$ for surfers and $r_c = 4$ for the local iterative Dijkstra algorithm.
+		Trajectories of perfectly bottom-heavy plankton ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
+		The grid illustrates the local graph of the Dijkstra algorithm: line intersections represent graph vertices.
+		This graph is regenerated locally at each time step.
+		The final simulation time is set to $\FinalTime \FlowVorticityScalar_{\max} = 18$ and the initial position to $\ParticlePosition_0/L = (\pi/4, 0)$.
+	}
+	\label{fig:taylor_green_vortex_iterative_local_dijkstra}
+\end{figure}
+This local iterative implementation of the Dijkstra algorithm is compared to the surfing strategy in Fig.~\ref{fig:taylor_green_vortex_iterative_local_dijkstra} for various values of the length horizon $\lambda_{\mathrm{Dijk.}}$ (dimension of the graph).
+Similarly to surfing, a small value of the length horizon $\lambda_{\mathrm{Dijk.}}$ also leads to swimming straight up.
+Indeed if the target distance to reach is close to the plankter (characterized by the value of $\lambda_{\mathrm{Dijk.}}$), one does not have the time to exploit the flow before reaching its target distance. 
+Thus the optimal swimming direction $\SwimmingDirection$ is along $\Direction$.
+When $\lambda_{\mathrm{Dijk.}}$ increases however, for $\lambda_{\mathrm{Dijk.}} = \pi L / 4$, performance increases drastically and this method outperforms the surfing strategy at the cost of a larger time complexity.
+Surprisingly, when one further increases $\lambda_{\mathrm{Dijk.}}$, we observe a weaker vertical displacement.
+Similarly to the effect observed for surfing in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_taylor}, we expect performance to be affected by the finite final time $T$.
+For a small value of $T$, large values of $\lambda_{\mathrm{Dijk.}}$ may overanticipate the trajectory leading to weaker performance.
+However we would always expect performance to increase with $\lambda_{\mathrm{Dijk.}}$ for $T \to \infty$.
+
+Despite its attractiveness to solve planktonic navigation problems due to its better vertical migration performance compared to the surfing strategy this method remains very time consuming.
+Indeed, as discussed below in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:computational_power} most of the surfing strategy is captured by a first order computation of the matrix exponential. 
+The time complexity of the surfing strategy then scales as $O(m^2)$ with $m$ the dimension of the problem ($m=2$ in 2D flows and $m=3$ in 3D flows).
+The complexity of the local Dijkstra approach depends however on the size of the graph generated.
+The initial bottleneck of this method comes from the generation of the graph that requires the computation of each graph edge weight based on Eq.~\eqref{eq:dijkstra_edge_time}.
+The complexity of the method then strongly depends on the number of graph edges $\norm{E}$ and is approximately equal to $\pi r_c^2 \norm{V}$ in 2D or $4 \pi r_c^3 \norm{V} / 3$ in 3D\footnote{The actual number of vertices depends on the solution of Gauss lattice point problem \citep{guy2004unsolved}.}.
+The number of graph vertices $\norm{V}$ depends directly on the length horizon $\lambda_{\mathrm{Dijk.}}$ and the resolution of the graph.
+The minimal graph resolution required to get a correct description of the possible paths depends on the smallest flow scales of the flow.
+The number of graph vertices $\norm{V}$ then scale as $O([\lambda_{\mathrm{Dijk.}}/L]^m)$ in Taylor-Green vortices (or $O([\lambda_{\mathrm{Dijk.}}/\KolmogorovScale]^m)$ in turbulence).
+Finally the time complexity of the local Dijkstra approach scales as $O([r_c \lambda_{\mathrm{Dijk.}}/L]^m)$.
+This illustrates the clear advantage in time complexity of the surfing strategy, in particular in 3D flows ($m = 3$).
+
+\subsection{Local Zermelo approach: a generalisation of surfing}\label{sec:surfing_generalisation}
+
+A first way to approach the problem locally using a Zermelo derived method is to apply a similar idea than above.
+Rather than integrating Zermelo trajectories over a long time, trajectories could be integrated over a short time $\TimeHorizon$.
+In a similar manner than the original method, the trajectory that maximizes displacement in the desired direction is selected and followed.
+This protocol can then be applied iteratively to navigate efficiently through the flow. 
+
+Note how similar this protocol reassembles the reasoning used to derive the surfing strategy in Chap.~\ref{chap:the_surfing_strategy}.
+The only difference in both methods lies in that the surfing strategy assumes that the flow is linear, therefore enabling the surfing to be expressed as a simple reactive strategy.
+Therefore the surfing strategy can actually be seen as a local Zermelo approach limited to $\TimeHorizon \le \TimeHorizonOpt$ with $\TimeHorizonOpt$ the optimal surfing time horizon.
+Based on this observation, in this section, we look for a generalisation of the surfing strategy that could extend the validity of the time horizon $\TimeHorizon$.
+
+Starting from the directional Zermelo equation \ref{eq:zermelo_p}
+\begin{equation}
+	\frac{d \ControlDirectionNN}{d t}
+	= -\left( \Gradients \right)^T \cdot \ControlDirectionNN \quad \text{with} \quad \ControlDirectionNN = \begin{pmatrix}
+		\cos \theta \\
+		\sin \theta
+	\end{pmatrix},
+\end{equation}
+we recognize a first order homogeneous differential equation, for which the solution can be expressed as
+\begin{equation}
+	\label{eq:zermelo_exp_p}
+	\ControlDirectionNN(t) = \left[ \exp \left( - \int_0^t \Gradients \, dt' \right) \right]^T \cdot \ControlDirection_0,
+\end{equation}
+with $\ControlDirection_0$ the initial control value, still unknown.
+We remind that $\Gradients$ here represents the value of the flow velocity gradients measured along the trajectory of the plankter rather than a Eulerian measure.
+
+When using this framework, maximizing the vertical migration over a time $\FinalTime$ (problem presented in Chap.~\ref{chap:the_surfing_strategy}) reduces to
+\begin{equation}
+	\text{Find} ~ \ControlDirection_0 ~ \text{such that} ~ \ParticlePosition(\FinalTime) \cdot \Direction ~ \text{is maximum}.
+\end{equation}
+Knowing the optimal steering direction at the final time $\FinalTime$ would be $\ControlDirection(T) = \Direction$, we obtain the initial steering direction $\ControlDirection_0^*$ that maximizes vertical migration. 
+\begin{equation}
+	\ControlDirection_0^* = \frac{\ControlDirectionNN_0^*}{\norm{\ControlDirectionNN_0^*}}, \quad \text{with} \quad \ControlDirectionNN_0^* = \left[ \exp \left( \int_0^\FinalTime \Gradients \, dt' \right) \right]^T \cdot \Direction.
+\end{equation}
+The optimal steering direction $\ControlDirection^*$ can then be expressed as
+\begin{equation}
+	\label{eq:zermelo_optimal_swimming_direction}
+	\ControlDirection^* = \frac{\ControlDirectionNN^*}{\norm{\ControlDirectionNN^*}}, \quad \text{with} \quad \ControlDirectionNN^*(t) = \left[ \exp \left( \int_t^\FinalTime \Gradients \, dt' \right) \right]^T \cdot \Direction.
+\end{equation}
+
+Denoting $\TimeHorizon = T - t$ as the time remaining until the end, the previous expression may be rewritten as:
+\begin{equation}
+	\label{eq:zermelo_optimal_swimming_direction}
+	\ControlDirection^* = \frac{\ControlDirectionNN^*}{\norm{\ControlDirectionNN^*}}, \quad \text{with} \quad \ControlDirectionNN^* = \left[ \exp \left( \int_0^\TimeHorizon \Gradients \, dt \right) \right]^T \cdot \Direction.
+\end{equation}
+
+We can then decompose the Lagrangian measure of the flow velocity gradients into its Taylor expansion in time
+\begin{equation}
+	\label{eq:zermelo_optimal_swimming_direction}
+	\Gradients(t) = \Gradients + \frac{d \Gradients}{dt} \, t + \frac{d^2 \Gradients}{dt^2} \, \frac{t^2}{2} + \cdots = \sum_{k=0}^\infty \frac{d^k \Gradients}{dt^k} \, \frac{t^k}{k!}.
+\end{equation}
+The subscript $_0$ has been omitted for clarity.
+This leads to the expression of the optimal steering direction as function of the Lagrangian time derivatives of the gradients at the moment of the measure
+\begin{multline}
+	\label{eq:zermelo_analytic_optimal_swimming_direction}
+	\ControlDirection^* = \frac{\ControlDirectionNN^*}{\norm{\ControlDirectionNN^*}}, \quad \text{with} \\ \ControlDirectionNN^* 
+	= \left[ \exp \left( \sum_{k=0}^\infty  \frac{d^k \Gradients}{dt^k} \, \frac{\TimeHorizon^{k+1}}{(k+1)!} \right) \right]^T \cdot \Direction 
+	= \left[ \exp \left( \Gradients \, \TimeHorizon + \frac{d \Gradients}{dt} \frac{\TimeHorizon^2}{2} + \cdots \right) \right]^T \cdot \Direction.
+\end{multline}
+Note that this same expression can be obtained by directly expanding on the approach used to derive the surfing strategy to higher orders.
+
+While a plankter with no memory is limited to the first term of the series, with the ability to memorize past measures, the time derivatives of the measure of the gradient, $d^k \Gradients / dt^k$, should be accessible and could be used to further improve the performance of the surfing strategy.
+
+However, strictly speaking, the derivatives of the gradient tensor, $d^k \Gradients / dt^k$ do not depend only on the past but also on the current control $\ControlDirectionNN^*$.
+To highlight this dependence, one may note that
+\begin{equation}\label{eq:link_to_spatial_derivatives}
+	\frac{d^k \Gradients}{dt^k} = \frac{D^k \Gradients}{D t^k} + \SwimmingVelocity \frac{\partial^k \Gradients}{\partial (\ControlDirection^* )^k},
+\end{equation}
+with $\partial^k \Gradients/\partial (\ControlDirection^*)^k$ the spatial derivative of $\Gradients$ along $\ControlDirection^*$ (for instance $\partial \Gradients/\partial \ControlDirection^* = \ControlDirection^* \cdot \vec{\nabla}^2 \FlowVelocity$ with $\vec{\nabla}^2$ the hessian tensor of the flow velocity).
+In no memory is provided but high order spatial derivatives can be computed, one may then estimate the terms $d^k \Gradients/dt^k$ from local spatial derivatives.
+Doing so would result in an implicit expression of $\ControlDirection^*$ that could be solved iteratively.
+
+Overall these analytic results show that:
+\begin{itemize}
+	\item the optimal control to this global navigation problem can be written as a function of local information.
+	\item the knowledge of the flow velocity field $\FlowVelocity(\ParticlePosition, t)$ is not necessary to apply this optimal control.
+	\item the surfing strategy is the \textbf{simplification} of a \textbf{rigorously optimal solution}: if the flow velocity gradient tensor $\Gradients$ is considered constant, the optimal solution indeed reduced to the surfing strategy [Eq.~\eqref{eq:surfing_optimal_swimming_direction}].
+	\item memory and finer spatial measurements could be used to further improve navigation performance.
+\end{itemize}
+
+\section{Reinforcement learning}
+
+Reinforcement learning methods have been successfully applied to learn efficient navigation strategies in fluid flows.
+For instance, using reinforcement learning, \citet{reddy2016learning} show that turbulence fluctuations can be exploited to optimize bird flight [or more generally optimize thermal soaring \citep{reddy2018glider, reddy2018soaring}].
+In the context of the vertical migration of microswimmers, \citet{colabrese2017flow} demonstrates that smart navigation is possible in Taylor-Green vortices through reinforcement learning.
+Since then studies looked to quantify the performance of these methods of point to point navigation in more complex flows such as: 2D turbulent flows \citep{biferale2019zermelo, alageshan2020machine, qiu2022navigation}, 2D cylinder vortical wakes \citep{gunnarson2021learning}, 2D random flow fields \citep{qiu2022navigation} and in the 3D ABC flow \citep{gustavsson2017finding} among others.
+Overall the results show reinforcement learning to be a promising tool to solve such navigation problems.
+However, its application to more complex flows such as 3D turbulence remains challenging \citep{alageshan2020machine}.
+Moreover the resulting strategies are often difficult to interpret, known as the ``black box'' issue.
+
+% Reinforcement learning methods can be seen as an extension of dynamic programming but rather than looking for approximate solutions rather than optimal ones.
+% Therfore these are somtime called \textit{approximate dynamic programming} in the field of control theory \citep{si2004handbook}.
+
+Given the recent increasing interest for reinforcement learning approaches, the principles of these methods is briefly explained here. 
+In the context of the vertical migration problem in turbulence, the performance of the surfing strategy is then compared to the performance of the strategy proposed by \citet{alageshan2020machine}, learned through reinforcement learning.
+
+\subsection{Principle of reinforcement learning approaches}
+
+Throughout this section an explanatory example is used to describe the general principles of reinforcement learning: 
+we consider that someone, for instance myself, is in charge of finding the shortest path from a shelter to the summit of a given mountain\footnote{Note that solving this kind of hiking optimal navigation problems is obviously important for mountaineers and is an active field of research: see \citet{parkinson2018optimal} for instance.} (Fig.~\ref{fig:rl_mountain}).
+\begin{figure}
+	\centering
+	\def\svgwidth{0.75\textwidth}
+	\input{chap_turbulence/schemes/rl_mountain.pdf_tex}
+  	\caption[Illustration of the problem of finding the best path from the shelter (house) to the mountain summit (flag).]{
+  		Illustration of the problem of finding the best path from the shelter (house) to the mountain summit (flag).
+  		The cell centers represent the set of positions $s_{i,j} \in \mathcal{S}$ corresponding to the set space.
+  		The actions correspond to the action of walking in any cardinal direction: $a_N$ (north), $a_S$ (south), $a_W$ (west) and $a_E$ (east).
+  		As it is easy to get lost, walking in any direction might not necessary lead to an adjacent state but might lead somewhere else.
+  	}
+  	\label{fig:rl_mountain}
+\end{figure}
+I am provided a map of that mountain, a gps device that let me know my position at all times and a notebook to take some notes.
+I have a given time limit, a week for instance, to perform that task.
+To try to solve the problem, a first idea would be to use Dijkstra algorithm presented above (Sec.~\ref{sec:shortest_path}).
+To do so one would need to define a graph edges that maps the mountain and then assess the time needed to go from one edge to another to define the graph edges weights.
+While this may be computed easily for car navigation (based on the length of the road) and marine navigation (based on the ocean currents), this is much harder to perform for the problem of hiking unexplored mountain.
+The walking performance depends on the type of the terrain, its roughness, the slope and many other factors which make this assessment impossible without actually experimenting the hike.
+To overcome this issue, I could just walk over the whole mountain and try to assess this experimentally.
+Once done, this would let me define the graph edges, necessary to apply the Dijkstra algorithm.
+This is however impossible for two reasons.
+First it would take way too much time to hike the whole mountain by myself.
+Second the problem is not deterministic: if there is no trail to follow, I would never navigate through obstacle in the exact same way each time.
+As a consequence, starting from the same approximate position, and deciding to go in the east direction would not always lead me to the exact same position each time.
+These two particularities challenge the application of the Dijkstra algorithm, and justify the need for other approaches such as reinforcement learning.
+Note that this example can also be adapted to a problem of navigation with local information if I am not provided a map.
+In that case, the state space would be reduced to my local vision and the problem would certainly become even more probabilistic.
+
+Reinforcement learning refers to various optimization methods to solve a \textit{Markov decision processes} by trial and error. 
+A Markov decision process is defined by a set of \textit{states} $\mathcal{S}$, a set of possible \textit{actions} $A$ that can be performed by an agent.
+In the context of the mountaineering problem, the set of states would correspond to positions mapped over the mountain and the set of actions would correspond to the action of walking in a cardinal direction for a given amount of time, one hour for instance.
+There is a given probability $P_a(s, s')$ to transition from a state $s \in \mathcal{S}$ to another $s' \in \mathcal{S}$ when performing the action $a \in \mathcal{A}$\footnote{This is the property that makes a Markov decision problem different that the shortest path problem presented above.}.
+When performing an action $a$ the \textit{agent} is led from a state $s$ to another $s'$.
+The agent is then offered an instantaneous scalar \textit{reward} $\mathcal{R}_a(s, s')$.
+Its value can be negative, corresponding then to a penalty rather than an actual reward.
+Note well that the reward can also be probabilistic.
+In the case of our illustrative problem, the reward could correspond to how closer to the summit I got.
+
+The general idea of reinforcement learning is to find the policy $\pi(a, s)$ that maximizes the accumulated reward, generally called \textit{return}, obtained over iterated action.
+The policy $\pi(a, s)$ characterizes the probability to perform the action $a$ given the state $s$.
+In other words, it corresponds to how likely I am to choose to walk in the direction $a$ when I am at the position $s$ on the map.
+
+In practice, the principle of reinforcement learning is to use past experience to assess the actions that maximizes the expected cumulative reward that will be obtained in the future.
+Many different methods can be used to update the policy $\pi(a, s)$ as function of experience.
+As an example of these methods, we focus here one of the simplest approach that exists out there: the $\mathcal{Q}$-learning method.
+Despite its simplicity compared to more advanced approaches, this method is actually widely used and is a good illustration of the general principles of reinforcement learning.
+In addition, this method is the optimisation approach used by \citep{alageshan2020machine}.
+As their results is to be compared in our study, the details of the reinforcement learning method are to be understood. 
+
+The $\mathcal{Q}$-learning approach relies on the \textit{quality value} function $\mathcal{Q}(a, s)$.
+This value quantifies the expected return (cumulative reward over iterations) obtained if the action $a$ is performed in the state $s$.
+In the context of the mountaineering problem, this function quantifies how close to the summit I am going to get in the future if my current decision is $a$ at the gps position $s$.
+Given the knowledge of that function, the policy that maximizes reward is simply the policy that takes the action $a^* = \argmax_{a \in \mathcal{A}} \mathcal{Q}(a, s)$ that maximizes $\mathcal{Q}(a, s)$ for a given state $s$.
+In other words the optimal policy reads $\pi^*(a^*, s) = 1$ and $\pi^*(a, s) = 0$ otherwise.
+However in the problem we consider, the exact value of the function $\mathcal{Q}$ is not known bu must be assessed from experience.
+In practice, the value of $\mathcal{Q}$ is first initialized (uniformly in general) and its values are updated at each iteration using Bellman equation.
+If the action $a$ of a given iteration led from the state $s$ to the state $s'$ and the reward $\mathcal{R}_a(s, s')$ was offered, then $\mathcal{Q}$ is updated as follows
+\begin{equation}
+	\mathcal{Q}(a, s) \mapsto (1 - \lambda_{\mathrm{learn.}}) \mathcal{Q}(a, s) + \lambda_{\mathrm{learn.}} \left[ \mathcal{R}_a(s, s') + \gamma_{\mathrm{learn.}} \max_{a \in \mathcal{A}} \mathcal{Q}(a, s) \right].
+\end{equation}
+The parameters $\lambda_{\mathrm{learn.}}$ and $\gamma_{\mathrm{learn.}}$ are two free parameters of the problem.
+The parameter $\lambda_{\mathrm{learn.}}$ characterizes how fast $\mathcal{Q}(a, s)$ is updated.
+This boils down to averaging the reward $\mathcal{R}_a(s, s')$ over $1/\lambda_{\mathrm{learn.}}$.
+If the problem is completely deterministic, $\lambda_{\mathrm{learn.}}$ is set to $1$ as no average is needed but the more probabilistic it becomes, the lower the value $\lambda_{\mathrm{learn.}}$ is set to enhance the learning process.
+The parameter $\gamma_{\mathrm{learn.}}$ characterizes the fact that rewards obtained late in the future reward are discounted with respect to the rewards obtained in a close future.
+The method then only accounts for an iteration horizon of $1/\gamma_{\mathrm{learn.}}$ rather than looking for an optimal solution over an infinite number of iterations.
+
+We now know how the quality value $\mathcal{Q}$ can be built from experience.
+We also now how to deduced the optimal policy $\pi^*(a, s)$, that it the objective in the end, once the value of $\mathcal{Q}$ is assessed from experience.
+Now remains to be prescribed the actual policy $\pi(a, s)$ that enables for both exploration and assessment of the value $\mathcal{Q}$ and the exploitation of the current knowledge of $\mathcal{Q}$ to avoid exploring the whole set of states.
+In the context of the mountaineering navigation problem, how to choose my decisions so that I explore sufficiently the mountain to look for new shorter paths but also use my current knowledge to avoid having to explore the whole mountain?
+
+There are many different ways to prescribe that policy. We present here a simple yet popular approach: the $\epsilon$-greedy approach.
+The policy can then be defined as
+\begin{equation}
+	\pi(a, s) = \begin{cases}
+		\epsilon_{\mathrm{learn.}}/\norm{\mathcal{A}} + (1 - \epsilon_{\mathrm{learn.}}) & \quad \text{if}~~a = \argmax_{a \in \mathcal{A}} \mathcal{Q}(a, s)\\
+		\epsilon_{\mathrm{learn.}}/\norm{\mathcal{A}} & \quad \text{otherwise},
+	\end{cases}
+\end{equation}
+with $\epsilon_{\mathrm{learn.}}$ yet another free parameter.
+Its value characterizes how much likely the action $a = \argmax_{a \in \mathcal{A}} \mathcal{Q}(a, s)$ that maximizes the expected return is to be chosen with respect to the others.
+If $\epsilon_{\mathrm{learn.}} = 1$, then this optimal action is always chosen preventing the agent to improve its estimation of the quality function $\mathcal{Q}$.
+If $\epsilon_{\mathrm{learn.}} = 0$, then the actions taken at each state are completely random as the probability distribution given by $\pi(a, s)$ would be uniformly distributed.
+This concludes the full prescription of a $\mathcal{Q}$-learning method.
+
+While reinforcement techniques are tempting due to their very broad applicability, the learning process is time consuming.
+Moreover, most reinforcement learning methods are build upon numerous free parameters that need to be hand-tweaked to the problem solved.
+Finally the convergence to an optimal solution is not guaranteed and is especially challenging in the context of very stochastic problems \citep{alageshan2020machine}.
+
+The development of a reinforcement learning method is out of the scope of this study that focuses on the previously described surfing strategy.
+Therefore, we use the result of \citep{alageshan2020machine} to compare the surfing strategy to reinforcement learning.
+
+\subsection{Comparison to the surfing strategy}\label{sec:comparison_reinforcement_learning}
+
+A recent study by \citet{Alageshan2020} used reinforcement learning to solve a navigation problem similar to ours.
+We sum up here the problem and characterize the adversial $\mathcal{Q}$-learning method they used.
+The navigation problem they introduce is the problem of reaching a fixed target in a turbulent flow.
+The goal is to reach the target (of a given size) in a minimal average time, starting from random initial positions.
+The smart swimmers measure both the local flow vorticity $\FlowVorticity$ and the direction to the target $\TargetDirection$ at all times.
+The states $s \in \mathcal{S}$ of the problem are defined as 13 discrete space based on the intensity of the local flow vorticity $\FlowVorticityScalar = \norm{\FlowVorticity}$ and the current orientation $\SwimmingDirection$ with respect to the vorticity direction $\hat{\FlowVorticity}$ and the direction towards the target [see \citet{alageshan2020machine} for more details].
+The possibles actions $a \in \mathcal{A}$ of the swimmers are defined as 6 possible swimming directions colinear to each one of the following vectors: $\TargetDirection$, $-\TargetDirection$, $\TargetDirection \times \hat{\FlowVorticity}$, $-\TargetDirection \times \hat{\FlowVorticity}$, $\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$ and $-\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$.
+The reward is defined \textit{adversially} meaning in this context that the reward given to the agent is defined relatively to the performance of a naive microswimmer (bottom-heavy in the direction of the target) starting at the same position.
+Whenever the agent changes of space, the naive swimmer is then reset at the position of the smart agent.
+The reward is then defined as $\mathcal{R}(t) = \TargetDistance_{\mathrm{naive}}(t) - \TargetDistance_{\mathrm{smart}}(t)$ with $\TargetDistance$ the distance to the target.
+
+Due to the more complex nature of the problem they address compared to the problem of vertical migration, the choice of a performance metric is not obvious.
+As they chose the average time to reach the fixed target, they do not account for all their agents that did not reached the target.
+To overcome this issue and compare the performance of the learnt strategy they obtain to the surfing strategy, we consider the target to reached is placed at infinity.
+In that case, the direction to target is constant and $\TargetDirection = \Direction$.
+
+\begin{figure}%[H]
+    \centering
+    \input{chap_turbulence/plots/comparison}
+    \caption[Comparison of the surfing strategy to the result of a reinforcement learning algorithm in turbulence.]{
+    	Comparison between the surfing strategy (red symbols), bottom-heavy plankters (blue line) and the ``smart'' strategy obtained by \citet{Alageshan2020} using reinforcement learning (green dashed line).
+   		The performance of surfers is plotted as a function of the time horizon $\TimeHorizon$, which is the only parameter to optimize. The swimmers have the same characteristics: $\SwimmingVelocity = 1.5 \,u_{\mathrm{rms}}$ and $\ReorientationTime = 0.5\, \omega_{\mathrm{rms}}^{-1}$.
+    }
+    \label{fig:comparison_reinforcement_learning}
+\end{figure}
+Figure \ref{fig:comparison_reinforcement_learning} shows the performance of surfers as a function of the time horizon $\TimeHorizon$ (the only parameter of our strategy).
+This results of this comparative study have been published in \citet{monthiller2022surfing}.
+It is compared to the performance of the strategy that \citet{Alageshan2020} obtained through reinforcement learning in a 3D turbulent flow of $\mathit{Re}_{\lambda} = 30$ 
+It shows that surfing outperforms their reinforcement learning strategy: surfers swim 66\% faster than bottom-heavy plankters, while reinforcement learning agents only swim 11\% faster. Note that the surfing strategy is favoured compared to their approach: $\ControlDirectionOpt$ is a continuous function of a continuous measure of the flow velocity gradients $\Gradients$.
+As opposed to their smart microswimmers that are limited to the measure of vorticitical ($\FlowVorticity$) of the velocity gradients, and for which their control is discrete and function of a discrete state space. 
+These limitations could be lifted up in practice using more advanced reinforcement learning methods.
+Note moreover that in the original paper of \citet{Alageshan2020}, trained agents reach the target 19\% faster than naive agents (which correspond to bottom-heavy plankters).
+The discrepancy is likely due to the fact that their behavior has been trained in a different simulation flow simulation (our Reynolds number $\mathit{Re}_{\lambda} = 21$ is different from theirs) and using a difference in performance metric.
+
+Overall, surfing not only appears to be a competitive strategy, but it also provides a baseline for future studies using reinforcement learning.
+
+\section{Summary}
+
+We conclude this chapter by summing up key elements discussed in this chapter
+\begin{itemize}
+	\item navigation problems can be addressed either using the Zermelo equation or using a dynamic programming approach
+	\item while these methods are originally based on the knowledge of the whole velocity field, both of these approaches can be adapted to account for local knowledge of the flow
+	\item both of these methods can lead to better performance than surfing in Taylor-Green vortices but at the cost of greater computational time that would make them particularly challenging to apply to more complex flows
+	\item this review leads to the generalisation of the surfing strategy than can be seen as reduction of a rigorously optimal navigation method 
+	\item the generalized surfing strategy can further improve surfing performance given that memory or finer spatial measures of the flow are provided
+	\item the surfing strategy is competitive with respect to reinforcement learning approaches
+\end{itemize}

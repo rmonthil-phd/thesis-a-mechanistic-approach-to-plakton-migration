@@ -1,0 +1,133 @@
+% notations
+
+%% tmp
+
+\definecolor{TodoColor}{rgb}{0.5, 0.5, 1.0}
+\newcommand{\todo}[1]{\textcolor{TodoColor}{\Large\textbf{[TODO:\ #1]}}}
+\newcommand{\quest}[1]{\textcolor{green!70!black}{\Large\textbf{[Question:\ #1]}}}
+
+%% operators and delimiters
+
+\renewcommand{\matr}[1]{\boldsymbol{#1}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+  \edef\arraystretch{#1}%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols c}}
+\makeatother
+
+
+\DeclarePairedDelimiter\norm{\lvert}{\rvert}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+\DeclareMathOperator{\sym}{sym}
+\DeclareMathOperator{\asym}{skew}
+\DeclareMathOperator{\arcos}{arcos}
+\DeclareMathOperator{\arctan2}{arctan2}
+%\DeclareMathOperator{\arcsin}{arcsin}
+\DeclareMathOperator{\sgn}{sgn}
+
+
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\tr}{Tr}
+
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\argmax}{argmax}
+
+\newcommand{\appropto}{\mathrel{\vcenter{
+  \offinterlineskip\halign{\hfil$##$\cr
+    \propto\cr\noalign{\kern2pt}\sim\cr\noalign{\kern-2pt}}}}}
+
+%% names
+
+\newcommand{\NameBh}{bottom-heavy}
+\newcommand{\NameBhShort}{b-h}
+\newcommand{\NameSurf}{surfer}
+\newcommand{\NameSurfShort}{surf}
+
+%% symbols
+
+\newcommand{\ParticlePosition}{\vec{X}}
+\newcommand{\FlowVelocityScalar}{u}
+\newcommand{\FlowVelocity}{\vec{\FlowVelocityScalar}}
+\newcommand{\FlowVorticityScalar}{\omega}
+\newcommand{\FlowVorticity}{\vec{\FlowVorticityScalar}}
+
+\newcommand{\Gradients}{\vec{\nabla} \FlowVelocity}
+\newcommand{\GradientsSymScalar}{S}
+\newcommand{\GradientsSym}{\matr{\GradientsSymScalar}}
+\newcommand{\GradientsAsymScalar}{\varOmega}
+\newcommand{\GradientsAsym}{\matr{\GradientsAsymScalar}}
+\newcommand{\Hessian}{\vec{\nabla}^2 \FlowVelocity}
+
+\newcommand{\SwimmingVelocity}{V_{\mathrm{swim}}}
+\newcommand{\SwimmingVelocityTurb}{V_{\mathrm{swim}, \mathrm{turb.}}}
+\newcommand{\AngularVelocity}{\vec{\varOmega}}
+\newcommand{\SwimmingAngularVelocity}{\varOmega_{\mathrm{swim}}}
+\newcommand{\SwimmingAngularVelocityVector}{\vec{\varOmega}_{\mathrm{swim}}}
+
+\newcommand{\SwimmingDirection}{\hat{\vec{p}}}
+\newcommand{\SwimmingDirectionNN}{\vec{p}}
+\newcommand{\SwimmingDirectionOpt}{\hat{\vec{p}}_{\mathrm{\NameSurfShort}}}
+\newcommand{\SwimmingDirectionOptNN}{\vec{p}_{\mathrm{\NameSurfShort}}}
+\newcommand{\ControlDirectionScalar}{n}
+\newcommand{\ControlDirection}{\hat{\vec{\ControlDirectionScalar}}}
+\newcommand{\ControlDirectionNN}{\vec{\ControlDirectionScalar}}
+\newcommand{\ControlDirectionOpt}{\hat{\vec{\ControlDirectionScalar}}_{\mathrm{\NameSurfShort}}}
+\newcommand{\ControlDirectionOptNN}{\vec{\ControlDirectionScalar}_{\mathrm{\NameSurfShort}}}
+\newcommand{\ControlDirectionOptSym}{\hat{\vec{\ControlDirectionScalar}}_{\mathrm{\NameSurfShort}, \GradientsSym}}
+\newcommand{\ControlDirectionOptAsym}{\hat{\vec{\ControlDirectionScalar}}_{\mathrm{\NameSurfShort}, \GradientsAsym}}
+\newcommand{\ControlDirectionOptAsymHorizontal}{\hat{\vec{\ControlDirectionScalar}}_{\mathrm{\NameSurfShort}, \mathrm{stat.}}}
+\newcommand{\ControlDirectionOptSymNN}{\vec{\ControlDirectionScalar}_{\mathrm{\NameSurfShort}, \GradientsSym}}
+\newcommand{\ControlDirectionOptAsymNN}{\vec{\ControlDirectionScalar}_{\mathrm{\NameSurfShort}, \GradientsAsym}}
+\newcommand{\ControlDirectionOptAsymHorizontalNN}{\vec{\ControlDirectionScalar}_{\mathrm{\NameSurfShort}, \mathrm{stat.}}}
+
+\newcommand{\DirectionScalar}{z}
+\newcommand{\Direction}{\hat{\vec{\DirectionScalar}}}
+\newcommand{\DirectionNN}{\vec{\DirectionScalar}}
+\newcommand{\Performance}{V_{\mathrm{eff.}}}
+\newcommand{\PerformanceSym}{V_{\mathrm{eff.}, \GradientsSym}}
+\newcommand{\PerformanceAsym}{V_{\mathrm{eff.}, \GradientsAsym}}
+\newcommand{\PerformanceSurf}{V_{\mathrm{eff.}, \mathrm{\NameSurfShort}}}
+\newcommand{\PerformanceBh}{V_{\mathrm{eff.}, \mathrm{\NameBhShort}}}
+%\newcommand{\DirectionTarget}{\hat{\vec{z}}_{\mathrm{target}}}
+\newcommand{\DirectionSettling}{\hat{\vec{z}}_g}
+
+\newcommand{\TargetDistance}{r}
+\newcommand{\TargetPosition}{\vec{\TargetDistance}}
+\newcommand{\TargetDirection}{\hat{\TargetPosition}}
+\newcommand{\TargetRadius}{a}
+\newcommand{\ArrivalTime}{\tau_{\mathrm{arrival}}}
+
+\newcommand{\RandomWalkStepSize}{s}
+\newcommand{\DispersionVelocity}{V_{\mathrm{dis.}}}
+
+\newcommand{\FinalTime}{T}
+\newcommand{\TimeHorizon}{\tau}
+\newcommand{\TimeHorizonOpt}{\tau^*}
+
+\newcommand{\KolmogorovScale}{\eta}
+\newcommand{\KolmogorovTimeScale}{\tau_{\KolmogorovScale}}
+\newcommand{\KolmogorovVelocityScale}{u_{\KolmogorovScale}}
+
+\newcommand{\CorrelationTime}{\tau_{\mathrm{corr.}}}
+\newcommand{\GradVarTime}{\tau_{\mathrm{var.}}}
+
+\newcommand{\FilterLength}{l_{f}}
+\newcommand{\ReorientationTime}{\tau_{\mathrm{align}}}
+\newcommand{\ReorientationTimeSurf}{\tau_{\mathrm{align}, \mathrm{\NameSurfShort}}}
+\newcommand{\ReorientationTimeBh}{\tau_{\mathrm{align}, \mathrm{\NameBhShort}}}
+
+\newcommand{\InertialDelay}{\tau_{\mathrm{delay}}}
+\newcommand{\InertialDelayRot}{\tau_{\theta,\mathrm{delay}}}
+
+\newcommand{\PlankterSize}{d}
+
+\newcommand{\TerminalVelocity}{V_{\mathrm{term.}}}
+\newcommand{\TerminalVelocityParallel}{V_{\mathrm{term.}}^\parallel}
+\newcommand{\TerminalVelocityOrthogonal}{V_{\mathrm{term.}}^\perp}
+\newcommand{\TerminalVelocityVector}{\vec{V}_{\mathrm{term.}}}
+\newcommand{\SlipVelocityScalar}{V_{\mathrm{slip}}}
+\newcommand{\SlipVelocity}{\vec{V}_{\mathrm{slip}}}

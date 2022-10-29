@@ -1,0 +1,101 @@
+\begin{tikzpicture}
+	% gain as a function of the free parameter $\tau$
+	\begin{axis} [
+		axis on top,
+		% size
+		width=0.66\textwidth,
+		height=0.62\textwidth,
+		% y
+		ymin=-1,
+		ymax=1,
+		ylabel={$u_r$},
+		% x
+		xlabel={$\omega$},
+		xmin=-2,
+		xmax=2,
+		% layers
+		set layers,
+		% legend
+		legend style={
+			at={(0.5,1.05)},
+			anchor=south,
+			draw=none,
+			fill=none,
+			%/tikz/every even column/.append style={column sep=8pt},
+		},
+		%legend pos=outer east,
+		legend cell align=left,
+		legend columns=5,
+	]
+		% axes
+		\addplot
+		[
+			color=black,
+			opacity=0.2,
+			solid, 
+			on layer=axis background,
+			domain=-2:2,
+			forget plot,
+		]{0.0};
+		\addplot+[
+			mark=none,
+			color=black,
+			opacity=0.2,
+			solid, 
+			on layer=axis background,
+			forget plot,
+		] coordinates {(0, -1) (0, 1)};
+		% surf
+		\addplot
+		[
+			color=ColorSurf,
+			opacity=1.0,
+			solid, 
+			domain=-2:2,
+			samples=20,
+			mark=square*,
+		]{sin(deg(-x * 0.25))};
+		\addlegendentry{$\tau_{\mathrm{\NameSurfShort}} = 1/4$}
+		\addplot
+		[
+			color=ColorSurf,
+			opacity=1.0,
+			solid, 
+			domain=-2:2,
+			mark=pentagon,
+			samples=20,
+		]{sin(deg(-x * 0.5))};
+		\addlegendentry{$\tau_{\mathrm{\NameSurfShort}} = 1/2$}
+		\addplot
+		[
+			color=ColorSurf,
+			opacity=1.0,
+			domain=-2:2,
+			mark=*,
+			samples=20,
+		]{sin(deg(-x * 1.0))};
+		\addlegendentry{$\tau_{\mathrm{\NameSurfShort}} = 1$}
+		% bottom-heavy
+		\addplot
+		[
+			color=ColorBh,
+			opacity=1.0,
+			solid, 
+			domain=-2:2,
+			samples=50,
+			mark=o,
+			samples=20,
+		]{0.25 * x / 2.0};
+		\addlegendentry{$\tau_{\mathrm{align.}}^{\mathrm{b-h}} = 1/4$}
+		\addplot
+		[
+			color=ColorBh,
+			opacity=1.0,
+			solid, 
+			domain=-2:2,
+			mark=pentagon*,
+			samples=20,
+		]{0.5 * x / 2.0};
+		\addlegendentry{$\tau_{\mathrm{align.}}^{\mathrm{b-h}} = 1/2$}
+	\end{axis}
+\end{tikzpicture}

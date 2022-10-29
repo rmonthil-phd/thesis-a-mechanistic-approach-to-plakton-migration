@@ -1,0 +1,190 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				%horizontal sep=0.02\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			%width=0.55\textwidth,
+			%height=0.45\textwidth,
+			width=0.7\textwidth,
+			height=0.62\textwidth,
+			% more
+			axis on top,
+			set layers,
+			% y
+			ylabel={$\left\langle \TargetDistance \right\rangle$},
+			y label style={yshift=-4pt},
+			ymin=0,
+			ymax=2,
+			%ymode=log,
+			% x
+			xlabel=$t / \KolmogorovTimeScale$,
+			x label style={yshift=4pt},
+			xmin=0,
+			xmax=120,
+			% legend
+			%legend style={draw=none, fill=none, at={(1.0, 1.05)}, anchor=south},
+			legend style={draw=none, fill=none},
+			legend pos=north west,
+			legend cell align=left,
+			legend columns=7,
+		]
+	%\node[anchor=south east] at (3.5,5.35) {$\SwimmingVelocity =$};
+	\nextgroupplot[
+	]
+		% surftimeconst = 1.0
+		%% 95 CLI
+		\addplot[name path=A, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} - \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_0o0__average_distance.csv};
+        \addplot[name path=B, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} + \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_0o0__average_distance.csv};
+        \addplot[ColorBh!100!ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+        %% average
+		\addplot
+		[
+		color=ColorBh!100!ColorSurf,
+		opacity=1.0,
+		mark=o,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / 1.0},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_0o0__average_distance.csv};
+		\addlegendentry{$0$}
+		% surftimeconst = 1.0
+		%% 95 CLI
+		\addplot[name path=A, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} - \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_1o0__average_distance.csv};
+        \addplot[name path=B, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} + \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_1o0__average_distance.csv};
+        \addplot[ColorBh!75!ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+        %% average
+		\addplot
+		[
+		color=ColorBh!75!ColorSurf,
+		opacity=1.0,
+		mark=*,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / 1.0},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_1o0__average_distance.csv};
+		\addlegendentry{$\KolmogorovTimeScale$}
+		% surftimeconst = 2.0
+		%% 95 CLI
+		\addplot[name path=A, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} - \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_2o0__average_distance.csv};
+        \addplot[name path=B, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} + \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_2o0__average_distance.csv};
+        \addplot[ColorBh!50!ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+        %% average
+		\addplot
+		[
+		color=ColorBh!50!ColorSurf,
+		opacity=1.0,
+		mark=pentagon,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / 1.0},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_2o0__average_distance.csv};
+		\addlegendentry{$2\KolmogorovTimeScale$}
+		% surftimeconst = 3.0
+		%% 95 CLI
+		\addplot[name path=A, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} - \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_3o0__average_distance.csv};
+        \addplot[name path=B, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} + \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_3o0__average_distance.csv};
+        \addplot[ColorBh!25!ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+        %% average
+		\addplot
+		[
+		color=ColorBh!25!ColorSurf,
+		opacity=1.0,
+		mark=square*,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / 1.0},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_3o0__average_distance.csv};
+		\addlegendentry{$3\KolmogorovTimeScale$}
+		% surftimeconst = 4.0
+		%% 95 CLI
+		\addplot[name path=A, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} - \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_4o0__average_distance.csv};
+        \addplot[name path=B, draw=none, forget plot] table [
+            x expr={\thisrowno{0} / 0.088},
+            y expr={(\thisrowno{1} + \thisrowno{2}) / 1.0},
+            col sep=comma,
+            comment chars=\#,
+        ]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_4o0__average_distance.csv};
+        \addplot[ColorBh!00!ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+        %% average
+		\addplot
+		[
+		color=ColorBh!00!ColorSurf,
+		opacity=1.0,
+		mark=triangle,
+		%only marks,
+		]
+		table[
+			x expr={\thisrowno{0} / 0.088},
+			y expr={\thisrowno{1} / 1.0},
+			col sep=comma, 
+			comment chars=\#,
+		]{data/surfing_trackers_fixed_target__flow__n_128__re_250/surfing_tracker__vs_1o0__surftimeconst_4o0__average_distance.csv};
+		\addlegendentry{$4\KolmogorovTimeScale$}
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,299 @@
+% Reynolds
+\begin{tikzpicture}[
+	declare function={erf(\x)=%
+	      (1+(e^(-(\x*\x))*(-265.057+abs(\x)*(-135.065+abs(\x)%
+	      *(-59.646+(-6.84727-0.777889*abs(\x))*abs(\x)))))%
+	      /(3.05259+abs(\x))^5)*(\x>0?1:-1);},
+]
+	\begin{groupplot}[
+			group style={
+				group size=2 by 2,
+				y descriptions at=edge left,
+				horizontal sep=0.04\linewidth,
+			},
+			% size
+			width=0.5\textwidth,
+			% layers
+			set layers,
+			% legend
+			legend style={
+				draw=none, 
+				fill=none, 
+				/tikz/every even column/.append style={column sep=4pt}, 
+				at={(0.5, 1.05)}, 
+				anchor=south,
+				yshift=4pt,
+			},
+			%legend pos=north east,
+	   		legend cell align=left,
+	   		legend columns=4,
+		]
+	\nextgroupplot[
+		axis on top,
+		% size
+		ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+		y label style={yshift=-4pt},
+		ymin=0.0,
+		ymax=2.5,
+		extra y ticks={0.5,1.5,2.5},
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		xmin=0.0,
+		xmax=30,
+	]
+		\node[anchor=north west] at (axis cs:0.0,2.5) {\textbf{(a)}};
+		%% full
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_full.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_full.csv};
+		\addplot[ColorSurf, opacity=0.25, forget plot] fill between[of=A and B];
+		%% sym
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_sym.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_sym.csv};
+		\addplot[ColorSym, opacity=0.25, forget plot] fill between[of=A and B];
+		%% asym
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_asym.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=3, 
+			y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_asym.csv};
+		\addplot[ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+		% full
+		\addplot
+		[
+		color=ColorSurf,
+		opacity=1.0,
+		only marks,%solid
+		mark=pentagon*
+		]
+		table[
+			x index=3, 
+			y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_full.csv};
+		\addlegendentry{$\Gradients$}
+		% sym
+		\addplot
+		[
+		color=ColorSym,
+		opacity=1.0,
+		only marks,%solid
+		mark=square
+		]
+		table[
+			x index=3, 
+			y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_sym.csv};
+		\addlegendentry{$\GradientsSym$}
+		% asym
+		\addplot
+		[
+		color=ColorAsym,
+		opacity=1.0,
+		only marks,%solid
+		mark=triangle
+		]
+		table[
+			x index=3, 
+			y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma, 
+			comment chars=\#,
+		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_asym.csv};
+		\addlegendentry{$\GradientsAsym$}
+		%%% model sym
+		\def\moddelta{0.02}
+		\def\modtimesym{0.3 / \moddelta}
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		dashdotted,
+		domain=0.0:30.0,
+		samples=100,
+		]{(3.0 * pi / 4.0) * (exp(\moddelta * \modtimesym) + exp(-2.0 * \moddelta * \modtimesym - 3.0 * \moddelta * x)) / (2.0 * exp(\moddelta * \modtimesym) + exp(-2 * \moddelta * \modtimesym))};
+		\addlegendentry{Eq.~(3.33)}
+		%%% model asym cos
+		\def\modomega{0.65}
+		\def\modtimeasym{4.25}
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		dotted,
+		domain=0.0:30.0,
+		samples=100,
+		]{(2 * cos(deg(0.5 * \modomega * (\modtimeasym - x))) + 1) / (2 * cos(deg(0.5 * \modomega * \modtimeasym)) + 1)};
+		\addlegendentry{Eq.~(3.38)}
+		%%% model asym exp
+		\def\modomega{0.65}
+		\def\modtimeasym{4.25}
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		dashed,
+		domain=0.0:30.0,
+		samples=100,
+		]{(2.0 * exp(-(1.0/8.0) * (\modomega * abs(\modtimeasym - x))^2.0) + 1) / (2.0 * exp(-(1.0/8.0) * (\modomega * \modtimeasym)^2.0) + 1)};
+		\addlegendentry{Eq.~(3.41)}
+		%%% model full
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		solid,
+		domain=0.0:30.0,
+		samples=100,
+		]{(3.0 * pi / 8.0) * ( (1.0 + 2.0 * exp(-3.0 * \moddelta * (\modtimesym + x))) * exp(-(1.0/8.0) * (\modomega * abs(\modtimeasym - x))^2.0) + 1) / ( (1.0 + exp(-3.0 * \moddelta * \modtimesym)) * exp(-(1.0/8.0) * (\modomega * \modtimeasym)^2.0) + 1)};
+		\addlegendentry{Eq.~(3.48)}
+		
+		%% y = x
+		\addplot
+		[
+		color=gray!50!white,
+		opacity=1.0,
+		%line width=1pt, 
+		solid, 
+		on layer=axis background,
+		domain=0:30,
+		]{1};
+
+
+
+
+	\nextgroupplot[
+		axis on top,
+		% x
+		% x
+		xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+		xmode=log,
+		xmin=0.5,
+		xmax=20,
+		xticklabels={0.1,1,10},
+		extra x ticks={0.5, 5, 20},
+		extra x tick labels={0.5,5,20},
+		% y
+		ymin=0.0,
+		ymax=2.5,
+	]
+		\node[anchor=north west] at (axis cs:0.5,2.5) {\textbf{(c)}};
+		% straight
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=2,
+			y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+			unbounded coords=discard,
+		]{chap_turbulence/data/main_results/merge.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=2,
+			y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+			unbounded coords=discard,
+		]{chap_turbulence/data/main_results/merge.csv};
+		\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		\addplot
+		[
+		color=ColorBh,
+		opacity=1.0,
+		%line width=1pt,
+		only marks,%solid,
+		mark=o
+		]
+		table[
+			x index=2,
+			y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+			restrict expr to domain={\thisrowno{3}}{0.0:0.0},
+			unbounded coords=discard,
+		]{chap_turbulence/data/main_results/merge.csv};
+		\addlegendentry{\NameBh}
+		% tss
+		\addplot[name path=A, draw=none, forget plot] table [
+			x index=2,
+			y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+		]{chap_turbulence/data/main_results/max.csv};
+		\addplot[name path=B, draw=none, forget plot] table [
+			x index=2,
+			y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+		]{chap_turbulence/data/main_results/max.csv};
+		\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+		\addplot
+		[
+		color=ColorSurf,
+		opacity=1.0,
+		%line width=1pt,
+		only marks,%solid,
+		mark=square*
+		]
+		table[
+			x index=2,
+			y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+			col sep=comma,
+			comment chars=\#,
+		]{chap_turbulence/data/main_results/max.csv};
+		\addlegendentry{\NameSurf}
+		%% y = x
+		\addplot
+		[
+		color=black,
+		opacity=1.0,
+		%line width=1pt,
+		solid,
+		on layer=axis background,
+		domain=0.5:20,
+		]{1};
+		%%% model
+		\def\moddelta{0.02}
+		\def\modtimesym{0.3 / \moddelta}
+		\def\modomega{0.65}
+		\def\modtimeasym{4.25}
+		\def\modparam{0.08}
+		\addplot
+		[
+			color=black,
+			opacity=1.0,
+			dashdotdotted,
+			domain=0.5:20.0,
+			samples=10,
+		]{(3.0 * pi / 4.0) * (1.0 + exp(-3.0 * \moddelta * (\modtimesym + \modtimeasym ) / ((1.0 - \modparam) + \modparam * (x-1)))) / ( (1.0 + exp(-3.0 * \moddelta * \modtimesym / ((1.0 - \modparam) + \modparam * (x-1)))) * exp(-(1.0/8.0) * (\modomega * \modtimeasym / ((1.0 - \modparam) + \modparam * (x-1)) )^2.0) + 1)};
+		\addlegendentry{Eq.~(3.49)}
+	\end{groupplot}
+\end{tikzpicture}

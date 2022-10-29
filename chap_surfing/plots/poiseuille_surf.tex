@@ -1,0 +1,524 @@
+\begin{tikzpicture}[
+	arrow/.style={
+		insert path={
+			coordinate[pos=#1,sloped]  (aux-1)
+			coordinate[pos=#1+\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+			(aux-1) edge[/tikz/ga/arrow] 
+			(aux-2) % node[] {#1}
+		}
+	},
+	marrow/.style={
+		insert path={
+			coordinate[pos=#1,sloped]  (aux-1)
+			coordinate[pos=#1-\pgfkeysvalueof{/tikz/ga/length},sloped] (aux-2)
+			(aux-1) edge[/tikz/ga/arrow] 
+			(aux-2)
+		}
+	},
+	ga/.cd,
+	length/.initial=0.0001,
+	arrow/.style={-stealth,black!20!white,solid,thick},
+	marrow/.style={-stealth,black!20!white,solid,thick},
+	]
+	% plot
+	\begin{axis}[
+		% more
+		hide axis,
+		width=\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=0.0,
+		xmax=8.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-0.05,
+		ymax=1.05,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	% flow
+	\addplot3 [
+		domain=0.0:6.4,
+		domain y=-0.05:1.05,
+		samples=100,
+		contour gnuplot={levels={0.0, 2.0/3.0*1.0/16.0, 2.0/3.0*2.0/16.0, 2.0/3.0*3.0/16.0, 2.0/3.0*4.0/16.0, 2.0/3.0*5.0/16.0, 2.0/3.0*6.0/16.0, 2.0/3.0*7.0/16.0, 2.0/3.0*8.0/16.0, 2.0/3.0*9.0/16.0, 2.0/3.0*10.0/16.0, 2.0/3.0*11.0/16.0, 2.0/3.0*12.0/16.0, 2.0/3.0*13.0/16.0, 2.0/3.0*14.0/16.0, 2.0/3.0*15.0/16.0, 2.0/3.0*16.0/16.0}, labels=false, draw color=black!20!white},
+	] {2.0*y^2 - 4.0/3.0*y^3} [arrow/.list={0.05,0.1,0.15,0.25,0.3,0.35,0.45,0.5,0.55,0.65,0.7,0.75,0.85,0.9,0.95}]; % [marrow/.list={}];
+	% bottom-heavy
+	\addplot
+		[
+		color=ColorBh,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x expr={\thisrowno{1} + 1.7}, 
+		y index=2,
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_0o0__bottom_heavy_trajectory.csv} node[pos=1, anchor=north west]{\NameBhShort};
+	\addplot3 [ColorBh,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.3
+		}] table[
+		x expr={\thisrowno{1} + 1.7}, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_0o0__bottom_heavy_trajectory.csv};
+	% surf
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x expr={\thisrowno{1} + 4.3}, 
+		y index=2, 
+		col sep=comma, 
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_0o0__surfer__tau_1o0_trajectory.csv} node[pos=1, anchor=north west]{\NameSurfShort};
+	\addplot3 [ColorSurf!00!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.3
+		}] table[
+		x expr={\thisrowno{1} + 4.3}, 
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+	]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_0o0__surfer__tau_1o0_trajectory.csv};
+	% profile
+	% \addplot3 [
+		% black!20!white,
+		% very thick,
+		% -stealth,
+		% domain=7.099:7.101,
+		% domain y=0.05:0.95,
+		% samples=2,
+		% samples y=11,
+		% quiver={
+			% u={4 * (y - y^2)},
+			% v={0},
+			% scale arrows=0.9,
+		% },
+	% ] {0};
+	% direction
+	\draw[black,->,-stealth, thick] (axis cs:1.0,0.0) -- (axis cs:1.0,0.5) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};
+	% start position
+	\addplot[mark=*, mark size=0.6mm] coordinates {(1.7,0)} node[black, text opacity=1, below, pos=1, anchor=west, yshift=1pt]{start};
+	\addplot[mark=*, mark size=0.6mm] coordinates {(4.3,0)};
+	% letter
+	\node[anchor=north west] at (rel axis cs: 0, 1.0) {\textbf{(a)}};
+	% end axis
+	\end{axis}
+
+	\begin{axis}[
+			at={(0.78\linewidth, 0.005\linewidth)},
+			% more
+			axis lines = left,
+			width=0.2\linewidth,
+			height=0.22\linewidth,
+			view={0}{90},
+			% x
+			xmin=0.0,
+			xmax=1.0,
+			xlabel=$\FlowVelocityScalar/\FlowVelocityScalar_{\max}$,
+			xtick={0,1},
+			x label style={xshift=5pt,yshift=10pt},
+			%xticklabel=\empty,
+			% y
+			ymin=0.0,
+			ymax=1.0,
+			ylabel=$y/h$,
+			ytick={0,1},
+			y label style={yshift=-10pt},
+			%yticklabel=\empty,
+			% shift
+			xshift=-0.25\linewidth,
+			% ticks
+			tickwidth=0,
+		]
+		\addplot3 [
+			black!20!white,
+			very thick,
+			-stealth,
+			domain=-0.001:0.001,
+			domain y=0.05:0.95,
+			samples=2,
+			samples y=11,
+			quiver={
+				u={4 * (y - y^2)},
+				v={0},
+				scale arrows=1.0,
+			},
+		] {0};
+	\end{axis}
+
+
+	\begin{axis}[
+		at={(0, -0.15\linewidth)},
+		% more
+		hide axis,
+		width=\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=0.0,
+		xmax=8.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-0.05,
+		ymax=1.05,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 2.2)}, anchor=south},
+		legend cell align=left,
+		legend columns=-1,
+	]
+	\addlegendimage{ColorBh,mark=*,mark options={mark indices={3}}}
+	\addlegendimage{ColorSurf!00!ColorDuration,mark=pentagon*,mark options={mark indices={3}}}
+	\addlegendimage{ColorSurf!50!ColorDuration,mark=square*,mark options={mark indices={3}}}
+	\addlegendimage{ColorSurf!100!ColorDuration,mark=triangle*,mark options={mark indices={3}}}
+	% flow
+	\addplot3 [
+		domain=0.0:8.0,
+		domain y=-0.05:1.05,
+		samples=100,
+		forget plot,
+		contour gnuplot={levels={0.0, 2.0/3.0*1.0/16.0, 2.0/3.0*2.0/16.0, 2.0/3.0*3.0/16.0, 2.0/3.0*4.0/16.0, 2.0/3.0*5.0/16.0, 2.0/3.0*6.0/16.0, 2.0/3.0*7.0/16.0, 2.0/3.0*8.0/16.0, 2.0/3.0*9.0/16.0, 2.0/3.0*10.0/16.0, 2.0/3.0*11.0/16.0, 2.0/3.0*12.0/16.0, 2.0/3.0*13.0/16.0, 2.0/3.0*14.0/16.0, 2.0/3.0*15.0/16.0, 2.0/3.0*16.0/16.0}, labels=false, draw color=black!20!white},
+	] {2.0*y^2 - 4.0/3.0*y^3} [arrow/.list={0.05,0.1,0.15,0.25,0.3,0.35,0.45,0.5,0.55,0.65,0.7,0.75,0.85,0.9,0.95}]; % [marrow/.list={}];
+	% bottom-heavy
+	\addplot
+		[
+		color=ColorBh,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x expr={\thisrowno{1}},
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__bottom_heavy_trajectory.csv}; % node[pos=1, anchor=south]{\NameBhShort};
+	\addlegendentry{\NameBhShort \quad\quad $\TimeHorizon (d \FlowVelocityScalar_x / dy)_{\mathrm{max}} =$}
+	\addplot3 [ColorBh,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x expr={\thisrowno{1}},
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__bottom_heavy_trajectory.csv};
+	% tau = 0.25
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=pentagon*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_0o25_trajectory.csv}; % node[pos=1, anchor=south east]{$\TimeHorizon = 1/4$};
+	\addlegendentry{$1$}
+	\addplot3 [ColorSurf!00!ColorDuration,forget plot,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_0o25_trajectory.csv};
+	% tau = 0.5
+	\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		mark=square*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_0o5_trajectory.csv}; % node[pos=1, anchor=south west]{$\TimeHorizon = 1/2$};
+	\addlegendentry{$2$}
+	\addplot3 [ColorSurf!50!ColorDuration,forget plot,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_0o5_trajectory.csv};
+	% tau = 2
+	\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		mark=triangle*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_2o0_trajectory.csv}; % node[pos=1, anchor=north]{$\TimeHorizon = 2$};
+	\addlegendentry{$8$}
+	\addplot3 [ColorSurf!100!ColorDuration,forget plot,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o_0o__direction_angle_1o5707963267948966__surfer__tau_2o0_trajectory.csv};
+	% direction
+	\draw[black,->,-stealth, thick] (axis cs:6.0,0.05) -- (axis cs:6.5,0.05) node [anchor=south, pos=0.5, text opacity=1] {$\Direction$};
+	% start position
+	\addplot[mark=*, mark size=0.6mm] coordinates {(0,0)}; % node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
+	% letter
+	\node[anchor=north west] at (rel axis cs: 0, 1.0) {\textbf{(b)}};
+	% end axis
+	\end{axis}
+
+
+
+
+
+	\begin{axis}[
+		at={(0, -0.3\linewidth)},
+		% more
+		hide axis,
+		width=\linewidth,
+		axis equal image,
+		view={0}{90},
+		% x
+		xmin=-3.0,
+		xmax=5.0,
+		%xlabel=$x$,
+		xticklabel=\empty,
+		% y
+		ymin=-0.05,
+		ymax=1.05,
+		%ylabel=$y$,
+		yticklabel=\empty,
+		% colormap
+		colormap={flow}{color=(ColorFlowLow!10!white) color=(white) color=(ColorFlowHigh!10!white)},
+		point meta min=-1,
+		point meta max=1,
+		% shift
+		xshift=-0.25\linewidth,
+		% ticks
+		tickwidth=0,
+	]
+	% flow
+	\addplot3 [
+		domain=-3.0:5.0,
+		domain y=-0.05:1.05,
+		samples=100,
+		contour gnuplot={levels={0.0, 2.0/3.0*1.0/16.0, 2.0/3.0*2.0/16.0, 2.0/3.0*3.0/16.0, 2.0/3.0*4.0/16.0, 2.0/3.0*5.0/16.0, 2.0/3.0*6.0/16.0, 2.0/3.0*7.0/16.0, 2.0/3.0*8.0/16.0, 2.0/3.0*9.0/16.0, 2.0/3.0*10.0/16.0, 2.0/3.0*11.0/16.0, 2.0/3.0*12.0/16.0, 2.0/3.0*13.0/16.0, 2.0/3.0*14.0/16.0, 2.0/3.0*15.0/16.0, 2.0/3.0*16.0/16.0}, labels=false, draw color=black!20!white},
+	] {2.0*y^2 - 4.0/3.0*y^3} [arrow/.list={0.05,0.1,0.15,0.25,0.3,0.35,0.45,0.5,0.55,0.65,0.7,0.75,0.85,0.9,0.95}]; % [marrow/.list={}];
+	% bottom-heavy
+	\addplot
+		[
+		color=ColorBh,
+		mark=*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x expr={\thisrowno{1}},
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__bottom_heavy_trajectory.csv}; % node[pos=1, anchor=south]{\NameBhShort};
+	\addplot3 [ColorBh,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x expr={\thisrowno{1}},
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__bottom_heavy_trajectory.csv};
+	% tau = 0.25
+	\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		mark=pentagon*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_0o25_trajectory.csv}; % node[pos=1, anchor=south, yshift=-2pt]{$\TimeHorizon = 1/4$};
+	\addplot3 [ColorSurf!00!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={8},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_0o25_trajectory.csv};
+	% tau = 1
+	\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		mark=square*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_1o0_trajectory.csv}; % node[pos=1, anchor=south, xshift=8pt]{$\TimeHorizon = 1$};
+	\addplot3 [ColorSurf!50!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_1o0_trajectory.csv};
+	% tau = 2
+	\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		mark=triangle*,
+		mark options={mark indices={41}},
+		%mark repeat=10,
+		%mark phase=9,
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_2o0_trajectory.csv}; % node[pos=1, anchor=south east]{$\TimeHorizon = 2$};
+	\addplot3 [ColorSurf!100!ColorDuration,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.4
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/poiseuille_flow/flow_poiseuille__initial_position_0o__0o45__direction_angle_-1o5707963267948966__surfer__tau_2o0_trajectory.csv};
+	direction
+	\draw[black,->,-stealth, thick] (axis cs:0.75,0.75) -- (axis cs:0.25,0.75) node [anchor=south, pos=0.5, text opacity=1] {$\Direction$};
+	% start position
+	\addplot[mark=*, mark size=0.6mm] coordinates {(0,0.45)}; % node[black, text opacity=1, below, pos=1, anchor=east, xshift=-0.01\linewidth]{start};
+	% letter
+	\node[anchor=north west] at (rel axis cs: 0, 1.0) {\textbf{(c)}};
+	% end axis
+	\end{axis}
+\end{tikzpicture}

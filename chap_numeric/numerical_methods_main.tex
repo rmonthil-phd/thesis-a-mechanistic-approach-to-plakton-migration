@@ -1,0 +1,153 @@
+\chapter{Physical and numerical modeling}\label{chap:numeric}
+
+In this chapter, we present an overview of the physical and numerical notions used to perform this study.
+Interested by plankton interactions with turbulence, we first discuss the properties of turbulent flows and how they can be simulated numerically.
+We then present the model used to simulate the physical behavior of planktonic organisms.
+
+\section{Simulating the flow}
+
+\paragraph{Diffusive effect of turbulence}
+
+In Fig.~\ref{fig:laminar_turbulent_channels}, we notice a stronger maximal velocity the flow at the center of the channel in the laminar case than in the turbulent case.
+Indeed, in the turbulent case, the velocity is much more spread out in the channel.
+As viscous effects are fundamentally responsible of velocity diffusion, so it is surprising to observe that in the turbulent case, characterized by weak viscous effects, that velocity actually diffuses more in the channel.
+This leads to the the observation that turbulence may actually increases mixing and enhances diffusion of the average flow velocity.
+
+To understand this effect, one can decompose the flow instantaneous velocity into its time-average $\overline{\FlowVelocity}(\vec{x}, t)$ component and its fluctuating component $\FlowVelocity'(\vec{x}, t)$ \citep{reynolds1895iv}
+\begin{equation}
+	\FlowVelocity(\vec{x}, t) = \overline{\FlowVelocity}(\vec{x}) + \FlowVelocity'(\vec{x}, t).
+\end{equation}
+Injecting this decomposition into the Navier-Stokes equations [Eq.~\eqref{eq:navier_stokes}] leads to Reynolds-average Navier-Stokes equations
+\begin{equation}\label{eq:rans}
+		\left( \overline{\FlowVelocity} \cdot \vec{\nabla} \right) \, \overline{\FlowVelocity} =
+		- \frac{1}{\rho} \vec{\nabla} \overline{p} + \nu \nabla^2 \overline{\FlowVelocity} - \vec{\nabla} \cdot \overline{\FlowVelocity' \otimes \FlowVelocity'} + \frac{1}{\rho} \overline{\vec{f}}_{\mathrm{ext}}.
+\end{equation}
+The effects of instantaneous temporal fluctuations of velocity $\FlowVelocity'$ on its time average $\overline{\FlowVelocity}$ are summed up in the term $\nabla \cdot \overline{\FlowVelocity' \otimes \FlowVelocity'}$.
+This additional term is function of the Reynolds stress tensor defined as $-\rho \, \overline{\FlowVelocity' \otimes \FlowVelocity'}$.
+
+While a complex transport equation exists for the Reynolds stress tensor, it requires modeling to close the problem.
+There are numerous ways to model and compute the Reynolds stress tensor.
+Based on the observation that turbulence has a diffusive effect, one of the simplest approach is to model turbulence as a diffusion process introducing a turbulent viscosity $\nu_t$.
+By analogy with kinetic theory of gases, one can build a turbulent kinemetic viscosity $\nu_t$ based on the product of a characteristic velocity $\FlowVelocityScalar$ and a ``mixing length'' $l_m$.
+This length is defined as the distance traveled by a fluid particle before its initial characteristics diffuse in the surrounding flow. 
+Assuming $\FlowVelocityScalar/l_m \approx \norm{\vec{\nabla} \overline{\FlowVelocityScalar}}$, the turbulent viscosity is expressed as $\nu_t = l_m^2 \norm{\vec{\nabla} \overline{\FlowVelocityScalar}}$.
+Finally we obtain a simple model of the Reynolds stress tensor
+\begin{equation}\label{eq:rans}
+		-\rho \overline{\FlowVelocity' \otimes \FlowVelocity'} = \rho l_m^2 \norm{\vec{\nabla} \overline{\FlowVelocityScalar}} \vec{\nabla} \overline{\FlowVelocityScalar},
+\end{equation} 
+independent of the flow velocity fluctuations $\FlowVelocity'$.
+
+Similarly, one may rather choose to filter the flow over space rather than averaging it over time.
+Such spatial filtering is the basis of large eddy simulations \citep{smagorinsky1963general, deardorff1970numerical, zhiyin2015large}.
+Spatial filtering raises similar issues also require modeling to close the problem, known as \textit{subgrid} modeling.
+Subgrid models are developed to take into account the effects of filtered velocity spatial fluctuations on the unfiltered velocity field.
+The simplest of these models rely on the same ideas of turbulent viscosity and mixing length \citep{smagorinsky1963general}.
+
+These approaches succeed to describe large scales of the flow and highlights the dissipative effect of turbulence.
+However, we expect planktonic organisms to sense and react to small fluctuating scales of the flow, that we need to describe properly.
+
+% \paragraph{Kinematic simulations}
+
+\subsection{Turbulent channel flow}\label{sec:num_channel_flow}
+
+Isotropic homogeneous turbulence is certainly the simplest turbulent flow environment one may use to study navigation problems in turbulence.
+However turbulent flows are rarely homogeneous neither isotropic in oceanic flows, in particular near flow obstacles and boundaries.
+Planktonic navigation in inhomogeneous flows is particularly relevant for numerous mollusks larvae that need to settle on see beds to reach maturity.
+
+To study the effect of turbulence inhomogeneity on surfing performance, a turbulent channel flow is used, also provided by the Johns Hopkins turbulence database \citep{li2008public, perlman2007data}.
+The turbulent channel flow actually corresponds to the turbulent case of the Poiseuille flow, in which we tested surfing in Chap.~\ref{chap:the_surfing_strategy} Sec.\ref{sec:surfing_poiseuille_flow}.
+
+The channel flow corresponds to a wall bounded flow with periodic boundary conditions in the longitudinal and transverse directions of dimension $l_x \times l_y \times l_z = 8\pi h \times 2 h \times 3 \pi h$ with $h$ the half–channel height (Fig.~\ref{fig:scheme_channel}).
+\begin{figure}
+	\centering
+	\def\svgwidth{0.8\textwidth}
+	\input{chap_numeric/schemes/jhtdb_channel.pdf_tex}
+	%\captionsetup{width=0.3\textwidth}
+  	\caption{
+  		Schematic of the channel flow of the Johns Hopkins Databases.
+  	}
+  	\label{fig:scheme_channel}
+\end{figure}
+No-slip boundary conditions are applied to both horizontal walls.
+The data have been generated from a direct numerical simulation using a pseudo-spectral method for the longitudinal and transverse direction and a seventh-order Basis-splines collocation method is used in the wall normal direction.
+The flow is forced by applying a time dependent uniform mean pressure gradient forcing term that ensures a constant mass flux through the channel.
+
+The channel flow is further characterized by its bulk velocity $U_b$ (average flow velocity in the channel), its friction velocity $\FlowVelocityScalar_{\nu}$
+\begin{equation}
+	\FlowVelocityScalar_{\nu} = \sqrt{\nu \left\langle \frac{\partial \FlowVelocityScalar_x}{\partial y} \right\rangle_{-h,t}}
+\end{equation}
+evaluated at the bottom wall and $\delta_\nu = \nu / \FlowVelocityScalar_{\nu}$ the viscous length scale.
+Averaging over the bottom plane and over time is noted $\left\langle \cdot \right\rangle_{-h,t}$.
+
+The parameters of the simulation are summed up in Tab.~\ref{tab:jhtdb_channel_simulation_parameters}.
+\begin{table}
+	\center
+	\begin{tabular}{c c c c}
+		\rowcolor{ColorTabularParameters}
+		$\mathit{Re}_{\nu}$ & $\mathit{Re}_b$ & $n_x \times n_y \times n_z$ & $l_x/h$ \\[4pt]
+		\rowcolor{ColorTabularValues}
+		5186 & $1.25\times10^{5}$ & $10240 \times 1536 \times 7680$ & $8\pi$ \\[4pt]
+		\rowcolor{ColorTabularParameters}
+		$L_y/h$ & $L_z/h$ & $\delta_{\nu}/h$ & $u_{\tau}/U_b$ \\[4pt]
+		\rowcolor{ColorTabularValues}
+		2 & $3\pi$ & $1.9\times10^{-4}$ & $4.15\times10^{-2}$
+	\end{tabular}
+	\caption{
+		Flow parameters and characteristics of the turbulent channel flow of the Johns Hopkins Turbulence Database \citep{li2008public, perlman2007data}.
+		$\mathit{Re}_{\nu} = \FlowVelocityScalar_{\nu} h / \nu$ and $\mathit{Re}_{b} = \FlowVelocityScalar_{b} h / \nu$ denote the friction velocity Reynolds number and the bulk Reynolds number respectively.
+	}
+	\label{tab:jhtdb_channel_simulation_parameters}
+\end{table}
+More details are provided at \url{http://turbulence.pha.jhu.edu/Channel5200.aspx}.
+A visualization of the flow is provided in Fig.~\ref{fig:laminar_turbulent_channels}.
+
+% \subsection{Flow velocity gradient tensor}
+% 
+% \todo{This is not finished and comes from nowhere. But I actually need it below. I think it will be removed from here and put where I actually need it.}
+% 
+% As planktonic organisms mostly move along with the flow, the flow velocity gradient tensor describes the surrounding flow they experience.
+% Thus Lagrangian properties of the gradient tensor $\Gradients$ are of particular interest in this study and there are quickly discussed in this section.
+% While this study focuses on $\Gradients$, it is not the sole object of interest when studying turbulent flows through the Lagrangian specification.
+% We suggest reading \citet{toschi2009lagrangian} for a broader understanding of recent advances on Lagrangian turbulence.
+% 
+% The flow velocity gradient tensor is usually decomposed into its symmetric part, $\sym \Gradients$, called the strain-rate tensor, and its skew symmetric part, $\asym \Gradients$, called the rotation-rate tensor
+% \begin{equation}
+	% \sym \Gradients = \frac{1}{2} \left( \Gradients + \Gradients^T \right), \quad \asym \Gradients = \frac{1}{2} \left( \Gradients - \Gradients^T \right),
+% \end{equation}
+% where $\mathord{\cdot}^T$ denotes the matrix transposition \citep{meneveau2011lagrangian}.
+% This decomposition enable to dissociate the effects of flow rotation, associated to $\asym \Gradients$, to the flow extension and compression, associated to $\sym \Gradients$.
+% Moreover, the fluid flows in this study are considered incompressible.
+% As such, their velocity field is divergence free.
+% Thus $\tr \Gradients = \tr \sym \Gradients = 0$ and the eigenvalues of $\sym \Gradients$, $\alpha, \beta, \gamma$, sorted in decreasing order are linked, $\gamma = -(\alpha + \beta)$.
+% Associated to their eigenvalues, the three eigenvectors $\vec{e}_{\alpha}, \vec{e}_{\beta}, \vec{e}_{\gamma}$ of $\sym \Gradients$ define the extension and compression axes of the flow.
+% As $\alpha > 0$, $\vec{e}_{\alpha}$ always defines an extension axis while $\vec{e}_{\gamma}$ always defines a compression axis.
+% The eigenvector$\vec{e}_{\beta}$ can either be an extension or compression axis depending of the sign of $\beta$.
+% The rotation tensor $\asym \Gradients$ is defined by flow vorticity
+% \begin{equation}
+	% \asym \Gradients = \frac{1}{2} \asym \FlowVorticity, \quad \FlowVorticity = \nabla \times \FlowVelocity,
+% \end{equation}
+% which defines the axis of the rotation induced by the rotation-rate tensor.
+% 
+% Extensive research explored the statistical behavior of these tensors and many their surprising properties have been discovered.
+% We list a few of them, particularly useful in the frame of this study:
+% \begin{itemize}
+	% \item Vorticity tend to align with the second eigenvector $\vec{e}_2$ \citep{ashurst1987alignment, tsinober1992experimental, gulitski2007velocity}.
+	% \item The eigenvalue $\beta$ is generally positive \citep{lund1994improved}, thus $\vec{e}_\beta$ is most likely an extension axis.
+		% Furthermore, the most likely state is $\delta \equiv \alpha = \beta$ and $\gamma = -2 \delta$.
+% \end{itemize}
+% These observations lead to the following form of the flow velocity gradients, that describes the most likely state
+% \begin{equation}
+	% \Gradients \approx \begin{pmatrix}
+		% \delta & 0 & -\sgn (\FlowVorticity \cdot \vec{e}_{\beta}) \, \FlowVorticityScalar\\
+		% 0 & \delta & 0\\
+		% \sgn (\FlowVorticity \cdot \vec{e}_{\beta}) \, \FlowVorticityScalar & 0 & -2\delta
+	% \end{pmatrix}.
+% \end{equation}
+% 
+% By taking the gradient of the Navier-Stokes equation, we obtain the dynamics of the flow velocity gradient tensor,
+% \begin{equation}
+	% \frac{D \Gradients}{D t} = -\left( \Gradients \right)^2 - \vec{\nabla} \otimes \vec{\nabla} p + \nu \vec{\nabla}^2 \FlowVelocityScalar
+% \end{equation}
+% $\Updelta p = \tr \Gradients$
+% Ok then jut talk slightly of stochastic models \citep{johnson2016closure, pereira2018multifractal}.
+% Dynamics of the filtered gradient are complex \citep{higgins2003alignment, danish2018multiscale, tom2021exploring} and are not completely captured by an eddy viscosity model.

@@ -1,0 +1,78 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'tank.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{542.75666004bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.59729728)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{tank.pdf}}%
+    \put(0.78929599,0.33435701){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}larvae\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{tank.pdf}}%
+    \put(0.11454914,0.49103429){\color[rgb]{0.4,0.74901961,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}particle image velocimetry\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{tank.pdf}}%
+    \put(0.23936907,0.09957259){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}trajectory\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{tank.pdf}}%
+    \put(0.10870358,0.31361796){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\ParticlePosition$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{tank.pdf}}%
+    \put(0.05835013,0.40892395){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}$\frac{d \ParticlePosition}{dt}$\end{tabular}}}}%
+    \put(0.9079041,0.51600841){\color[rgb]{0.29803922,0.70588235,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}pumps\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{tank.pdf}}%
+    \put(0.68620361,0.56136408){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}laser sheet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{tank.pdf}}%
+    \put(0.56633054,0.14497614){\color[rgb]{0.29803922,0.70588235,1}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}pulsing diffuse jets\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{tank.pdf}}%
+    \put(0.82071312,0.09710933){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}$\Direction$\end{tabular}}}}%
+    \put(0.79364829,0.0268202){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}$\hat{\vec{e}}_y$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{tank.pdf}}%
+    \put(0.75143597,0.10236241){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\vec{e}}_x$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{tank.pdf}}%
+  \end{picture}%
+\endgroup%

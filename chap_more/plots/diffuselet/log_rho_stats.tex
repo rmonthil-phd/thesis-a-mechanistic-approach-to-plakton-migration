@@ -1,0 +1,92 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.49\textwidth,
+			height=0.45\textwidth,
+		]
+	%\node[anchor=south east] at (1.4,4.3) {$t =$};
+	\nextgroupplot[
+		% y
+		ylabel={$\left\langle \lambda \right\rangle \, \KolmogorovTimeScale$},
+		%ymin=1e-9,
+		%ymax=1e-8,
+		%ymode=log,
+		% x
+		xlabel=$t / \KolmogorovTimeScale$,
+		xmin=0,
+		xmax=25,
+		%ymode=log,
+		% layers
+		set layers,
+		% legend
+		legend columns=3,
+		legend cell align=left,
+		%legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+		legend style={draw=none, fill=none},
+		legend pos=north west,
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!black,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0} / 0.0424}, 
+			y expr={\thisrowno{1} * 0.0424},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_lyapunov_exponent.csv};
+
+	\nextgroupplot[
+		% y
+		ylabel={$\left\langle V \right\rangle \, \KolmogorovTimeScale^2$},
+		%ymin=1e-4,
+		%ymax=1e-3,
+		%ymode=log,
+		% x
+		xlabel=$t / \KolmogorovTimeScale$,
+		xmin=0,
+		xmax=25,
+		%ymode=log,
+		% layers
+		set layers,
+		% legend
+		legend columns=3,
+		legend cell align=left,
+		%legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+		legend style={draw=none, fill=none},
+		legend pos=north west,
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!black,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0} / 0.0424},
+			y expr={\thisrowno{1} * 0.0424^2},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{chap_more/data/diffuselet/tracer__time_log_rho_var.csv};
+	\end{groupplot}
+\end{tikzpicture}

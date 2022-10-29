@@ -1,0 +1,151 @@
+% Reynolds
+\begin{tikzpicture}[
+	declare function={erf(\x)=%
+	      (1+(e^(-(\x*\x))*(-265.057+abs(\x)*(-135.065+abs(\x)%
+	      *(-59.646+(-6.84727-0.777889*abs(\x))*abs(\x)))))%
+	      /(3.05259+abs(\x))^5)*(\x>0?1:-1);},
+]
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				y descriptions at=edge left,
+				horizontal sep=0.04\linewidth,
+			},
+			% size
+			width=0.65\textwidth,
+			% y
+			ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+			y label style={yshift=-4pt},
+			ymin=0.0,
+			ymax=2,
+			% x
+			x label style={yshift=4pt},
+			xmin=0.0,
+			xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+			xmax=15,
+			% layers
+			set layers,
+			% legend
+			%legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}},
+			legend pos=north east,
+	   		legend cell align=left,
+	   		legend columns=-1,
+	]
+	
+		\nextgroupplot[
+			axis on top,
+		]
+			\node[anchor=east] at (axis cs:9.2,1.82) {Sensing: };
+			%% full
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+
+			%% asym
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!50!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+
+			%% asym orth
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew_orth__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew_orth__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!00!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+
+			
+			% full
+			\addplot
+			[
+			color=ColorSurf!100!ColorAsym,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers__flow__n_128__re_250/surfer__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$\Gradients$}
+
+			% asym
+			\addplot
+			[
+			color=ColorSurf!50!ColorAsym,
+			opacity=1.0,
+			only marks,%solid
+			mark=square
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$\GradientsAsym$}
+
+			% asym
+			\addplot
+			[
+			color=ColorSurf!00!ColorAsym,
+			opacity=1.0,
+			only marks,%solid
+			mark=triangle*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+			]{data/partial_surfers__flow__n_128__re_250/surfer_skew_orth__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$\GradientsAsym^{\bot \Direction}$}
+			
+			%% y = x
+			\addplot
+			[
+			color=gray!50!white,
+			opacity=1.0,
+			%line width=1pt, 
+			solid, 
+			on layer=axis background,
+			domain=0:15,
+			]{1};
+	\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,427 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (3.7,5.35) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			y descriptions at=edge left,
+			x descriptions at=edge bottom,
+			horizontal sep=0.04\linewidth,
+			vertical sep=0.04\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% y
+		ymin=0.8,
+		ymax=2.4,
+		ylabel={$\left\langle \Performance \right\rangle_N / \SwimmingVelocity$},
+		ytick={0.8,1.2,1.6,2.0,2.4},
+		% x
+		xlabel=$\FilterLength / \KolmogorovScale$,
+		xmin=0,
+		xmax=8,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+	]
+		% re_lambda = 416
+		\nextgroupplot[
+			axis on top,
+		]
+			\node[anchor=north west] at (axis cs:0,2.4) {\textbf{(a):} $\mathit{Re}_{\lambda} = 418$};
+			%% velocity 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!100!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=triangle*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				%restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			%% velocity 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!50!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=square
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addlegendentry{$4\KolmogorovVelocityScale$}
+			%% velocity 8.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!00!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addlegendentry{$8\KolmogorovVelocityScale$}
+			% %% velocity 12.0
+			% %%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[ColorSurf!25!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot
+			% [
+				% color=ColorSurf!25!ColorVs,
+				% opacity=1.0,
+				% only marks,%solid
+				% mark=o
+			% ]
+			% table[
+				% x index=4,
+				% y expr={\thisrowno{1} / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addlegendentry{$12\KolmogorovVelocityScale$}
+			% %% velocity 16.0
+			% %%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot
+			% [
+				% color=ColorSurf!00!ColorVs,
+				% opacity=1.0,
+				% only marks,%solid
+				% mark=star
+			% ]
+			% table[
+				% x index=4,
+				% y expr={\thisrowno{1} / (\thisrowno{3} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addlegendentry{$16\KolmogorovVelocityScale$}
+			%% y = x
+			\addplot
+			[
+				color=gray!50!white,
+				opacity=1.0,
+				%line width=1pt, 
+				solid, 
+				on layer=axis background,
+				domain=0:8,
+			]{1};
+
+		% re_lambda = 11
+		\nextgroupplot[
+			axis on top,
+		]
+			\node[anchor=north west] at (axis cs:0,2.4) {\textbf{(b):} $\mathit{Re}_{\lambda} = 11$};
+			%% velocity 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!100!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=triangle*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			%% y = x
+			\addplot
+			[
+				color=gray!50!white,
+				opacity=1.0,
+				%line width=1pt,
+				solid,
+				on layer=axis background,
+				domain=0:8,
+			]{1};
+			% velocity 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!50!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=square
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			%% velocity 8.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers_very_fast__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+				color=ColorSurf!00!ColorVs,
+				opacity=1.0,
+				only marks,%solid
+				mark=*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% %% velocity 12.0
+			% %%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[ColorSurf!25!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot
+			% [
+				% color=ColorSurf!25!ColorVs,
+				% opacity=1.0,
+				% only marks,%solid
+				% mark=o
+			% ]
+			% table[
+				% x index=4,
+				% y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{12.0:12.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% %% velocity 16.0
+			% %%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers_very_fast__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=4,
+				% y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			% \addplot[ColorSurf!00!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			% %%% average
+			% \addplot
+			% [
+				% color=ColorSurf!00!ColorVs,
+				% opacity=1.0,
+				% only marks,%solid
+				% mark=star
+			% ]
+			% table[
+				% x index=4,
+				% y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{3}}{16.0:16.0},
+				% unbounded coords=discard,
+			% ]{data/filtering_surfers__flow__n_128__re_250/filtering_surfer__max_average_velocity_axis_0.csv};
+			%% y = x
+			\addplot
+			[
+				color=gray!50!white,
+				opacity=1.0,
+				%line width=1pt,
+				solid,
+				on layer=axis background,
+				domain=0:8,
+			]{1};
+	\end{groupplot}
+\end{tikzpicture}

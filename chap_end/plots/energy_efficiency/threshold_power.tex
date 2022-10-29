@@ -1,0 +1,211 @@
+\begin{tikzpicture}
+	% gain as a function of the free parameter $\tau$
+	\begin{groupplot}[
+   		group style={
+   			group size=2 by 1,
+   			%y descriptions at=edge left,
+   			horizontal sep=0.08\linewidth,
+   		},
+   		% size
+   		width=0.5\textwidth,
+		% x
+		xlabel=$\theta_{\mathrm{th}}$,
+		xmin=0.1,
+		xmax=0.5,
+		xtick={0.1, 0.2, 0.3, 0.4, 0.5},
+		xticklabels={$\pi/10$, $\pi/5$, $3\pi/10$, $2\pi/5$, $\pi/2$},
+		% y
+		ylabel={$\left\langle \SwimmingVelocity^2 \right\rangle_{N, t} / \KolmogorovVelocityScale^2$},
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+		%legend pos=north west,
+   		legend cell align=left,
+   		legend columns=-1,
+   	]	
+		\nextgroupplot[
+			axis on top,
+			% y
+			ymin=0,
+			ymax=1.0,
+			%ytick={0.0, 0.1, 0.2},
+		]
+			\node[anchor=north west] at (axis cs:0.1,1.0) {\textbf{(a)}: $P_{\mathrm{swim}, \mathrm{target}} = (3/2) \pi \mu d \KolmogorovVelocityScale^2$};
+			%% bottom-heavy
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			\addlegendentry{\NameBhShort}
+			%% surf
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{1.0:1.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			\addlegendentry{\NameSurfShort}
+			%% y = x
+			\addplot
+			[
+				color=gray!50!white,
+				opacity=1.0,
+				%line width=1pt,
+				solid,
+				on layer=axis background,
+				domain=0.1:0.5,
+			]{0.5};
+
+
+
+
+		\nextgroupplot[
+			axis on top,
+			% y
+			ymin=0,
+			ymax=10.0,
+			ylabel={},
+			%ytick={0.0, 0.1, 0.2},
+		]
+			\node[anchor=north west] at (axis cs:0.1,10.0) {\textbf{(b)}: $P_{\mathrm{swim}, \mathrm{target}} = (3/2) \pi \mu d (4\KolmogorovVelocityScale)^2$};
+			%% bottom-heavy
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers_fast__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4, 
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers_fast__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			\addplot[ColorBh, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorBh,
+			opacity=1.0,
+			only marks,%solid
+			mark=o
+			]
+			table[
+				x index=4, 
+				y expr={\thisrowno{1} / 0.21^2}, %u_\eta = 0.21
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_risers_fast__flow__n_128__re_250/on_off_riser__merge_swimming_power_consumption.csv};
+			%% surf
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers_fast__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers_fast__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / 0.21^2}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{3}}{4.0:4.0},
+				%unbounded coords=discard,
+			]{data/on_off_surfers_fast__flow__n_128__re_250/on_off_surfer__merge_swimming_power_consumption.csv};
+			%% y = x
+			\addplot
+			[
+				color=gray!50!white,
+				opacity=1.0,
+				%line width=1pt,
+				solid,
+				on layer=axis background,
+				domain=0.1:0.5,
+			]{8};
+	\end{groupplot}
+\end{tikzpicture}

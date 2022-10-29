@@ -1,0 +1,106 @@
+\begin{tikzpicture}
+	\node[anchor=center] at (3.6,5.33) {$\SwimmingVelocity =$};
+	\begin{groupplot}[
+		group style={
+			group size=2 by 1,
+			y descriptions at=edge left,
+			%x descriptions at=edge bottom,
+			horizontal sep=0.04\linewidth,
+			%vertical sep=0.06\linewidth,
+		},
+		% size
+		width=0.5\textwidth,
+		% layers
+		set layers,
+		% legend
+		legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.05)}, anchor=south},
+   		legend cell align=left,
+   		legend columns=-1,
+   		% y
+		ymin=0,
+		ymax=2,
+		ylabel={$\left\langle \norm{d \Gradients / dt} \right\rangle \KolmogorovTimeScale^2$},
+		ytick={0,1,2},
+		% x
+		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
+		xmin=0,
+		xmax=6,
+	]
+		\nextgroupplot[
+			axis on top,
+		]
+			\node[anchor=north west] at (axis cs:0,2) {\textbf{(a):} $\mathit{Re}_{\lambda} = \mathbf{418}$};
+			%% us 1.0
+			%%% 95 CI
+			% \addplot[name path=A, draw=none, forget plot] table [
+				% x index=3,
+				% y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				% unbounded coords=discard,
+			% ]{chap_turbulence/data/main_results/merge.csv};
+			% \addplot[name path=B, draw=none, forget plot] table [
+				% x index=3,
+				% y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				% col sep=comma,
+				% comment chars=\#,
+				% restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				% unbounded coords=discard,
+			% ]{chap_turbulence/data/main_results/merge.csv};
+			% \addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!100!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=square*
+			]
+			table[
+				x index=2, 
+				y expr={\thisrowno{0} * 0.0424^2}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{1}}{1.0:1.0},
+				unbounded coords=discard,
+			]{data/surfers/surfer__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			%% us 4.0
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!50!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=pentagon
+			]
+			table[
+				x index=2, 
+				y expr={\thisrowno{0} * 0.0424^2}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{1}}{4.0:4.0},
+				unbounded coords=discard,
+			]{data/surfers/surfer__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addlegendentry{$4 \KolmogorovVelocityScale$}
+			%% us 8.0
+			%%% average
+			\addplot
+			[
+			color=ColorSurf!0!ColorVs,
+			opacity=1.0,
+			only marks,%solid
+			mark=*
+			]
+			table[
+				x index=2, 
+				y expr={\thisrowno{0} * 0.0424^2}, % \tau_\eta = 0.0424
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{1}}{8.0:8.0},
+				unbounded coords=discard,
+			]{data/surfers/surfer__merge_averaged_norm_measured_gradient_derivative.csv};
+			\addlegendentry{$8 \KolmogorovVelocityScale$}
+	\end{groupplot}
+\end{tikzpicture}

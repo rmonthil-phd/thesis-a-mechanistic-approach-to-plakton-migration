@@ -1,0 +1,126 @@
+\chapter{Towards energy efficient surfing}
+
+\section{Surfing power consumption}
+
+While maximizing speed is important to achieve short term survival tasks such as hunting escaping predators, for long term survival task such as vertical migration, one expect planktonic species to rather privilege power consumption minimization.
+To quantify the energetic efficiency of surfing, one can define the following metric:
+\begin{equation}
+	E = \frac{\left\langle \Performance \right\rangle}{\left\langle P_{\mathrm{tot.}} \right\rangle}.
+\end{equation}
+with $\left\langle \Performance \right\rangle$ the average effective upward velocity and $\left\langle P_{\mathrm{tot.}} \right\rangle$ the average power consumed to achieve this effective upward velocity.
+Maximizing this quantity can be interpreted as maximizing the distance traveled for a given amount of energy (fuel).
+
+The power consumption $P_{\mathrm{tot.}}$ of plankters can be decomposed in three terms, $P_{\mathrm{swim}}$ the swimming power consumption, $P_{\mathrm{turn}}$ the power consumption due to active rotation and $P_{\mathrm{meta.}}$ the power consumed by the metabolism at rest:
+\begin{equation}
+	P_{\mathrm{tot.}} = P_{\mathrm{swim}} + P_{\mathrm{turn}} + P_{\mathrm{meta.}}.
+\end{equation}
+Considering plankters as spherical and non inertial swimmers, the power consumption due to active movement can be expressed as:
+\begin{subequations}
+	\begin{align}
+		P_{\mathrm{swim}} &= 3 \pi \mu d \SwimmingVelocity^2\\
+		P_{\mathrm{turn}} &= \pi \mu d^3 \SwimmingAngularVelocity^2
+	\end{align}
+\end{subequations}
+The Kleiber's law as a known scaling that gives the metabolic power consumption $P_{\mathrm{meta.}} \approx 0.144 \, M^{3/4}$ \citep{gillooly2001effects} as a function of the mass of the animal $M$.
+Metabolic power consumption can then be computed as the following:
+\begin{equation}\label{eq:kleiber}
+	P_{\mathrm{meta.}} = \frac{0.144 \, \pi^{3/4}}{6^{3/4}} \rho_{\mathrm{plank.}}^{3/4} d^{9/4}
+\end{equation}
+with $\rho_{\mathrm{plank.}} = 6 M_{\mathrm{plank.}} / \pi d^3$ the density of the plankter.
+Then assuming that most plankters have roughly the same density as water $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}}$, the problem ends up depending of two last parameters: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diamater) $d$.
+Finally assuming most plankters densities are near water density, one can evaluate all coefficients for $\mu = \mu_{\mathrm{water}} = 10^{-3}$, $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}} = 10^{3}$.
+\begin{equation}
+	E = \frac{\left\langle \Performance \right\rangle}{9.4 \times 10^{-3} \, d \left\langle \SwimmingVelocity^2 \right\rangle + 3.1 \times 10^{-3} \, d^3 \left\langle \SwimmingAngularVelocity^2 \right\rangle + 15.8 \, d^{9/4}}.
+\end{equation}
+
+\paragraph{Optimal surfing parameter $\TimeHorizon$.}
+We can then evaluate numerically the value of $\left\langle \Performance \right\rangle$ and $\left\langle \SwimmingAngularVelocity^2 \right\rangle$ from our numerical simulations for any surfing parameter $\TimeHorizon$. 
+Figure \ref{fig:energy_efficiency_rotation}a shows that $P_{\mathrm{turn}}$ evolves as $\TimeHorizon^2$.
+However as $P_{\mathrm{meta.}} \gg P_{\mathrm{turn}}$, this effect weakly influences the optimal parameter $\TimeHorizon$, as illustrated in Fig. \ref{fig:energy_efficiency_rotation}b.
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/energy_efficiency/rotation}
+	\caption{
+		Influence of the surfing parameter $\TimeHorizon$ and swimming velocity $\SwimmingVelocity$ on energy efficiency.
+		Shaded area represents the 95\% confidence interval.
+	}
+	\label{fig:energy_efficiency_rotation}
+\end{figure}
+\quest{Is this huge value of $P_{\mathrm{meta.}}$ consistent with characteristic metabolic power values for larvae? This huge value compared to the active powers consumption feels strange to me...}
+
+\paragraph{Optimal swimming speed.}
+We first search for the optimal swimming speed that maximizes $E$.
+The effective velocity of surfers evolves mostly lineary with swimming speed $\left\langle \Performance \right\rangle \approx \alpha_{\mathrm{\NameSurfShort}} \, \SwimmingVelocity$.
+This is especially true for $\SwimmingVelocity \lesssim \KolmogorovVelocityScale$, for which $\alpha_{\mathrm{\NameSurfShort}} \approx \mathrm{const} < 2$ and for $\SwimmingVelocity \gg \KolmogorovVelocityScale$ for which $\alpha_{\mathrm{\NameSurfShort}} = 1$.
+Assuming $\alpha_{\mathrm{\NameSurfShort}}$ constant over the optimization range, $E$ is maximized for:
+\begin{align}
+	\SwimmingVelocity &= \sqrt{\frac{1}{3 \pi \mu d} \left( P_{\mathrm{turn}} + P_{\mathrm{meta.}} \right)} \\
+	&= \sqrt{\frac{1}{3} \left(d^2 \SwimmingAngularVelocity^2 + \frac{P_{\mathrm{meta.}}}{\pi\mu d} \right)}.
+\end{align}
+Replacing the metabolic power by the Kleiber estimate (Eq. \eqref{eq:kleiber}):
+\begin{equation}
+	\SwimmingVelocity = \sqrt{\frac{1}{3} \left(d^2 \SwimmingAngularVelocity^2 + \frac{0.144}{6^{3/4} \pi^{1/4}} \frac{\rho_{\mathrm{plank.}}^{3/4}}{\mu} d^{5/4} \right)}.
+\end{equation}
+Then assuming that most plankters have roughly the same density as water $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}}$, the problem ends up depending of two last parameters: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diamater) $d$.
+Finally for an active the rotation velocity can be expressed as the following:
+\begin{equation}
+	\SwimmingAngularVelocity = \norm*{\frac{d \ControlDirectionOpt}{dt} \times \ControlDirectionOpt}
+\end{equation}
+As $\ControlDirectionOpt$ depend on average solely of the surfing parameter $\TimeHorizon$, the latter and the plankter size $d$ remain the sole parameters of the problem.
+
+% Note that this expression does not account of bottom-heaviness.
+% If the larva considered is bottom-heavy, then the expression would be slightly more complexe:
+% \begin{equation}
+	% P_{\mathrm{rot.}} = \left[ \pi \mu d^3 \left( \frac{d\theta}{dt} - \frac{1}{2} \FlowVorticityScalar \right) + \frac{1}{2 \ReorientationTime} \sin(\theta) \right] \left( \frac{d\theta}{dt} - \frac{1}{2} \FlowVorticityScalar \right)
+% \end{equation}
+
+\section{On off strategy}
+
+If the swimming velocity $\SwimmingVelocity$ is imposed constant, the surfing strategy is equally solution in a linear flow of maximizing the effective velocity for a given swimming velocity and of minimizing the swimming velocity (i.e. the energy $\propto \SwimmingVelocity^2$) used to achieve a target vertical effective velocity.
+However, if the swimming velocity $\SwimmingVelocity$ is not specified, an energy efficient plankter may modulate it to achieve efficient vertical migration. 
+While the surfing strategy remains solution of the average swimming direction, one can ask how this velocity could be distributed around this average to minimize energy consumption.
+
+As the general problem may be too complex to tackle directly, we consider a spherical swimming plankter with no preferred reorientation.
+Its evolution of the position $\ParticlePosition$ and the swimming axis $\SwimmingDirection$ of such a plankter is then described by:
+\begin{subequations}\label{eq:spherical_motion}
+	\begin{align}
+		\frac{d \ParticlePosition}{dt} & =
+		 \FlowVelocity (\ParticlePosition, t) + \SwimmingVelocity(t) \, \SwimmingDirection, \label{eq:surfing_x_motion}\\
+		\frac{d \SwimmingDirection}{dt} & = \frac{1}{2} \FlowVorticity \times \SwimmingDirection .\label{eq:vorticity_p_motion}
+	\end{align}
+\end{subequations}
+with $\SwimmingVelocity(t)$ the time dependent swimming speed and $\FlowVorticity$ the flow vorticity at the plankter's position.
+Furthermore, as it is a common model for plankton behavior in literature, we restrict possible swimming speed to an off/off behavior, defined as the following:
+\begin{equation}
+	\SwimmingVelocity(t) =
+	\begin{cases}
+		\SwimmingVelocity & \forall \, \theta > \theta_{\mathrm{th.}} \\
+		0 & \mathrm{else}
+	\end{cases}
+\end{equation}
+with $\ControlDirection$ the preferred average swimming direction of the swimmer, $\theta_{\mathrm{th.}}$ a threshold angle and $\theta = \theta_{\ControlDirection, \SwimmingDirection}$ the angle between $\ControlDirection(\Gradients, \Direction)$ and $\SwimmingDirection$.
+
+We first asses the power consumption of such a swimmer.
+As we consider a plankter with no reorientation torque, its orientation axis is uniformly distributed on all possible directions.
+The swimming power can thus be computed as:
+\begin{equation}
+	\left\langle P_{\mathrm{swim}} \right\rangle = \frac{1}{2} \int_0^{\theta_{\mathrm{th.}}} 3 \pi \mu d \SwimmingVelocity^2 \sin \theta \, d\theta = \frac{3}{2} \pi \mu d \SwimmingVelocity^2 \left( 1 - \cos \theta_{\mathrm{th.}} \right)
+\end{equation}
+For a given available swimming power, $P_{\mathrm{swim}}$, and preferred average swimming direction $\ControlDirection$, what is the optimal threshold angle $\theta_{\mathrm{th.}}$?
+Assuming the average effective vertical velocity being directly proportional to $\cos \theta$, it can be expressed as the following:  
+\begin{equation}
+	\left\langle \Performance \right\rangle = \frac{\SwimmingVelocity}{2} \int_0^{\theta_{\mathrm{th.}}} \cos \theta \sin \theta \, d\theta = \sqrt{\frac{\left\langle P_{\mathrm{swim}} \right\rangle}{6 \pi \mu d}} \frac{\sin^2 \theta_{\mathrm{th.}}}{\sqrt{1 - \cos \theta_{\mathrm{th.}}}}
+\end{equation}
+that is maximized for $\theta_{\mathrm{th.}}^* = \arcos (1/3) \approx 0.39 \pi$.
+\begin{figure}%[H]
+	\centering
+	\input{chap_more/plots/energy_efficiency/threshold}
+	\caption{
+		Influence of the threshold on effective upward velocity.
+		Shaded area represents the 95\% confidence interval.
+		Solid lines represent the theory.
+	}
+	\label{fig:energy_efficiency}
+\end{figure}
+
+\section{Summary}

@@ -1,0 +1,82 @@
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'planktonic_navigation_problems.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{627.78204346bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.81740869)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{planktonic_navigation_problems.pdf}}%
+    \put(0.27048099,0.78074135){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Short range navigation:}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{planktonic_navigation_problems.pdf}}%
+    \put(0.10003249,0.52220817){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}How to escape the predator?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{planktonic_navigation_problems.pdf}}%
+    \put(0.26517602,0.32878445){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}How to catch the prey?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{planktonic_navigation_problems.pdf}}%
+    \put(0.270481,0.75004051){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}hydrodynamic detection\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{planktonic_navigation_problems.pdf}}%
+    \put(0.26705064,0.25753264){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Medium-range navigation:}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{planktonic_navigation_problems.pdf}}%
+    \put(0.26560241,0.01425499){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}How to follow the odor trail to the mate?\end{tabular}}}}%
+    \put(0.26705065,0.22746064){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}chemical detection\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{planktonic_navigation_problems.pdf}}%
+    \put(0.76164604,0.7830291){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Long range navigation:}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{planktonic_navigation_problems.pdf}}%
+    \put(0.78309489,0.59950559){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}How to navigate to the preys?\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{planktonic_navigation_problems.pdf}}%
+    \put(0.76164603,0.75350116){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}visual detection\end{tabular}}}}%
+    \put(0.78771979,0.53463754){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textbf{Very long range navigation:}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{planktonic_navigation_problems.pdf}}%
+    \put(0.78056937,0.01153827){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Vertical migration\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{planktonic_navigation_problems.pdf}}%
+    \put(0.76452631,0.33654844){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Horizontal dispersion\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{planktonic_navigation_problems.pdf}}%
+  \end{picture}%
+\endgroup%

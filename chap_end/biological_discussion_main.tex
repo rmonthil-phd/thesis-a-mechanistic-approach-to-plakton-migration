@@ -1,0 +1,432 @@
+\chapter{Discussion of biophysical relevance}\label{chap:bio_discussion}
+
+Throughout this study, we presented a mechanistic approach to plankton migration and we developed a physics based strategy, called \textit{surfing}, based on the optimal solution to the problem in a linear flow (cf. Chap.~\ref{chap:the_surfing_strategy}).
+This strategy is described by the control
+\begin{equation}
+	\label{end:eq:surfing_swimming_direction_final}
+	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad \ControlDirectionOptNN = \left[ \exp \left( \TimeHorizon \Gradients \right) \right]^T \cdot \Direction,
+\end{equation}
+where $\ControlDirectionOpt$ is the preferred swimming direction, $\Gradients$ is the local measure of the flow velocity gradients, $\Direction$ is the measure of the local direction.
+This behavior enables simulated plankters to forage beneficial currents and get carried by them.
+% Exploiting then the local flow features, this strategy leads to enhanced plankton migration speed that demonstrate the benefit of flow sensing to perform this task.
+% Tested in 3D simulated turbulence, we demonstrate that this strategy may lead up to $100\%$ migration enhancement with respect to the swimming speed $\SwimmingVelocity$ (cf. Chap.~\ref{chap:surfing_on_turbulence}).
+% Despite the complexity of the turbulent flow, the conditions for which this performance is observe are idealized compared to actual planktons.
+% As a consequence, we also assessed the robustness and the adaptability of the strategy to plankton limitations (cf. Chap.~\ref{chap:surfing_robustness}).
+% Finally we compared the surfing strategy to other navigation methods that could be used to solve the same navigation problem (cf. Chap.~\ref{chap:navigation}).
+
+Based on an optimality-driven approach the expression given in Eq.~\ref{end:eq:surfing_swimming_direction_final} aims to model plankter behavior in the context of vertical migrations.
+While we showed this strategy to be \textbf{beneficial in turbulence} (Chap.~\ref{chap:surfing_on_turbulence}) while being \textbf{robust to various limitations} (Chap.~\ref{chap:surfing_robustness}), we observed surfing performance to be impact various parameters. 
+In particular, performance is impacted by the ratio of the plankter swimming velocity and the Kolmogorov velocity scale $\SwimmingVelocity/\KolmogorovVelocityScale$ and the ratio of the reorientation time and the Kolmogorov time scale [the Kolmogorov scales correspond to the smallest scales of turbulence defined in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:simulating_turbulent_flows}, Eq.~\eqref{eq:kolmogorov}].
+As both these ratios are impacted by the local turbulence intensity and the plankter properties, we need to verify if their value for actual plankters in actual plankton habitats corresponds to values for which surfing is actually beneficial.
+To do so, we assess surfing performance as a function of the habitat for three characteristic planktonic organisms: a dinoflagellate (single cell eukaryote of size $\PlankterSize \approx 0.03$ mm), an invertebrate larvae (small animal larvae of size $\PlankterSize \approx 0.2$ mm that may evolve into larger animals: sea snails, oysters and more) and a copepod (small crustacean of size $\PlankterSize \approx 1$ mm).
+The size ratios are represented in Fig~\ref{fig:copepod_picture}.
+\begin{wrapfigure}[13]{R}[0.3\width]{0.3\textwidth}
+	\vspace{0pt}
+	\centering
+	\def\svgwidth{0.25\textwidth}
+	\input{chap_turbulence/schemes/typical_plankton.pdf_tex}
+	\captionsetup{width=0.25\textwidth}
+  	\caption{
+  		Visual representation of the size ratios of the typical plankters we consider.
+  	}
+  	\label{fig:copepod_picture}
+\end{wrapfigure}
+Then we discuss the question of optimality in marine biology, we chose to evaluate performance as vertical migration speed however actual plankter are expected to optimize their fitness to their environment.
+We finally propose an experiment that would help find out whether the surfing strategy is actually used by planktonic organisms in real life.
+
+\section{How well would actual plankton perform?}\label{sec:how_plankton_perform}
+
+To answer the question of this section, we first need to evaluate typical reorientation timescales of the characteristic planktonic organisms we consider.
+This timescales are first derived for both actively reorienting surfing plankters ($\ReorientationTimeSurf$) and bottom-heavy swimmers ($\ReorientationTimeBh$).
+Then we fit our numerical data to empirical models to obtain a rough yet continuous description of surfers and bottom-heavy plankters performance as a function of both the ratios $\SwimmingVelocity/\KolmogorovVelocityScale$ and $\ReorientationTime/\KolmogorovTimeScale$.
+
+\subsection{Estimation of the reorientation time $\ReorientationTime$}\label{sec:bio_time}
+
+We consider plankton as spheres in a viscous flow.
+The viscous torque exerted on a rotating sphere is \citep{lamb1945hydrodynamics}
+\begin{equation}\label{eq.Tmu}
+	T_{\mu} = \pi \mu d^3 \omega \mathrm{,}
+\end{equation}
+with $\mu$ the dynamic viscosity, $\PlankterSize$ the diameter of the plankter and $\omega$ its angular velocity.
+The reorientation time can be estimated by balancing this viscous torque with either the active swimming torque for surfers or the passive gravitational torque for bottom-heavy swimmers.
+To swim at a constant speed $\SwimmingVelocity$, a microswimmer exerts a force opposite to the Stoke's drag of norm \citep{stokes1851effect}
+\begin{equation}
+	F_{\mathrm{swim}} = 3 \pi \mu d \SwimmingVelocity \mathrm{,}
+\end{equation}
+From this force, we can estimate the active torque that such a microswimmer is able to produce by multiplying it by the radius $d/2$
+\begin{equation}
+	T_{\mathrm{active}} = \frac{3}{2} \pi \mu d^2 \SwimmingVelocity \mathrm{.}
+\end{equation}
+
+Balancing the viscous torque $T_{\mu}$, given in Eq.~\eqref{eq.Tmu}, with the active torque $T_{\mathrm{active}}$ gives a typical angular velocity $\omega_{\mathrm{active}}$. The reorientation time of surfers is then given as
+\begin{equation}
+	\ReorientationTimeSurf = \frac{1}{2\omega_{\mathrm{active}}}=\frac{1}{3} \frac{d}{\SwimmingVelocity}.
+\end{equation}
+We see that this reorientation time only depends on the stride length $\SwimmingVelocity / d$, the number of body lengths traveled per second.
+
+For bottom-heavy swimmers, the gravitational torque is
+\begin{equation}
+	T_{\mathrm{\NameBhShort}} = \frac{1}{6} \pi d^3 \rho g \delta_{g} \mathrm{,}
+\end{equation}
+with $\rho$ the fluid density, $g$ the acceleration of gravity, and $\delta_{g}$ the distance between the center of mass and the geometric center.
+
+As for surfers, we can find $\ReorientationTime^{\mathrm{\NameBhShort}}$, the reorientation time  of bottom-heavy swimmers, by balancing the gravitational torque with the viscous torque. We find
+\begin{equation}
+	\ReorientationTimeBh = 3 \frac{\nu}{g \delta_{g}},
+\end{equation}
+with $\nu$ the kinematic viscosity of the fluid. This expression is identical to the one given by Pedley and Kessler \citep{Pedley1992}.
+These two expressions let us evaluate the reorientation times of plankters based on physical parameters.
+We can then evaluate the parameters required to quantify surfing performance for the three typical organisms considered.
+Used below, the values of these parameters are presented in Tab.~\ref{tab:typical}.
+\begin{table}
+	\center
+	\begin{tabular}{w{l}{0.2\linewidth}w{c}{0.14\linewidth}w{c}{0.14\linewidth}w{c}{0.14\linewidth}w{c}{0.14\linewidth}}
+		\rowcolor{ColorTabularParameters}
+		plankton & $\PlankterSize$ & $\SwimmingVelocity$ & $\ReorientationTimeSurf$ & $\ReorientationTimeBh$ \\
+		\rowcolor{ColorTabularValues}
+		dinoflagellate & 0.03 & 0.3 & 0.03 & 0.2 \\
+		\rowcolor{ColorTabularValues}
+		invertebrate larva & 0.2 & 2 & 0.03 & 0.02 \\
+		\rowcolor{ColorTabularValues}
+		copepod & 1 & 3 & 0.1 & 0.008 \\
+	\end{tabular}
+	\caption[Typical plankton characteristics: size $\PlankterSize$ (in mm), swimming velocity $\SwimmingVelocity$ (in mm\,s$^{-1}$), and reorientation time $\ReorientationTime$ (in s).]{
+		Typical plankton characteristics: size $\PlankterSize$ (in mm), swimming velocity $\SwimmingVelocity$ (in mm\,s$^{-1}$), and reorientation time $\ReorientationTime$ (in s).
+		The reorientation time depends on the origin of the alignment torque.
+		For surfers, this torque is due to active swimming and $\ReorientationTime^{\NameSurfShort} = d/(3\SwimmingVelocity)$ with $\PlankterSize$ the plankter size.
+		For bottom-heavy swimmers, it is due to gravity and $\ReorientationTime^{\NameSurfShort} = 3\nu/(g \delta_{g})$ \citep{Pedley1992} with $g$ the acceleration of gravity and $\delta_{g}$ the distance between the center of mass and the geometrical center [we used $\delta_{g}=d/200$, a typical for zooplankton based on \citep{jonsson1989vertical, fields1997escape}].
+		The derivation of these reorientation times is given in Sec.~\ref{sec:bio_time}.
+	}
+	\label{tab:typical}
+\end{table}
+
+\subsection{Empirical model for typical plankton performance}\label{sup:estimation}
+
+As our attempt to estimate performance in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:estimating_surfing_performance} failed to capture correctly performance, we adopt a pragmatic approach here: we simply fit an empirical model to our numerical data, both for surfers and for bottom-heavy swimmers to estimate migration performance.
+\begin{figure}
+	\centering
+	\input{chap_end/plots/empirical_models}
+	\caption[Evaluation of the empirical models of surfing performance.]{
+		Evaluation of the empirical models of surfing performance.
+		Comparison between the numerical results (symbols) and the empirical fits (solid lines) given in Eqs.~\eqref{eq.fit1} and \eqref{eq.fit2}, for bottom-heavy swimmers and surfers respectively.
+	Performance of surfers (a) and bottom-heavy swimmers (b) as a function of $\ReorientationTime$ for different $\SwimmingVelocity$.
+	Performance of surfers (c) and bottom-heavy swimmers (d) as a function of $\SwimmingVelocity$ for different $\ReorientationTime$.
+	}
+	\label{fig:surfing_empirical}
+\end{figure}
+
+Our previous numerical results suggests, the performance of surfers and bottom-heavy plankters are influenced by both reorientation time $\ReorientationTime$ and the swimming velocity $\SwimmingVelocity$.
+As noted in Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:surfing_on_turbulence_rtime}, the previously observed drop of performance as $\ReorientationTime$ time increases is mainly due to the fact that vorticity tend to tilt swimmers away from their preferred direction $\ControlDirection$ ($\ControlDirection = \ControlDirectionOpt$ for surfers and $\ControlDirection = \Direction$ for bottom-heavy swimmers).
+Then, the larger their reorientation time $\ReorientationTime$, the harder it is for plankters to realign with their preferred direction causing the performance to drop.
+However, when the plankter swimming speed $\SwimmingVelocity$ increases, we observe that this effect is hindered, and faster bottom-heavy plankters tend to perform better than slower ones.
+Passing quicker through the flow, faster swimmers are less affected by the local vorticity as it decorrelates faster with time, hence the better performance.
+These two effects should affect both surfers and bottom-heavy plankters in the same way.
+As a consequence we first design an empirical model that accounts for these first two effects and fit it to the simulations results of bottom-heavy swimmers.
+
+We found that the following exponential function could adequately fit our data on the whole range of $\ReorientationTime$ and $\SwimmingVelocity$ studied (Figs.~\ref{fig:surfing_empirical}b and \ref{fig:surfing_empirical}d)
+\begin{equation}\label{eq.fit1}
+\frac{\left\langle \Performance \right\rangle}{\SwimmingVelocity} \approx
+	 \mathrm{exp} \left( - 0.3 ~ \frac{\ReorientationTime/\KolmogorovTimeScale}{0.88 + 0.12 \left( \SwimmingVelocity/\KolmogorovVelocityScale \right) } \right).
+\end{equation}
+
+For surfers, one also need to account for the additional effect that surfing performance decreases with swimming speed $\SwimmingVelocity$.
+Assuming the previously described effects affect the surfers similarly, we introduce this effect as another multiplicative term in addition to the model of Eq.~\ref{eq.fit1}.
+Using the $\tanh$ function to fit our data gives the following empirical model
+\begin{equation}\label{eq.fit2}
+	\frac{\left\langle \Performance \right\rangle}{\SwimmingVelocity} \approx
+	 \left[ 1.8 + 0.8 ~ \mathrm{tanh} \left( \frac{3.0 - \left( \SwimmingVelocity/\KolmogorovVelocityScale \right)}{9.9} \right) \right] ~
+	 \mathrm{exp} \left( - 0.3 ~ \frac{\ReorientationTime/\KolmogorovTimeScale}{0.88 + 0.12 \left( \SwimmingVelocity/\KolmogorovVelocityScale \right) } \right).
+\end{equation}
+
+The comparison between these empirical fits and the numerical results is shown in Fig.~\ref{fig:surfing_empirical}. 
+It shows a good agreement that allows to estimate roughly the performance of plankton over a wide range of conditions (done below).
+
+\subsection{Results: surfing performance and plankton habitat}\label{sec:bio_results}
+
+\begin{figure}
+	\centering
+	\def\svgwidth{0.8\textwidth}
+	\input{chap_turbulence/schemes/bio_relevance.pdf_tex}
+	\caption[The surfing strategy is beneficial over a wide range of plankton habitats.]{
+		The surfing strategy is beneficial over a wide range of plankton habitats.
+		Expected vertical migration speed (effective vertical velocity, $\Performance$, Eq. \eqref{eq:surfing_performance}, relative to swimming velocity $\SwimmingVelocity$) as a function of the turbulence dissipation rate $\epsilon$.%\footref{fn:supmat}.
+		We consider three typical plankton: a copepod, an invertebrate larva, and a dinoflagellate,  whose characteristics are given in Tab. \ref{tab:typical}.
+		Two strategies are compared: the proposed surfing strategy (red) and bottom-heavy swimmers (blue) orienting upwards due to gravity.
+		In the upper panel, we indicate the  range of turbulence intensity for different marine habitats (data from \citep{fuchs2016seascape}) and the corresponding range of  Kolmogorov time $\KolmogorovTimeScale$ and Kolmogorov velocity $\KolmogorovVelocityScale$, Eq. \eqref{eq:kolmogorov}.
+	}
+	\label{fig:surfing_bio}
+\end{figure}
+
+We can now assess the expected benefit of the surfing strategy over bottom-heaviness for vertical migration in different marine habitats.
+In this evaluation, we only account for the effect of the swimming speed $\SwimmingVelocity$ and the reorientation time $\ReorientationTime$.
+Note that the influence of the turbulence intensity is accounted for through their ratio with the values of the Kolmogorov scales $\KolmogorovVelocityScale$ and $\KolmogorovTimeScale$ that depend on turbulence intensity.
+Considered as a second order effect, the influence of the Reynolds number, $\mathit{Re}_{\lambda}$, is however ignored. 
+The two ratios $\SwimmingVelocity/\KolmogorovVelocityScale$ and $\ReorientationTime/\KolmogorovTimeScale$ are judged to be the most influent parameters.
+In practice, any of the parameters of Chap.~$\ref{chap:surfing_robustness}$ could be taken into account.
+Note that the results of this subsection have been published in \citet{monthiller2022surfing}.
+
+We remind the reader that we consider here three typical plankton: a dinoflagellate, an invertebrate larva and a copepod whose sizes, swimming speeds and reorientation times are given in Tab.~\ref{tab:typical}.
+Their migration performance is estimated using the empirical models developed in Sec.~\ref{sup:estimation}.
+This performance is plotted in Fig.~\ref{fig:surfing_bio} as a function of the turbulence dissipation rate $\epsilon$ [that controls the values of $\KolmogorovVelocityScale$ and $\KolmogorovTimeScale$ defined in Eq.~\eqref{eq:kolmogorov}].
+Although it has been suggested that oceanic turbulence might be weaker than initially thought \citep{franks2022oceanic}, this figure shows that typical zooplankton species could benefit from the surfing strategy across a wide range of habitats where vertical migration is crucial, in particular continental shelves, estuaries and open oceans \citep{fuchs2016seascape}.
+
+Note however that Fig.~\ref{fig:surfing_bio} is plotted based on (1) rough empirical models that (2) do not account for all the effects described in Chap.~\ref{chap:surfing_robustness}.
+As a consequence there is room for improvement for future research to find more satisfactory models of performance (extending on Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:perf_estimation}) and include more parameters to the model (for instance the parameters explored in Chap.~\ref{chap:surfing_robustness}) to obtain a less idealized description of plankton vertical migration speed.
+
+
+
+
+\section{Optimality in marine biophysics}\label{sec:optimality}
+
+Throughout the whole study we address the problem of plankton vertical migration problem as a navigation problem.
+Based on a optimality-driven approach, we designed the surfing strategy that results from the optimal solution to the problem in a linear flow.
+This strategy enables simulated plankters to increase their effective migration speed by exploiting local flow features.
+However the ``optimality'' of a plankter in not only driven by migration speed.
+Other parameters have to be taken into account such as predation, reproduction and food foraging \citep{smith2011optimality}.
+All these parameters influence the \textit{fitness} of an organism to its environment: the essential concept of evolutionary theory.
+It describes the capacity of an individual to reproduce and pass its genes to the next generation.
+As the results of natural selection, the individuals that maximize their fitness survive which result ultimately in the current marine ecology.
+Therefore looking for optimal strategies that maximizes fitness should lead to models of plankter behavior.
+However the difficulty lies in the number of parameters that influence fitness to account for \citep{smith2011optimality}: predation, food foraging, energy consumption among others.
+Moreover, the formal definition of fitness itself is unclear.
+
+In the context of planktonic ecology, the definition of fitness as follows is commonly used
+\begin{equation}\label{eq:fitness}
+	g_{\mathrm{fit.}} = \frac{E_{\mathrm{in.}}}{\mu_{\mathrm{mort.}}}
+\end{equation}
+with $E_{\mathrm{in.}}$ the energy intake rate and $\mu_{\mathrm{mort.}}$ the mortality rate \citep{visser2007motility}.
+For instance, accounting for predator pressure and food foraging, this fitness value has been shown to control swimming speed and vertical positioning of plankters in tubulent environnements \citep{visser2009swimming}.
+
+This highlights that, in the context of planktonic navigation strategies and in particular in the context of vertical migration, numerous parameters have to be accounted for to complete an optimality driven approach.
+Due to its complexity, accounting for all aspects of fitness at the same time is particularly challenging, hence our approach only accounting for vertical migration speed.
+However we show in this section that the surfing strategy can be adapted to account for more effects to increase the complexity of the model.
+
+As it is highlighted in the definition of the fitness criteria $g_{\mathrm{fit.}}$ [Eq.~\eqref{eq:fitness}] the energy consumption is an important parameter to account for.
+Therefore we now focus on the energy efficiency of the surfing strategy, ignoring predation and food foraging, to limit the complexity of the problem.
+
+\paragraph{Problem formulation.} 
+
+To quantify the energetic efficiency $E_{\mathrm{eff.}}$ of surfing, we define the following metric
+\begin{equation}\label{eq:definition_efficiency}
+	E_{\mathrm{eff.}} = \frac{\left\langle \Performance \right\rangle}{\left\langle P_{\mathrm{tot.}} \right\rangle}.
+\end{equation}
+with $\left\langle \Performance \right\rangle$ the average effective upward velocity and $\left\langle P_{\mathrm{tot.}} \right\rangle$ the average power consumed to achieve this effective upward velocity.
+Maximizing this quantity can be interpreted as maximizing the distance traveled for a given amount of available energy.
+
+The power consumption $P_{\mathrm{tot.}}$ of plankton can be decomposed in three terms, $P_{\mathrm{swim}}$ the swimming power consumption, $P_{\mathrm{turn}}$ the power consumption due to active rotation and $P_{\mathrm{meta.}}$ the power consumed by the metabolism at rest:
+\begin{equation}
+	P_{\mathrm{tot.}} = P_{\mathrm{swim}} + P_{\mathrm{turn}} + P_{\mathrm{meta.}}.
+\end{equation}
+Considering planktonic organisms as small, spherical and inertialess swimmers, the active power consumption can simply be computed
+\begin{subequations}
+	\begin{align}
+		P_{\mathrm{swim}} &= 3 \pi \mu d \SwimmingVelocity^2 / \beta_{\mathrm{eff.}}\label{eq:p_swim}\\
+		P_{\mathrm{turn}} &= \pi \mu d^3 \SwimmingAngularVelocity^2 / \beta_{\mathrm{eff.}},\label{eq:p_turn}
+	\end{align}
+\end{subequations}
+with $\mu$ the dynamic viscosity of water, $\PlankterSize$ the plankton diameter, $\SwimmingVelocity$ the plankter swimming speed and $\SwimmingAngularVelocity$ its active angular velocity.
+The coefficient $\beta_{\mathrm{eff.}}$ accounts for weak efficiency of the conversion of biochemical energy to mechanic power.
+The estimate of this coefficient range from less than $0.01\%$ to $10\%$ \citep{minkina1981estimation, morris1985propulsion, buskey1998energetic}.
+Note that for a spherical swimmer, this active angular velocity can be expressed as the following
+\begin{equation}
+	\SwimmingAngularVelocity = \norm*{\frac{d \SwimmingDirection}{dt} \times \SwimmingDirection - \frac{1}{2} \FlowVorticity}.
+\end{equation}
+with $\FlowVorticity$ the local flow vorticity.
+There is no clear way to evaluate the $P_{\mathrm{meta.}}$ however but it can be roughly estimated using Kleiber's law.
+
+\paragraph{Estimation of the metabolic power $P_{\mathrm{meta.}}$.}
+
+One way to estimate the metabolic power consumption $P_{\mathrm{meta.}}$ is to use the Kleiber's law \citep{kleiber1961fire}.
+It is a known scaling that states that metabolic power consumption $P_{\mathrm{meta.}}$ evolves with the mass of the animal $M$ as $M^{3/4}$.
+Note however that metabolic power depends on numerous parameters in practice, therefore Kleiber's law should only be used to obtain a global trend \citep{glazier2005beyond}.
+Fully aware of this limitation, we use here the scaling deduced from the data of \citet{gillooly2001effects}: $P_{\mathrm{meta.}} \approx \alpha_{meta.} \, M^{3/4}$ with $\alpha_{meta.} = 0.144$ J.s$^{-1}$.kg$^{-3/4}$.
+This very rough estimate of $P_{\mathrm{meta.}}$ is mainly use to get an idea of the expected order of magnitude of $P_{\mathrm{meta.}}$.
+Considering organisms as spheres, the metabolic power consumption can then be computed as the following:
+\begin{equation}\label{eq:kleiber}
+	P_{\mathrm{meta.}} = \left( \frac{\pi}{6} \right)^{3/4} \alpha_{\mathrm{meta.}} \rho_{\mathrm{plank.}}^{3/4} d^{9/4}
+\end{equation}
+with $\rho_{\mathrm{plank.}} = 6 M_{\mathrm{plank.}} / \pi d^3$ the density of the plankter.
+Then assuming that most planktonic organisms are roughly as dense as water $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}}$, the problem depends on two parameters alone: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diameter) $\PlankterSize$.
+One can then evaluate these coefficients with $\mu = \mu_{\mathrm{water}} = 10^{-3}$ kg m$^{-1}$ s$^{-1}$ and $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}} = 10^{3}$ kg m$^{-3}$.
+In the limit of the previously described assumptions, the total power is only function of the swimming velocity $\SwimmingVelocity$, the active angular velocity $\SwimmingAngularVelocity$ and the plankter size $\PlankterSize$.
+
+To get an idea of the order of magnitudes of this total power for actual plankters, we take the example of the larvae of the gastropod \textit{Crepidula fornicata} \citep{dibenedetto2022responding}.
+These organisms are of size $d \approx 500 \times 10^{-6}$ m and swim at $\SwimmingVelocity \approx 7 \times 10^{-4}$ m.s$^{-1}$.
+Furthermore, if these organisms are able to reorient, their active angular velocity could be estimated as $\SwimmingAngularVelocity \approx \SwimmingVelocity / d = 1.4$ rad.s$^{-1}$.
+Assuming the conversion from biochemical power to mechanical power is of efficiency $\beta_{\mathrm{eff.}} = 1\%$ , we obtain the following estimates of power consumption $P_{\mathrm{meta}} \approx 6 \times 10^{-7}$ J.s$^{-1}$, $P_{\mathrm{swim}} \approx 2 \times 10^{-10}$ J.s$^{-1}$ and $P_{\mathrm{turn}} \approx 8 \times 10^{-11}$ J.s$^{-1}$.
+Note that the resulting metabolic power is of the same order of magnitude to that found commonly in literature: for instance \citet{visser2009swimming} us $P_{\mathrm{meta}} = 1.8 \times 10^{-7}$ J.s$^{-1}$ in their study.
+We are then rather confident of the order of magnitude of our estimate.
+Then, note that the active power consumption ends up completely negligible compared to the metabolic power: $P_{\mathrm{swim}} \ll P_{\mathrm{meta}}$ and $P_{\mathrm{turn}} \ll P_{\mathrm{meta}}$.
+Therefore the total power consumption is mainly represented by the metabolic power and $P_{\mathrm{tot.}} \approx P_{\mathrm{meta}}$.
+The surfing strategy would then remain beneficial as it results in increasing significantly the effective vertical velocity $\Performance$ at almost no energetic cost (compared to $P_{\mathrm{meta}}$), therefore maximizing $E_{\mathrm{eff.}}$.
+
+As a consequence, in the context of plankton vertical migration, and under the limit of the previously stated assumptions we do not expect the active power consumption to limit the use of an active reorientation and thus would not limit the use of the surfing strategy.
+Note however many elements of fitness could be considered, for instance stealth, that could be other reasons not to surf actively.
+
+
+
+
+
+
+
+\section{Do plankton really surf?}\label{sec:do_they_surf}
+
+All of these results suggests that (1) flow sensing plankters are \textbf{able to ``surf'' on turbulence} and (2) doing so would be \textbf{beneficial}.
+Following our optimality-driven approach, we expect them to have evolve to exploit the flow this strategy trough natural selection.
+If we are correct, the ability to exploit the flow to migrate faster should be observable on real plankters.
+To this end, we present below measurable cues that would help differentiate active reorientation towards the surfing direction $\ControlDirectionOpt$, meaning flow informed navigation is at play, from passive reorientation to the vertical $\Direction$ through bottom-heaviness.
+We first develop these cues with the experiment of \citet{dibenedetto2022responding} in mind as the data they generated could directly lead to the evaluation of these cues.
+We then discuss of another experiment that could be performed to apply the same protocol on phototactic plankters.
+Such experiment would provide a fine control on the direction of migrations of plankters through the placement of the light source.
+
+\subsection{Larvae in turbulence}
+
+\subsubsection{Brief description of the setup}
+
+\citet{dibenedetto2022responding} observed the behavior of plaktonic larvae, specifically the veliger larvae of the gastropod \textit{Crepidula fornicata}, in a jet-stirred turbulence tank (Fig.~\ref{fig:tank}).
+\begin{figure}%[H]
+	\centering
+	\def\svgwidth{0.9\textwidth}
+	\input{chap_end/schemes/tank.pdf_tex}
+	\caption[Illustration of the experiment performed by \citet{dibenedetto2022responding}.]{
+		Illustration of the experiment performed by \citet{dibenedetto2022responding} that aimed to monitor the behavior of veliger larvae of the gastropod \textit{Crepidula fornicata} in response to turbulence.
+		The setup is mainly composed of a large tank in which the larvae are placed. 
+		An homogeneous isotropic turbulent flow is generated at the center of the tanks to eight jet generating pumps.
+		The measures are performed in a vertical centerplane of the tank, illumated with a laser sheet from which is extracted the 2D flow velocity field in that plane and the trajectory of the larvae.
+	}
+	\label{fig:tank}
+\end{figure}
+Both the larvae trajectories and two components of the flow velocity in a vertical centerplane of the tank have been measured (refer to the original paper for details).
+
+Experiments were conducted for various turbulence intensity to assess and differentiate the response of these larvae to the local instantaneous flow from the to background turbulence.
+They observed a response to the same local instantaneous cues from the flow that differs with background turbulence.
+This observation suggests the ability of these larvae to integrate information over time.
+Published along the paper, the data generated by \citet{dibenedetto2022responding} provide an interesting source of information concerning the behaviors of these larvae in turbulence.
+Moreover, the larvae they consider are in a early stage and therefore not ready to settle.
+As a consequence, we expect from these larvae to migrate vertically to seek for horizontal surface currents.
+The foraging of these current are believed to help larvae spread out horizontally and enhance their chances of survival as a species (larval dispersal is further discussed in Sec.~\ref{sec:horizontal_dispersion} and App.~\ref{app:horizontal_dispersion}).
+
+The setup is then similar to the problem studied throughout this thesis.
+Therefore it offers a unique opportunity to compare the behavior of actual plankters with the surfing strategy presented here.
+
+The following is part of an ongoing collaboration with Michelle DiBenedetto, author of the data.
+This collaboration aims to look closely to how the behavior of larvae correlates with the local flow they experiment to assess if surfing is at play or not.
+Note that the discussion presented here has broader significance as the methods described could be applied to any similar experiment.
+%This section aims to present the measurable cues that could be used to differentiate a passive bottom-heavy response to the local flow from an active surfing-like behavior.
+
+\subsubsection{Deducing plankter orientation from slip velocity}
+
+The data published along with this paper would let us evaluate the correlation of plankters slip velocity (difference of the actual velocity of the plankter $d \ParticlePosition / dt$ and the flow velocity $\FlowVelocity(\ParticlePosition)$ interpolated at the position of the plankter as if the later was not present) with the local flow velocity gradients $\Gradients$ around these plankters.
+
+The cues proposed here mostly rely on the measure of the angle of the plankter swimming direction with respect to the vertical $\Direction$.
+This angle is noted $\theta$.
+Note that the orientation of the plankter is not directly measured in the experiment but it is deduced from the orientation of the slip velocity of the plankter.
+This slip velocity is evaluated as the difference between the actual plankter velocity and the flow velocity that is interpolated at the position of the plankter as if it did not exist
+
+The estimated stokes number $\mathit{St}$, of these larvae ranges from $\mathit{St} \approx 10^-1$ to $\mathit{St} \approx 10^-2$ depending on the background turbulence imposed.
+This means no particle inertial effects are expected to influence this slip velocity.
+Therefore the observable slip velocity should mostly be caused by swimming.
+The slip velocity should then be a good estimate of the swimming velocity.
+However, the finite particle Reynolds number of the larvae (of the order of unity) challenges this assumptions as it means fluid inertia effects might come into play.
+This effect is not considered here as it is not expected to impact significantly the orientation of the slip velocity.
+
+\subsubsection{Proposed cues}
+
+Note that flow vorticity is a component of the flow that affects both the orientation of spherical bottom-heavy swimmers, by tilting them away from the vertical, and the orientation of surfers, that tend to reorient to oppose the effect of vorticity.
+As such, the preferential orientation of plankters with respect to horizontal flow vorticity is a promising cue that would help out discriminating bottom-heavy-like behaviors from surfing-like behavior.
+The fact that the observation is limited to a single plane constitutes the main challenge to address: the expected orientation of surfers and bottom-heavy plankters must be projected in a single plane.
+Thankfully, this projection can be readily evaluated our numerical simulation.
+
+\begin{figure}
+	\centering
+	\input{chap_end/plots/experimental_cues}
+	\caption[Evaluation of the proposed experimental cues in simulated turbulence.]{
+		Evaluation of the proposed experimental cues in simulated turbulence for both simulated surfers and bottom-heavy swimmers.
+		Note how these cues would let us differentiate an active surfing-like behavior from a passive bottom-heavy behavior.
+	}
+	\label{fig:experimental_cues}
+\end{figure}
+The cues we propose are presented in Fig.~\ref{fig:experimental_cues}, all of which are based on the binned average components of the swimming direction $\SwimmingDirection$ projected in the plane $(\hat{\vec{e}}_x, \hat{\vec{e}}_z)$ as a function of either the horizontal flow vorticity or the horizontal gradient of the vertical velocity.
+The angle $\theta _{\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, y} \rangle}$ is evaluated as $\arctan2 (\langle \SwimmingDirection_{\mathrm{\NameSurfShort}, x} \rangle, \langle \SwimmingDirection_{\mathrm{\NameSurfShort}, \DirectionScalar} \rangle)$.
+Note how these cues would let us differentiate an active surfing-like behavior from a passive bottom-heavy behavior.
+
+% The component of the flow measured by the \textit{Crepidula fornicata} larvae may differ depending on the flow sensors they depend on (cf. Chap.~\ref{chap:intro}).
+% These larvae are equipped with a ciliated velum, that could act as setae and enable the measure of strain, and statochists, that enables the measure of vorticity.
+% We hereby focus on the sensing of the horizontal flow vorticity alone as an example but note that other cues could be developed (further discussed in App.~\ref{app:orientation_statistics}).
+% 
+% Note that flow vorticity is a component of the flow that affects both the orientation of spherical bottom-heavy swimmers, by tilting them away from the vertical, and the orientation of surfers, that tend to reorient to oppose the effect of vorticity.
+% As such, the preferential orientation of plankters with respect to horizontal flow vorticity is a promising cue that would help out discriminating bottom-heavy-like behaviors from surfing-like behavior.
+% The fact that the observation is limited to a single plane constitutes the main challenge to address.
+
+% The models that lead to our proposition of experimental cue are directly given below.
+% But note that their detailled derivation is provided in App.~\ref{app:orientation_statistics}.
+% These models describe the expected angle to the vertical in the plane of normal $\hat{\vec{e}}_y$, noted $\theta_{\mathrm{\NameBhShort}, y}$ for bottom-heavy plankters and $\theta_{\mathrm{\NameSurfShort}, y}$ for surfing ones.
+% 
+% The model for bottom-heavy plankters (only valid for $\ReorientationTime \ll 2/\FlowVorticityScalar$) reads
+% \begin{subequations}\label{eq:final_correlation_vort_bh}
+	% \begin{align}
+		% \left\langle \theta_{\mathrm{\NameBhShort}, y} \right\rangle_{N, t} &= -\frac{1}{\pi} \int_0^{\pi} \int_{-\FlowVorticityScalar_{x, \mathrm{bound.}}}^{+\FlowVorticityScalar_{x, \mathrm{bound.}}} p(\FlowVorticityScalar_x) \cos \left( \phi_{\mathrm{\NameBhShort}} - \phi_x \right) \theta_{\mathrm{\NameBhShort}} \, d\FlowVorticityScalar_x \, d \phi_{\mathrm{\NameBhShort}}\\
+		% \FlowVorticityScalar_{x, \mathrm{bound.}} &= \sqrt{\frac{1}{\ReorientationTime^2 \sin^2 \phi_{\mathrm{\NameBhShort}}} - \FlowVorticityScalar_y^2}\\
+		% \theta_{\mathrm{\NameBhShort}} &= \arcsin \left( \ReorientationTime \sqrt{\FlowVorticityScalar_x^2 + \FlowVorticityScalar_y^2} \sin \phi_{\mathrm{\NameBhShort}} \right)\\
+		% \phi_x &= -\arctan2 \left( \FlowVorticityScalar_y, \FlowVorticityScalar_x \right),
+	% \end{align}
+% \end{subequations}
+% where, $\langle a \rangle_{N, t}$ corresponds to the average of $a$ over time and over $N$ plankters, $\theta_{\mathrm{\NameBhShort}, y}$ is the plankter orientation angle with respect to the vertical in the plane of normal $\hat{\vec{e}}_y$ (the plane of the measurements), $p(\FlowVorticityScalar_x)$ is the normed probability density function of the vorticty component along $\hat{\vec{e}}_x$, $\phi_x$ and $\phi_{\NameBhShort}$ corresponds to the angle that describes the orientation of $\hat{\vec{e}}_x$ and the plankter swimming direction with respect to horizontal vorticity, and $\theta_{\mathrm{\NameBhShort}}$ is the angular difference between the plankter surfing direction and the vertical.
+% This equation expresses the measurable orientation of the swimming direction $\tan \theta_{\mathrm{\NameBhShort}, y}$ as a function of the measurable component of vorticity: $\FlowVorticityScalar_y$.
+% 
+% The only required input to evaluate this expression is the probability density function $p(\FlowVorticityScalar_x)$.
+% While it cannot be measured directly, we can estimate it thanks to turbulence isotropy: $p(\FlowVorticityScalar_x) \approx p(\FlowVorticityScalar_y)$.
+% Therefore it can be evaluated in experiments.
+% This expression may then be evaluated for various reorientation times (in the limit $\ReorientationTime \ll 2/\FlowVorticityScalar_z$) to obtain the expected orientation statistics of bottom-heavy swimmers.
+% 
+% Similarly, given the assumption of instantaneous reorientation, we obtain that the average orientation of surfing plankters that exploit horizontal vorticity is described by
+% \begin{subequations}
+	% \begin{align}
+		% \left\langle \theta_{\mathrm{\NameSurfShort}, y} \right\rangle_{N, t} &= -\int_{-\infty}^{+\infty} p(\FlowVorticityScalar_x) \arctan2 \left[ \cos \left( \phi_x - \frac{\pi}{2} \right) \sin \theta_{\mathrm{\NameSurfShort}}, \cos \theta_{\mathrm{\NameSurfShort}} \right] \, d\FlowVorticityScalar_x\\
+		% \theta_{\mathrm{\NameSurfShort}} &= \ReorientationTime \sqrt{\FlowVorticityScalar_x^2 + \FlowVorticityScalar_y^2}\\
+		% \phi_x &= -\arctan2 \left( \FlowVorticityScalar_y, \FlowVorticityScalar_x \right),
+	% \end{align}
+% \end{subequations}
+% As for the bottom-heavy case, this expression can be evaluated for various surfing time horizons $\TimeHorizon$.
+% 
+% As an illustration, both this models are plotted assuming Gaussian distributions of $\FlowVorticityScalar_x$ of standard deviation $\sigma_{\FlowVorticityScalar_x}$.
+% 
+% \begin{figure}
+	% \centering
+	% \input{chap_end/plots/experimental_cues}
+	% \caption[Evaluation of the proposed experimental cues in simulated turbulence.]{
+		% Evaluation of the proposed experimental cues in simulated turbulence.
+	% }
+	% \label{fig:experimental_cues}
+% \end{figure}
+% 
+% \todo{Illustrate this on figures !!! And conclude !!!}
+
+\subsection{Phototactic surfing}
+
+A large number of planktonic organisms display a phototactic behavior \citep{tranter1981nocturnal, wilhelmus2014observations}, meaning they are attracted by light.
+These attraction could be used to control the target direction $\Direction$ of such a plankters, independently of the direction of gravity $\Direction_g$.
+Experiments similar to the one described above could then be performed: by placing plankters in a water tank and analyse their response to the local flow gradients in the presence of a directional target controlled by light source (Fig.~\ref{fig:phototactic_tank}).
+\begin{figure}%[H]
+	\centering
+	\def\svgwidth{0.9\textwidth}
+	\input{chap_end/schemes/phototactic_tank.pdf_tex}
+	\caption[Illustration of the proposed experiment: monitoring the correlations between the behavior of phototactic plankters and the local flow field.]{
+		Illustration of the proposed experiment: monitoring the correlations between the behavior of phototactic plankters and the local flow field.
+		The target direction of plankters is controlled through the position of light sensing.
+		The camera and laser sheet are omitted for the sake of clarity. (Refer to Fig.~\ref{fig:tank} for more details)
+	}
+	\label{fig:phototactic_tank}
+\end{figure}
+
+While turbulent can also be considered in this context, one could consider simpler flows, for instance in simple 2D Taylor-Green vortices, to simplify the analysis.
+Note that the proposed experiment is similar to that of the recent study by \citet{houghton2018vertically} with the addition of an prescribed external flow.
+
+\section{Summary}
+
+In this chapter, we demonstrated that
+\begin{itemize}
+	\item the surfing strategy should be beneficial over a wide range of habitats,
+	\item its energetic cost is expected to be negligible compared to the metabolic cost
+	\item simple experiments could be performed to evaluate the ability of surfers to ``surf''
+\end{itemize}

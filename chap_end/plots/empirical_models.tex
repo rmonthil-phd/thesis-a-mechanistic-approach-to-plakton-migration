@@ -1,0 +1,648 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 2,
+				y descriptions at=edge left,
+				horizontal sep=0.04\linewidth,
+				vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.5\textwidth,
+			% x
+			xlabel=$\ReorientationTime / \KolmogorovTimeScale$,
+			%xtick={-4, -3, -2, -1},
+			%xticklabels={$10^{-4}$, $10^{-3}$, $10^{-2}$, $10^{-1}$},
+			xmin=0.0,
+			xmax=10,
+			%xmode=log,
+			% y
+			ylabel=$\left\langle \Performance \right\rangle / \SwimmingVelocity$,
+			%ytick={-5, -4, -3, -2},
+			%yticklabels={$10^{-5}$, $10^{-4}$, $10^{-3}$, $10^{-2}$},
+			ymin=0,
+			ymax=2.5,
+			%ymode=log,
+			% layers
+			set layers,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=8pt}},
+			legend pos=north east,
+			legend cell align=left,
+			legend columns=1,
+		]
+		% surf
+		\nextgroupplot[
+		]
+			%% us = 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf!100!ColorVs,
+				only marks,
+				mark=*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorSurf!100!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{(1.8 + 0.8 * tanh(-(1.0 - 3.0)/9.9)) * exp(-0.3 * x / (0.88 + 0.12 * 1.0))};
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf!50!ColorVs,
+				only marks,
+				mark=pentagon,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$4 \KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorSurf!50!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{(1.8 + 0.8 * tanh(-(4.0 - 3.0)/9.9)) * exp(-0.3 * x / (0.88 + 0.12 * 4.0))};
+			%% us = 10.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorSurf!0!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorSurf!0!ColorVs,
+				only marks,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$10 \KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorSurf!00!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{(1.8 + 0.8 * tanh(-(10.0 - 3.0)/9.9)) * exp(-0.3 * x / (0.88 + 0.12 * 10.0))};
+			
+		% straight
+		\nextgroupplot[
+		]
+			%% us = 1.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorBh!100!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorBh!100!ColorVs,
+				only marks,
+				mark=o,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{1.0:1.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$\KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorBh!100!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{exp(-0.3 * x / (0.88 + 0.12 * 1.0))};
+			%% us = 4.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorBh!50!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorBh!50!ColorVs,
+				only marks,
+				mark=pentagon*,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{4.0:4.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$4 \KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorBh!50!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{exp(-0.3 * x / (0.88 + 0.12 * 4.0))};
+			%% us = 10.0
+			%%% 95 CI
+			\addplot[name path=A, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x expr={\thisrowno{4}},
+				y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addplot[ColorBh!0!ColorVs, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+			%%% average
+			\addplot[
+				ColorBh!0!ColorVs,
+				only marks,
+				mark=square,
+			] table [
+				x expr={\thisrowno{4}},
+				y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+				col sep=comma, 
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{2}}{10.0:10.0},
+				unbounded coords=discard,
+			] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+			\addlegendentry{$10 \KolmogorovVelocityScale$}
+			%%% model
+			\addplot
+			[
+				domain=0:10,
+				samples=100,
+				% esthetics
+				color=ColorBh!00!ColorVs,
+				opacity=1.0,
+				%on layer=axis foreground,
+				solid,
+				forget plot,
+				thick,
+			]
+			{exp(-0.3 * x / (0.88 + 0.12 * 10.0))};
+
+			% surf
+			\nextgroupplot[
+				% x
+				xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+				xtick={1, 5, 10, 15, 20},
+				xticklabels={1, 5, 10, 15, 20},
+				xmin=1,
+				xmax=20,
+				%xmode=log,
+				% legend
+				legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=8pt}},
+				legend pos=north east,
+				legend cell align=left,
+				legend columns=1,
+			]
+				%% rtime = 0.0
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorSurf!100!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorSurf!100!ColorRtime,
+					only marks,
+					mark=*,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$0$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorSurf!100!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{(1.8 + 0.8 * tanh(-(x - 3.0)/9.9)) * exp(-0.3 * 0.0 / (0.88 + 0.12 * x))};
+				%% rtime = 1.0
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorSurf!50!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorSurf!50!ColorRtime,
+					only marks,
+					mark=pentagon,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$\KolmogorovTimeScale$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorSurf!50!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{(1.8 + 0.8 * tanh(-(x - 3.0)/9.9)) * exp(-0.3 * 1.0 / (0.88 + 0.12 * x))};
+				%% rtime = 4.0
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorSurf!0!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorSurf!0!ColorRtime,
+					only marks,
+					mark=square*,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/max_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$4 \KolmogorovTimeScale$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorSurf!0!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{(1.8 + 0.8 * tanh(-(x - 3.0)/9.9)) * exp(-0.3 * 4.0 / (0.88 + 0.12 * x))};
+				
+			% straight
+			\nextgroupplot[
+				% x
+				xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+				%xtick={-4, -3, -2, -1},
+				%xticklabels={$10^{-4}$, $10^{-3}$, $10^{-2}$, $10^{-1}$},
+				xmin=1,
+				xmax=20,
+				%xmode=log,
+				% legend
+				legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=8pt}},
+				legend pos=north east,
+				legend cell align=left,
+				legend columns=1,
+			]
+				%% rtime = 0.0
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorBh!100!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorBh!100!ColorRtime,
+					only marks,
+					mark=o,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{0.0:0.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$0$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorBh!100!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{exp(-0.3 * 0.0 / (0.88 + 0.12 * x))};
+				%% rtime = 1
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorBh!50!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorBh!50!ColorRtime,
+					only marks,
+					mark=pentagon*,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{1.0:1.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$\KolmogorovTimeScale$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorBh!50!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{exp(-0.3 * 1.0 / (0.88 + 0.12 * x))};
+				%% rtime = 4.0
+				%%% 95 CI
+				\addplot[name path=A, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} - \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[name path=B, draw=none, forget plot] table [
+					x expr={\thisrowno{2}},
+					y expr={(\thisrowno{0} + \thisrowno{1}) / (\thisrowno{2} * 0.066)}, %u_\eta = 0.066
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addplot[ColorBh!0!ColorRtime, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+				%%% average
+				\addplot[
+					ColorBh!0!ColorRtime,
+					only marks,
+					mark=square,
+				] table [
+					x expr={\thisrowno{2}},
+					y expr={\thisrowno{0} / (\thisrowno{2} * 0.066)},
+					col sep=comma, 
+					comment chars=\#,
+					restrict expr to domain={\thisrowno{4}}{4.0:4.0},
+					unbounded coords=discard,
+				] {data/spherical_surfers/str_average_velocity_axis_0__surfer.csv};
+				\addlegendentry{$4 \KolmogorovTimeScale$}
+				%%% model
+				\addplot
+				[
+					domain=0:20,
+					samples=100,
+					% esthetics
+					color=ColorBh!00!ColorRtime,
+					opacity=1.0,
+					%on layer=axis foreground,
+					solid,
+					forget plot,
+					thick,
+				]
+				{exp(-0.3 * 4.0 / (0.88 + 0.12 * x))};
+	\end{groupplot}
+	% labels
+	\node[anchor=west] at (rel axis cs:0.52,0.92) {$\SwimmingVelocity$:};
+	\node[anchor=west] at (rel axis cs:1.62,0.92) {$\SwimmingVelocity$:};
+	\node[anchor=west] at (rel axis cs:0.58,-0.34) {$\ReorientationTime$:};
+	\node[anchor=west] at (rel axis cs:1.68,-0.34) {$\ReorientationTime$:};
+	% stuff
+	\node[anchor=north west] at (rel axis cs:-0.07,1.0) {\textbf{(a) \NameSurf}};
+	\node[anchor=north west] at (rel axis cs:1.03,1.0) {\textbf{(b) \NameBh}};
+	\node[anchor=north west] at (rel axis cs:-0.07,-0.25) {\textbf{(c) \NameSurf}};
+	\node[anchor=north west] at (rel axis cs:1.03,-0.25) {\textbf{(d) \NameBh}};
+\end{tikzpicture}
