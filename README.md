@@ -48,11 +48,6 @@ $ pdflatex -shell-escape main.tex
 $ pdflatex -shell-escape main.tex
 ```
 
-To merge pdfs, one may use
-```sh
-$ pdftk alternative_frontmatter.pdf main.pdf cat output thesis.pdf
-```
-
 ## Maintainers
 
 Rémi Monthiller - [@rmonthil](https://gitlab.com/rmonthil) - remi.monthiller@gmail.com
