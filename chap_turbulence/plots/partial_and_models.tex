@@ -140,7 +140,7 @@
 		domain=0.0:30.0,
 		samples=100,
 		]{(3.0 * pi / 4.0) * (exp(\moddelta * \modtimesym) + exp(-2.0 * \moddelta * \modtimesym - 3.0 * \moddelta * x)) / (2.0 * exp(\moddelta * \modtimesym) + exp(-2 * \moddelta * \modtimesym))};
-		\addlegendentry{Eq.~(3.33)}
+		\addlegendentry{(3.33)}
 		%%% model asym cos
 		\def\modomega{0.65}
 		\def\modtimeasym{4.25}
@@ -152,7 +152,7 @@
 		domain=0.0:30.0,
 		samples=100,
 		]{(2 * cos(deg(0.5 * \modomega * (\modtimeasym - x))) + 1) / (2 * cos(deg(0.5 * \modomega * \modtimeasym)) + 1)};
-		\addlegendentry{Eq.~(3.38)}
+		\addlegendentry{(3.38)}
 		%%% model asym exp
 		\def\modomega{0.65}
 		\def\modtimeasym{4.25}
@@ -164,7 +164,7 @@
 		domain=0.0:30.0,
 		samples=100,
 		]{(2.0 * exp(-(1.0/8.0) * (\modomega * abs(\modtimeasym - x))^2.0) + 1) / (2.0 * exp(-(1.0/8.0) * (\modomega * \modtimeasym)^2.0) + 1)};
-		\addlegendentry{Eq.~(3.41)}
+		\addlegendentry{(3.41)}
 		%%% model full
 		\addplot
 		[
@@ -174,7 +174,7 @@
 		domain=0.0:30.0,
 		samples=100,
 		]{(3.0 * pi / 8.0) * ( (1.0 + 2.0 * exp(-3.0 * \moddelta * (\modtimesym + x))) * exp(-(1.0/8.0) * (\modomega * abs(\modtimeasym - x))^2.0) + 1) / ( (1.0 + exp(-3.0 * \moddelta * \modtimesym)) * exp(-(1.0/8.0) * (\modomega * \modtimeasym)^2.0) + 1)};
-		\addlegendentry{Eq.~(3.48)}
+		\addlegendentry{(3.48)}
 		
 		%% y = x
 		\addplot
@@ -185,6 +185,7 @@
 		solid, 
 		on layer=axis background,
 		domain=0:30,
+		forget plot,
 		]{1};
 
 
@@ -273,12 +274,13 @@
 		%% y = x
 		\addplot
 		[
-		color=black,
+		color=gray!50!white,
 		opacity=1.0,
 		%line width=1pt,
 		solid,
 		on layer=axis background,
 		domain=0.5:20,
+		forget plot,
 		]{1};
 		%%% model
 		\def\moddelta{0.02}
@@ -290,10 +292,10 @@
 		[
 			color=black,
 			opacity=1.0,
-			dashdotdotted,
+			dashed,
 			domain=0.5:20.0,
 			samples=10,
 		]{(3.0 * pi / 4.0) * (1.0 + exp(-3.0 * \moddelta * (\modtimesym + \modtimeasym ) / ((1.0 - \modparam) + \modparam * (x-1)))) / ( (1.0 + exp(-3.0 * \moddelta * \modtimesym / ((1.0 - \modparam) + \modparam * (x-1)))) * exp(-(1.0/8.0) * (\modomega * \modtimeasym / ((1.0 - \modparam) + \modparam * (x-1)) )^2.0) + 1)};
-		\addlegendentry{Eq.~(3.49)}
+		\addlegendentry{(3.49)}
 	\end{groupplot}
 \end{tikzpicture}

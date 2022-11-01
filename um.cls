@@ -65,7 +65,7 @@
 \colorlet{DissertationColor}{UMRed}   
 
 % Setup choosen University of Malta crest/logo
-\def\logo{{\includegraphics[width=30mm]{umlogo_crest_red}}}
+%\def\logo{{\includegraphics[width=30mm]{umlogo_crest_red}}}
 
 % The year and term the thesis is submitted 
 \def\degreeDate#1{\gdef\@degreeDate{#1}}
@@ -215,8 +215,27 @@
 % The front page
 \renewcommand{\maketitle}
 {\begingroup
-%\AlCentroPagina{umlogo_crest_gray}
-\parbox[b][0.95\textheight][t]{0.2\textwidth}{\raggedleft\logo} %% this 0.95 is important, otherwise page overflows in next page
+\vspace*{-3.0cm}
+\begin{center} %% logos partenaires
+	\hspace*{-2.0cm}
+	\begin{minipage}[c]{.23\linewidth}
+		\centering\includegraphics[height=3em]{images/logo_centrale.pdf}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.22\linewidth}
+		\centering\includegraphics[height=3em]{images/logo_irphe.pdf}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.1\linewidth}
+		\centering\includegraphics[height=3em]{images/logo_cnrs.pdf}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.23\linewidth}
+		\centering\includegraphics[height=3em]{images/logo_amu_excellence}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{.2\linewidth}
+		\centering\includegraphics[height=3em]{images/logo_erc.png}
+	\end{minipage}\hfill
+\end{center}
+\vspace*{1.3cm}
+\parbox[b][0.95\textheight][t]{0.13\textwidth}{\raggedleft{\hspace{-0.244\textwidth}\includegraphics[width=0.288\textwidth]{./images/front_page_image.pdf}}} %% this 0.95 is important, otherwise page overflows in next page
 \hspace*{2ex}
 \textcolor{DissertationColor}{\rule{2pt}{0.95\textheight}}
 \hspace*{2ex}
@@ -226,16 +245,41 @@
     \sffamily
     {\Huge\bfseries{\begin{Spacing}{1.15}\textcolor{DissertationColor}{\@title}\end{Spacing}}}
     \vspace*{2ex}
-    {\large\textit{\@tagline}}\\[1in]
+    {\Large\textit{\textcolor{DissertationColor}{\@tagline}}}\\[1cm]
     
-    {\LARGE\bfseries \textsc{\@author}} \\[1cm]
-    {\large Supervised by \@supervisor} 
-    \@ifundefined{@cosupervisor}{\\[2ex]}{\\[2ex]\large Co-supervised by \@cosupervisor}\\[1cm]
-    {\large \@department} \\[1ex]
-    {\large \@faculty} \\[1ex]
-    {\large Aix-Marseille Université} \\
+    {\LARGE\bfseries \textsc{\@author}}\\[0.2cm]
+    {\large \textbf{Ph.D. thesis} supervised by}
+    \@ifundefined{@cosupervisor}{\@supervisor}{\textbf{\@supervisor} and \textbf{\@cosupervisor}}\\[0.75cm]
+    {\large \textbf{Jury:}}\\[0.25cm]
+    {\normalsize
+		% \begin{tabular*}{\textwidth}{ l c r}
+			% \'Eric CLIMENT & \textit{Pr.}, ENSEEIHT, IMFT, Toulouse & Referee\\
+			% Agnese SEMINARA & \textit{Pr.}, unige, DICCA, Genova & Referee\\
+			% Antonio CELANI & \textit{Res. sci.}, ICTP, Trieste & Examiner\\
+			% Michelle DIBENEDETTO & \textit{Ass. pr.}, UW, Mech. Eng., Wash. & Examiner\\
+			% Mimi KOEHL & \textit{Pr.}, UC, IB, Berkeley & Invited\\
+			% Christophe ELOY & \textit{Pr.}, Cent. Méd., IRPHE, Marseille & Supervisor\\
+			% Benjamin FAVIER & CR CNRS, IRPHE, Marseille & Co-supervisor
+		% \end{tabular*}
+		\begin{tabular*}{\textwidth}{ l c r}
+			\'E. CLIMENT & \textit{Pr.}, ENSEEIHT, IMFT, Toulouse & Rapporteur\\
+			A. SEMINARA & \textit{Pr.}, unige, DICCA, Genova & Rapporteure\\
+			A. CELANI & \textit{Res. sci.}, ICTP, Trieste & \'Examinateur\\
+			M. DIBENEDETTO & \textit{Ass. pr.}, UW, Mech. Eng., Wash. & \'Examinatrice\\
+			M. KOEHL & \textit{Pr.}, UC, IB, Berkeley & Invitée\\
+			C. ELOY & \textit{Pr.}, Cent. Méd., IRPHE, Marseille & Directeur\\
+			B. FAVIER & CR CNRS, IRPHE, Marseille & Co-directeur
+		\end{tabular*}
+    }\\[0.75cm]
+    {\normalsize Doctoral school: \textbf{ED 353}: Sciences pour l’ingénieur:
+    Mécanique, Physique, Micro et Nanoélectronique}\\[0.05cm]
+    {\normalsize Student of \textbf{\@faculty}}\\[0.05cm]
+    {\normalsize Working in the \textbf{\@department} lab}\\[0.05cm]
+    {\normalsize that is also tutored by \textbf{Aix-Marseille Université} and the \textbf{CNRS}}\\[0.05cm]
+    %{\normalsize \textbf{Founded by} the European Research Council}\\[0.05cm]
+    {\normalsize This project has received funding from the \textbf{European Research Council} (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement No 834238).}\\[0.05cm]
     \vfill
-    {\bfseries \@degreeDate}\\[\baselineskip]
+    {\bfseries Defended on \@degreeDate}\\[\baselineskip]
 	\parbox[t]{0.80\linewidth}{\footnotesize\textit{A \@doctype\ submitted in partial fulfilment of the requirements for the degree of \@degreeName}.}    
 }
 \thispagestyle{empty}
@@ -285,63 +329,77 @@
 % of originality itself appears in a quote environment, i.e. tabbed in at 
 % both sides, and on its own page.
 
-%\newenvironment{originality}
-%{\clearpage
-%\begin{center}
+\newenvironment{originality}
+{\clearpage
+\vspace*{1.5cm}
+\begin{center}
+{\Large\bfseries\sffamily\textcolor{DissertationColor}{Affidavit}\par}
+\end{center}
+\vspace*{1.5cm}
+{I, undersigned, Rémi Monthiller, %% First Name and Surname of the PhD student
+hereby declare that the work presented in this manuscript is my own work, carried out under the scientific direction of Christophe Eloy and Benjamin Favier, %% First Name and Surname of the thesis director and if applicable of the co-thesis director
+in accordance with the principles of honesty, integrity and responsibility inherent to the research mission. 
+
+The research work and the writing of this manuscript have been carried out in compliance with both the french national charter for Research Integrity and the Aix-Marseille University charter on the fight against plagiarism.
+
+This work has not been submitted previously either in this country or in aother country in the same or in a similar version to any other examination body. 
+\par}
+\vspace*{0.5cm}
+Marseille, September 27, 2022
+\begin{flushright}
+	\includegraphics[width=0.13\linewidth]{images/signature.pdf} \hspace*{0.25cm}
+\end{flushright} % signature
 %\vspace*{1.5cm}
-%{\Large\bfseries\sffamily\textcolor{DissertationColor}{Statement of Originality}\par}
-%\vspace*{1.5cm}
-%{I, the undersigned, declare that this is my own work unless where otherwise acknowledged and referenced. \par}
-%\vspace*{1.5cm}
-%\renewcommand\arraystretch{1.5}
-%\begin{tabular}{ll}
-%      {\bfseries Candidate} & \@author \\[15mm]
-%      {\bfseries Signed} & \makebox[1.5in]{\hrulefill} \\
-%      {\bfseries Date} & \today \\
-%\end{tabular}
-%\end{center}
-%\if@openright\cleardoublepage\else\clearpage\fi}
+% \begin{center}
+% \renewcommand\arraystretch{1.5}
+% \begin{tabular}{lc}
+% {\bfseries Candidate} & \@author \\[15mm]
+% {\bfseries Signed} & \includegraphics[width=0.15\linewidth]{images/signature.pdf} \\
+% {\bfseries Date} & \today \\
+% \end{tabular}
+% \end{center}
+\if@openright\cleardoublepage\else\clearpage\fi}
 
 %% This was updated to the official Statement of Originality (Authentication form)
 
-\newenvironment{originality}
-{\clearpage\thispagestyle{empty}
-\begin{figure}[h]
-	\includegraphics[width=2.5in]{umlogo_full_red}
-\end{figure}
-\vspace{3mm}
-{\noindent\Large\bfseries\sffamily\textcolor{DissertationColor}{Declaration by Postgraduate Students}}\\ %% FIXME this will have to change if not postgraduate ...
-
-{\setlength{\parindent}{0em}
-	
-\textbf{(a) Authenticity of Dissertation}\vspace{3mm}
-
-\noindent I hereby declare that I am the legitimate author of this Dissertation and that it is my original work.
-
-No portion of this work has been submitted in support of an application for another degree or qualification of this or any other university or institution of higher education.
-
-I hold the University of Malta harmless against any third party claims with regard to copyright violation, breach of confidentiality, defamation and any other third party right infringement.\\
-
-\textbf{(b) Research Code of Practice and Ethics Review Procedures}\vspace{3mm}
-
-I declare that I have abided by the University’s Research Ethics Review Procedures.
-
-As a Master’s student, as per Regulation 58 of the General Regulations for University Postgraduate Awards, I accept that should my dissertation be awarded a Grade A, it will be made publicly available on the University of Malta Institutional Repository.}\\[5mm]
-%%\newcolumntype{L}{>{\arraybackslash}m{2.5in}}
-\bgroup
-\def\arraystretch{1.2}%
-\begin{tabular}{lp{3.3in}}
-{\bfseries Faculty/Institute/Centre/School} & \@faculty \\
-{\bfseries Degree} & \@degreeName \\
-{\bfseries Title}  & \begin{hyphenrules}{nohyphenation}\removelinebreaks{\@title}\end{hyphenrules} \\	
-{\bfseries Candidate \@ifundefined{@authorID}{}{(Id.)}} & \@author\ \@ifundefined{@authorID}{}{(\@authorID)} \\[0.7in]	
-{\bfseries Signature of Student} & \makebox[2in]{\hrulefill} \\
-{\bfseries Date} & \today \\
-\end{tabular}
-\mbox{}\vfill
-\egroup
-\noindent 08.02.2018
-\if@openright\cleardoublepage\else\clearpage\fi}
+% \newenvironment{originality}
+% {\clearpage\thispagestyle{empty}
+% \begin{figure}[h]
+	% \includegraphics[width=2.5in]{./images/logos.pdf}
+% \end{figure}
+% \vspace{3mm}
+% {\noindent\Large\bfseries\sffamily\textcolor{DissertationColor}{Declaration by Postgraduate Students}}\\ %% FIXME this will have to change if not postgraduate ...
+% 
+% {\setlength{\parindent}{0em}
+	% 
+% \textbf{(a) Authenticity of Dissertation}\vspace{3mm}
+% 
+% \noindent I hereby declare that I am the legitimate author of this Dissertation and that it is my original work.
+% 
+% No portion of this work has been submitted in support of an application for another degree or qualification of this or any other university or institution of higher education.
+% 
+% I hold the University of Malta harmless against any third party claims with regard to copyright violation, breach of confidentiality, defamation and any other third party right infringement.\\
+% 
+% \textbf{(b) Research Code of Practice and Ethics Review Procedures}\vspace{3mm}
+% 
+% I declare that I have abided by the University’s Research Ethics Review Procedures.
+% 
+% As a Master’s student, as per Regulation 58 of the General Regulations for University Postgraduate Awards, I accept that should my dissertation be awarded a Grade A, it will be made publicly available on the University of Malta Institutional Repository.}\\[5mm]
+% %%\newcolumntype{L}{>{\arraybackslash}m{2.5in}}
+% \bgroup
+% \def\arraystretch{1.2}%
+% \begin{tabular}{lp{3.3in}}
+% {\bfseries Faculty/Institute/Centre/School} & \@faculty \\
+% {\bfseries Degree} & \@degreeName \\
+% {\bfseries Title}  & \begin{hyphenrules}{nohyphenation}\removelinebreaks{\@title}\end{hyphenrules} \\
+% {\bfseries Candidate \@ifundefined{@authorID}{}{(Id.)}} & \@author\ \@ifundefined{@authorID}{}{(\@authorID)} \\[0.7in]
+% {\bfseries Signature of Student} & \makebox[2in]{\hrulefill} \\
+% {\bfseries Date} & \today \\
+% \end{tabular}
+% \mbox{}\vfill
+% \egroup
+% \noindent 08.02.2018
+% \if@openright\cleardoublepage\else\clearpage\fi}
 
 
 
@@ -352,22 +410,36 @@ As a Master’s student, as per Regulation 58 of the General Regulations for Uni
 % of originality itself appears in a quote environment, i.e. tabbed in at 
 % both sides, and on its own page.
 
+% \newenvironment{copyrightenv}
+% {\clearpage
+	% ~\vfill
+	% \thispagestyle{empty}
+	% 
+	% \begin{figure}[h]
+		% \includegraphics[width=2.5in]{./images/logos.pdf}
+	% \end{figure}
+	% 
+	% \noindent Copyright \textcopyright\the\year\ University of Malta\\ % Copyright notice
+	% 
+	% \noindent \textsc{www.um.edu.mt}\\ % URL
+	% 
+	% \noindent \textit{First edition, \today} % Printing/edition date
+	% 
+	% %% \noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information
+	% \if@openright\cleardoublepage\else\clearpage\fi}
+
 \newenvironment{copyrightenv}
 {\clearpage
 	~\vfill
 	\thispagestyle{empty}
 	
-	\begin{figure}[h]
-		\includegraphics[width=2.5in]{umlogo_full_red}
-	\end{figure}
+	\begin{center}
+		\begin{minipage}[c]{0.25\linewidth}
+			\includegraphics[height=35px]{images/by}
+		\end{minipage}\hfill
+	\end{center}
 	
-	\noindent Copyright \textcopyright\the\year\ University of Malta\\ % Copyright notice
-	
-	\noindent \textsc{www.um.edu.mt}\\ % URL
-	
-	\noindent \textit{First edition, \today} % Printing/edition date
-	
-	%% \noindent Licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License (the ``License''). You may not use this file except in compliance with the License. You may obtain a copy of the License at \url{http://creativecommons.org/licenses/by-nc/3.0}. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \textsc{``as is'' basis, without warranties or conditions of any kind}, either express or implied. See the License for the specific language governing permissions and limitations under the License.\\ % License information
+	\noindent This work is licensed under a \href{https://creativecommons.org/licenses/by/4.0/deed.fr}{Creative Commons Attribution 4.0 International License}.
 	\if@openright\cleardoublepage\else\clearpage\fi}
 
 

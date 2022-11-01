@@ -114,12 +114,12 @@
 \tagline{Une approche mécaniste à la migration du plancton}      % tag line
 \author{Rémi Monthiller}             % your full name
 %\authorID{123456M}                  % your University Identifier
-\supervisor{Dr Christophe Eloy}      % your supervisor(s) name - no . in Dr
-\cosupervisor{Dr Benjamin Favier}    % your cosupervisor(s) name - no . in Dr *OPTIONAL* 
+\supervisor{Christophe ELOY}      % your supervisor(s) name - no . in Dr
+\cosupervisor{Benjamin FAVIER}    % your cosupervisor(s) name - no . in Dr *OPTIONAL* 
 									 % simply comment out the above line if absent
-\department{IRPHE}   % your department (e.g. Artificial Intelligence)
-\faculty{Centrale Méditerannée}       % your faculty (e.g. ICT)
-\degreeName{PhD in Fluid Physics and Mechanics defended at Centrale Méditerranée}       % the degree you are reading
+\department{IRPHE, (UMR 7342)}   % your department (e.g. Artificial Intelligence)
+\faculty{Centrale Méditerrannée}       % your faculty (e.g. ICT)
+\degreeName{Ph.D. in \textbf{Engineering Sciences}, in the specialty \textbf{Fluid Physics and Mechanics}, delivered by \textbf{Centrale Méditerranée}}       % the degree you are reading
 									 % note the \ after the dot, so not to consider it a fullstop
 \doctype{dissertation}                     % the type of document (fyp, dissertation, thesis)
 % \degreeDate{\monthyeardate\today}    % when did you submit (officially after your corrections)
@@ -151,10 +151,10 @@
 
 \begin{document}
 % \frontmatter
-	%\maketitle
-	\setcounter{page}{4}
-	%\input{frontmatter/copyright}
-	%% The originality statement is *NOT* part of the dissertation but submitted separately.
+	\maketitle
+	%\setcounter{page}{4}
+	\input{frontmatter/copyright}
+	\input{frontmatter/affidavit}
 	%\input{frontmatter/dedication}        % include a dedication.tex file
 	%\input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
 	\input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
@@ -198,8 +198,7 @@
 		chap_more/passive_processes_biblio, 
 		chap_more/towards_the_energy_efficiency_problem_biblio,
 		chap_end/biological_discussion_biblio,
-		chap_end/surfing_larvae_biblio,
-		article
+		./article
 	}}
 	\printindex
 }
