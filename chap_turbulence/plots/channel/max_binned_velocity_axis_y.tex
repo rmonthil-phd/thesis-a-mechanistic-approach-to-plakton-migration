@@ -313,7 +313,7 @@
 			%size
 			width=0.2\textwidth,
 			% x
-			xlabel=$\KolmogorovTimeScale$,
+			xlabel=$\KolmogorovTimeScale(x_2) / \langle \KolmogorovTimeScale \rangle_V$,
 			xmin=0,
 			xmax=3,
 			xtick={0, 1, 2, 3},
@@ -334,7 +334,7 @@
 				comment chars=\#,
 				unbounded coords=discard,
 			] {data/channel_flow_eulerian/profiles_y.csv};
-			\addlegendentry{$\KolmogorovTimeScale(x_2) / \langle \KolmogorovTimeScale \rangle_V$}
+			%\addlegendentry{$\KolmogorovTimeScale(x_2)$}
 			%\label{plt:kolmogorov_time_local}
 	\end{groupplot}
 \end{tikzpicture}

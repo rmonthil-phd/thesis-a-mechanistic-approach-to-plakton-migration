@@ -41,11 +41,11 @@ These conditions are particularly favourable for the development of large crusta
 Cold waters become then a rich environment that sustains life-dense seas.
 On the contrary hotter water surface tends to stratify the upper ocean layers and prevent vertical mixing.
 The absence of ocean mixing avoids sinking nutrients to get carried back to the surface.
-This hinders the development of a phytoplankton communities that impact the whole food-web.
+This hinders the development of a phytoplankton communities that impact then the whole food-web.
 
 Another consequence of climate change is the acidification of oceans. 
 This is due to the growing amount of carbon dioxide released in the atmosphere that is now dissolving in the ocean.
-\citet{caldeira2003anthropogenic} predict the oceanic pH will drop by 0.3 units by 2100.
+\citet{caldeira2003anthropogenic} predict that the oceanic pH will drop by 0.3 units by 2100.
 Among other effects, this acidification of the oceans especially affects organisms that rely on calcifying \citep{orr2005anthropogenic, flynn2012changes}.
 This acidification causes the decrease of calcium carbonate saturation at ocean surfaces, that is needed by some plankton species (and corals) to form their external carbonate skeletons, necessary to their development.
 Moreover, many plankton communities do not have the time to migrate as fast as these modifications occur.
@@ -112,9 +112,10 @@ Many zooplankton also perform diel vertical migrations: they travel to the ocean
 Then, during the night when predators cannot see them, they get back to the ocean surface to feed on phytoplankton.
 These previously described tasks involve reaching a target (either positional or directional) in a complex flow environment.
 As such, these tasks can be considered as planktonic navigation problems.
-These navigation problems are the main interest of this study. 
+
 It is not yet completely understood how plankters solve these problems.
-As we expect organisms to have evolved effective navigation strategies through natural selection, we investigate this issue using an optimality driven approach \citep{smith2011optimality}: we look for efficient navigation strategies in the context of plankton migration in the aspiration it may lead to plankton behavior models in the future.
+Therefore navigation problems are the main interest of this study.
+As we expect organisms to have evolved effective navigation strategies through natural selection, we investigate this issue using an optimality driven approach \citep{smith2011optimality}: we look for efficient navigation strategies in the context of plankton migration, in the aspiration it may lead to plankton behavior models in the future.
 
 \subsection{How do plankton perceive their environment?}
 
@@ -122,8 +123,8 @@ As we expect organisms to have evolved effective navigation strategies through n
 
 To address these planktonic navigation problems, the first question that arises is: how do plankters perceive their environment?
 Many organisms, such as copepods [group of crustaceans sometime called the ``insects of the sea'' due to their abundance and variety \citep{schminke2007entomology}], are equipped with a primitive eye used to measure light intensity (Fig.~\ref{fig:copepod_picture}).
-\begin{wrapfigure}[15]{R}[0.4\width]{0.4\textwidth}
-	\vspace{0pt}
+\begin{wrapfigure}[13]{R}[0.4\width]{0.4\textwidth}
+	\vspace{-35pt}
 	\centering
 	\def\svgwidth{0.35\textwidth}
 	\input{chap_intro/images/female_adult_acartia_clausi.pdf_tex}
@@ -148,19 +149,22 @@ Therefore, planktonic organisms equipped with this organ are able to measure the
 We now focus on the flow sensing of planktonic organisms. 
 How does their perception of the flow differ from that of marine navigators on boats?
 How does it differ from that of other animals such as flying insects, fishes or birds?
+
 Marine navigators in charge of boat routing have access to weather forecasts and large scale ocean measures.
 They can rely on this global information to plan their navigation route.
 On the contrary, animals only react to the local information they can measure with their onboard sensors.
 But planktonic organisms are even more limited than larger animals as they drift with the flow.
 This property prevent them to directly measure the flow speed.
 They are rather able to sense the difference of flow velocity between different parts of their body (gradients).
+
 As humans, we are also subject to this phenomenon when we go swimming in the ocean.
 It is easy to feel the impact of the waves and small scale currents on our body.
 But if we do not visually pay enough attention to the shore, we hardly realize the large scale currents that may push us away from it.
+
 For the readers that had the chance to take a ride in a hot air balloon, they may also have noticed they hardly felt any wind during their flight.
 The only way to notice movement and apprehend the wind's presence is through the view of landscape passing below.
 While flying insects, fishes and birds can assess their speed similarly using similar vision skills, most of planktonic organisms rely only on their measure of small flow perturbations (velocity gradients) due to their poor vision capabilities.
-The measure of the flow speed and therefore of their own speed is then out of reach.
+The measure of the flow speed and therefore, of their own total speed, is then out of reach.
 
 Depending on their sensory organs, the flow information plankters have access to may be even more limited.
 Even when equipped with setae (mechano-sensors) they would not be able to measure flow rotation (vorticity) as they would rotate with it as much as they drift with it.
@@ -189,16 +193,16 @@ If they are equipped with stotachists (gravity sensing) however, as illustrated 
 Note that these organs may also let plankters react to strong flow accelerations.
 Overall, when having only one or the other of these sensory organs, having access to the whole flow velocity gradients is challenging.
 
-If one relies only on setae, like most copepods, one could overcome this difficulty with bottom-heaviness.
+On the one hand, if one relies only on setae, like most copepods, one could overcome this difficulty with bottom-heaviness.
 Having a heavy bottom causes immersed plankters to reorient and align with the vertical.
 If the effect is strong enough, this may prevent them to rotate with the flow thus enabling them to measure flow vorticity.
 However, this may limit their own active rotation capabilities.
 
-If one only relies on statochists, having a non spherical shape could be helpful.
+On the other hand, if one only relies on statochists, having a non spherical shape could be helpful.
 The rotation of non spherical particles is also influenced by the shear part of the flow.
 However the challenge then lies in separating the part of rotation due to flow vorticity from the part due to pure shear.
 
-Despite these limitations, many plankton species, such as copepods, are known to use this partial flow information to detect mates, preys and predators \citep{kiorboe1999predator, kiorboe1999hydrodynamic, jiang2002hydrodynamic}.
+Despite these limitations, many plankton species, such as copepods, are known to use this partial flow information to detect mates, preys and predators \citep{kiorboe1999predator, kiorboe1999hydrodynamic, jiang2002hydrodynamic, kiorboe2018mechanistic}\footnote{The title of this thesis is an homage to the excellent book of \citet{kiorboe2018mechanistic}, that inspired greatly this whole study.}.
 Oyster larvae are even known to be able to measure and forage underwater sounds \citep{williams2022oyster}. 
 But, coming back to navigation, could plankters also use their flow sensing to travel faster towards their objective?
 
@@ -222,14 +226,14 @@ Figure \ref{fig:planktonic_navigation_problems} lists and illustrates these diff
 
 As a first example, we consider the case of prey hunting or predator escape when detection occurs thanks to local flow sensing.
 The detection process controls the short range nature of the problem: from three to ten body lengths in calm water \citep{fields2010orientation}. 
-This implies that hydrodynamical interactions, such as lubrification forces need to be accounted for.
+This implies that hydrodynamical interactions, such as lubrification forces, need to be accounted for.
 Then the behaviour of the prey or the predator also influences the problem. 
 Is it possible to predict its behavior? 
 Is stealth an option rather than running away?
 Finally the motivation: either avoiding being eaten or feeding. 
-This motivates the prey to react fast regardless of the energy used whereas the predator needs to ensure catching the prey is worth the energy consumed to catch it.
+To avoid death, the prey is motivated to react regardless of the energy used whereas the predator needs to ensure catching the prey is worth the energy consumed to catch it.
 
-Similar navigation problem, accounting for various of the previously described effects have already been addressed either using physics-based strategies and reinforcement learning models.
+Similar navigation problems, accounting for various of the previously described effects, have already been addressed either using physics-based strategies and reinforcement learning models.
 For instance, accounting for hydrdynamical interactions, \citet{zhu2022optimising} show that optimal control can be used to find the optimal navigation strategy that enables to catch a non-motile point. 
 They also showed that efficient strategies can be found using reinforcement learning to catch finite-size preys and characterize the effect of the size of the prey on the navigation strategy.
 \citet{borra2022reinforcement} additionally account for prey behavior and show that prey-predator systems can display complex dynamics.
@@ -248,7 +252,7 @@ This enables medium range sensing: up to $\approx 30$ body lengths \citep{bagoie
 This complex navigation task is particularly challenging in the presence of a flow field that deforms that chemical trail.
 Flow sensing can then be used to either try to find quicker path to the target but also to assess how the odor trail was deformed.
 Note that tracking through chemical sensing is not exclusive to mate finding.
-Experimental evidences show that odor tracking can be used by zooplankton to forage marine snow aggregates \citep{lombard2013copepods}.
+Experimental evidences show that odor sensing can be used by zooplankton to forage marine snow aggregates \citep{lombard2013copepods}.
 The sperm cells of some marine invertebrates are also known to perform chemotaxis to reach egg cells \citep{lange2021sperm}.
 On the contrary, many plankters display chemophobic responses to the detection of predator-mediated chemicals \citep{hay2009marine}.
 This planktonic  navigation problem is similar, yet differs from odor tracking performed by flying insects \citep{carde2008navigational, willis2011role} due to the inability of most plankters to use visual references.
@@ -256,11 +260,12 @@ This planktonic  navigation problem is similar, yet differs from odor tracking p
 In different contexts, odor tracking has received increasing attention in the last years
 These problems have been addressed using physics based models: \citet{vergassola2007infotaxis} proposes a very efficient strategy called \textit{infotaxis} to track the position of a scalar source without relying on local gradients.
 The method however requires a spatial references and extensive memory.
-This is relevant for complex organisms that can use spatial references using advanced vision to visualize their environment but this is out of reach for plankton.
+This is relevant for complex organisms that can use spatial references using advanced vision to visualize their environment but this approach is out of reach for most plankters.
 Furthermore this method does not account for flow sensing that could help to find the source.
 On the contrary, \citet{lange2021sperm} proposes a simple chemotactic behavior based on gradient ascent that explains how external planktonic sperm cells find egg cells in the ocean.
 Other studies rely on simple data-driven approaches. For instance \citet{koehl2007individual} deduced a simple on/off model parameterized with experiments.
 This model was then used in simulations to understand how planktonic larvae increased their migration towards coral reefs in response to the chemical cues they emit.
+
 Finally reinforcement learning methods are also a popular approach to address this problem \citep{lu2011learning, fischer2017odor, liberzon2018moth, jing2021recent, loisy2022searching, rigolli2022learning}.
 Overall, reinforcement learning are shown to be a promising tool to solve this kind of navigation problems.
 However most of these learning-based studies either consider simple flow environments (rather than chaotic environments such as turbulence) or consider large memory organisms with spatial reference (not applicable to the planktonic version of the problem).
@@ -283,7 +288,7 @@ In the context of planktonic navigation, bioluminescent organisms constitute det
 This navigation problem drawed attention in recent studies. For instance in the context of the flight of flies, \citet{fabian2018interception} showed that a proportional feedback control [called proportional navigation, also used to control the navigation of modern missiles \citep{shneydor1998missile}] can successfully model the interception of aerial targets by flies.
 However no flow exploitation is considered.
 Flow sensing could lead to the foraging of beneficial currents that could be used to reach (or escape) that visual target faster.
-Reinforcement learning techniques are also been shown to be a promising tool to solve this problems in simplified flow fields \citep{gunnarson2021learning} and using the information of the whole flow field \citep{biferale2019zermelo}.
+Reinforcement learning has also been shown to be a promising tool to solve this problems in simplified flow fields \citep{gunnarson2021learning} and using the information of the whole flow field \citep{biferale2019zermelo}.
 However, these approaches are challenged in more complex flows such as time-dependant 3D turbulence \citep{alageshan2020machine}, more representative of the complexity of plankton environment.
 
 \subsubsection{Navigating to explore: plankton horizontal dispersion}
@@ -313,13 +318,16 @@ Seasonal vertical migration can also be part of larval dispersion \citep{mcmanus
 Some larvae may migrate near the surface to benefit from stronger currents that disperse over larger distances.
 
 Overall vertical migration translates to a long range vertical navigation problem: Antarctic krill may migrate over one kilometer distance \citep{hamner1983behavior}, corresponding to one hundred thousand time their body length!
-This navigation problem then shines particularly thanks to its simplicity: one must just follow a constant direction.
-In addition, this problem is an essential part of plankton dynamics and the biological pump constituting.
-Both of these reasons makes this a good first candidate to start investigating planktonic navigation.
 
-Note this problem has already been started to be addressed in the context of navigation science and soltions have been formulated in simple flows thanks to reinforcement learning \citep{colabrese2017flow, gustavsson2017finding}. 
+Overall this navigation problem shines by its simplicity: plankters just have migrate in a constant direction.
+In addition, plankton vertical migration is an essential part of plankton dynamics and the biological pump.
+Both of these reasons make of this problem, a good first candidate to start investigating planktonic navigation.
+
+Note that, in different contexts, similar problems has already been addressed in the past. 
+For instance solutions have been deduced in simple flows thanks to reinforcement learning \citep{colabrese2017flow, gustavsson2017finding}. 
 The efficiency of reinforcement learning remains however to be demonstrated in more complex flows such as time-dependant 3D turbulence \citep{alageshan2020machine}.
 Moreover the link between these navigation strategies and the modeling of plankton migration remains unclear due to the ``black box'' effect of learning methods that challenges their physical interpretation.
+Therefore a physics-based approach is used in this study.
 
 \section{Thesis structure}
 
@@ -330,12 +338,12 @@ To address this problem, in Chap.~\ref{chap:the_surfing_strategy}, we first simp
 We then derive an optimal solution in linear flow, which we call the \textit{surfing strategy}, and assess its performance in simple non-linear flows.
 In Chap.~\ref{chap:surfing_on_turbulence}, we introduce the physics and features of turbulence. 
 We then assess the performance of the previously derived surfing strategy in turbulent environments.
-In Chap.~\ref{chap:surfing_robustness}, we then relax previously made assumptions to assess how robust would the strategy remain to biological constraints.
+In Chap.~\ref{chap:surfing_robustness}, we relax the previously made assumptions to assess how robust would the strategy remain to biological constraints.
 Surfing is then compared to alternative navigation methods in Chap.~\ref{chap:navigation}.
 This motivates a generalisation of the surfing strategy that can be applied with more flow information.
 The surfing strategy is then discussed in the context of marine biology in Chap.~\ref{chap:bio_discussion}.
 We demonstrate it to be beneficial over a wide range of plankton habitats and present potential experiments that could be performed to help verifying its relevance for actual plankters.
-Final we disscuss of the various perspectives of this study in Chap.~\ref{chap:perspectives}.
+Finally we conclude and discuss of the various perspectives of this study in Chap.~\ref{chap:perspectives}.
 
 % \subsection{Showing the Use of Acronyms}
 % 

@@ -40,6 +40,10 @@
 		xlabel=$\TimeHorizon / \KolmogorovTimeScale$,
 		xmin=0.0,
 		xmax=30,
+		% legend
+		legend style={
+			at={(0.4, 1.05)}, 
+		},
 	]
 		\node[anchor=north west] at (axis cs:0.0,2.5) {\textbf{(a)}};
 		%% full
@@ -129,6 +133,7 @@
 			comment chars=\#,
 		]{chap_turbulence/data/partial/merge_average_velocity_axis_0__agent_asym.csv};
 		\addlegendentry{$\GradientsAsym$}
+		\addlegendimage{empty legend}\addlegendentry{}
 		%%% model sym
 		\def\moddelta{0.02}
 		\def\modtimesym{0.3 / \moddelta}

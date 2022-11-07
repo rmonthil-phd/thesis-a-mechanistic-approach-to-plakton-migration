@@ -1,9 +1,9 @@
 \chapter{Alternative navigation approaches}\label{chap:navigation}
 
-Apart from planktonic navigation problems, the general study of navigation has been subject to broad interest for a long time. 
+Apart from planktonic navigation problems, the general study of navigation has been subject to extensive interest for a long time. 
 This chapter aims to review common navigation problems and the methods used to address them.
 We further discuss how these methods can be adapted to planktonic navigation problems.
-Compared to these methods, the benefits and drawbacks of surfing strategy are highlighted.
+Compared to these methods, the benefits and drawbacks of the surfing strategy are highlighted.
 
 Navigation is the art of monitoring and controlling the movement of an entity from one place to another.
 Considered as one the seven mechanical arts in 12$^{\mathrm{th}}$ century \citep{taylor1961didascalicon, stahl1971martianus}, it generally encompasses both the determination of the position and the orientation of such entity and the planning of its course.
@@ -41,12 +41,11 @@ The routing problem can essentially by formalized in two different ways:
 	\item using a continuous control approach, one then relies on Pontryagin's maximum principle to solve the problem.
 	\item using a discrete control approach, one can then rely on the Bellman's principle of optimality to solve the problem.
 \end{itemize}
-In the context of navigation, this two approaches lead to two distinct navigation problems:
+In the context of navigation, this two approaches lead to two distinct navigation problems that are presented below:
 \begin{itemize}
 	\item the \textbf{Zermelo navigation problem} using a continuous approach.
 	\item the \textbf{shortest path problem} using a discrete approach.
 \end{itemize}
-Both problems are presented below.
 
 \section{Zermelo navigation problem}
 
@@ -156,7 +155,7 @@ Then, based on the distances previously computed, the unexplored intersection th
 Again starting from the selected intersection, all possible roads leading to unexplored intersection are considered.
 Again the distance from the initial position to the associated edge is computed.
 This distance is calculated as the sum of the length of this last road taken and the original distance of the selected intersection.
-If one of these crossroads has already been explored and is already associated to a previously computed distance, the newly computed distance and the previous one are compared.
+If one of these crossroads has already been reached and is already associated to a previously computed distance, the newly computed distance and the previous one are compared.
 If the recently computed distance is smaller than the original one, it means a new shorter path leading to that previously reached intersection has been found.
 The new distance then replaces the old one and the road that leads to it is now tagged as the best road to take to lead to that intersection [Fig~\ref{fig:dijkstra_principle}(d)].
 These operations are then repeated until the whole graph is explored.
@@ -186,16 +185,16 @@ The algorithm, including this nuance, is formally written as Alg.~\ref{alg:dijks
 \newcommand{\forcond}{$i=0$ \KwTo $n$}
 \begin{algorithm}[hbt!]
 	\caption{Dijkstra's algorithm \citep{dijkstra1959note}}\label{alg:dijkstra}
-	\KwData{$G$, graph representing the network, composed of vertices $V$ and edges $E$}
+	\KwData{$\mathcal{G}$, graph representing the network, composed of vertices $\mathcal{V}_{\mathcal{G}}$ and edges $\mathcal{E}_{\mathcal{G}}$}
 	\KwData{$s$, source vertex to start the search from}
-	\KwData{$T$, set of target vertices}
+	\KwData{$\mathcal{T}_{\mathcal{G}}$, set of target vertices}
 	\KwResult{$p$, previous vertex in the path that minimizes distance}
 	
 	\Comment{initialization}
 	$d \gets \emptyset$ \Comment*[r]{distance of vertices to the source $s$.}
 	$p \gets \emptyset$ \Comment*[r]{previous vertex in the path.}
 	$Q \gets \emptyset$ \Comment*[r]{queue containing unvisited vertices}
-	\ForEach{vertex $v$ \KwTo $G.V$}{
+	\ForEach{vertex $v$ \KwTo $\mathcal{V}_{\mathcal{G}}$}{
 		$d[v] \gets \infty$\;
 		$p[v] \gets undefined$\;
 		add $v$ to $Q$\;
@@ -207,14 +206,14 @@ The algorithm, including this nuance, is formally written as Alg.~\ref{alg:dijks
 		$u \gets v$ so that $d[v] = \min \left\{ d[q] \right\}, ~ \forall q \in Q$\;
 		remove $u$ from $Q$\;
 		\ForEach{neighbor $v$ of $u$ so that $v \in Q$}{
-			$a \gets d[u] + G.E(u, v)$\;
+			$a \gets d[u] + \mathcal{E}_{\mathcal{G}}(u, v)$\;
 			\If{$a < d[v]$}{
 				$d[v] \gets \infty$\;
 				$p[v] \gets u$\;
 			}
 		}
 	}
-	$t \gets v$ so that $d[v] = \min \left\{ d[v] \right\}, ~ \forall v \in T$\;
+	$t \gets v$ so that $d[v] = \min \left\{ d[v] \right\}, ~ \forall v \in \mathcal{T}_{\mathcal{G}}$\;
 	\Comment{the optimal path can then be deduced from $p$, starting from $p[t]$}
 \end{algorithm}
 
@@ -263,8 +262,8 @@ The Bellman–Ford algorithm \citep{ford1956network, bellman1958routing} for exa
 At the cost of time complexity, it enables to find shortest paths in graphs with negative edge weights.
 
 This discrete approaches however raise an important issue, the computational cost is function of the size and the complexity of the graph.
-Indeed the worst case, performance complexity of the Dijkstra algorithm is $O(\norm{E} + \norm{V} \log \norm{V})$ with $\norm{E}$ the number of edges and $\norm{V}$ the number of vertices \citep{fredman1987fibonacci}.
-The dynamic programming approach is even worse, $O(\norm{E} \norm{V})$, using the Bellman–Ford algorithm \citep{ford1956network, bellman1958routing}.
+Indeed the worst case, performance complexity of the Dijkstra algorithm is $O(\norm{\mathcal{E}_{\mathcal{G}}} + \norm{\mathcal{V}_{\mathcal{G}}} \log \norm{\mathcal{V}_{\mathcal{G}}})$ with $\norm{\mathcal{E}_{\mathcal{G}}}$ the number of edges and $\norm{\mathcal{V}_{\mathcal{G}}}$ the number of vertices \citep{fredman1987fibonacci}.
+The dynamic programming approach is even worse, $O(\norm{\mathcal{E}_{\mathcal{G}}} \norm{\mathcal{V}_{\mathcal{G}}})$, using the Bellman–Ford algorithm \citep{ford1956network, bellman1958routing}.
 
 In the context of navigation, the accuracy of the trajectory obtained is directly related to the resolution of the discretization.
 The higher the resolution is, the larger is the graph necessary to represent the problem and leads to poor computational performance using the Dijkstra algorithm. 
@@ -288,7 +287,8 @@ Then the $A^*$ algorithm prioritize the progress of paths through the graph that
 The algorithm then stops when the destination is reached even if the path found is not the optimal one.
 This reduces drastically the proportion of the graph explored by the algorithm.
 
-In practice any kind of optimization algorithm can be used and a wide variety have been tested and developed for the sake of marine navigation.
+In practice any kind of optimization algorithm can be used to minimize the exploration of such graph.
+A wide variety have been developed and tested in the context of marine navigation.
 For instance many rely on genetic algorithms \citep{avgouleas2014fuel, vettor2016development} while others on Powell's method \citep{kobayashi2017advanced}, on Nelder-Mead method \citep{pipchenko201120} and some even on ant colony algorithm \citep{tsou2013ant}.
 \citet{brownlee2011clever}, among others, describes numerous additional algorithms that could be used to this end.
 
@@ -423,7 +423,7 @@ To highlight this dependence, one may note that
 	\frac{d^k \Gradients}{dt^k} = \frac{D^k \Gradients}{D t^k} + \SwimmingVelocity \frac{\partial^k \Gradients}{\partial (\ControlDirection^* )^k},
 \end{equation}
 with $\partial^k \Gradients/\partial (\ControlDirection^*)^k$ the spatial derivative of $\Gradients$ along $\ControlDirection^*$ (for instance $\partial \Gradients/\partial \ControlDirection^* = \ControlDirection^* \cdot \vec{\nabla}^2 \FlowVelocity$ with $\vec{\nabla}^2$ the hessian tensor of the flow velocity).
-In no memory is provided but high order spatial derivatives can be computed, one may then estimate the terms $d^k \Gradients/dt^k$ from local spatial derivatives.
+If no memory is provided but high order spatial derivatives can be computed, one may then estimate the terms $d^k \Gradients/dt^k$ from local spatial derivatives.
 Doing so would result in an implicit expression of $\ControlDirection^*$ that could be solved iteratively.
 
 Overall these analytic results show that:
@@ -501,14 +501,14 @@ Many different methods can be used to update the policy $\pi(a, s)$ as function 
 As an example of these methods, we focus here one of the simplest approach that exists out there: the $\mathcal{Q}$-learning method.
 Despite its simplicity compared to more advanced approaches, this method is actually widely used and is a good illustration of the general principles of reinforcement learning.
 In addition, this method is the optimisation approach used by \citep{alageshan2020machine}.
-As their results is to be compared in our study, the details of the reinforcement learning method are to be understood. 
+As their results are to be compared to the surfing strategy in our study, the principle of this reinforcement learning method is to be understood. 
 
 The $\mathcal{Q}$-learning approach relies on the \textit{quality value} function $\mathcal{Q}(a, s)$.
 This value quantifies the expected return (cumulative reward over iterations) obtained if the action $a$ is performed in the state $s$.
 In the context of the mountaineering problem, this function quantifies how close to the summit I am going to get in the future if my current decision is $a$ at the gps position $s$.
 Given the knowledge of that function, the policy that maximizes reward is simply the policy that takes the action $a^* = \argmax_{a \in \mathcal{A}} \mathcal{Q}(a, s)$ that maximizes $\mathcal{Q}(a, s)$ for a given state $s$.
 In other words the optimal policy reads $\pi^*(a^*, s) = 1$ and $\pi^*(a, s) = 0$ otherwise.
-However in the problem we consider, the exact value of the function $\mathcal{Q}$ is not known bu must be assessed from experience.
+However in the problem we consider, the exact value of the function $\mathcal{Q}$ is not known but must be assessed from experience.
 In practice, the value of $\mathcal{Q}$ is first initialized (uniformly in general) and its values are updated at each iteration using Bellman equation.
 If the action $a$ of a given iteration led from the state $s$ to the state $s'$ and the reward $\mathcal{R}_a(s, s')$ was offered, then $\mathcal{Q}$ is updated as follows
 \begin{equation}
@@ -516,19 +516,19 @@ If the action $a$ of a given iteration led from the state $s$ to the state $s'$ 
 \end{equation}
 The parameters $\lambda_{\mathrm{learn.}}$ and $\gamma_{\mathrm{learn.}}$ are two free parameters of the problem.
 The parameter $\lambda_{\mathrm{learn.}}$ characterizes how fast $\mathcal{Q}(a, s)$ is updated.
-This boils down to averaging the reward $\mathcal{R}_a(s, s')$ over $1/\lambda_{\mathrm{learn.}}$.
+This boils down to averaging the reward $\mathcal{R}_a(s, s')$ approximately over $1/\lambda_{\mathrm{learn.}}$ iterations.
 If the problem is completely deterministic, $\lambda_{\mathrm{learn.}}$ is set to $1$ as no average is needed but the more probabilistic it becomes, the lower the value $\lambda_{\mathrm{learn.}}$ is set to enhance the learning process.
 The parameter $\gamma_{\mathrm{learn.}}$ characterizes the fact that rewards obtained late in the future reward are discounted with respect to the rewards obtained in a close future.
-The method then only accounts for an iteration horizon of $1/\gamma_{\mathrm{learn.}}$ rather than looking for an optimal solution over an infinite number of iterations.
+The method then only accounts for an iteration horizon of the order of $1/\gamma_{\mathrm{learn.}}$ rather than looking for an optimal solution over an infinite number of iterations.
 
 We now know how the quality value $\mathcal{Q}$ can be built from experience.
-We also now how to deduced the optimal policy $\pi^*(a, s)$, that it the objective in the end, once the value of $\mathcal{Q}$ is assessed from experience.
+We also now how to deduced the optimal policy $\pi^*(a, s)$ (the final objective) once the value of $\mathcal{Q}$ is assessed from experience.
 Now remains to be prescribed the actual policy $\pi(a, s)$ that enables for both exploration and assessment of the value $\mathcal{Q}$ and the exploitation of the current knowledge of $\mathcal{Q}$ to avoid exploring the whole set of states.
 In the context of the mountaineering navigation problem, how to choose my decisions so that I explore sufficiently the mountain to look for new shorter paths but also use my current knowledge to avoid having to explore the whole mountain?
 
 There are many different ways to prescribe that policy. We present here a simple yet popular approach: the $\epsilon$-greedy approach.
 The policy can then be defined as
-\begin{equation}
+\begin{equation}\label{eq:epsilon_greedy}
 	\pi(a, s) = \begin{cases}
 		\epsilon_{\mathrm{learn.}}/\norm{\mathcal{A}} + (1 - \epsilon_{\mathrm{learn.}}) & \quad \text{if}~~a = \argmax_{a \in \mathcal{A}} \mathcal{Q}(a, s)\\
 		\epsilon_{\mathrm{learn.}}/\norm{\mathcal{A}} & \quad \text{otherwise},
@@ -555,15 +555,18 @@ The navigation problem they introduce is the problem of reaching a fixed target 
 The goal is to reach the target (of a given size) in a minimal average time, starting from random initial positions.
 The smart swimmers measure both the local flow vorticity $\FlowVorticity$ and the direction to the target $\TargetDirection$ at all times.
 The states $s \in \mathcal{S}$ of the problem are defined as 13 discrete space based on the intensity of the local flow vorticity $\FlowVorticityScalar = \norm{\FlowVorticity}$ and the current orientation $\SwimmingDirection$ with respect to the vorticity direction $\hat{\FlowVorticity}$ and the direction towards the target [see \citet{alageshan2020machine} for more details].
-The possibles actions $a \in \mathcal{A}$ of the swimmers are defined as 6 possible swimming directions colinear to each one of the following vectors: $\TargetDirection$, $-\TargetDirection$, $\TargetDirection \times \hat{\FlowVorticity}$, $-\TargetDirection \times \hat{\FlowVorticity}$, $\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$ and $-\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$.
+The possibles actions $a \in \mathcal{A}$ of the swimmers are defined as 6 possible swimming directions colinear to each one of the following vectors: $\TargetDirection$, $-\TargetDirection$, $\TargetDirection \times \hat{\FlowVorticity}$, $-\TargetDirection \times \hat{\FlowVorticity}$, $\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$ and $-\TargetDirection \times (\TargetDirection \times \hat{\FlowVorticity})$, with $\TargetDirection$ the direction to the target.
 The reward is defined \textit{adversially} meaning in this context that the reward given to the agent is defined relatively to the performance of a naive microswimmer (bottom-heavy in the direction of the target) starting at the same position.
 Whenever the agent changes of space, the naive swimmer is then reset at the position of the smart agent.
 The reward is then defined as $\mathcal{R}(t) = \TargetDistance_{\mathrm{naive}}(t) - \TargetDistance_{\mathrm{smart}}(t)$ with $\TargetDistance$ the distance to the target.
 
 Due to the more complex nature of the problem they address compared to the problem of vertical migration, the choice of a performance metric is not obvious.
-As they chose the average time to reach the fixed target, they do not account for all their agents that did not reached the target.
-To overcome this issue and compare the performance of the learnt strategy they obtain to the surfing strategy, we consider the target to reached is placed at infinity.
+They metric chosen by \citet{Alageshan2020} is the average time to reach the fixed target. 
+This metric requires the addition of a parameter, the size of the target. 
+Moreover this metric do not account for the agents that do not reach the target.
+To overcome these issues and compare the performance of the learnt strategy they obtain to the surfing strategy, we consider the target to reached is placed at infinity.
 In that case, the direction to target is constant and $\TargetDirection = \Direction$.
+The problem then falls back into a ``vertical migration'' problem.
 
 \begin{figure}%[H]
     \centering
@@ -574,11 +577,11 @@ In that case, the direction to target is constant and $\TargetDirection = \Direc
     }
     \label{fig:comparison_reinforcement_learning}
 \end{figure}
-Figure \ref{fig:comparison_reinforcement_learning} shows the performance of surfers as a function of the time horizon $\TimeHorizon$ (the only parameter of our strategy).
-This results of this comparative study have been published in \citet{monthiller2022surfing}.
-It is compared to the performance of the strategy that \citet{Alageshan2020} obtained through reinforcement learning in a 3D turbulent flow of $\mathit{Re}_{\lambda} = 30$ 
+Figure \ref{fig:comparison_reinforcement_learning} shows the performance of surfers as a function of the time horizon $\TimeHorizon$ (the only parameter of our strategy)
+[the result of this comparative study have been published in \citet{monthiller2022surfing}].
+It is compared to the performance of the strategy that \citet{Alageshan2020} obtained through reinforcement learning in a 3D turbulent flow of $\mathit{Re}_{\lambda} = 30$.
 It shows that surfing outperforms their reinforcement learning strategy: surfers swim 66\% faster than bottom-heavy plankters, while reinforcement learning agents only swim 11\% faster. Note that the surfing strategy is favoured compared to their approach: $\ControlDirectionOpt$ is a continuous function of a continuous measure of the flow velocity gradients $\Gradients$.
-As opposed to their smart microswimmers that are limited to the measure of vorticitical ($\FlowVorticity$) of the velocity gradients, and for which their control is discrete and function of a discrete state space. 
+As opposed to their smart microswimmers that are limited to the measure of the rotational part of the velocity gradients (the vorticity $\FlowVorticity$), and for which their control is discrete and function of a discrete state space. 
 These limitations could be lifted up in practice using more advanced reinforcement learning methods.
 Note moreover that in the original paper of \citet{Alageshan2020}, trained agents reach the target 19\% faster than naive agents (which correspond to bottom-heavy plankters).
 The discrepancy is likely due to the fact that their behavior has been trained in a different simulation flow simulation (our Reynolds number $\mathit{Re}_{\lambda} = 21$ is different from theirs) and using a difference in performance metric.
@@ -592,7 +595,7 @@ We conclude this chapter by summing up key elements discussed in this chapter
 	\item navigation problems can be addressed either using the Zermelo equation or using a dynamic programming approach
 	\item while these methods are originally based on the knowledge of the whole velocity field, both of these approaches can be adapted to account for local knowledge of the flow
 	\item both of these methods can lead to better performance than surfing in Taylor-Green vortices but at the cost of greater computational time that would make them particularly challenging to apply to more complex flows
-	\item this review leads to the generalisation of the surfing strategy than can be seen as reduction of a rigorously optimal navigation method 
+	\item this comparative study leads to the generalisation of the surfing strategy than can be seen as a reduction of a rigorously optimal navigation method 
 	\item the generalized surfing strategy can further improve surfing performance given that memory or finer spatial measures of the flow are provided
 	\item the surfing strategy is competitive with respect to reinforcement learning approaches
 \end{itemize}

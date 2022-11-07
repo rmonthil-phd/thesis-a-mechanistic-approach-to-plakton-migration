@@ -1,4 +1,4 @@
-\chapter{Larval horizontal dispersion and settlement}\label{app:horizontal_dispersion}
+\chapter{Larval dispersion and settlement}\label{app:horizontal_dispersion}
 
 Many marine organisms, such as oysters and many of the see snails, are sedentary during their adult stage.
 Their only chance to disperse and find new habitats to settle is during their larval stage as plankters.
@@ -20,7 +20,7 @@ We particularly focus on the case of vertical substrate that cannot be reached f
 We then discuss on how plankters could forage large scale horizontal currents.
 We further show that, as is, the surfing strategy can already be used to this end.
 
-\section{Foraging flow boundaries: a turbophoretic strategy}
+\section{Foraging walls: a turbophoretic strategy}
 
 Numerous marine species need to settle immersed rocks or any other submerged solid substrate in their larval stage to progress to their adult stage \citep{eckman1998larval, crimaldi2002hydrodynamics, fuchs2007effects}.
 Oyster larvae, \citep{fuchs2013active, fuchs2015hydrodynamic} and barnacle larvae \citep{larsson2016instantaneous} are a few examples in many.
@@ -32,7 +32,7 @@ However, relying on gravity alone is not enough to settle on vertical substrates
 Therefore, if the direction towards a vertical substrate can be deduced from local flow sensing, this ability would provide an essential evolutionary advantage that enables to find more suitable habitats.
 So how can plankter use flow sensing be used to migrate towards these nearby substrates?
 
-\begin{wrapfigure}[10]{L}[0.4\width]{0.38\textwidth}
+\begin{wrapfigure}[10]{R}[0.4\width]{0.38\textwidth}
 	\vspace{10pt}
 	\centering
 	\def\svgwidth{0.36\textwidth}
@@ -71,7 +71,7 @@ Note that, depending on the turbophoretic behavior wanted, a plankter may either
 Note however that the evaluation of this direction however requires to measure the second order spatial derivatives of the flow velocity field.
 Plankters should be able to approximate these second order derivatives given that the flow velocity gradients $\Gradients$ are measured at several positions on their body.
 Moreover, locating the source of a flow intensity (and therefore, finding the maxima of gradient intensity) is a common problem for prey or predator detection for which some pankters are known to be very effective \citep{kiorboe1999predator, kiorboe1999hydrodynamic, jiang2002hydrodynamic}.
-Therefore even though the turbophoretic behavior is more complex behavior [for instance flow measure depends on plankter orientation \citep{fields2010orientation}] modelling turbophoretic plankters by making them swim in the direction $\Direction_{\mathrm{turb.}}$ should lead to the correct qualitative behavior overall.
+Therefore even though such turbophoretic behavior may be more complex [for instance flow measure depends on plankter orientation \citep{fields2010orientation}] modelling turbophoretic plankters by making them swim in the direction $\Direction_{\mathrm{turb.}}$ should lead to the correct qualitative behavior overall.
 The effect would however be overestimated if sensing limitations are not taken into account.
 To model more complex and limited behaviors, one could use for instance the triangulation behavior proposed by \citet{redaelli2021efficient}.
 
@@ -118,7 +118,7 @@ Therefore a strategy that maximizes or minimizes the gradient intensity, as the 
 Overall this navigation problem is particularly complex and interesting as it includes two aspects of navigation: (1) determining where the target is (2) and navigating efficiently towards it.
 In the model proposed above, both these aspects of the problem are treated separately and combined afterwards to obtain the preferred swimming direction $\ControlDirection_{\mathrm{\NameSurfShort}, \mathrm{turb.}}$.
 Future approaches that do not rely on this separation would certainly bring to light more intricate behaviors that account for the interdependence off these two aspects of the problem.
-In regard of the recent advances, the use of reinforcement learning techniques would certainly be particularly appropriate to this end, using the model above as a reference model.
+In regard of the recent advances, the use of reinforcement learning techniques would certainly be particularly appropriate to this end, using the model above as a reference comparative model.
 
 \section{Foraging large scale horizontal currents}
 
@@ -154,7 +154,7 @@ In a similar manner as the previous section, we can deduce a model navigation st
 	\end{align}
 \end{subequations}
 
-As a first step towards the characterization of this navigation problem, we start looking to the performance of adaptive surfers (parameterized by the parameter $\alpha_{\TimeHorizon}$) that surf along the direction of the mean flow.
+As a first step towards the characterization of this navigation problem, we start evaluating the performance of adaptive surfers (parameterized by the parameter $\alpha_{\TimeHorizon}$) that surf along the direction of the mean flow.
 To further simplify the problem, the direction of the mean flow is directly given to the surfers $\Direction = \hat{\vec{e}}_1$ rather than evaluated using through the local evaluation of $\Direction_{\mathrm{flow}}$.
 As a consequence, their swimming velocity, $\SwimmingVelocity$, is also fixed.
 We plot the resulting surfing performance, evaluated as $(\langle \Performance \rangle_N - U_b)/\SwimmingVelocity$, as a function of $\SwimmingVelocity$ in Fig.~\ref{fig:channel_perf_x}\textbf{(a)}.
@@ -164,14 +164,16 @@ This ensures that the performance of passive particles ($\langle \Performance \r
 	\centering
 	\input{chap_turbulence/plots/channel/comparison_x_better.tex}
 	\caption{
-		Performance of surfers and adaptive surfers in a channel flow with $\Direction = \vec{e}_1$. Effective upward velocity as a function of \textbf{(a)} the free parameter $\TimeHorizon$ for surfers or \textbf{(b)} the free parameter $\alpha$ for adaptive surfers.
+		Surfers are able to exploit the mean gradients in a channel flow with $\Direction = \vec{e}_1$ and accumulate in the center of the channel.
+		\textbf{(a)} Centered and normalized effective upward velocity as a function of the swimming velocity $\SwimmingVelocity$.
+		\textbf{(b)} Concentration of surfing plankters as a function of height for various simulation times.
 	}
 	\label{fig:channel_perf_x}
 \end{figure}
 
-These results demonstrates the ability  surfers to exploit the flow, but how do surfers do so?
+These results demonstrates the ability of surfers to exploit the flow, but how do surfers do so?
 In a turbulent flow with no mean, surfers exploit the small turbulent fluctuations to forages small, yet significant currents that carry surfers forward and enhance the overall migration along the target direction $\Direction$.
-In this case, the presence of a mean large scale gradients changes that if exploited would lead to the centerline where the flow velocity is maximal.
+In this case, the presence of a mean large scale gradients changes that if exploited, it would lead to the centerline where the flow velocity is maximal.
 By successively applying the surfing strategy using the local measure of the gradients, acting as a gradient ascent of $\FlowVelocityScalar_1$, surfers should also exploit the mean flow velocity gradient in average.
 Therefore, surfers should converge towards the center of the channel.
 Indeed this is the effect we show in Fig.~\ref{fig:channel_perf_x}\textbf{(b)} where plot the concentration of surfers $c$ as a function of the vertical position $x_2$ for various simulation times.
@@ -179,5 +181,5 @@ The concentration starts initially homogeneous in the whole channel then surfers
 This demonstrates then the ability of surfers to not only exploit small scale flow fluctuations but also larger scale flow structures by provoking a mean displacement in response to the mean flow velocity gradient.
 
 Overall the larval dispersion provides a challenging problem to address in the context of plankton migration, that might drive an important part of the behavior of planktonic larvae in nature.
-While the first steps are presented to characterize this problem in the context of the surfing strategy developed in this paper, the case considered here overly simplified.
-There is much room for improvement in term of the complexity of the flow environment (simulate an actual seacoast) and the strategy considered (how well would reinforcement learning perform?).
+While the first steps are presented to characterize this problem in the context of the surfing strategy developed in this thesis, the case considered here is overly simplified.
+There is room for improvement in term of the complexity of the flow environment (simulate an actual seabed) and the strategy considered (how well would reinforcement learning perform?).

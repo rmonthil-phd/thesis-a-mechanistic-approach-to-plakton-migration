@@ -52,7 +52,7 @@ The operator $D \mathord{\cdot} / D t$ describes the time derivative in the Lagr
 
 Since we are interested in particles advected by a turbulent flow, each approach are useful and advantageous depending on the context.
 In this study, the turbulent velocity fields are solely the result of Eulerian simulations.
-However as our problem is inherently Lagrangian (as plankters are advected by the flow), some Lagrangian properties of these flows will also be described in our study.
+However as our problem is inherently Lagrangian (as plankters are advected by the flow), some Lagrangian properties of these flows are also considered in this study.
 
 In fluid dynamics, turbulence is the state of a fluid flow characterized by its strong irregularity.
 Contrary to the smooth nature of laminar flows, turbulent flows present small scales fluctuations on top of large scale motion (Fig.~\ref{fig:laminar_turbulent_channels}).
@@ -120,7 +120,7 @@ from which we can also deduce a time scale and a velocity scale
 These scales, called the Kolmogorov microscales, describe the scales of the smallest flow features of turbulence.
 
 While the scale of Kolmogorov $\KolmogorovScale$ corresponds to the smallest scale of turbulence, dissipation starts to occur at larger scales.
-The scale for which gradients start to contribute to viscous dissipation is characterized by the Taylor microscale \citep{taylor1935statistical}
+The scale for which gradients starts to contribute to viscous dissipation is characterized by the Taylor microscale \citep{taylor1935statistical}
 \begin{equation}
 	\label{eq:taylor_microscale}
 	\lambda = \sqrt{15 \frac{\nu}{\epsilon}} \FlowVelocityScalar_{\mathrm{rms}},
@@ -158,7 +158,7 @@ $C_{K}$ is the Kolmogorov constant, supposedly independent of the flow kinematic
 Experimentally, this constant has been determined to be of the order of unity, $C_{K} \approx 1.5$ \citep{sreenivasan1995universality}.
 The basics of 3D turbulence dynamics are summed up in Fig~\ref{fig:turbulence_spectrum}.
 
-Note that this theory is valid for 3D turbulence, case of interest here. 
+Note that this theory is only valid for 3D turbulence, case of interest here. 
 2D flows have different properties (for example due to the absence of vortex stretching) that generate different dynamics .
 This causes 2D turbulence to behave rather differently. 
 For instance, we can observe an inverse energy cascade where energy is transferred to larger scales than the scale of energy injection.
@@ -269,8 +269,8 @@ Under these assumptions, the equations of motion are
 	\end{align}
 \end{subequations}
 
-We assume that the plankter senses the local flow velocity gradient $\Gradients$ and the vertical direction $\Direction$.
-It responds to this information by choosing its preferred direction $\ControlDirection(\Gradients,\Direction)$, without any memory.
+We assume that the plankter \textbf{senses the local flow velocity gradient} $\Gradients$ and the \textbf{vertical direction} $\Direction$.
+It responds to this information by choosing its preferred direction $\ControlDirection(\Gradients,\Direction)$, \textbf{without any memory}.
 
 The metric used to quantify the performance of the plankters is the effective velocity, $\Performance$, defined as the long-time average velocity along $\Direction$ (Fig.~\ref{fig:performance_description}).
 \begin{equation}
@@ -294,10 +294,10 @@ Then, based on the previous observation that surfer behave differently in pure s
 \section{Evaluation of surfing performance}\label{sec:surfing_on_turbulence_IHT}
 
 In the following, the performance of surfers is assessed in homogeneous isotropic turbulence.
-Rarely rigorously isotropic and homogeneous in the oceans, nevertheless we expect the insight gained in this model flow to be of great interest due to the universality of turbulence at small scales \citep{frisch1995turbulence}.
+Despite turbulence rarely being rigorously isotropic and homogeneous in the oceans, we expect nevertheless the insight gained in this model flow to be of great interest due to the universality of turbulence at small scales \citep{frisch1995turbulence}.
 Homogeneous isotropic turbulence is a simplification of real turbulent flows but still captures most of their complexity.
 
-To assess their performance, surfers are simulated in numerical simulations of turbulence.
+To assess their navigation performance, surfers are simulated in numerical simulations of turbulence.
 Initially placed randomly in the virtual domain, the trajectories of plankters are integrated over time (illustrated in Fig.~\ref{fig:turbulence_trajectories}).
 \begin{figure}[t]
 	\centering
@@ -311,7 +311,7 @@ Initially placed randomly in the virtual domain, the trajectories of plankters a
 	\label{fig:turbulence_trajectories}
 \end{figure}
 Due to the complexity of the expression of the flow velocity field $\FlowVelocity$ in 3D turbulence, the equations of motion Eq.~\eqref{turb:eq:motion} must be integrated numerically. 
-To this end we use our own in-house open-source code \textit{Sheld0n} \footnote{Our in-house code is available at \url{http://www.github.com/C0PEP0D/sheld0n}.}.
+To this end we use our own in-house open-source code \textit{Sheld0n}\footnote{Our in-house code is available at \url{http://www.github.com/C0PEP0D/sheld0n}.}.
 The code can be setup to integrate plankter trajectories by automatically querying various flow fields of John Hopkins turbulence database at plankton positions through simulations.
 It is also able to use local flow databases generated from \textit{Snoopy} simulations (or from any fluid solver with the same output format) by interpolating the flow field at plankter positions.
 In this study, we used a fourth-order Lagrange polynomial interpolation to integrate trajectories in our own flow databases while a sixth-order interpolation is performed on query when using the Johns Hopkins turbulence database.
@@ -320,12 +320,12 @@ Unless mentioned otherwise, the performance is evaluated using Eq.~\eqref{eq:sur
 This average is noted $\left\langle \cdot \right\rangle_N$.
 The number of plankters $N$ varies from $10$ for $\SwimmingVelocity = 20 \KolmogorovVelocityScale$ to $16384$ for $\SwimmingVelocity = \KolmogorovVelocityScale/2$, so that uncertainties on performance are independent of swimming velocity $\SwimmingVelocity$.
 
-\begin{figure}[t]
+\begin{figure}[p]
 	\centering
 	\input{chap_turbulence/plots/main_results}
 	\caption[The surfing strategy may double migration speed in turbulence.]{
 		The surfing strategy may double migration speed in turbulence.
-		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] as a function of the swimming velocity ($\SwimmingVelocity$) for a surfer ($\SwimmingDirection=\ControlDirectionOpt$ with optimal time horizon $\TimeHorizon=\TimeHorizonOpt$) and for a bottom-heavy swimmer that always swims upwards ($\SwimmingDirection=\ControlDirection_{\mathrm{\NameBhShort}}=\Direction$) for (a) $\mathit{Re}_{\lambda} = 418$ and (b) $\mathit{Re}_{\lambda} = 11$.
+		Effective upward velocity [$\Performance$, Eq.~\eqref{eq:surfing_performance}] as a function of the swimming velocity ($\SwimmingVelocity$) for a surfer ($\SwimmingDirection=\ControlDirectionOpt$ with optimal time horizon $\TimeHorizon \approx \TimeHorizonOpt$) and for a bottom-heavy swimmer that always swims upwards ($\SwimmingDirection=\ControlDirection_{\mathrm{\NameBhShort}}=\Direction$) for (a) $\mathit{Re}_{\lambda} = 418$ and (b) $\mathit{Re}_{\lambda} = 11$.
 		Velocities are normalized either by the Kolmogorov velocity [$\KolmogorovVelocityScale$, Eq.~\eqref{eq:kolmogorov}] (bottom x-axis) or by the root-mean-square velocity $u_{\mathrm{rms}}$ (top x-axis).
 		The same data is presented in (c) and (d), but effective upward velocity is normalized by the swimming velocity.
 		The solid line represents $\Performance = \SwimmingVelocity$. Shaded areas correspond to 95\% confidence intervals.
@@ -336,10 +336,11 @@ The vertical migration performance of plankters is then evaluated as the effecti
 Plankter performance is evaluated in simulations of variable turbulence intensity throughout the study.
 The simulations are referred to using the value of their corresponding Reynolds number $\mathit{Re}_{\lambda}$ (see Sec.~\ref{sec:simulating_turbulent_flows} and Tabs.~\ref{tab:snoopy_simulation_parameters} and \ref{tab:jhtdb_flows_simulation_parameters} for more details).
 
-We plot in Fig.~\ref{fig:surfing_main_results} the maximal performance of surfers, evaluated as the effective vertical velocity $\Performance$ for the optimal value of $\TimeHorizon$, compared to that of bottom-heavy swimmers in a turbulent flow ($\mathit{Re}_{\lambda} = 418$).
-We show that surfers can reach an effective velocity as large as twice their swimming speed when $\SwimmingVelocity \lesssim \KolmogorovVelocityScale$.
-They systematically outperform bottom-heavy swimmers, for which turbulence only acts as a random noise of zero mean and whose performance is $\Performance = \SwimmingVelocity$.
-In contrast, surfers can exploit the turbulent flow by biasing the sampling of vertical flow velocities. 
+We plot in Fig.~\ref{fig:surfing_main_results} the maximal performance of surfers, evaluated as the effective vertical velocity $\Performance$ for the optimal value of $\TimeHorizon$, compared to that of bottom-heavy swimmers in two simulations of turbulence ($\mathit{Re}_{\lambda} = 418$ and $\mathit{Re}_{\lambda} = 11$).
+For the most turbulent case, we show that surfers can reach an effective velocity as large as twice their swimming speed ($\Performance \approx 2 \SwimmingVelocity$) when $\SwimmingVelocity \lesssim \KolmogorovVelocityScale$.
+Therefore, they systematically outperform bottom-heavy swimmers, for which turbulence only acts as a random noise of zero mean and whose performance is $\Performance = \SwimmingVelocity$.
+In contrast, surfers exploit the turbulent flow by biasing the sampling of vertical flow velocities.
+
 This bias is illustrated in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(a)}, 
 \begin{figure}[t]
 	\centering
@@ -354,14 +355,16 @@ This bias is illustrated in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(a)},
 where we show the distribution of the vertical velocity component of the turbulent flow sampled by surfers, bottom-heavy swimmers, and passive particles.
 One can see that the Gaussian distribution of the vertical component is not centered on zero but shifted towards positive values for surfers.
 The positive shift is approximately equal to the Kolmogorov velocity scale $\KolmogorovVelocityScale$.
-The velocity being less widely distributed, this effect is even more apparent in Fig. ~\ref{fig:surfing_velocity_sampled}\textbf{(c)} corresponding to the case of a less turbulent flow ($\mathit{Re}_{\lambda} = 11$).
+The velocity being less widely distributed in weak turbulence ($\mathit{Re}_{\lambda} = 11$), this effect is even more apparent in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(c)}.
+
 On the contrary, as illustrated in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(b)} and Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(d)}, the horizontal component of the sampled flow velocity is mainly unchanged.
 We still notice a slightly wider spreading of the sampled horizontal flow velocity distribution for surfers in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(d)}.
 As noted in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_interpretation}, surfers also seek to exploit horizontal currents to reach vertical ones faster.
 This would lead to a slight accumulation of surfers at the maxima of horizontal velocity, hence the wider distribution of the sampled horizontal velocity.
-This shows that sensing flow gradients is beneficial for navigation in turbulence and that surfing allows plankton to exploit this information leading to preferential sampling of the flow.
+This shows that sensing flow gradients is beneficial for navigation in turbulence and that surfing allows plankton to exploit this information in order to sample beneficial currents.
 
-Despite preferential sampling of the vertical flow velocity being the desired effect, surfing also causes weak yet significant preferred sampling of the gradients, illustrated in Fig.~\ref{fig:surfing_gradient_sampled}.
+The preferential sampling of the vertical flow velocity is the desired effect. 
+However, surfing also causes weak yet significant preferential sampling of the gradients (Fig.~\ref{fig:surfing_gradient_sampled}).
 \begin{figure}[t]
 	\centering
 	\input{chap_turbulence/plots/reynolds/gradients_sampled_pdf}
@@ -372,7 +375,8 @@ Despite preferential sampling of the vertical flow velocity being the desired ef
 	}
 	\label{fig:surfing_gradient_sampled}
 \end{figure}
-First we observe narrower distributions of the horizontal gradients of $\FlowVelocityScalar_{z}$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(g-h)}]: maxima of the vertical velocity are located where its gradient is minimum, thus preferential sampling of the vertical velocity leads to the preferential sampling of smaller values of $\partial \FlowVelocityScalar_z/\partial x$ and $\partial \FlowVelocityScalar_z/\partial y$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(d-e)}].
+First we observe narrower distributions of the horizontal gradients of $\FlowVelocityScalar_{z}$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(g,h)}]. 
+As maxima of the vertical velocity are located where its gradient is minimum, the preferential sampling of the vertical velocity leads to the preferential sampling of smaller values of $\partial \FlowVelocityScalar_z/\partial x$ and $\partial \FlowVelocityScalar_z/\partial y$.
 In a similar way, we also note a slight preferential sampling of smaller values of $\partial \FlowVelocityScalar_x/\partial y$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(b)}] and $\partial \FlowVelocityScalar_y/\partial x$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(d)}] that result directly of the slight preferential sampling of high horizontal velocity observable in Fig.~\ref{fig:surfing_velocity_sampled}\textbf{(d)}.
 
 We also observe a positive shift of the distributions of $\partial \FlowVelocityScalar_x/\partial x$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(a)}] and $\partial \FlowVelocityScalar_y/\partial y$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(e)}] that indicates a preferential sampling.
@@ -381,11 +385,14 @@ As described in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing
 This preferential swimming direction in the horizontal plane certainly leads to this preferential sampling of $\partial \FlowVelocityScalar_x/\partial x$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(a)}] and $\partial \FlowVelocityScalar_y/\partial y$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(e)}].
 Due to incompressibility, the vertical compression axis is also preferentially sampled causing a negative shift of $\partial \FlowVelocityScalar_z/\partial z$ [Fig.~\ref{fig:surfing_gradient_sampled}\textbf{(i)}].
 
-Note however, that the preferential sampling of the velocity gradients is particularly weak compared to the preferential sampling of the velocity itself.
+Overall, the surfing behavior may double migration speed in turbulence. 
+This effect is explained by the preferential sampling of upward vertical flow velocity that also causes a weak preferential sampling of the velocity gradients.
 
 \subsection{Surfing time horizon $\TimeHorizon$}\label{sec:surfing_time_horizon}
 
-We recall that the previous results correspond to the optimal horizon time, noted $\TimeHorizonOpt$. To determine its value, we look numerically for the best performance when $\TimeHorizon$ varies in the range $[0, 8\KolmogorovTimeScale]$  [Fig.~\ref{fig:surfing_parameter_tau_vs}].
+We recall that the surfing strategy depends on a free parameter: the time horizon $\TimeHorizon$.
+All previous results correspond to the surfing performance of surfers using the optimal horizon time, noted $\TimeHorizonOpt$.
+This value has been determined numerically: for a given swimming speed $\SwimmingVelocity$, we looked for the value that maximizes performance when $\TimeHorizon$ varied in the range $[0, 8\KolmogorovTimeScale]$ [Fig.~\ref{fig:surfing_parameter_tau_vs}].
 \begin{figure}%[H]
 	\centering
 	\input{chap_turbulence/plots/parameter_tau_vs}
@@ -409,19 +416,19 @@ A similar phenomena occurs here but rather than surfing on Taylor-Green cells, p
 Despite Fig.~\ref{fig:surfing_parameter_tau_vs}\textbf{(b)} showing a weak Reynolds dependence of both surfing performance and the value of the optimal parameter $\TimeHorizonOpt$, we expect our conclusions to be qualitatively independent of $\mathit{Re}_{\lambda}$, because of the universality of turbulence at small scale in the limit of large $\mathit{Re}_{\lambda}$ \citep{frisch1995turbulence}.
 This assumption is discussed below.
 
-To characterize the dependence of the time evolution of the flow sampled by plankters, we plot in Fig.~\ref{fig:surfing_correlation_time}\textbf{(a)} the square root of the module of the temporal Fourier transform $I(\omega_f)$ of $\tr([ \Gradients ]^2)$, an invariant of the flow velocity gradients.
+To characterize the dependence of the time evolution of the flow sampled by plankters, we plot in Fig.~\ref{fig:surfing_correlation_time}\textbf{(a)} the square root of the module of the temporal Fourier transform $I(\omega_f)$ of $\tr([ \Gradients ]^2)$, an invariant of the flow velocity gradients
 \begin{equation}
-	I(\omega_f) = \sqrt{ \abs*{ \frac{d}{d\omega_f} \tr \left( \left[ \Gradients \right]^2 \right)} },
+	I(\omega_f) = \sqrt{ \abs*{ \frac{d}{d\omega_f} \tr ( [ \Gradients ]^2 )} },
 \end{equation}
 measured along trajectories of plankters with various swimming velocities. 
-The symbol $\omega_f$ characterizes the temporal pulsation associated to the module $I(\omega_f)$.
+The symbol $\omega_f$ denotes the temporal pulsation associated to the module $I(\omega_f)$.
 \begin{figure}%[H]
 	\centering
 	\input{chap_turbulence/plots/correlation_time}
 	\caption[Influence of the swimming speed on the time correlations of the flow sampled by plankters.]{
 		Influence of the swimming speed on the time correlations of the flow sampled by plankters.
 		\textbf{(a)} Correlation time $\CorrelationTime$, defined in Eq.~\eqref{eq:corr}, and \textbf{(b)} optimal time horizon $\TimeHorizonOpt$ as a function of swimming velocity ($\TimeHorizonOpt$ is evaluated using the fitted polynomial).
-		Optimal time horizon $\TimeHorizonOpt$ is compared to the correlation time $\CorrelationTime$ [Eq.~\eqref{eq:corr}] for various definitions of $I(\omega_f)$ (Tab.~\ref{tab:invariants}).
+		The optimal time horizon $\TimeHorizonOpt$ is compared to the correlation time $\CorrelationTime$ [Eq.~\eqref{eq:corr}] for various definitions of $I(\omega_f)$ (Tab.~\ref{tab:invariants}) and to the model given by Eq.~\eqref{eq:time_horizon_model}.
 		The simulation case is $\mathit{Re}_{\lambda} = 418$.
 	}
 	\label{fig:surfing_correlation_time}
@@ -429,7 +436,7 @@ The symbol $\omega_f$ characterizes the temporal pulsation associated to the mod
 As expected, the intensity $I(\omega_f)$ shifts from low to high frequencies as the swimming velocity increases.
 
 Supported by this observation, we hypothesize that the optimal time horizon $\TimeHorizonOpt$ scales as a correlation time $\CorrelationTime$.
-We define $\CorrelationTime$ as the average of the period $2\pi/\omega_f$, weighted by $I(\omega_f)$ (averaged over all trajectories of plankters $\langle I(\omega_f) \rangle_N$)
+We define $\CorrelationTime$ as the average of the period $2\pi/\omega_f$, weighted by $I(\omega_f)$ (averaged over all trajectories of plankters: $\langle I(\omega_f) \rangle_N$)
 \begin{equation}
 	\label{eq:corr}
 	\CorrelationTime (\SwimmingVelocity) = \frac{\int \left\langle I(\omega_f) \right\rangle_N (2\pi/\omega_f) \, d\omega_f}{\int \left\langle I(\omega_f) \right\rangle_N \, d\omega_f}.
@@ -479,11 +486,11 @@ Overall, the optimal optimal horizon time $\TimeHorizonOpt$ has then two propert
 
 Oceanic turbulence intensity varies widely with ocean regions and weather \citep{fuchs2016seascape}.
 Thus, plankton may experience very different Reynolds numbers depending on their habitat.
-While at large Reynolds number $\mathit{Re}_{\lambda} \gg 1$, the universality of turbulence at small scales ensures weak dependence of performance on the $\mathit{Re}_{\lambda}$ \citep{frisch1995turbulence}, this is not the case for small Reynolds number $\mathit{Re}_{\lambda} \lesssim 1$.
+While for large Reynolds numbers ($\mathit{Re}_{\lambda} \gg 1$), the universality of turbulence at small scales ensures weak dependence of performance on the Reynolds number \citep{frisch1995turbulence}, this is not the case for small Reynolds numbers $\mathit{Re}_{\lambda} \lesssim 1$.
 If there is no mean flow $\langle \FlowVelocity \rangle_{x,t} = \vec{0}$, temporal and spatial flow fluctuations decrease directly with $\mathit{Re}_{\lambda}$. 
-Without any flow to exploit surfing performance is then expected to drop.
+Surfing performance is then expected to drop as $\mathit{Re}_{\lambda}$ decreases, down to the performance of bottom-heavy swimmers for $\mathit{Re}_{\lambda} = 0$ for which the fluid would be quiescent.
 
-To assess the effect of the Reynolds number on the performance, surfers with swimming speed $\SwimmingVelocity = \KolmogorovVelocityScale$, are simulated in flows of various $\mathit{Re}_{\lambda}$ (Fig.~\ref{fig:surfing_parameter_tau_reynolds}).
+To assess the effect of the Reynolds number on performance, surfers with swimming speed $\SwimmingVelocity = \KolmogorovVelocityScale$, are simulated in flows of various $\mathit{Re}_{\lambda}$ (Fig.~\ref{fig:surfing_parameter_tau_reynolds}).
 \begin{figure}%[H]
 	\centering
 	\input{chap_turbulence/plots/reynolds/parameter_tau_reynolds}
@@ -502,7 +509,8 @@ We note particularly that very little differences are observed between our most 
 
 \section{Estimating surfing performance}\label{sec:estimating_surfing_performance}
 
-In this section we decompose surfing performance into its contribution from the strain rate and the rotation rate.
+Now that we demonstrated the surfing strategy to be effective, we look for a proper quantification of surfing performance.
+To do so, we push further our analysis to determine the role of the symmetric component of the flow and of the skew symmetric one.
 This lets us first assess which component of the flow is responsible for most of the surfing performance.
 Build upon this assessment, we then estimate surfing performance.
 Based on the simplified formulation of the surfing strategy in both a simple vortex flow and a pure shear flow (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_linear}) we then estimate surfing performance.
@@ -539,7 +547,7 @@ In Fig. \ref{fig:surfing_partial}, we show that even though performance drops dr
 	\label{fig:surfing_partial}
 \end{figure}
 Note how the optimal surfing parameter $\TimeHorizonOpt$ for which surfing performance is maximal is shifted towards larger values compared to a fully informed surfer.
-For example, in the case $\mathit{Re}_{\lambda} = 418$, $\TimeHorizonOpt_{\GradientsSym} \approx 7 \KolmogorovTimeScale$ for surfers limited to the measure of the symmetric part of the gradient tensor whereas $\TimeHorizonOpt \approx 4 \KolmogorovTimeScale$ for fully informed surfers.
+For example, in the case $\mathit{Re}_{\lambda} = 418$, $\TimeHorizonOpt_{\GradientsSym} \approx 7 \KolmogorovTimeScale$ for symmetric surfers whereas $\TimeHorizonOpt \approx 4 \KolmogorovTimeScale$ for fully informed surfers.
 Moreover, for $\TimeHorizon \gtrsim \KolmogorovTimeScale$ the dependence on the free parameter $\TimeHorizon$ is weak: for the case $\mathit{Re}_{\lambda} = 418$, performance does not vary much from $\TimeHorizon \approx 2 \KolmogorovTimeScale$ to $\TimeHorizon \approx 15 \KolmogorovTimeScale$.
 Similarly for $\mathit{Re}_{\lambda} = 11$, performance of symmetric surfers is weakly dependant of $\TimeHorizon$ from $\TimeHorizon \approx 2 \KolmogorovTimeScale$ to $\TimeHorizon \approx 8 \KolmogorovTimeScale$.
 An explanation for this effect is provided below.
@@ -584,18 +592,19 @@ We model the flow as a succession of random linear flows that do not change over
 Then averaging over all possible values of $\FlowVelocity$ and $\partial \FlowVelocity / \partial t$, the last term is the only term that does not cancel out.
 Based on this hypothesis, the expected effective swimming velocity can be estimated as
 \begin{equation}\label{turb:eq:performance}
-	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t} = \SwimmingVelocity \iint p(\Gradients, \FinalTime) \left( \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirection(\TimeHorizon) \right] \cdot \Direction \right) \,\, d \Gradients \, d \FinalTime,
+	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t} = \SwimmingVelocity \iint p(\Gradients, \TimeHorizon_{\Gradients}) \left( \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirection(\TimeHorizon) \right] \cdot \Direction \right) \,\, d \Gradients \, d \TimeHorizon_{\Gradients},
 \end{equation}
-with $p(\Gradients, \FinalTime)$ the joint probability density function of the gradient tensor $\Gradients$ and the duration $\FinalTime$ (during which $\Gradients$ is considered constant).
+with $p(\Gradients, \TimeHorizon_{\Gradients})$ the joint probability density function of the gradient tensor $\Gradients$ and the duration $\TimeHorizon_{\Gradients} = \FinalTime - t$ corresponding to the time left before $\Gradients$ changes.
 
-We now want to model the term $[ \exp ( \FinalTime \Gradients ) \cdot \ControlDirection(\TimeHorizon) ] \cdot \Direction$ in the case $\ControlDirection(\TimeHorizon) = \ControlDirectionOptSym$.
-We further assume that the symmetric surfing direction $\ControlDirectionOptSym$ is independent of the rotational part of the flow velocity gradients $\GradientsAsym = \asym \Gradients$.
+We now want to model the term $[ \exp ( \TimeHorizon_{\Gradients} \Gradients ) \cdot \ControlDirection(\TimeHorizon) ] \cdot \Direction$ in the case $\ControlDirection = \ControlDirectionOptSym$.
+We further assume that the symmetric surfing direction $\ControlDirectionOptSym$ is independent of the rotational part of the flow velocity gradients $\GradientsAsym$.
 In practice, both parts of the symmetric decomposition of the gradient tensor are known to be correlated \citep{buaria2022vorticity} but here our ambition is to obtain a tractable model of surfing performance.
 
 After averaging over possible values of $\GradientsAsym$, the exponential term is expected to be proportional to its value in a pure shear flow
 \begin{equation}\label{eq:partial_sym_prop}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \left[ \exp \left( \FinalTime \GradientsSym \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \left[ \exp \left( \TimeHorizon_{\GradientsSym} \GradientsSym \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction,
 \end{equation}
+where $\TimeHorizon_{\GradientsSym}$ is the time left before $\GradientsSym$ changes.
 We can then write everything in the eigen orthonormal basis of $\GradientsSym = \sym \Gradients$, noted $(\hat{\vec{e}}_{\alpha}, \hat{\vec{e}}_{\beta}, \hat{\vec{e}}_{\gamma})$ with its respective eigenvalues $\alpha \ge \beta \ge \gamma$ (We have $\gamma = -(\alpha + \beta) \le 0$ due to flow incompressibility).
 Symmetric surfing can then be formulated as follows
 \begin{equation}\label{turb:eq:surf_sym}
@@ -604,70 +613,70 @@ Symmetric surfing can then be formulated as follows
 with $\DirectionScalar_\alpha = \Direction \cdot \hat{\vec{e}}_\alpha$, $\DirectionScalar_\beta = \Direction \cdot \hat{\vec{e}}_\beta$ and $\DirectionScalar_\gamma = \Direction \cdot \hat{\vec{e}}_\gamma$.
 Then injecting Eq.~\eqref{turb:eq:surf_sym} into Eq.~\eqref{eq:partial_sym_prop}, we obtain the following proportionality relation
 \begin{equation}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\alpha (\FinalTime + \TimeHorizon)} \DirectionScalar_\alpha^2 + e^{\beta (\FinalTime + \TimeHorizon)} \DirectionScalar_\beta^2 + e^{-(\alpha + \beta) (\FinalTime + \TimeHorizon)} \DirectionScalar_\gamma^2}{\sqrt{e^{2 \alpha \TimeHorizon} \DirectionScalar_\alpha^2 + e^{2 \beta \TimeHorizon} \DirectionScalar_\beta^2 + e^{-2 (\alpha + \beta)
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\alpha (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \DirectionScalar_\alpha^2 + e^{\beta (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \DirectionScalar_\beta^2 + e^{-(\alpha + \beta) (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \DirectionScalar_\gamma^2}{\sqrt{e^{2 \alpha \TimeHorizon} \DirectionScalar_\alpha^2 + e^{2 \beta \TimeHorizon} \DirectionScalar_\beta^2 + e^{-2 (\alpha + \beta)
 		\TimeHorizon} \DirectionScalar_\gamma^2}}
 \end{equation}
 
 In turbulence, the eigenvalue $\beta$ is on average positive \citep{lund1994improved}, thus $\hat{\vec{e}}_\beta$ is most likely an extension axis.
 Furthermore, the most likely state is $\delta \equiv \alpha = \beta$ and $\gamma = -2 \delta$.
-Evaluating $\langle [ \exp ( \FinalTime \GradientsSym ) \cdot \ControlDirectionOptSym(\TimeHorizon) ] \cdot \Direction \rangle_\GradientsAsym$ in this mostly likely state reduces the previous expression to
+Evaluating $\langle [ \exp ( \TimeHorizon_{\Gradients} \GradientsSym ) \cdot \ControlDirectionOptSym(\TimeHorizon) ] \cdot \Direction \rangle_\GradientsAsym$ in this mostly likely state reduces the previous expression to
 \begin{equation}\label{eq:performation_proportional_estimation_sym}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\delta (\FinalTime + \TimeHorizon)} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-2 \delta (\FinalTime + \TimeHorizon)} \DirectionScalar_\gamma^2}{\sqrt{e^{2 \delta \TimeHorizon} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-4 \delta \TimeHorizon} \DirectionScalar_\gamma^2}}
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\delta (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-2 \delta (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \DirectionScalar_\gamma^2}{\sqrt{e^{2 \delta \TimeHorizon} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-4 \delta \TimeHorizon} \DirectionScalar_\gamma^2}}
 \end{equation}
 
 To continue the analysis, one needs to make yet another assumption: $e^{-4 \delta \TimeHorizon} \ll e^{2 \delta \TimeHorizon}$.
 This assumption reduces the model to large enough values of the surfing time horizon, $\delta \TimeHorizon \gg 1$.
 In this case, the expression further simplifies to
 \begin{equation}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\delta \FinalTime} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-2 \delta \FinalTime - 3 \delta \TimeHorizon} \DirectionScalar_\gamma^2}{\sqrt{\left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right]}}
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \frac{e^{\delta \TimeHorizon_{\GradientsSym}} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-2 \delta \TimeHorizon_{\GradientsSym} - 3 \delta \TimeHorizon} \DirectionScalar_\gamma^2}{\sqrt{\left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right]}}
 \end{equation}
 One may then average this value over all possible orientations of the target direction $\Direction$ in the basis $(\hat{\vec{e}}_{\alpha}, \hat{\vec{e}}_{\beta}, \hat{\vec{e}}_{\gamma})$.
 Writing $\Direction$ in spherical coordinates, we obtain
 \begin{align}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_{\GradientsAsym, \Direction} &\propto \frac{1}{4 \pi} \int_{0}^{2 \pi} \int_{0}^{\pi} \left( e^{\delta \FinalTime} \sin^2 \theta + e^{-2 \delta \FinalTime - 3 \delta \TimeHorizon} \cos^2 \theta \right) \, d\theta \, d\phi \\
-	&\propto \frac{\pi}{4} \left( e^{\delta \FinalTime} + e^{-2 \delta \FinalTime - 3 \delta \TimeHorizon} \right)
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_{\GradientsAsym, \Direction} &\propto \frac{1}{4 \pi} \int_{0}^{2 \pi} \int_{0}^{\pi} \left( e^{\delta \TimeHorizon_{\GradientsSym}} \sin^2 \theta + e^{-2 \delta \TimeHorizon_{\GradientsSym} - 3 \delta \TimeHorizon} \cos^2 \theta \right) \, d\theta \, d\phi \\
+	&\propto \frac{\pi}{4} \left( e^{\delta \TimeHorizon_{\GradientsSym}} + e^{-2 \delta \TimeHorizon_{\GradientsSym} - 3 \delta \TimeHorizon} \right)
 \end{align}
 Coming back to the estimation of the effective vertical velocity, if we inject this expression into Eq.~\eqref{turb:eq:performance}, we obtain
 \begin{equation}
-	\left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \SwimmingVelocity \frac{\pi}{4} \iint p(\delta, \FinalTime) \left( e^{\delta \FinalTime} + e^{-2 \delta \FinalTime - 3 \delta \TimeHorizon} \right) \,\, d \delta \, d \FinalTime,
+	\left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \SwimmingVelocity \frac{\pi}{4} \iint p(\delta, \TimeHorizon_{\GradientsSym}) \left( e^{\delta \TimeHorizon_{\GradientsSym}} + e^{-2 \delta \TimeHorizon_{\GradientsSym} - 3 \delta \TimeHorizon} \right) \,\, d \delta \, d \TimeHorizon_{\GradientsSym},
 \end{equation}
-where $\delta \approx \norm{\Gradients} / 2$ is a characteristic stretching value of the flow sampled by the microswimmers and $\FinalTime$ is the duration for which a specific gradient can be considered constant, linked to the correlation time of the measured velocity gradient tensor.
+where $\delta \approx \norm{\Gradients} / 2$ is a characteristic stretching value of the flow sampled by the microswimmers and $\TimeHorizon_{\GradientsSym}$ is the duration for which a specific gradient can be considered constant, linked to the correlation time of the measured velocity gradient tensor.
 
-The joint probability density function $p(\delta, \FinalTime)$ is not obvious to model.
-First, $\delta$ and $\FinalTime$ might be correlated.
-Indeed, one can actually expect $\FinalTime$ to decrease when $\delta$ increase as the local dissipation increases [cf. the Navier-Stokes equations, Eq.~\eqref{eq:navier_stokes}].
+The joint probability density function $p(\delta, \TimeHorizon_{\GradientsSym})$ is not obvious to model.
+First, $\delta$ and $\TimeHorizon_{\GradientsSym}$ might be correlated.
+Indeed, one can actually expect $\TimeHorizon_{\GradientsSym}$ to decrease when $\delta$ increase as the local dissipation increases [cf. the Navier-Stokes equations, Eq.~\eqref{eq:navier_stokes}].
 Then the statistics of the velocity gradient tensor are known to display complex non-Gaussian dynamics in turbulence \citep{li2005origin}.
 Finally, the distribution of the stretching value $\delta$ might be affected by the surfer behavior.
 
-In practice, one could evaluate the probability density function $p(\delta, \FinalTime)$ numerically in simulations.
+In practice, one could evaluate the probability density function $p(\delta, \TimeHorizon_{\GradientsSym})$ numerically in simulations.
 But, given the already strong assumptions made previously, we look for the simplest model that would capture an estimation of performance.
-Thus, constant characteristic values of $\delta$ and $\FinalTime$ are considered.
+Thus, constant characteristic values of $\delta$ and $\TimeHorizon_{\GradientsSym}$ are considered.
 Both values then become free parameters of our model.
 Even though these parameters are free in practice, these are linked to the properties of the flow sampled by swimmers:
-$\delta$ characterizes the intensity of flow stretching, while $\FinalTime$ characterizes the time correlation of measured velocity gradient tensor.
+$\delta$ characterizes the intensity of flow stretching, while $\TimeHorizon_{\GradientsSym}$ characterizes the time correlation of measured velocity gradient tensor.
 Under this assumption, symmetric surfing performance follows
 \begin{equation}\label{turb:eq:performance_estimation_sym}
-	\left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \SwimmingVelocity \frac{\pi}{4} \left( e^{\delta \FinalTime} + e^{-2 \delta \FinalTime - 3 \delta \TimeHorizon} \right).
+	\left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \SwimmingVelocity \frac{\pi}{4} \left( e^{\delta \TimeHorizon_{\GradientsSym}} + e^{-2 \delta \TimeHorizon_{\GradientsSym} - 3 \delta \TimeHorizon} \right).
 \end{equation}
 
 Now, the proportionality coefficient remains to be evaluated.
 To this end, we use the fact that for $\TimeHorizon = 0$, the bottom-heavy strategy is retrieved $\ControlDirectionOptSym(0) = \ControlDirection_{\NameBhShort} = \Direction$.
 If continuous reorientation is assumed, the swimming direction of a bottom-heavy swimmer is completely uncorrelated with the flow, meaning $\left\langle \Performance^{\mathrm{\NameBhShort}} \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} = \SwimmingVelocity$.
-Using the same approach, one may evaluate the surfing performance as a function of $\delta$ and $\FinalTime$.
+Using the same approach, one may evaluate the surfing performance as a function of $\delta$ and $\TimeHorizon_{\GradientsSym}$.
 Note however that Eq.~\eqref{turb:eq:performance_estimation_sym} is only valid for $\delta \TimeHorizon \gg 1$.
 To evaluate $\left\langle \PerformanceBh \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction}$, one needs to start back from Eq.~\eqref{eq:performation_proportional_estimation_sym}.
 Evaluating for $\TimeHorizon = 0$ and similarly averaging all possible orientations of $\Direction$, we obtain
 \begin{equation}\label{turb:eq:performance_estimation_sym_bh}
-	 \left\langle \PerformanceBh \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \frac{\SwimmingVelocity}{3} \left[ 2 e^{\delta \FinalTime} + e^{-2 \delta \FinalTime} \right]
+	 \left\langle \PerformanceBh \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \propto \frac{\SwimmingVelocity}{3} \left[ 2 e^{\delta \TimeHorizon_{\GradientsSym}} + e^{-2 \delta \TimeHorizon_{\GradientsSym}} \right]
 \end{equation}
 
 Now, if the rotational (skew symmetric) part of the flow, $\GradientsAsym = \asym \Gradients$, impacts bottom-heavy swimmers and symmetric surfers in the same way, the proportionality coefficient should be the same in Eqs.~\eqref{turb:eq:performance_estimation_sym} and \eqref{turb:eq:performance_estimation_sym_bh}.
 As surfing may induce preferential sampling of $\GradientsAsym$, this assumption is not obvious but as shown in Sec.~\ref{sec:surfing_on_turbulence_IHT}, this preferential sampling is weak.
 This leads to this final estimation of performance for symmetric surfers
 \begin{equation}\label{turb:eq:performance_estimation_sym_final}
-	 \left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \approx \SwimmingVelocity \frac{3\pi}{4} \frac{1 + e^{-3 \delta ( \FinalTime + \TimeHorizon )}}{ 2 + e^{-3 \delta \FinalTime}},
+	 \left\langle \PerformanceSym \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \Direction} \approx \SwimmingVelocity \frac{3\pi}{4} \frac{1 + e^{-3 \delta ( \TimeHorizon_{\GradientsSym} + \TimeHorizon )}}{ 2 + e^{-3 \delta \TimeHorizon_{\GradientsSym}}},
 \end{equation}
-This model is shown in Figs.~\ref{fig:surfing_partial_and_models}\textbf{(a)} with $\delta \approx 0.02/\KolmogorovTimeScale$ and $\FinalTime \approx 15 \KolmogorovTimeScale$ fitted on the data. 
+This model is shown in Figs.~\ref{fig:surfing_partial_and_models}\textbf{(a)} with $\delta \approx 0.02/\KolmogorovTimeScale$ and $\TimeHorizon_{\GradientsSym} \approx 15 \KolmogorovTimeScale$. 
 It shows good agreement with the simulations results for symmetric surfers performance in the limit $\delta \TimeHorizon \gg 1$.
 
 \subsubsection{Rotation rate tensor: $\GradientsAsym$}
@@ -677,48 +686,49 @@ Starting from Eq.~\eqref{turb:eq:performance}, we look for an estimate of the sa
 
 Similarly to the symmetric case, one may average over all possible values of the pure strain part, $\GradientsSym$, to obtain the following proportionality relation
 \begin{equation}\label{eq:partial_asym_prop}
-	\left\langle \left[ \exp \left( \FinalTime \, \Gradients \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsSym \propto \left[ \exp \left( \FinalTime \GradientsAsym \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction.
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \, \Gradients \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsSym \propto \left[ \exp \left( \TimeHorizon_{\GradientsAsym} \GradientsAsym \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction,
 \end{equation}
+where $\TimeHorizon_{\GradientsAsym}$ corresponds the time left before $\GradientsAsym$ changes.
 We can then write our equations in a basis, noted $(\hat{\vec{e}}_{\alpha}, \hat{\vec{e}}_{\beta}, \hat{\vec{e}}_{\gamma})$, so that $\hat{\vec{e}}_{\beta}$ is aligned with the vorticity.
 In this basis, the effective velocity can be expressed as
 \begin{equation}
-	\left\langle \left[ \exp \left( \FinalTime \, \Gradients \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsSym \propto \SwimmingVelocity \cos \left( \frac{\omega}{2} \, [\FinalTime - \TimeHorizon] \right) \left( \DirectionScalar_{\alpha}^2 + \DirectionScalar_{\gamma}^2 \right) + \DirectionScalar_{\beta}^2
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \, \Gradients \right) \cdot \ControlDirectionOptAsym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsSym \propto \SwimmingVelocity \cos \left( \frac{\omega}{2} \, [\TimeHorizon_{\GradientsAsym} - \TimeHorizon] \right) \left( \DirectionScalar_{\alpha}^2 + \DirectionScalar_{\gamma}^2 \right) + \DirectionScalar_{\beta}^2
 \end{equation}
 with $\FlowVorticityScalar$ the norm of the flow vorticity.
 If a constant vorticity norm $\FlowVorticityScalar$ is considered, this expression is directly linked to the estimated effective velocity $\PerformanceAsym$.
 Moreover, averaging over all possible orientations of the direction $\Direction$ leads to the expression
 \begin{equation}\label{turb:eq:performance_surf_asym}
-	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \cos \left( \frac{\omega}{2} \, (\FinalTime - \TimeHorizon) \right) + 1 \right].
+	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \cos \left( \frac{\omega}{2} \, [\TimeHorizon_{\GradientsAsym} - \TimeHorizon] \right) + 1 \right].
 \end{equation}
 Similarly to the symmetric case, the proportionality coefficient can be found by evaluating this expression for $\TimeHorizon = 0$ (corresponding to bottom-heavy swimmers)
 \begin{equation}\label{turb:eq:performance_bh_asym}
-	\left\langle \PerformanceBh \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \cos \left( \frac{\omega}{2} \FinalTime \right) + 1 \right]
+	\left\langle \PerformanceBh \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \cos \left( \frac{\omega}{2} \TimeHorizon_{\GradientsAsym} \right) + 1 \right]
 \end{equation}
 This leads to the expression of performance for skew-symmetric surfers
 \begin{equation}\label{turb:eq:performance_estimation_asym_final}
-	 \left\langle \PerformanceAsym \right\rangle \approx \SwimmingVelocity \frac{2 \cos \left( \omega (\FinalTime - \TimeHorizon)/2 \right) + 1}{2 \cos \left( \omega \FinalTime / 2 \right) + 1}
+	 \left\langle \PerformanceAsym \right\rangle \approx \SwimmingVelocity \frac{2 \cos \left( \omega [\TimeHorizon_{\GradientsAsym} - \TimeHorizon]/2 \right) + 1}{2 \cos \left( \omega \TimeHorizon_{\GradientsAsym} / 2 \right) + 1}
 \end{equation}
-This model is plotted in Figs.~\ref{fig:surfing_partial_and_models}\textbf{(a-b)} with $\FinalTime \approx 4.25 \KolmogorovTimeScale$ and $\FlowVorticityScalar \approx 0.65 / \KolmogorovTimeScale$.
-While this model may capture fairly well performance for small values of $\TimeHorizon$ and its oscillating nature for $\mathit{Re}_{\lambda} = 11$, it does not capture well the performance overall.
+This model is plotted in Figs.~\ref{fig:surfing_partial_and_models}\textbf{(a)} with $\TimeHorizon_{\GradientsAsym} \approx 4.25 \KolmogorovTimeScale$ and $\FlowVorticityScalar \approx 0.65 / \KolmogorovTimeScale$.
+While this model captures fairly well the qualitative behavior of performance for small values of $\TimeHorizon$ however its oscillating nature differs from the actual observed performance of skew symmetric surfers.
 
 To overcome the simplicity of this model, one may consider an non-trivial probability density function of the vorticity norm $\FlowVorticityScalar$
 \begin{equation}
-	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \int p(\FlowVorticityScalar) \left[ 2 \cos \left( \frac{\omega}{2} \, (\FinalTime - \TimeHorizon) \right) + 1 \right] \,\, d \FlowVorticityScalar.
+	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \int p(\FlowVorticityScalar) \left[ 2 \cos \left( \frac{\omega}{2} \, [\TimeHorizon_{\GradientsAsym} - \TimeHorizon] \right) + 1 \right] \,\, d \FlowVorticityScalar.
 \end{equation}
-Again, to obtain the simplest model possible, we consider the time $\FinalTime$ constant and independent of $\FlowVorticityScalar$, even though this is not expected to be as simple in practice.
+Again, to obtain the simplest model possible, we consider the time $\TimeHorizon_{\GradientsAsym}$ constant and independent of $\FlowVorticityScalar$, even though this is not expected to be as simple in practice.
 In addition, the distribution $p(\FlowVorticityScalar)$ of vorticity is then chosen to be Gaussian.
 In practice, the distribution of vorticity is known for its non-Gaussian properties \citep{meneveau2011lagrangian} but this assumption ensures tractability.
 This assumption then leads to
 \begin{equation}
-	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \exp \left( -\frac{1}{8} \left( \FinalTime - \TimeHorizon \right)^2 \sigma_{\FlowVorticityScalar}^2 \right) + 1 \right],
+	\left\langle \PerformanceAsym \right\rangle \propto \frac{\SwimmingVelocity}{3} \left[ 2 \exp \left( -\frac{1}{8} [ \TimeHorizon_{\GradientsAsym} - \TimeHorizon ]^2 \sigma_{\FlowVorticityScalar}^2 \right) + 1 \right],
 \end{equation}
 with $\sigma_{\FlowVorticityScalar}$ the standard deviation of the vorticity.
 
 Again, this expression can be evaluated for $\TimeHorizon = 0$, corresponding to bottom-heavy swimmers, and effective velocity of skew-symmetric surfers is estimated to be
 \begin{equation}\label{turb:eq:performance_surf_asym_final}
-	\left\langle \PerformanceAsym \right\rangle \approx \SwimmingVelocity \, \frac{ 2 \exp \left( -\left( \FinalTime - \TimeHorizon \right)^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}{2 \exp \left( -{\FinalTime}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1},
+	\left\langle \PerformanceAsym \right\rangle \approx \SwimmingVelocity \, \frac{ 2 \exp \left( -[ \TimeHorizon_{\GradientsAsym} - \TimeHorizon ]^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}{2 \exp \left( -{\TimeHorizon_{\GradientsAsym}}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1},
 \end{equation}
-where $\FinalTime \approx 4.25 \KolmogorovTimeScale$ and $\sigma_{\FlowVorticityScalar} \approx 0.65 / \KolmogorovTimeScale$ are fitted on the numerical data (Fig.~\ref{fig:surfing_partial_and_models}\textbf{(a)}).
+where $\TimeHorizon_{\GradientsAsym} \approx 4.25 \KolmogorovTimeScale$ and $\sigma_{\FlowVorticityScalar} \approx 0.65 / \KolmogorovTimeScale$ are fitted on the numerical data (Fig.~\ref{fig:surfing_partial_and_models}\textbf{(a)}).
 The model could certainly be improved further by using a better choice of the probability density function.
 
 \subsubsection{Full velocity gradient tensor: $\Gradients$}
@@ -751,62 +761,62 @@ in the basis $(\hat{\vec{e}}_\alpha, \hat{\vec{e}}_\beta, \hat{\vec{e}}_\gamma)$
 The basis is chosen so that $\hat{\vec{e}}_\beta \cdot \FlowVorticity > 0$.
 
 As in the previous models, we look for an estimation of performance as a function of the time horizon $\TimeHorizon$.
-We start by an estimation of the term $[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon)] \cdot \Direction$.
+We start by an estimation of the term $[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon)] \cdot \Direction$.
 To compute this estimation  we use the following approximation for the matrix exponential
 \begin{equation}\label{turb:eq:splitting}
-	\exp \left( \TimeHorizon \Gradients \right) \approx \exp \left( \TimeHorizon \sym \Gradients \right) \, \exp \left( \TimeHorizon \asym \Gradients \right).
+	\exp \left( \TimeHorizon_{\GradientsAsym} \Gradients \right) \approx \exp \left( \TimeHorizon_{\Gradients} \GradientsSym \right) \, \exp \left( \TimeHorizon_{\Gradients} \GradientsAsym \right).
 \end{equation}
-This expression is exact if $\sym \Gradients$ and $\asym \Gradients$ commute, which is not the case here, and is a first order approximation otherwise [$O(\TimeHorizon \norm{ \Gradients})$].
+This expression is exact if $\sym \Gradients$ and $\asym \Gradients$ commute, which is not the case here, and is a first order approximation otherwise [$O(\TimeHorizon_{\Gradients} \norm{ \Gradients})$].
 Note that higher order splitting methods could be used, such as the \citet{strang1968construction} splitting method, to obtain a higher order approximation.
 
-Note that as already observed above, nothing guarantees that the duration $\FinalTime$ is the same for both the components $\GradientsSym$ and $\GradientsAsym$ of the full velocity gradient tensor $\Gradients$.
-As a consequence, we introduce two different values of this time: $\FinalTime_{\GradientsSym}$ and $\FinalTime_{\GradientsAsym}$.
+Note that as already observed above, nothing guarantees that the duration $\TimeHorizon_{\Gradients}$ is the same for both the components $\GradientsSym$ and $\GradientsAsym$ of the full velocity gradient tensor $\Gradients$.
+As a consequence, we consider two different values of this time: $\TimeHorizon_{\GradientsSym}$ and $\TimeHorizon_{\GradientsAsym}$ corresponding to each part of the flow velocity gradient.
 Using both Eq.~\eqref{turb:eq:gradient_tensor_model} and Eq.~\eqref{turb:eq:splitting}, we obtain
 \begin{multline}\label{turb:eq:term_full_grad}
-	\left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \propto \left[ e^{\delta (\FinalTime_{\GradientsSym} + \TimeHorizon)} \left[ \DirectionScalar_\alpha \left( \DirectionScalar_\alpha \cos \theta - \DirectionScalar_\gamma \sin \theta \right) + \DirectionScalar_\beta^2 \right] + \right. \\
-	\left. e^{-2 \delta (\FinalTime_\GradientsSym + \TimeHorizon)} \DirectionScalar_\gamma \left( \DirectionScalar_\alpha \sin \theta + \DirectionScalar_\gamma \cos \theta \right) \right] / \sqrt{e^{2 \delta \TimeHorizon} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-4 \delta \TimeHorizon} \DirectionScalar_\gamma^2},
+	\left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \propto \left[ e^{\delta (\TimeHorizon_{\GradientsSym} + \TimeHorizon)} \left[ \DirectionScalar_\alpha \left( \DirectionScalar_\alpha \cos \theta - \DirectionScalar_\gamma \sin \theta \right) + \DirectionScalar_\beta^2 \right] + \right. \\
+	\left. e^{-2 \delta (\TimeHorizon_\GradientsSym + \TimeHorizon)} \DirectionScalar_\gamma \left( \DirectionScalar_\alpha \sin \theta + \DirectionScalar_\gamma \cos \theta \right) \right] / \sqrt{e^{2 \delta \TimeHorizon} \left[ \DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2 \right] + e^{-4 \delta \TimeHorizon} \DirectionScalar_\gamma^2},
 \end{multline}
-with $\theta \equiv [ \FlowVorticityScalar (\FinalTime_\GradientsAsym - \TimeHorizon)/2 ]$.
-Note the introduction of two different times $\FinalTime_\GradientsSym$ and $\FinalTime_\GradientsAsym$, both linked to their corresponding part of $\Gradients$.
+with $\theta \equiv [ \FlowVorticityScalar (\TimeHorizon_\GradientsAsym - \TimeHorizon)/2 ]$.
+Note the introduction of two different times $\TimeHorizon_\GradientsSym$ and $\TimeHorizon_\GradientsAsym$, both linked to their corresponding part of $\Gradients$.
 
 We then use the same simplification as in the symmetric case ($e^{2\delta \TimeHorizon} \gg e^{-4 \delta \TimeHorizon}$).
 The previous expression then reduces to
 \begin{multline}
-	\left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \propto \left[ e^{\delta \FinalTime_\GradientsSym} \left[ \DirectionScalar_\alpha \left( \DirectionScalar_\alpha \cos \theta - \DirectionScalar_\gamma \sin \theta \right) + \DirectionScalar_\beta^2 \right] + \right. \\
-	\left. e^{-2 \delta \FinalTime_\GradientsSym - 3\delta \TimeHorizon} \DirectionScalar_\gamma \left( \DirectionScalar_\alpha \sin \theta + \DirectionScalar_\gamma \cos \theta \right) \right] / \sqrt{\DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2}.
+	\left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \propto \left[ e^{\delta \TimeHorizon_\GradientsSym} \left[ \DirectionScalar_\alpha \left( \DirectionScalar_\alpha \cos \theta - \DirectionScalar_\gamma \sin \theta \right) + \DirectionScalar_\beta^2 \right] + \right. \\
+	\left. e^{-2 \delta \TimeHorizon_\GradientsSym - 3\delta \TimeHorizon} \DirectionScalar_\gamma \left( \DirectionScalar_\alpha \sin \theta + \DirectionScalar_\gamma \cos \theta \right) \right] / \sqrt{\DirectionScalar_\alpha^2 + \DirectionScalar_\beta^2}.
 \end{multline}
 Then, we average over all possible orientation of $\Direction$ in the basis $(\hat{\vec{e}}_\alpha, \hat{\vec{e}}_\beta, \hat{\vec{e}}_\gamma)$
 \begin{equation}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \right\rangle_{\Direction} \propto e^{\delta \FinalTime_\GradientsSym} \frac{\pi}{8} \left[ \left( 1 + 2 e^{-3 \delta (\FinalTime_\GradientsSym + \TimeHorizon)} \right) \cos \left( \omega \left[ \FinalTime_\GradientsAsym - \TimeHorizon \right]/2 \right) + 1 \right].
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOpt(\TimeHorizon) \right] \cdot \Direction \right\rangle_{\Direction} \propto e^{\delta \TimeHorizon_\GradientsSym} \frac{\pi}{8} \left[ \left( 1 + 2 e^{-3 \delta (\TimeHorizon_\GradientsSym + \TimeHorizon)} \right) \cos \left( \omega \left[ \TimeHorizon_\GradientsAsym - \TimeHorizon \right]/2 \right) + 1 \right].
 \end{equation}
 Similarly to the previous cases, we obtain a similar expression for bottom-heavy swimmers.
 Note that $e^{2\delta \TimeHorizon} \gg e^{-4 \delta \TimeHorizon}$ cannot be assumed here, and we use Eq.~\eqref{turb:eq:term_full_grad} evaluated for $\TimeHorizon = 0$
 \begin{equation}
-	\left\langle \left[ \exp \left( \FinalTime \Gradients \right) \cdot \ControlDirection_{\mathrm{\NameBhShort}} \right] \cdot \Direction \right\rangle_{\Direction} \propto \frac{e^{\delta \FinalTime_\GradientsSym}}{3} \left[ \left( 1 + e^{-3 \delta \FinalTime_\GradientsSym} \right) \cos \left( \omega \FinalTime_\GradientsAsym/2 \right) + 1 \right].
+	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirection_{\mathrm{\NameBhShort}} \right] \cdot \Direction \right\rangle_{\Direction} \propto \frac{e^{\delta \TimeHorizon_\GradientsSym}}{3} \left[ \left( 1 + e^{-3 \delta \TimeHorizon_\GradientsSym} \right) \cos \left( \omega \TimeHorizon_\GradientsAsym/2 \right) + 1 \right].
 \end{equation}
 
 Finally, as for the case of skew symmetric surfers, we integrate this expression over a Gaussian distribution of the vorticity norm $\FlowVorticityScalar$ to obtain the following estimation of performance
 \begin{equation}\label{turb:eq:performance_surf_full_final}
-	\left\langle \Performance^{\GradientsAsym} \right\rangle \approx \SwimmingVelocity \, \frac{3\pi}{8} \, \frac{ \left( 1 + 2 e^{-3 \delta (\FinalTime_\GradientsSym + \TimeHorizon)} \right) \exp \left( -\left( \FinalTime_\GradientsAsym - \TimeHorizon \right)^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}{\left( 1 + e^{-3 \delta \FinalTime_\GradientsSym} \right) \exp \left( -{\FinalTime_\GradientsAsym}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}.
+	\left\langle \Performance \right\rangle \approx \SwimmingVelocity \, \frac{3\pi}{8} \, \frac{ \left( 1 + 2 e^{-3 \delta (\TimeHorizon_\GradientsSym + \TimeHorizon)} \right) \exp \left( -\left( \TimeHorizon_\GradientsAsym - \TimeHorizon \right)^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}{\left( 1 + e^{-3 \delta \TimeHorizon_\GradientsSym} \right) \exp \left( -{\TimeHorizon_\GradientsAsym}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}.
 \end{equation}
-Using the same values of $\delta$, $\FinalTime_\GradientsSym$, $\sigma_{\FlowVorticityScalar}$ and $\FinalTime_\GradientsAsym$ fitted for the previous models, this model is plotted in Fig.~\ref{fig:surfing_partial_and_models}\textbf{(a-b)}.
+Using the same values of $\delta$, $\TimeHorizon_\GradientsSym$, $\sigma_{\FlowVorticityScalar}$ and $\TimeHorizon_\GradientsAsym$ fitted for the previous models, this model is plotted in Fig.~\ref{fig:surfing_partial_and_models}\textbf{(a-b)}.
 Despite its inability to capture correctly performance for small and large values of the surfing time horizon $\TimeHorizon$, the model captures fairly well the maximal performance.
-This maximal performance is obtained for $\TimeHorizon = \TimeHorizonOpt = \FinalTime_\GradientsAsym$ for which performance is estimated as
+This maximal performance is obtained for $\TimeHorizon = \TimeHorizonOpt \approx \TimeHorizon_\GradientsAsym$ for which performance is estimated as
 \begin{equation}\label{turb:eq:performance_surf_full_optimal}
-	\left\langle \Performance^{\GradientsAsym} \right\rangle(\TimeHorizonOpt) \approx \SwimmingVelocity \, \frac{3\pi}{4} \, \frac{ 1 + e^{-3 \delta (\FinalTime_\GradientsSym + \FinalTime_\GradientsAsym)}}{\left( 1 + e^{-3 \delta \FinalTime_\GradientsSym} \right) \exp \left( -{\FinalTime_\GradientsAsym}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}.
+	\left\langle \Performance \right\rangle(\TimeHorizonOpt) \approx \SwimmingVelocity \, \frac{3\pi}{4} \, \frac{ 1 + e^{-3 \delta (\TimeHorizon_\GradientsSym + \TimeHorizon_\GradientsAsym)}}{\left( 1 + e^{-3 \delta \TimeHorizon_\GradientsSym} \right) \exp \left( -{\TimeHorizon_\GradientsAsym}^2 \sigma_{\FlowVorticityScalar}^2 / 8 \right) + 1}.
 \end{equation}
-Note well that this expression is only valid if $\FinalTime_\GradientsAsym \delta \gg 1$.
+Note well that this expression is only valid for $\TimeHorizon_\GradientsAsym \delta \gg 1$.
 
 Overall, depending on four parameters that require fitting, the model is not very satisfactory to predict performance prior to the evaluation of surfers in turbulence. 
 But the final expression [Eq.~\eqref{turb:eq:performance_surf_full_optimal}] can be used to guess qualitatively how maximal surfing performance varies with flow properties.
-Based on this expression, one may expect surfing performance to vary mainly with $\FinalTime_\GradientsAsym \sigma_{\FlowVorticityScalar}$.
+Based on this expression, one may expect surfing performance to vary mainly with $\TimeHorizon_\GradientsAsym \sigma_{\FlowVorticityScalar}$.
 
-Now assuming the swimming speed dependence of $\FinalTime_\GradientsSym$ and $\FinalTime_\GradientsAsym$ is given by the model described by Eq.~\ref{eq:time_horizon_model}, we may be able to capture the velocity dependence of maximal surfing performance.
-Replacing $\FinalTime_\GradientsSym$ and $\FinalTime_\GradientsAsym$ by $\FinalTime_\GradientsSym / [1 + \alpha_{\mathrm{swim}} (\SwimmingVelocity / \KolmogorovVelocityScale - 1)]$ and $\FinalTime_\GradientsAsym / [1 + \alpha_{\mathrm{swim}} (\SwimmingVelocity / \KolmogorovVelocityScale - 1)]$, we obtain the model plotted in Fig~\ref{fig:surfing_partial_and_models}\textbf{(b)}.
-The model completely overestimates surfing performance. 
+Now assuming the swimming speed dependence of $\TimeHorizon_\GradientsSym$ and $\TimeHorizon_\GradientsAsym$ is given by the model described by Eq.~\ref{eq:time_horizon_model}, we may be able to capture the velocity dependence of maximal surfing performance.
+Replacing $\TimeHorizon_\GradientsSym$ and $\TimeHorizon_\GradientsAsym$ by $\TimeHorizon_\GradientsSym / [1 + \alpha_{\mathrm{swim}} (\SwimmingVelocity / \KolmogorovVelocityScale - 1)]$ and $\TimeHorizon_\GradientsAsym / [1 + \alpha_{\mathrm{swim}} (\SwimmingVelocity / \KolmogorovVelocityScale - 1)]$, we obtain the model plotted in Fig~\ref{fig:surfing_partial_and_models}\textbf{(b)}.
+The model overestimates surfing performance. 
 This suggests that the influence of swimming velocity $\SwimmingVelocity$ on the problem is not completely understood.
 For instance, by inducing preferential sampling of the gradients, $\SwimmingVelocity$ could influence both parameters $\delta$ and $\sigma_{\FlowVorticityScalar}$.
-Moreover, the evolution of $\FinalTime_\GradientsSym$ and $\FinalTime_\GradientsAsym$ with swimming velocity $\SwimmingVelocity$ might not be same as opposed the assumption above.
+Moreover, the evolution of $\TimeHorizon_\GradientsSym$ and $\TimeHorizon_\GradientsAsym$ with swimming velocity $\SwimmingVelocity$ might not be same as opposed the assumption above.
 This highlights the importance for future research to investigate how the statistics of the flow sampled by micro-swimmers are influenced by their swimming velocity $\SwimmingVelocity$ and behavior.
 
 \section{Summary}

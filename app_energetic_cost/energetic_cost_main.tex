@@ -54,7 +54,7 @@ However, if the metabolic power $P_{\mathrm{meta.}}$ is high enough, the problem
 % Then assuming that most plankton have roughly the same density as water $\rho_{\mathrm{plank.}} \approx \rho_{\mathrm{water}}$, the problem ends up depending of two last parameters: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diamater) $d$.
 % As $\SwimmingAngularVelocity$ depend on average solely of the surfing parameter $\TimeHorizon$, the latter and the plankter size $d$ remain the sole parameters of the problem.
 
-\subsection{The cost of swimming: the on/off strategy}\label{sec:on_off}
+\section{The cost of swimming: the on/off strategy}\label{sec:on_off}
 
 Until now, the swimming velocity $\SwimmingVelocity$ of plankters was imposed constant. 
 However, if a constant swimming speed $\SwimmingVelocity$ is not prescribed, an energy efficient plankter may modulate it to achieve energy efficient vertical migration. 
@@ -84,7 +84,7 @@ In our study, we consider the following threshold:
 \end{equation}
 with $\theta_{\mathrm{th.}}$ a threshold angle and $\theta = \theta_{\langle \ControlDirection \rangle_{\theta, \phi}, \SwimmingDirection}$ the angle between $\langle \ControlDirection \rangle_{\theta, \phi} (\Gradients, \Direction)$ and $\SwimmingDirection$ with $\langle \ControlDirection \rangle_{\theta, \phi}$ the preferred average swimming direction of the swimmer.
 
-\begin{wrapfigure}[11]{R}[0.5\width]{0.35\textwidth}
+\begin{wrapfigure}[11]{L}[0.5\width]{0.35\textwidth}
 	\centering
 	\def\svgwidth{0.3\textwidth}
 	\input{chap_end/schemes/optimal_threshold.pdf_tex}
@@ -185,6 +185,6 @@ We first notice that performance of naive swimmers is correctly predicted by the
 The performance of surfers is however not completely captured by Eq.~\eqref{eq:perf_surf} for the smallest values of $\theta_{\mathrm{th.}}$.
 This discrepancy is due to the dependence of surfing performance with swimming velocity (which also caused low surfing performance in Fig.~\ref{fig:energy_efficiency_threshold}\textbf{(b)} corresponding to high swimming power).
 Indeed, $\alpha_{\mathrm{surf}}$ was considered constant to derive the model but in practice it varies and decreases with the swimming velocity $\SwimmingVelocity$.
-As a consequence, performance slightly drops for the lowest thresholds $\theta_{\mathrm{th.}}$ corresponding to the highest swimming speeds.
+As a consequence, compared to the model, performance slightly drops for the lowest thresholds $\theta_{\mathrm{th.}}$ corresponding to the highest swimming speeds.
 
 Overall, the surfing framework can also be used to find efficient strategies in the context of minimal power consumption.

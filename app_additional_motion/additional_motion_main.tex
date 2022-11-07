@@ -5,7 +5,7 @@ Applying this strategy leads to beneficial preferential flow sampling (Chap.~\re
 
 However, the surfing strategy has been derived in the limit of numerous assumptions stated in Tab.~$\ref{tab:problem_assumptions}$ in Chap.~\ref{chap:the_surfing_strategy}.
 While these assumptions are valid in many cases, they limit significantly the richness of the underlying physics and the applicability of our results.
-As a consequence, throughout this chapter we review some additional effects that could be accounted for and propose solutions to address these issues.
+As a consequence, throughout this appendix, we review some additional effects that could be accounted for and propose solutions to address these issues.
 
 % Increased vertical migration of particles and more generally, preferential flow sampling can also be caused by passive phenomena.
 % For example, flow fluctuations may influence the orientation of a passively orienting swimmer and cause that micro-swimmer to sample preferentially specific regions of the flow \citep{durham2013turbulence, gustavsson2016preferential, voth2017anisotropic}.
@@ -18,8 +18,8 @@ In this section, we first focus on the additional effects that could influence t
 We only account for the effects in the overdamped limit that corresponds to $\mathit{St} \ll 1$ defined in Eq.~\eqref{eq:stokes_number}.
 Even more additional effects should be considered if $\mathit{St} \gtrsim 1$.
 
-We first list and describe the additional dynamics than can be accounted.
-Then we describe how these effects could be accounted for in the active control.
+We first list and describe the additional dynamics than can be accounted for.
+Then we describe how these effects could taken into account in the active control.
 
 \subsection{Bottom-heaviness}\label{sec:add_bh}
 
@@ -69,11 +69,11 @@ This also result in non trivial preferential flow sampling that may lead to enha
 To study the influence of shape, one may consider planktonic organisms of spheroidal shape, rather than spherical, of aspect ratio $\lambda_{\mathrm{shape}}$.
 The orientation kinematics are then described by Jeffery's orbits \citep{jeffery_motion_1922}
 \begin{equation}
-    \frac{d \SwimmingDirection}{dt} = \GradientsAsym \cdot \SwimmingDirection + \varLambda_{\mathrm{shape}} \left( \sym \Gradients \cdot \SwimmingDirection - \SwimmingDirection \otimes \SwimmingDirection \, \sym \Gradients \cdot \SwimmingDirection \right),
+    \frac{d \SwimmingDirection}{dt} = \GradientsAsym \cdot \SwimmingDirection + \varLambda_{\mathrm{shape}} \left( \GradientsSym \cdot \SwimmingDirection - [\SwimmingDirection \otimes \SwimmingDirection] \cdot \GradientsSym \cdot \SwimmingDirection \right),
 \end{equation}
-with $\SwimmingDirection$ the symmetry axis of the spheroid and $\varLambda$ a parameter dependant of the plankter shape
-\begin{equation}
-	\varLambda_{\mathrm{shape}} = \frac{\lambda_{\mathrm{shape}} - 1}{\lambda_{\mathrm{shape}} + 1}
+with $\SwimmingDirection$ the symmetry axis of the spheroid and $\varLambda_{\mathrm{shape}}$ a parameter dependant of the plankter shape
+\begin{equation}\label{eq:shape_factor}
+	\varLambda_{\mathrm{shape}} = \frac{\lambda_{\mathrm{shape}} - 1}{\lambda_{\mathrm{shape}} + 1}.
 \end{equation}
 Note the additional term that is function of the symmetric part of the flow velocity gradient $\sym \Gradients$.
 This term is the cause of the alignment of elongated spheroids ($\lambda_{\mathrm{shape}} > 1$ or $\varLambda_{\mathrm{shape}} > 0$) with the stretching axes of the flow.
@@ -115,16 +115,16 @@ Including this effect, the orientation dynamics of such particles reads
 \begin{subequations}
 	\begin{align}
 		\frac{d \SwimmingDirection}{dt} &= \AngularVelocity \times \SwimmingDirection ~~ \text{with}\\
-		\AngularVelocity &= \frac{1}{2} \FlowVorticity + \varLambda_{\mathrm{shape}} \left( \SwimmingDirection \times \sym \Gradients \cdot \SwimmingDirection \right) - \frac{M \TerminalVelocityOrthogonal}{\nu} \left[ \SwimmingVelocity - \TerminalVelocityParallel (\Direction \cdot \SwimmingDirection) \right] (\Direction \times \SwimmingDirection)
+		\AngularVelocity &= \frac{1}{2} \FlowVorticity + \varLambda_{\mathrm{shape}} \left( \SwimmingDirection \times \GradientsSym \cdot \SwimmingDirection \right) - \frac{M_{\mathrm{inert.}} \TerminalVelocityOrthogonal}{\nu} \left[ \SwimmingVelocity - \TerminalVelocityParallel (\Direction \cdot \SwimmingDirection) \right] (\Direction \times \SwimmingDirection)\label{eq:fluid_inertia_torque}
 	\end{align}
 \end{subequations}
 with $\TerminalVelocityVector$, the orientation dependant terminal velocity reached by the plankter in a quiescent fluid. 
 This terminal velocity is composed of $\TerminalVelocityOrthogonal$ and $\TerminalVelocityParallel$.
 These components of the terminal velocity correspond to the terminal velocity reached either when falling in the direction of the spheroids major axis ($\TerminalVelocityParallel$) or when falling in the direction orthogonal to that axis ($\TerminalVelocityOrthogonal$). 
-The terminal velocity values $\TerminalVelocityOrthogonal$ and $\TerminalVelocityParallel$ can be deduced from plankter and fluid properties and are proportional to $(\rho_p - \rho_f) g l^2 / \mu$ with coefficient of proportionality that solely depends on the aspect ratio lambda $\lambda$ \citep{dahlkild2011finite, ardekani2017sedimentation, gustavsson2019effect}.
+The terminal velocity values $\TerminalVelocityOrthogonal$ and $\TerminalVelocityParallel$ can be deduced from plankter and fluid properties and are proportional to $(\rho_p - \rho_f) g d^2 / \mu$ with coefficient of proportionality that depends only on the aspect ratio lambda $\lambda$ \citep{dahlkild2011finite, ardekani2017sedimentation, gustavsson2019effect}.
 The angular velocity of the plankter is noted $\AngularVelocity$. 
-The shape factor $M$ is solely dependant of the aspect ratio $\lambda$.
-This factor ranges from $M = 0$ for spheres to $M \approx 0.1$ for elongated plankter shapes. 
+The shape factor $M_{\mathrm{inert.}}$ is dependant of the aspect ratio $\lambda_{\mathrm{shape}}$ alone.
+This factor ranges from $M_{\mathrm{inert.}} = 0$ for spheres to $M_{\mathrm{inert.}} \approx 0.1$ for elongated plankter shapes. 
 Its expression and the detailed derivation is given in \citet{qiu2022gyrotactic}.
 
 Note how the third term, corresponding to the fluid inertia torque, creates a gyrotactic torque [$\propto - (\Direction \times \SwimmingDirection)$] when $\SwimmingVelocity > \TerminalVelocityOrthogonal (\Direction \cdot \SwimmingDirection)$.
@@ -136,7 +136,7 @@ Again, while the orientation dynamics are well understood \citep{qiu2022gyrotact
 \subsection{Implications for active control}
 
 As all previously described phenomena affect plankter rotation dynamics, if they occur they need to be taken into account to develop a strategy for active reorientation control.
-All this induced torques only depend on plankters parameters (assumed to be known by the plankter) and the local velocity gradient tensor $\Gradients$ and the direction $\Direction$, both assumed to be sensed by the plankter.
+All this induced torques only depend on plankter parameters (assumed to be known by the plankter), the local velocity gradient tensor $\Gradients$ and the direction $\Direction$, both assumed to be measurable.
 Based on this information, surfers could account for these additional passive torques and adapt their reorientation dynamics accordingly.
 
 We note $\AngularVelocity$ the total angular velocity of the plankter.
@@ -148,7 +148,7 @@ The total angular velocity $\AngularVelocity$ then reads
 		\AngularVelocity_{\mathrm{pass.}} = &\frac{1}{2} \FlowVorticity \quad &&\text{(vorticity)}\\ 
 		&- \frac{1}{2\ReorientationTime} (\Direction \times \SwimmingDirection) \quad &&\text{(bottom-heaviness)}\\ 
 		&+\varLambda_{\mathrm{shape}} \left( \SwimmingDirection \times \sym \Gradients \cdot \SwimmingDirection \right) \quad &&\text{(Jeffery's orbits)}\\
-		&-\frac{M \TerminalVelocityOrthogonal}{\nu} \left[ \SwimmingVelocity - \TerminalVelocityParallel (\Direction \cdot \SwimmingDirection) \right] (\Direction \times \SwimmingDirection) \quad &&\text{(fluid inertia)}.
+		&-\frac{M_{\mathrm{inert.}} \TerminalVelocityOrthogonal}{\nu} \left[ \SwimmingVelocity - \TerminalVelocityParallel (\Direction \cdot \SwimmingDirection) \right] (\Direction \times \SwimmingDirection) \quad &&\text{(fluid inertia)}.
 	\end{align}
 \end{subequations}
 
@@ -193,7 +193,7 @@ Starting with the case of a quiescent or uniform flow $\Gradients = \matr{0}$, t
 Note how the optimal swimming direction $\ControlDirection_{\mathrm{\NameSurfShort, set.}}$ might differ from the vertical $\Direction$ for small swimming velocities $\SwimmingVelocity$.
 Indeed, if the difference of settling velocities is large enough $\TerminalVelocityParallel - \TerminalVelocityOrthogonal$, tilting away from the vertical reduces settling and might be advantageous.
 However if the goal it to maximize settling $\Direction = -\DirectionSettling$ rather than upward migration, this effect vanishes and the optimal orientation would simply reduce to $\ControlDirection_{\mathrm{\NameSurfShort, set.}} = \Direction$.
-Moreover note that in when the flow is not quiescent, in the limit $\SwimmingVelocity \gg \left( \TerminalVelocityParallel - \TerminalVelocityOrthogonal \right)$ (corresponding to either no settling or a spherical shape), the effect of settling vanishes and the optimal solution results simply in the surfing strategy $\ControlDirection_{\mathrm{\NameSurfShort, set.}} = \ControlDirectionOpt$.
+Moreover note that when the flow is not quiescent, in the limit $\SwimmingVelocity \gg \left( \TerminalVelocityParallel - \TerminalVelocityOrthogonal \right)$ (corresponding to either no settling or a spherical shape), the effect of settling vanishes and the optimal solution results simply in the surfing strategy $\ControlDirection_{\mathrm{\NameSurfShort, set.}} = \ControlDirectionOpt$.
 
 Even though Eq.~\eqref{turb:eq:inertialess_settling_maximization} is not solvable analytically in the general case, it can easily be solved using any optimization procedure.
 For example, one could use the Barzilai-Borwein gradient ascent method \citep{barzilai1988two, fletcher2005barzilai}. 
@@ -206,11 +206,11 @@ Note that $\partial f / \partial \ControlDirection$ can be computed from Eq.~\eq
 \begin{equation}
 	\frac{\partial f}{\partial \ControlDirection}(\ControlDirection) = \SwimmingVelocity \ControlDirectionOptNN - \left( \TerminalVelocityParallel - \TerminalVelocityOrthogonal \right) \left[ \left( \DirectionSettling \cdot \ControlDirection \right) \ControlDirectionOptNN - \left( \ControlDirectionOptNN \cdot \ControlDirection \right) \DirectionSettling \right],
 \end{equation}
-with $\ControlDirectionOptNN = \exp [ \TimeHorizon \left( \Gradients \right)^T ] \cdot \Direction$.
+with $\ControlDirectionOptNN = \exp [ \TimeHorizon ( \Gradients )^T ] \cdot \Direction$.
 
 This result suggest that additional translation dynamics can significantly impact navigation strategies in the context of plankton dynamics.
 Still inertialess settling can be accounted for to find a new navigation strategy described by $\ControlDirection_{\mathrm{\NameSurfShort, set.}}$.
-In the context of anisotropic settling plankters, the benefit of this s\textit{settling-informed} surfing strategy ($\ControlDirection = \ControlDirection_{\mathrm{\NameSurfShort, set.}}$) over the original surfing behavior ($\ControlDirection = \ControlDirectionOpt$) is yet to be quantified in turbulence.
+In the context of anisotropic settling plankters, the benefit of this \textit{settling-informed} surfing strategy ($\ControlDirection = \ControlDirection_{\mathrm{\NameSurfShort, set.}}$) over the original surfing behavior ($\ControlDirection = \ControlDirectionOpt$) is yet to be quantified in turbulence.
 
 \subsection{Inertial motion}\label{sec:passive_processes_inertial_effects}
 
@@ -238,7 +238,8 @@ with $\TerminalVelocity = \InertialDelay g$ the terminal settling velocity of pa
 The maximal speed up observed was up to $\Performance \approx 8 \TerminalVelocity$ for $\TerminalVelocity \approx 0.05 \FlowVelocityScalar_{\mathrm{max}}$ and $\InertialDelay = \FlowVorticityScalar_{\mathrm{max}}$.
 \citet{maxey1987gravitational} repeated the numerical experiment in a Gaussian random flow field, representing turbulence, where a maximal speed up of $\Performance \approx (1/2) \TerminalVelocity$ has been observed for $\TerminalVelocity \approx 0.4 \FlowVelocityScalar_{\mathrm{rms}}$ and $\InertialDelay \approx T_{L}$ with $T_{L}$ the large-eddy turnover time (Chap.~{chap:numeric}, Sec.~{chap:sec:numeric_hit}).
 Inducing a centrifugal force, inertia effects sweep away particles from vortices, propelling them in beneficial strain regions of the flow.
-Verified in direct numerical simulations of homogeneous isotropic turbulence, \citet{wang1993settling} shows this effects to be particularly strong for $\TerminalVelocity / \KolmogorovVelocityScale \approx 1$ and $\InertialDelay / \KolmogorovTimeScale \approx 1$.
+
+Verified in direct numerical simulations of homogeneous isotropic turbulence, \citet{wang1993settling} show this effects to be particularly strong for $\TerminalVelocity / \KolmogorovVelocityScale \approx 1$ and $\InertialDelay / \KolmogorovTimeScale \approx 1$.
 In that case, they show settling can be sped up by $50\%$.
 Since then, preferential sweeping has been observed in a wide variety of simulations \citep{ireland2016effect, tom2019multiscale, bragg2021mechanisms} and experiments \citep{sumbekova2017preferential, petersen2019experimental} and in a few field measures \citep{li2021evidence}.
 
@@ -271,8 +272,8 @@ The result in the context of a kinematic description of motion.
 Our results remain valid regardless of the kinematic motion mechanism, that can either be active control, inertia or a combination of both.
 We then look for a kinematic equation motion able to describe correctly the motion of inertial particles.
 To do so, we use a similar approach to that used in equilibrium-Eulerian methods to simulate particle loaded flows \citep{ferry2001fast, ferry2003locally, balachandar2010turbulent, cerminara2016ashee}.
-First, if $\InertialDelay \ll \KolmogorovTimeScale$, one can assume that $d^2 \ParticlePosition / dt^2 = d \FlowVelocity / dt$.
-If this assumption in used in the equation of motion described in Eq.~\eqref{eq:inertial_motion}, we obtain
+First, if $\InertialDelay \ll \KolmogorovTimeScale$, one can assume that $d^2 \ParticlePosition / dt^2 \approx d \FlowVelocity / dt$.
+If this assumption is used in the equation of motion described in Eq.~\eqref{eq:inertial_motion}, we obtain
 \begin{equation}\label{eq:inertial_motion_kinematic}
 	\left( \matr{\mathit{Id}} + \InertialDelay \Gradients \right) \cdot \frac{d \ParticlePosition}{dt} = \FlowVelocity + \TerminalVelocity \, \Direction - \InertialDelay \frac{\partial \FlowVelocity}{dt},
 \end{equation}
@@ -283,9 +284,9 @@ This implicit expression can be be solved with any linear solver and in the case
 \end{equation}
 This kinematic model is used to integrate particle trajectories in our simulation of turbulence.
 We show in Fig.~\ref{fig:passive_inertial_delay} that this kinematic model enables to capture fairly well the settling efficiency of inertial particles for moderate inertial delays $\InertialDelay \lesssim \KolmogorovTimeScale$.
-Note the explosionof the uncertainty for the largest inertial delays.
-This is simply due to the singularity of the model.
-This singularity is discussed in \citep{ferry2001fast} and several methods can be used to limit the effect of this singularity.
+Note the explosion of the uncertainty for the largest inertial delays.
+This is simply due to the singularity of the model that occurs when $\matr{\mathit{Id}} + \InertialDelay \Gradients$ is close of not being inversible.
+This singularity is discussed in \citet{ferry2001fast} and several methods can be used to limit the effect of this singularity.
 
 \subsubsection{Heavy inertial surfing strategy}
 
@@ -295,7 +296,7 @@ Starting from Eq.~\eqref{eq:inertial_motion_kinematic}, and deploying the same p
 	\text{with} \quad \ControlDirectionNN_{\mathrm{\NameSurfShort}, \mathrm{inert.}} = \left[ \exp \left( \TimeHorizon \left[ \matr{\mathit{Id}} + \InertialDelay \left(\Gradients\right) \right]^{-1} \Gradients \right) \left[ \matr{\mathit{Id}} + \InertialDelay \left(\Gradients\right) \right]^{-1} \right]^T \cdot \Direction.
 \end{multline}
 
-The performance of that new surfing strategy is then tested in our simulations and compared to simple settling inertial particles and to inertial surfers that do not adapt to their inertia [Fig.~\ref{fig:passive_inertial_surf}].
+The performance of that new surfing strategy is then tested in our simulations and compared to simple settling inertial particles and to inertial surfers that do not adapt to their inertia (Fig.~\ref{fig:passive_inertial_surf}).
 \begin{figure}%[H]
 	\centering
 	\input{chap_more/plots/passive/inertial_surf}
@@ -311,9 +312,9 @@ On the contrary the inertial surfing strategy, while it provides a slight advant
 
 \subsubsection{Estimation of settling performance}
 
-To grasp a better understanding of these dynamics, we now look for an estimate of settling performance.
+To grasp a better understanding of these dynamics, we now look for an estimate of settling performance in the context of inertial particles.
 To obtain this estimate, we apply exactly the same protocol that is used in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:perf_estimation} to estimate surfing performance.
-The main idea is to model the flow experience by these inertial particles as a succession of linear flows that remain the same for a duration $\FinalTime$.
+The main idea is to model the flow experienced by these inertial particles as a succession of linear flows that remain the same for a duration $\FinalTime$.
 Considering a given linear flow of this succession, that flow is characterized by a velocity $\FlowVelocity_0$ at $\vec{x} = \vec{0}$ and $t = 0$, a constant gradient tensor $\Gradients$ and a constant flow acceleration $\partial \FlowVelocity / \partial t$.
 The flow velocity field then reads 
 \begin{equation}
@@ -440,7 +441,7 @@ This model is plotted in Fig.~\ref{fig:passive_inertial_delay} with the value of
 While the model completely overshoots the settling performance, it shows that the contribution of the skew symmetric part of the flow is the actual cause of enhanced settling performance.
 
 Similarly to what has been done in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:partial}, one could improve the model by assuming a Gaussian distribution of vorticity and one could apply a similar approach to obtain an estimation that depend on both contributions at the same time.
-As this is not the main interest of this study, we leave these aspects to future research.
+As this is not the main interest of this study, we leave these aspects for future research.
 
 
 % \subsection{Light inertial settling}

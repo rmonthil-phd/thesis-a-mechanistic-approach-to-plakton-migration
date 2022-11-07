@@ -224,7 +224,7 @@
 	\begin{minipage}[c]{.22\linewidth}
 		\centering\includegraphics[height=3em]{images/logo_irphe.pdf}
 	\end{minipage}\hfill
-	\begin{minipage}[c]{.1\linewidth}
+	\begin{minipage}[c]{.05\linewidth}
 		\centering\includegraphics[height=3em]{images/logo_cnrs.pdf}
 	\end{minipage}\hfill
 	\begin{minipage}[c]{.23\linewidth}
@@ -243,7 +243,7 @@
     \setlength{\parindent}{0pt}
     %%\fontfamily{pag}\selectfont
     \sffamily
-    {\Huge\bfseries{\begin{Spacing}{1.15}\textcolor{DissertationColor}{\@title}\end{Spacing}}}
+    {\Huge\bfseries{\begin{Spacing}{1.05}\textcolor{DissertationColor}{\@title}\end{Spacing}}}
     \vspace*{2ex}
     {\Large\textit{\textcolor{DissertationColor}{\@tagline}}}\\[1cm]
     
@@ -271,13 +271,13 @@
 			B. FAVIER & CR CNRS, IRPHE, Marseille & Co-directeur
 		\end{tabular*}
     }\\[0.75cm]
-    {\normalsize Doctoral school: \textbf{ED 353}: Sciences pour l’ingénieur:
+    {\normalsize Doctoral school: \textbf{\textcolor{DissertationColor}{ED 353}}: Sciences pour l’ingénieur:
     Mécanique, Physique, Micro et Nanoélectronique}\\[0.05cm]
-    {\normalsize Student of \textbf{\@faculty}}\\[0.05cm]
-    {\normalsize Working in the \textbf{\@department} lab}\\[0.05cm]
-    {\normalsize that is also tutored by \textbf{Aix-Marseille Université} and the \textbf{CNRS}}\\[0.05cm]
+    {\normalsize Student of \textbf{\textcolor{DissertationColor}{\@faculty}}},\\[0.05cm]
+    {\normalsize working in the \textbf{\textcolor{DissertationColor}{\@department}} lab,}\\[0.05cm]
+    {\normalsize that is also tutored by \textbf{\textcolor{DissertationColor}{Aix-Marseille Université}} and the \textbf{\textcolor{DissertationColor}{CNRS}}.}\\[0.05cm]
     %{\normalsize \textbf{Founded by} the European Research Council}\\[0.05cm]
-    {\normalsize This project has received funding from the \textbf{European Research Council} (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement No 834238).}\\[0.05cm]
+    {\normalsize This project has received funding from the \textbf{\textcolor{DissertationColor}{European Research Council}} (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement No 834238).}\\[0.05cm]
     \vfill
     {\bfseries Defended on \@degreeDate}\\[\baselineskip]
 	\parbox[t]{0.80\linewidth}{\footnotesize\textit{A \@doctype\ submitted in partial fulfilment of the requirements for the degree of \@degreeName}.}    

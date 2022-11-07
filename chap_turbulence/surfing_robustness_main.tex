@@ -74,11 +74,11 @@ The parameters of the simulation are summed up in Tab.~\ref{tab:jhtdb_channel_si
 	\center
 	\begin{tabular}{w{c}{0.15\linewidth}w{c}{0.15\linewidth}w{c}{0.23\linewidth}w{c}{0.15\linewidth}}
 		\rowcolor{ColorTabularParameters}
-		$\mathit{Re}_{\nu}$ & $\mathit{Re}_b$ & $n_1 \times n_2 \times n_3$ & $l_x/h$ \\[4pt]
+		$\mathit{Re}_{\nu}$ & $\mathit{Re}_b$ & $n_1 \times n_2 \times n_3$ & $l_1/h$ \\[4pt]
 		\rowcolor{ColorTabularValues}
 		5186 & $1.25\times10^{5}$ & $10240 \times 1536 \times 7680$ & $8\pi$ \\[4pt]
 		\rowcolor{ColorTabularParameters}
-		$L_y/h$ & $L_z/h$ & $\delta_{\nu}/h$ & $u_{\tau}/U_b$ \\[4pt]
+		$l_2/h$ & $l_3/h$ & $\delta_{\nu}/h$ & $u_{\tau}/U_b$ \\[4pt]
 		\rowcolor{ColorTabularValues}
 		2 & $3\pi$ & $1.9\times10^{-4}$ & $4.15\times10^{-2}$
 	\end{tabular}
@@ -124,7 +124,7 @@ Contrary to the Poiseuille flow that surfers cannot exploit with such an alignme
 This shows that this strategy is robust to turbulence heterogeneities.
 Surprisingly however, the improvement provided by the adaptive strategy is marginal.
 
-To understand why we need to look closer to how performance distributes along the vertical position $x_2$.
+To understand why, we need to look closer to how performance distributes along the vertical position $x_2$.
 We plot then the effective vertical velocity $\Performance$ as a function of the vertical position $x_2$ for surfers with a constant time horizon $\TimeHorizon$ in Fig.~\ref{fig:channel_perf_y}\textbf{(a)} and for adaptive surfers in Fig.~\ref{fig:channel_perf_y}\textbf{(b)}.
 Note the logarithmic scale of the vertical position.
 The bottom of the figure corresponds to the near wall region and the top of the figure corresponds to the centerline of the channel.
@@ -145,7 +145,7 @@ When there are no horizontal gradient of vertical velocity, the best one can do 
 This quantity then characterizes how much the flow can be exploited.
 Note however, as observed in Chap.~\ref{chap:surfing_on_turbulence}, Sec.\ref{sec:surfing_time_horizon}, surfing performance also depends on the flow correlation time.
 This correlation time is captured at first order by the Kolmogorov time scale $\KolmogorovTimeScale$ that also varies with vertical position.
-To capture how much one can exploit the flow in more details, the intensity of the gradient $\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$ is normalized by a local vale of $\langle \KolmogorovTimeScale \rangle_{x_2}(x_2)$ averaged over a plane of constant altitude $x_2$.
+To capture how much one can exploit the flow in more details, the intensity of the gradient $\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$ is normalized by a local value of $\langle \KolmogorovTimeScale \rangle_{x_2}(x_2)$ averaged over a plane of constant altitude $x_2$.
 Close to the wall, in the viscous sublayer, the flow is completely parallel to the flow hence no gradient of vertical velocity.
 As velocity fluctuations develop away from the wall, the gradient intensity increase until a maximum is reached at $x_2 \approx h / 20$.
 Higher, the intensity of the gradient decrease until the centerline of the flow is reached.
@@ -175,7 +175,7 @@ That is why this advantage is barely visible in Fig.~\ref{fig:channel_perf_y}.
 
 To further emphasize the benefit of the adaptive surfing strategy, we evaluate the maximal optimal parameter of both strategies, $\TimeHorizon^*$ and $\alpha^*$, that lead to maximal performance as a function of the surfer's distance to the wall $x_2$ (Fig.~\ref{fig:max_channel_binned_velocity_y}).
 As expected, the optimal surfing parameter $\TimeHorizonOpt$ strongly depends on depth $x_2$ [Fig.~\ref{fig:max_channel_binned_velocity_y}\textbf{(a)}] compared to $\alpha^{*}$ for the adaptive strategy.
-Note as the near flow region is not exploitable ($\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}} = 0$), the performance is independent of the surfing parameter ($\TimeHorizon$ or $\alpha$), hence the almost random optimal values of these parameters we obtain for $x_2 \lesssim 0.01 h$.
+Note as the near flow region is not exploitable ($\norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}} \approx 0$), the performance is independent of the surfing parameter ($\TimeHorizon$ or $\alpha$), hence the almost random value of $\alpha^{*}$ we obtain for $x_2 \lesssim 0.01 h$.
 
 Overall this shows the proposed navigation strategy can be adapted to account for variations of turbulence intensity.
 Evaluated in a turbulent channel flow, surfing remains effective in heterogeneous turbulence, more representative of plankton habitats.
@@ -196,7 +196,7 @@ The main processing challenge of the surfing strategy [Eq.~\eqref{turb:eq:surfin
 The surfing strategy can be approximated by the following series (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_interpretation}).
 \begin{equation}\label{eq:exp_series}
 	\ControlDirectionOpt = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}}, \quad \text{with} \quad 
-	\ControlDirectionOptNN = \sum_{k = 0}^{\infty} \frac{\TimeHorizon^k}{k!} \left[  \left( \Gradients \right)^k \right]^T \cdot \Direction = \Direction + \TimeHorizon \, \vec{\nabla} \FlowVelocity_z + \dotsb
+	\ControlDirectionOptNN = \sum_{k = 0}^{\infty} \frac{\TimeHorizon^k}{k!} \left[  ( \Gradients )^k \right]^T \cdot \Direction = \Direction + \TimeHorizon \, \vec{\nabla} \FlowVelocity_z + \dotsb
 \end{equation}
 In practice, the series cannot be evaluated with an infinite number of terms and one has to stop eventually after $n+1$ term.
 Doing so result in an approximation of order $n$ in term of $\TimeHorizon \norm{\Gradients}$.
@@ -311,7 +311,7 @@ Still, for a smaller Reynolds number $\mathit{Re}_{\lambda} = 11$, performance d
 This largest filter length is actually of the order of half of the integral scale $L = 19 \KolmogorovScale$ (Tab.~\ref{tab:snoopy_simulation_parameters}). 
 The filtering surfer then averages the gradient over a large part of the flow and therefore the intensity of the measure itself should drop, that explains their poor performance.
 
-For $\mathit{Re}_{\lambda} = 418$, the effective vertical velocity $\Performance$ displays interesting features [Fig.~\ref{fig:surfing_filtered}\textbf{(a)}].
+For $\mathit{Re}_{\lambda} = 418$ however, the effective vertical velocity $\Performance$ displays interesting features [Fig.~\ref{fig:surfing_filtered}\textbf{(a)}].
 First for the slowest swimming velocity $\SwimmingVelocity = \KolmogorovVelocityScale$, as one would expect, we observe that performance decrease with the filter length $\FilterLength$.
 Indeed, as the averaging length $\FilterLength$ increases, the measure of the flow is degraded: the gradient measured does not correspond exactly to the actual gradient at the position of the plankter, hence the performance decreases.
 However, as swimming speed increases, $\Performance$ is not a monotonic function of $\FilterLength$ anymore.
@@ -333,9 +333,9 @@ This suggests that averaging the flow measure could actually be beneficial for t
   	\label{fig:filtering_surfers}
 \end{figure}
 We propose a possible explanation for this phenomenon illustrated in Fig.~\ref{fig:filtering_surfers}.
-If the plankter swimming speed $\SwimmingVelocity \ll \eta \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(a)}] is small enough, the plankter does not have the time to reach the limit of the flow feature before that structure is dissipated after a time $\sim \KolmogorovTimeScale$. 
+If the plankter swimming speed $\SwimmingVelocity \ll \eta / \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(a)}] is small enough, the plankter does not have the time to reach the limit of the flow feature before that structure is dissipated after a time $\sim \KolmogorovTimeScale$. 
 This would lead to the foraging of a vertical velocity of $\FlowVelocity_{\DirectionScalar}(\ParticlePosition) \propto \SwimmingVelocity \KolmogorovTimeScale \norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$.
-If however the plankter swimming speed is large enough, $\SwimmingVelocity \gg \eta \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(b)}], the plankter reaches the limit of the flow feature before that structure is dissipated.
+If however the plankter swimming speed is large enough, $\SwimmingVelocity \gg \eta / \KolmogorovTimeScale$ [Fig.~\ref{fig:filtering_surfers}\textbf{(b)}], the plankter reaches the limit of the flow feature before that structure is dissipated.
 The surfing strategy then reaches a local optimum and as it relies on gradient ascent method, it is not able to get out of it.
 This limits the foraging of vertical flow velocity to $\FlowVelocity_{\DirectionScalar}(\ParticlePosition) \propto \KolmogorovScale \norm{\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}}$.
 If however the plankter is able to filter the gradients [Fig.~\ref{fig:filtering_surfers}\textbf{(c)}], it may ignore the smaller gradients.
@@ -430,12 +430,12 @@ Overall, surfing is robust to these various sources of noise: small noise intens
 
 \subsection{Limited reorienting skills}\label{sec:surfing_on_turbulence_rtime}
 
-So far we assumed the instantaneous reorientation of plankters that lead to the equations of motion \eqref{turb:eq:motion}.
+So far we assumed the instantaneous reorientation of plankters and that lead to the equations of motion \eqref{turb:eq:motion}.
 This assumption holds for plankters that are able to exert a large reorientation torque compared to the one induced by the flow.
 
 \subsubsection{Finite reorientation time}
 
-When the active torque plankters can produced is limited compared to the flow induced torque, the equation of plankter orientation, Eq.~\eqref{turb:eq:p_motion}, introduced in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_problem}, should be replaced by \citep{Pedley1992}
+When the active torque plankters can produce is limited compared to the flow induced torque, the equation of plankter orientation, Eq.~\eqref{turb:eq:p_motion}, introduced in Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_problem}, should be replaced by \citep{Pedley1992}
 \begin{equation}\label{eq:turb_pedley}
 		\frac{d \SwimmingDirection}{d t}  =
 		\frac{1}{2} \FlowVorticity (\ParticlePosition, t) \times \SwimmingDirection + \frac{1}{2 \ReorientationTime} \left[ \ControlDirection - (\ControlDirection \cdot \SwimmingDirection) \SwimmingDirection \right],
@@ -554,4 +554,5 @@ In this chapter, we demonstrated that the surfing strategy
 			\item it is robust to \textbf{limited reorientation skills} (Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:surfing_on_turbulence_rtime})
 		\end{itemize}
 \end{itemize}
-Furthermore, this analysis of surfing robustness brought to light the \textbf{benefit of spatial filtering} of the measure of the gradients $\Gradients$ for fast surfers and the proposition of another \textbf{control-based active reorientation model} for plankters.
+Furthermore, this analysis of surfing robustness brought to light the \textbf{benefit of spatial filtering} of the measure of the gradients $\Gradients$ for fast surfers.
+In addition, we propose the use of a \textbf{control-based active reorientation model} to model the reorientation of plankters.
