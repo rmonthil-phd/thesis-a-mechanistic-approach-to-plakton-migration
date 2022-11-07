@@ -36,7 +36,7 @@ Indeed, this strategy is a reactive behavior that directly links the measure of 
 Up to this point, the target direction $\Direction$ considered is independent of time and corresponds to the vertical.
 However any target direction can be considered in practice.
 As a consequence, by setting $\Direction$ appropriately, one can use the surfing strategy to address additional navigation problems.
-Note that in the case that $\Direction$ also evolves in time (characterizing the direction towards a prey to catch for instance), we expect the time horizon $\TimeHorizon$ to depend on temporal statistics of both the measures: $\TimeHorizon \lesssim \min(1/\norm{d\Direction/dt}, 1/\norm{d\Gradients/dt})$.
+Note that in the case that $\Direction$ also evolves in time (characterizing the direction towards a prey to catch for instance), we expect the time horizon $\TimeHorizon$ to depend on temporal statistics of both the measures: $\TimeHorizon \lesssim \min(1/\norm{d\Direction/dt}, \norm{\Gradients}/\norm{d\Gradients/dt})$.
 
 We conclude this thesis by pointing out the main challenges that remain to be addressed towards the better description of the plankter behavior in response to local flow measure.
 We first discuss of the fundamental question of the flow sampled by swimmers.
