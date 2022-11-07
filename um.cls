@@ -256,7 +256,7 @@
 		\begin{tabular*}{\textwidth}{ l c r}
 			\'E. CLIMENT & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, ENSEEIHT, IMFT, Toulouse\end{tabular}\def\arraystretch{1.3} & Rapporteur\\
 			A. SEMINARA & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, unige, DICCA, Genova \end{tabular}\def\arraystretch{1.3} & Rapporteure\\
-			M. DIBENEDETTO & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Assistant professor}, UW, \\ Mechanical Engineering, Washington \end{tabular}\def\arraystretch{1.3} & \'Examinatrice\\
+			M. DIBENEDETTO & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Assistant professor}, Univ. of Washington, \\ Mechanical Engineering, Washington \end{tabular}\def\arraystretch{1.3} & \'Examinatrice\\
 			A. CELANI & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Research scientist}, ICTP, Trieste \end{tabular}\def\arraystretch{1.3}  & \'Examinateur\\
 			M. KOEHL & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, University of California, \\ Integrative Biology, Berkeley \end{tabular}\def\arraystretch{1.3} & Invitée\\
 			B. FAVIER & \textit{CR} CNRS, IRPHE, Marseille & Co-directeur\\
