@@ -245,41 +245,32 @@
     \sffamily
     {\Huge\bfseries{\begin{Spacing}{1.05}\textcolor{DissertationColor}{\@title}\end{Spacing}}}
     \vspace*{2ex}
-    {\Large\textit{\textcolor{DissertationColor}{\@tagline}}}\\[1cm]
+    {\Large\textit{\textcolor{DissertationColor}{\@tagline}}}\\[0.25cm]
     
     {\LARGE\bfseries \textsc{\@author}}\\[0.2cm]
     {\large \textbf{Ph.D. thesis} supervised by}
     \@ifundefined{@cosupervisor}{\@supervisor}{\textbf{\@supervisor} and \textbf{\@cosupervisor}}\\[0.75cm]
-    {\large \textbf{Jury:}}\\[0.25cm]
+    {\large \textbf{Jury members:}}\\ %[0.0cm]
     {\normalsize
-		% \begin{tabular*}{\textwidth}{ l c r}
-			% \'Eric CLIMENT & \textit{Pr.}, ENSEEIHT, IMFT, Toulouse & Referee\\
-			% Agnese SEMINARA & \textit{Pr.}, unige, DICCA, Genova & Referee\\
-			% Antonio CELANI & \textit{Res. sci.}, ICTP, Trieste & Examiner\\
-			% Michelle DIBENEDETTO & \textit{Ass. pr.}, UW, Mech. Eng., Wash. & Examiner\\
-			% Mimi KOEHL & \textit{Pr.}, UC, IB, Berkeley & Invited\\
-			% Christophe ELOY & \textit{Pr.}, Cent. Méd., IRPHE, Marseille & Supervisor\\
-			% Benjamin FAVIER & CR CNRS, IRPHE, Marseille & Co-supervisor
-		% \end{tabular*}
+    	\def\arraystretch{1.3}
 		\begin{tabular*}{\textwidth}{ l c r}
-			\'E. CLIMENT & \textit{Pr.}, ENSEEIHT, IMFT, Toulouse & Rapporteur\\
-			A. SEMINARA & \textit{Pr.}, unige, DICCA, Genova & Rapporteure\\
-			A. CELANI & \textit{Res. sci.}, ICTP, Trieste & \'Examinateur\\
-			M. DIBENEDETTO & \textit{Ass. pr.}, UW, Mech. Eng., Wash. & \'Examinatrice\\
-			M. KOEHL & \textit{Pr.}, UC, IB, Berkeley & Invitée\\
-			C. ELOY & \textit{Pr.}, Cent. Méd., IRPHE, Marseille & Directeur\\
-			B. FAVIER & CR CNRS, IRPHE, Marseille & Co-directeur
+			\'E. CLIMENT & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, ENSEEIHT, IMFT, Toulouse\end{tabular}\def\arraystretch{1.3} & Rapporteur\\
+			A. SEMINARA & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, unige, DICCA, Genova \end{tabular}\def\arraystretch{1.3} & Rapporteure\\
+			M. DIBENEDETTO & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Assistant professor}, UW, \\ Mechanical Engineering, Washington \end{tabular}\def\arraystretch{1.3} & \'Examinatrice\\
+			A. CELANI & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Research scientist}, ICTP, Trieste \end{tabular}\def\arraystretch{1.3}  & \'Examinateur\\
+			M. KOEHL & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, University of California, \\ Integrative Biology, Berkeley \end{tabular}\def\arraystretch{1.3} & Invitée\\
+			B. FAVIER & \textit{CR} CNRS, IRPHE, Marseille & Co-directeur\\
+			C. ELOY & \def\arraystretch{1.0}\begin{tabular}{@{}c@{}}\textit{Professor}, Centrale Méditerranée, \\ IRPHE, Marseille \end{tabular}\def\arraystretch{1.3} & Directeur
 		\end{tabular*}
-    }\\[0.75cm]
+		\def\arraystretch{1.0}
+    }\\[0.5cm]
     {\normalsize Doctoral school: \textbf{\textcolor{DissertationColor}{ED 353}}: Sciences pour l’ingénieur:
     Mécanique, Physique, Micro et Nanoélectronique}\\[0.05cm]
-    {\normalsize Student of \textbf{\textcolor{DissertationColor}{\@faculty}}},\\[0.05cm]
-    {\normalsize working in the \textbf{\textcolor{DissertationColor}{\@department}} lab,}\\[0.05cm]
-    {\normalsize that is also tutored by \textbf{\textcolor{DissertationColor}{Aix-Marseille Université}} and the \textbf{\textcolor{DissertationColor}{CNRS}}.}\\[0.05cm]
+    {\normalsize Student of \textbf{\textcolor{DissertationColor}{\@faculty}} working in the \textbf{\textcolor{DissertationColor}{\@department}} lab (also tutored by \textbf{\textcolor{DissertationColor}{Aix-Marseille Université}} and the \textbf{\textcolor{DissertationColor}{CNRS}}).}\\[0.05cm]
     %{\normalsize \textbf{Founded by} the European Research Council}\\[0.05cm]
     {\normalsize This project has received funding from the \textbf{\textcolor{DissertationColor}{European Research Council}} (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement No 834238).}\\[0.05cm]
     \vfill
-    {\bfseries Defended on \@degreeDate}\\[\baselineskip]
+    {\bfseries Defended on \@degreeDate}\\[0.1cm]
 	\parbox[t]{0.80\linewidth}{\footnotesize\textit{A \@doctype\ submitted in partial fulfilment of the requirements for the degree of \@degreeName}.}    
 }
 \thispagestyle{empty}
