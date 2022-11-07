@@ -1,4 +1,4 @@
-%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14), www.inkscape.org
+%% Creator: Inkscape 1.2.1 (9c6d41e410, 2022-07-14, custom), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'turbulence_spectrum.pdf' (pdf, eps, ps)
 %%
@@ -56,20 +56,20 @@
     \put(0,0){\includegraphics[width=\unitlength,page=1]{turbulence_spectrum.pdf}}%
     \put(0.05718535,0.38377748){\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$E(k)$\end{tabular}}}}}%
     \put(0.44761195,0.03938155){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$k=2\pi/l$\end{tabular}}}}%
-    \put(0.20855356,0.77555622){\color[rgb]{0.72941176,0.09019608,0.18823529}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Large scale forcing\\\end{tabular}}}}%
+    \put(0.20855356,0.77555622){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Large scale forcing\\\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{turbulence_spectrum.pdf}}%
-    \put(0.21757838,0.74373649){\color[rgb]{0.72941176,0.09019608,0.18823529}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy injection)\\\end{tabular}}}}%
+    \put(0.21757838,0.74373649){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy injection)\\\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{turbulence_spectrum.pdf}}%
-    \put(0.27375613,0.37982326){\color[rgb]{0.21568627,0.44313725,0.78431373}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy transfer)\\\end{tabular}}}}%
-    \put(0.28163724,0.41707838){\color[rgb]{0.21568627,0.44313725,0.78431373}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Inertial cascade\\\end{tabular}}}}%
+    \put(0.27375613,0.37982326){\color[rgb]{0.50196078,0.78823529,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy transfer)\\\end{tabular}}}}%
+    \put(0.28163724,0.41707838){\color[rgb]{0.50196078,0.78823529,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Inertial cascade\\\end{tabular}}}}%
     \put(0.64829905,0.55760786){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\propto \epsilon^{2/3} k^{-5/3}$\end{tabular}}}}%
     \put(0.7305374,0.38001724){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$k_{\KolmogorovScale} = 2\pi/\KolmogorovScale$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{turbulence_spectrum.pdf}}%
-    \put(0.82600715,0.17363265){\color[rgb]{0.72941176,0.09019608,0.18823529}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Viscouss dissipation\\\end{tabular}}}}%
-    \put(0.83933603,0.14109561){\color[rgb]{0.72941176,0.09019608,0.18823529}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy dissipation\\\end{tabular}}}}%
+    \put(0.82600715,0.17363265){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Viscouss dissipation\\\end{tabular}}}}%
+    \put(0.83933603,0.14109561){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(energy dissipation\\\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{turbulence_spectrum.pdf}}%
-    \put(0.91703445,0.10850095){\color[rgb]{0.72941176,0.09019608,0.18823529}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}into heat)\\\end{tabular}}}}%
+    \put(0.91703445,0.10850095){\color[rgb]{1,0.49019608,0.49019608}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}into heat)\\\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{turbulence_spectrum.pdf}}%
-    \put(0.4482326,0.17828888){\color[rgb]{0.52156863,0.7372549,0.87843137}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$l$\end{tabular}}}}%
+    \put(0.4482326,0.17828888){\color[rgb]{0.50196078,0.78823529,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$l$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
