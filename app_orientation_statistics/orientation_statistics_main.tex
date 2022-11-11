@@ -1,19 +1,18 @@
 \chapter{Expected plankter orientation}\label{app:orientation_statistics}
 
-\todo{Bien vérifier que mes calculs/raisonements sont corrects ici. Jusqu'à présent ça ne l'était pas.}
+For the sake of simplicity, apart from the diagonal components that are linked through incompressibility, we consider here that the components of the gradient tensor, $\Gradients$, are independant.
+In practice, this is known not to be true in turbulence however we do not expect the interdependance of the coefficients to influence much the following results.
 
-\section{Expected orientation with respect to horizontal vorticity}\label{sec:expected_orientation_vorticity}
-
-\subsection{The expected orientation of bottom-heavy plankters}
+\section{Bottom-heavy plankters}
 
 \begin{wrapfigure}[15]{L}[0.5\width]{0.42\textwidth}
 	\centering
-	\vspace{-15pt}
+	\vspace{-20pt}
 	\def\svgwidth{0.38\textwidth}
 	\input{chap_end/schemes/bottom_heavy_coordinate_system.pdf_tex}
 	\captionsetup{width=0.38\textwidth}
   	\caption{
-  		Illustration of the coordinate system considered in Sec.~\ref{sec:expected_orientation_vorticity} to describe the orientation of the swimming direction $\SwimmingDirection$ of plankters.
+  		Illustration of the coordinate system considered to describe the orientation of the swimming direction $\SwimmingDirection$ of plankters.
   		The flow vorticity is noted $\FlowVorticity$ and the vertical is noted $\Direction$.
   	}
   	\label{fig:bottom_heavy_coordinate_system}
@@ -33,92 +32,103 @@ We now derive the orientation of bottom-heavy plankters in this basis.
 
 As bottom-heaviness does not play any role in the horizontal dynamics of the dynamics, for a given vertical vorticity $\FlowVorticityScalar_{\DirectionScalar}$ we have directly
 \begin{equation}\label{app:eq:spherical_bottom_phi}
-	\phi_{\mathrm{\NameBhShort}} = \frac{1}{2} \FlowVorticityScalar_{\DirectionScalar} t + \phi_{\mathrm{\NameBhShort}, 0}
+	\frac{d \phi_{\mathrm{\NameBhShort}} }{dt} = \frac{1}{2} \FlowVorticityScalar_{\DirectionScalar} t
 \end{equation}
 with $\phi_{\mathrm{\NameBhShort}} = \phi_{\mathrm{\NameBhShort}, 0}$ for $t = 0$.
 We further assume that the vertical rotation rate is small compared to the horizontal dynamics: $\FlowVorticityScalar_{\DirectionScalar} \ReorientationTime / 2 \ll 1$.
-This means that the plankter has the time to reached the equilibrium position for each value of $\phi(t)$ as it evolves in time.
+This means that the plankter has the time to reached the equilibrium position for each value of $\phi_{\NameBhShort}(t)$ as it evolves in time.
 In that case the vertical orientation of the plankter $\theta_{\mathrm{\NameBhShort}}$ reads directly
 \begin{equation}\label{app:eq:spherical_bottom_heavy_theta}
 	\sin \theta_{\mathrm{\NameBhShort}} = \ReorientationTime \FlowVorticityScalar_{\perp \Direction} \cos \phi_{\mathrm{\NameBhShort}}
 \end{equation}
 with $\FlowVorticityScalar_{\perp \Direction} = \norm{\FlowVorticity_{\perp \Direction}}$.
-Note that in that case $\phi_{\mathrm{\NameBhShort}}$ does not describe but the whole range $\phi_{\mathrm{\NameBhShort}} \in [0, 2\pi]$ but rather $\phi_{\mathrm{\NameBhShort}} \in [0, \pi/4]$.
-This describes the trajectory of the orientation of a strongly bottom-heavy plankter in flow vorticity.
+Note first that the equilibrium position can only be reached if $\ReorientationTime \FlowVorticityScalar_{\perp \Direction} \cos \phi_{\mathrm{\NameBhShort}} < 1$.
+Note further that in the case $\ReorientationTime \FlowVorticityScalar_{\perp \Direction} < 1$, the equilibrium position can always be reached independently of $\phi_{\mathrm{\NameBhShort}}$ and in that case $\phi_{\mathrm{\NameBhShort}}$ does not describe the whole range $[0, 2\pi]$ as the plankter orients back vertically when $\phi_{\mathrm{\NameBhShort}} = \pi/2$ [Eq.~\eqref{app:eq:spherical_bottom_heavy_theta}].
+Therefore it rather takes periodically the values $\phi_{\mathrm{\NameBhShort}} \in [0, \pi/2]$.
+These equation are then enough to describe the trajectory of the orientation of a strongly bottom-heavy plankter in flow vorticity.
 
 We are now interested in how this translates in term of statistics projected on a given plane.
 To do so we consider an horizontal plane formed by a given horizontal vector $\hat{\vec{e}}_x$ and the vertical $\Direction$ of normal $\hat{\vec{e}}_{y} = \Direction \times \hat{\vec{e}}_{x}$.
-This direction is orthogonal to the vertical $\Direction$.
-Its orientation in the plane $(\hat{\FlowVorticity}_{\perp \Direction}, \hat{\FlowVorticity}_{\perp \Direction} \times \Direction)$ is described by the angle $\phi_{x}$.
-The \textbf{signed} angle that can be measured in such experiment corresponds to $\theta_{\mathrm{\NameBhShort}, y}$.
-This angle is the projection of the angle $\theta_{\mathrm{\NameBhShort}}$ in the plane $(\hat{\vec{e}}_x, \Direction)$.
-This angle reads
-\begin{equation}\label{app:eq:spherical_bottom_heavy_orientation}
-	\tan \theta_{\mathrm{\NameBhShort}, y} = \frac{\cos \left( \phi_{x} - \phi_{\mathrm{\NameBhShort}} \right) \sin \theta_{\mathrm{\NameBhShort}}}{\cos \theta_{\mathrm{\NameBhShort}}}
-\end{equation}
-Finally, the only measure of vorticity accessible through the experiment is $\FlowVorticityScalar_{y} = \FlowVorticity \cdot \hat{\vec{e}}_{y}$, the component along $\hat{\vec{e}}_{y}$.
-Thus we need to assess the expected influence of $\FlowVorticityScalar_{y}$ on $\theta_{\mathrm{\NameBhShort}, y}$.
-To do so, we can decompose $\FlowVorticityScalar_{\perp \Direction}$ as a function of $\FlowVorticityScalar_{y}$ and $\FlowVorticityScalar_{x} = \FlowVorticity \cdot \hat{\vec{e}}_{x}$.
-\begin{equation}\label{app:eq:horizontal_vorticity_expression}
-	\FlowVorticityScalar_{\perp \Direction} = \sqrt{\FlowVorticityScalar_{x}^2 + \FlowVorticityScalar_{y}^2}.
-\end{equation}
-That said if the angle $\theta_{\mathrm{\NameBhShort}, y}$ is measured from experimental data and $\tan \theta_{\mathrm{\NameBhShort}, y}$ is evaluated and averaged over $N$ plankters and over time, and further assuming that $\FlowVorticityScalar_{x}$ and $\FlowVorticityScalar_{y}$ are independent, it should result in
-\begin{equation}\label{app:eq:final_correlation_vort_bh}
-	\left\langle \tan \theta_{\mathrm{\NameBhShort}, y} \right\rangle_{N, t} = \frac{1}{4 \pi^2} \int_{-\infty}^{+\infty} \int_0^{2\pi} \int_0^{\pi/4} p(\FlowVorticityScalar_x) \frac{\cos \left( \phi_{x} - \phi_{\mathrm{\NameBhShort}} \right) \sin \theta_{\mathrm{\NameBhShort}}}{\cos \theta_{\mathrm{\NameBhShort}}} \, d \phi_{\mathrm{\NameBhShort}} \, d\phi_{x} \, d\FlowVorticityScalar_x
-\end{equation}
-with $p(\FlowVorticityScalar_yx$ the normed probability function of the vorticity along $\hat{\vec{e}}_x$ sampled along the trajectory of plankters and with $\phi_{\mathrm{\NameBhShort}}$ given by Eq.~\eqref{app:eq:spherical_bottom_heavy_theta} and $\FlowVorticityScalar_{\perp \Direction}$ given by Eq.~\eqref{app:eq:horizontal_vorticity_expression}.
-In practice if the flow vorticity sampled by bottom-heavy swimmers is assumed to be isotropic in the horizontal plane, we can deduce this probability density function $p(\FlowVorticityScalar_x)$ from the statistics of $\FlowVorticityScalar_{y}$ [$p(\FlowVorticityScalar_x) \approx p(\FlowVorticityScalar_y)$].
+The direction $\hat{\vec{e}}_x$ is orthogonal to the vertical $\Direction$ and
+its orientation in the plane $(\hat{\FlowVorticity}_{\perp \Direction} \times \Direction, \hat{\FlowVorticity}_{\perp \Direction})$ is described by the angle $\phi_{x}$.
 
-Using the experimental data to compute $p(\FlowVorticityScalar_x)$, this previous expression of $\left\langle \tan \theta_{\mathrm{\NameBhShort}, y} \right\rangle_{N, t}$ could be evaluated for various values of $\ReorientationTime$ and compared to the actual value $\left\langle \tan \theta_{\mathrm{\NameBhShort}, y} \right\rangle_{N, t}$ measured in the experiment.
-It would highlight if the plankers exhibit a bottom-heavy behavior or not.
-
-\subsection{The expected orientation of surfing plankters}
-
-As presented throughout the study, in contrast to bottom-heavy swimmers, surfers tend to oppose to vorticity when reorienting.
-If surfers only react to horizontal vorticity, the average surfing direction corresponds the rotation of the vertical direction opposed to vorticity, expressed as
-\begin{equation}
-	\ControlDirectionOpt(\TimeHorizon) = \matr{R}_{\hat{\FlowVorticity}}(-\omega \TimeHorizon/2) \, \Direction,
-\end{equation}
-with $\matr{R}_{\hat{\FlowVorticity}}(-\FlowVorticityScalar \TimeHorizon/2)$ the rotation matrix of angle $-\FlowVorticityScalar \TimeHorizon/2$ with $\omega = \norm{\vec{\nabla} \times \FlowVelocity}$ and of axis $\hat{\FlowVorticity} = \FlowVorticity/\FlowVorticityScalar$, the normalized vorticity.
-
-Performing a computation similar to the bottom-heavy case presented above, we obtain
+Our aim is to characterize the average swimming direction $\langle \SwimmingDirection_{\mathrm{\NameBhShort}} \rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} (\FlowVorticity_y)$ as a function of the measurable component of vorticity: $\FlowVorticity_y$.
+For $-1/\ReorientationTime < \FlowVorticityScalar_y < 1/\ReorientationTime$, the vertical component of this swimming direction can be easily computed as
 \begin{subequations}
 	\begin{align}
-		\left\langle \tan \theta_{\mathrm{\NameSurfShort}, y} \right\rangle_{N, t} &= \frac{1}{4 \pi^2} \int_{-\infty}^{+\infty} \int_0^{2\pi} \int_{-\pi/4}^{0} p(\FlowVorticityScalar_x) \frac{\cos \left( \phi_{x} - \phi_{\mathrm{\NameSurfShort}} \right) \sin \theta_{\mathrm{\NameSurfShort}}}{\cos \theta_{\mathrm{\NameSurfShort}}} \, d \phi_{\mathrm{\NameSurfShort}} \, d\phi_{x} \, d\FlowVorticityScalar_x\\
-		\text{with} \quad \sin \theta_{\mathrm{\NameSurfShort}} &= \TimeHorizon \sqrt{\FlowVorticityScalar_{x}^2 + \FlowVorticityScalar_{y}^2} \cos \phi_{\mathrm{\NameSurfShort}}
+		\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, z} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} &= \frac{\int_{-\omega_{\max}}^{+\omega_{\max}} \int_0^{\pi/2} p(\FlowVorticityScalar_x) \cos \theta_{\mathrm{\NameBhShort}} \sin \theta_{\mathrm{\NameBhShort}} \, d \phi_{\mathrm{\NameBhShort}} \, d\FlowVorticityScalar_x}{\int_0^{\pi/2} \sin \theta_{\mathrm{\NameBhShort}} \, d \phi_{\mathrm{\NameBhShort}}},\\
+		\text{with} \quad \omega_{\max} &= \sqrt{1/\ReorientationTime^2 - \FlowVorticityScalar_y^2}
 	\end{align}
 \end{subequations}
+with $p(\FlowVorticityScalar_x)$ the normalized probability function of the vorticity component $\FlowVorticityScalar_x$ sampled by bottom-heavy swimmers.
+Using Eq.~\eqref{app:eq:spherical_bottom_heavy_theta}, this expression simplifies to
+\begin{subequations}
+	\begin{align}
+		\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, z} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} &= \frac{1}{2} \int_{-\omega_{\max}}^{+\omega_{\max}} p(\FlowVorticityScalar_x) \left[ 1 + \tanh^{-1} \left( \ReorientationTime \FlowVorticityScalar_{\perp \Direction} \right) \frac{1 - \ReorientationTime^2 \FlowVorticityScalar_{\perp \Direction}^2}{\ReorientationTime \FlowVorticityScalar_{\perp \Direction}} \right]  \, d\FlowVorticityScalar_x\\
+		\text{with} \quad \omega_{\max} &= \sqrt{1/\ReorientationTime^2 - \FlowVorticityScalar_y^2} \quad \text{and} \quad \FlowVorticityScalar_{\perp \Direction} = \sqrt{\FlowVorticityScalar_{x}^2 + \FlowVorticityScalar_{y}^2},
+	\end{align}
+\end{subequations}
+with $\tanh^{-1}$ the inverse hyperbolic tangent function.
+Note that in practice if the flow vorticity sampled by bottom-heavy swimmers is assumed to be isotropic in the horizontal plane, we can deduce this probability density function $p(\FlowVorticityScalar_x)$ from the statistics of $\FlowVorticityScalar_{y}$ [$p(\FlowVorticityScalar_x) \approx p(\FlowVorticityScalar_y)$].
 
-\todo{If I have time, reduce these expressions and assess the validity of these results with simulations. Also illustrate these expressions with Gaussian probability functions.}
-
-\section{Expected with respect to the horizontal gradient of vertical velocity}
-
-As discussed above in Chap.~\ref{chap:surfing_robustness}, Sec.~\ref{sec:computational_power}, most of the surfing performance is captured through the first order computation of the exponential.
-In that case, if plankters are able to measure more than horizontal vorticity, the surfing direction could be directly linked to horizontal vertical velocity gradients $\vec{\nabla}_{xy} \FlowVelocityScalar_{\DirectionScalar}$.
-This provide another differentiating cue to highlight surfing-like behavior in experimental data.
-
-\subsection{Expected orientation of bottom-heavy plankters}
-
-The orientation statistics of plankters are still described by Eq.~\eqref{app:eq:final_correlation_vort_bh}.
-We now want to express the angle $\theta_{\mathrm{\NameBhShort}, x}$ as a function of $\partial \FlowVelocityScalar_z / \partial x$ that can be directly obtained as $\FlowVorticityScalar_y = \partial \FlowVelocityScalar_x / \partial z - \partial \FlowVelocityScalar_z / \partial x$.
-We obtain then
-\begin{multline}
-	\left\langle \tan \theta_{\mathrm{\NameBhShort}, y} \right\rangle_{N, t} = \\ 
-	\frac{1}{4 \pi^2} \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \int_0^{2\pi} \int_0^{2\pi} p(\FlowVorticityScalar_x) p \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} \right) \frac{\cos \left( \phi_{x} - \phi_{\mathrm{\NameBhShort}} \right) \sin \theta_{\mathrm{\NameBhShort}}}{\cos \theta_{\mathrm{\NameBhShort}}} \, d \phi_{\mathrm{\NameBhShort}} \, d\phi_{x} \, d\FlowVorticityScalar_x \, d\left( \frac{\partial \FlowVelocityScalar_x}{\partial z} \right) \\
-	\text{with} \quad \sin \theta_{\mathrm{\NameBhShort}} = \TimeHorizon \cos \phi_{\mathrm{\NameBhShort}} \sqrt{\left( \frac{\FlowVelocityScalar_x}{\partial z} - \frac{\partial \FlowVelocityScalar_z}{\partial x} \right)^2 + \FlowVorticityScalar_{y}^2}
-\end{multline}
-
-\subsection{Expected orientation of surfing plankters}
-
-As showed above, at first order, the surfing strategy reduces to
+Similarly, one may then express the expected horizontal component of the swimming direction $\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z}$
+\begin{subequations}
+	\begin{align}
+		\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} &= \frac{\int_{-\infty}^{+\infty} \int_0^{\pi/2} p(\FlowVorticityScalar_x) \sin^2 \theta_{\mathrm{\NameBhShort}} \cos \left( \phi_{\mathrm{\NameBhShort}} - \phi_x \right) \, d \phi_{\mathrm{\NameBhShort}} \, d\FlowVorticityScalar_x}{\int_0^{\pi/2} \sin \theta_{\mathrm{\NameBhShort}} \, d \phi_{\mathrm{\NameBhShort}}},\\
+		\text{with} \quad \tan \left( \phi_x \right) &= \frac{\FlowVorticityScalar_x}{\FlowVorticityScalar_y},
+	\end{align}
+\end{subequations}
+and using again Eq.~\eqref{app:eq:spherical_bottom_heavy_theta}
 \begin{equation}
-	\ControlDirectionOpt(\TimeHorizon) = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}} \quad \text{with} \quad \ControlDirectionOptNN = \Direction + \TimeHorizon \vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}.
+	\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} = \frac{1}{3} \int_{-\infty}^{+\infty} p(\FlowVorticityScalar_x) \ReorientationTime ( \omega_x + 2 \omega_y) \, d\FlowVorticityScalar_x.
 \end{equation}
-The angle to the vertical in the plane $(\Direction, \hat{\vec{e}}_x)$ can then directly be expressed as
-\begin{equation}\label{app:eq:shear_surf}
-	\tan \theta_{\mathrm{\NameSurfShort}} = \frac{\TimeHorizon (\partial\FlowVelocityScalar_{\DirectionScalar}/\partial x)}{1 + \TimeHorizon (\partial \FlowVelocityScalar_{\DirectionScalar} / \partial \DirectionScalar)}.
+Finally, assuming $p(\FlowVorticityScalar_x)$ is centered on $0$, we obtain
+\begin{equation}
+	\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} = \frac{2}{3} \ReorientationTime \FlowVorticityScalar_y.
 \end{equation}
-Similarly to the computations performed above, we average this expression and obtain
-\begin{equation}\label{app:eq:shear_surf}
-	\left\langle \tan \theta_{\mathrm{\NameSurfShort}} \right\rangle_{N, t} = \int_{-\infty}^{+\infty} p\left( \frac{\partial \FlowVelocityScalar_\DirectionScalar}{\partial \DirectionScalar} \right) \frac{\TimeHorizon (\partial\FlowVelocityScalar_{\DirectionScalar}/\partial x)}{1 + \TimeHorizon (\partial \FlowVelocityScalar_{\DirectionScalar} / \partial \DirectionScalar)} \, d \left( \frac{\partial \FlowVelocityScalar_\DirectionScalar}{\partial \DirectionScalar} \right).
+
+Using experimental data to estimate $p(\FlowVorticityScalar_x)$ one can use these expressions to evaluate the expected orientation of bottom-heavy plankters for various reorientation times $\ReorientationTime$.
+It would highlight if the planker considered in experiments exhibits a bottom-heavy behavior.
+\begin{figure}
+	\centering
+	\input{chap_end/plots/experimental_cues_and_models}
+	\caption[Evaluation of the proposed experimental cues in simulated turbulence.]{
+		Evaluation of the proposed experimental cues in simulated turbulence for both simulated surfers and bottom-heavy swimmers.
+		Note how these cues would let us differentiate an active surfing-like behavior from a passive bottom-heavy behavior.
+	}
+	\label{fig:experimental_cues}
+\end{figure}
+
+\section{Surfers}
+
+As presented throughout the study, in contrast to bottom-heavy swimmers, surfers tend to oppose to vorticity when reorienting.
+This discrepency should then be observable on these previously described cues.
+
+As presented above, the surfing strategy can be approximated by the following expression
+\begin{equation}
+	\ControlDirectionOpt(\TimeHorizon) = \frac{\ControlDirectionOptNN}{\norm{\ControlDirectionOptNN}} \quad \text{with} \quad \ControlDirectionOptNN = \Direction + \TimeHorizon \vec{\nabla} \FlowVelocityScalar_z
 \end{equation}
+Based on this expression we can then estimate the expected orientation off surfers given a value of $\FlowVorticityScalar_y$
+\begin{subequations}
+	\begin{align}
+		\left\langle \ControlDirection_{\mathrm{\NameSurfShort}, x} \right\rangle &= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p \left(\frac{\partial \FlowVelocityScalar_x}{\partial z} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \frac{\TimeHorizon}{\norm{\ControlDirectionOptNN}} \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} - \FlowVorticityScalar_y \right) \, d\frac{\partial \FlowVelocityScalar_x}{\partial z} \, d\frac{\partial \FlowVelocityScalar_z}{\partial y} \, d\frac{\partial \FlowVelocityScalar_z}{\partial z}\\
+		\left\langle \ControlDirection_{\mathrm{\NameSurfShort}, z} \right\rangle &= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p \left(\frac{\partial \FlowVelocityScalar_x}{\partial z} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \frac{1}{\norm{\ControlDirectionOptNN}} \left( 1 + \TimeHorizon \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \, d\frac{\partial \FlowVelocityScalar_x}{\partial z} \, d\frac{\partial \FlowVelocityScalar_z}{\partial y} \, d\frac{\partial \FlowVelocityScalar_z}{\partial z}\\
+		\text{with} ~~ &\norm{\ControlDirectionOptNN} = \sqrt{1 + \TimeHorizon^2 \left[ \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} \right)^2 + \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right)^2 + \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right)^2 \right] + 2 \TimeHorizon \frac{\partial \FlowVelocityScalar_z}{\partial z}}
+	\end{align}
+\end{subequations}
+with $p$ denoting the corresponding probability density functions.
+Note that in practice, the statistics of $\partial \FlowVelocityScalar_z / \partial y$ are not accessible in the experiment but can be estimated assuming isotropy $p(\partial \FlowVelocityScalar_z / \partial y) \approx p(\partial \FlowVelocityScalar_z / \partial x)$.
+
+% If only the vorticity is accounted for, the surfing strategy can be expressed as
+% \begin{equation}
+	% \ControlDirectionOpt(\TimeHorizon) = \matr{R}_{\hat{\FlowVorticity}}(-\omega \TimeHorizon/2) \, \Direction,
+% \end{equation}
+% with $\matr{R}_{\hat{\FlowVorticity}}(-\FlowVorticityScalar \TimeHorizon/2)$ the rotation matrix of angle $-\FlowVorticityScalar \TimeHorizon/2$ with $\omega = \norm{\vec{\nabla} \times \FlowVelocity}$ and of axis $\hat{\FlowVorticity} = \FlowVorticity/\FlowVorticityScalar$, the normalized vorticity.
+% 
+% Then, similarly to the bottom-heavy case, the expression of both components of the expected orientation can be expressed as
+% \begin{subequations}
+	% \begin{align}
+		% \left\langle \tan \theta_{\mathrm{\NameSurfShort}, y} \right\rangle_{N, t} &= \frac{1}{4 \pi^2} \int_{-\infty}^{+\infty} \int_0^{2\pi} \int_{-\pi/4}^{0} p(\FlowVorticityScalar_x) \frac{\cos \left( \phi_{x} - \phi_{\mathrm{\NameSurfShort}} \right) \sin \theta_{\mathrm{\NameSurfShort}}}{\cos \theta_{\mathrm{\NameSurfShort}}} \, d \phi_{\mathrm{\NameSurfShort}} \, d\phi_{x} \, d\FlowVorticityScalar_x\\
+		% \text{with} \quad \sin \theta_{\mathrm{\NameSurfShort}} &= \TimeHorizon \sqrt{\FlowVorticityScalar_{x}^2 + \FlowVorticityScalar_{y}^2} \cos \phi_{\mathrm{\NameSurfShort}}
+	% \end{align}
+% \end{subequations}

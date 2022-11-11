@@ -151,58 +151,58 @@
 
 \begin{document}
 % \frontmatter
-	\maketitle
-	%\setcounter{page}{4}
-	\input{frontmatter/copyright}
-	\input{frontmatter/affidavit}
-	%\input{frontmatter/dedication}        % include a dedication.tex file
-	%\input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
-	\input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
-	\input{frontmatter/resumes}\if@openright\cleardoublepage\else\clearpage\fi
-	\tableofcontents*\if@openright\cleardoublepage\else\clearpage\fi
-	\listoffigures*\if@openright\cleardoublepage\else\clearpage\fi
-	\listoftables*\if@openright\cleardoublepage\else\clearpage\fi
-	%\input{frontmatter/abbreviations}\if@openright\cleardoublepage\else\clearpage\fi
-	\input{frontmatter/symbols}\if@openright\cleardoublepage\else\clearpage\fi
+	% \maketitle
+	% %\setcounter{page}{4}
+	% \input{frontmatter/copyright}
+	% \input{frontmatter/affidavit}
+	% %\input{frontmatter/dedication}        % include a dedication.tex file
+	% %\input{frontmatter/acknowledgements}   % include an acknowledgements.tex file
+	% \input{frontmatter/abstract}\if@openright\cleardoublepage\else\clearpage\fi
+	% \input{frontmatter/resumes}\if@openright\cleardoublepage\else\clearpage\fi
+	% \tableofcontents*\if@openright\cleardoublepage\else\clearpage\fi
+	% \listoffigures*\if@openright\cleardoublepage\else\clearpage\fi
+	% \listoftables*\if@openright\cleardoublepage\else\clearpage\fi
+	% %\input{frontmatter/abbreviations}\if@openright\cleardoublepage\else\clearpage\fi
+	% \input{frontmatter/symbols}\if@openright\cleardoublepage\else\clearpage\fi
 
 %% Note: always use \input as you cannot nest \includes (amongst other things)
 \pagestyle{umpage}
 \floatpagestyle{umpage}
 \mainmatter
-	\input{chap_intro/introduction_main}
-	\input{chap_surfing/the_surfing_strategy_main}
-	\input{chap_turbulence/surfing_in_turbulence_main}
-	\input{chap_turbulence/surfing_robustness_main}
-	\input{chap_turbulence/navigation_main}
-	\input{chap_end/biological_discussion_main}
-	\input{chap_end/more_navigation_problems_main}
+	%\input{chap_intro/introduction_main}
+	%\input{chap_surfing/the_surfing_strategy_main}
+	%\input{chap_turbulence/surfing_in_turbulence_main}
+	%\input{chap_turbulence/surfing_robustness_main}
+	%\input{chap_turbulence/navigation_main}
+	%\input{chap_end/biological_discussion_main}
+	%\input{chap_end/more_navigation_problems_main}
 	\appendix
-		\input{app_additional_motion/additional_motion_main}
-		\input{app_larval_dispersion/larval_dispersion_main}
-		\input{app_energetic_cost/energetic_cost_main}
-		%\input{app_orientation_statistics/orientation_statistics_main}
-		\input{app_runge_kutta/runge_kutta_main}
-		\input{app_misc/misc_main}
+		%\input{app_additional_motion/additional_motion_main}
+		%\input{app_larval_dispersion/larval_dispersion_main}
+		%\input{app_energetic_cost/energetic_cost_main}
+		%\input{app_runge_kutta/runge_kutta_main}
+		\input{app_orientation_statistics/orientation_statistics_main}
+		%\input{app_misc/misc_main}
 
-\pagestyle{umpageback}
-{\backmatter
-	% Bibliography
-	\if@openright\cleardoublepage\else\clearpage\fi
-
-	\bibliographystyle{um-plainnat} %% specific plainnat does not show url for articles
-	% Use something like https://flamingtempura.github.io/bibtex-tidy/ to clean all your bibtex entries
-	{ 	\scriptsize\bibliography{
-		chap_intro/introduction_biblio,
-		chap_surfing/the_surfing_strategy_biblio,
-		chap_numeric/numerical_methods_biblio,
-		chap_turbulence/surfing_in_turbulence_biblio, 
-		chap_more/passive_processes_biblio, 
-		chap_more/towards_the_energy_efficiency_problem_biblio,
-		chap_end/biological_discussion_biblio,
-		./article
-	}}
-	\printindex
-}
+% \pagestyle{umpageback}
+% {\backmatter
+	% % Bibliography
+	% \if@openright\cleardoublepage\else\clearpage\fi
+% 
+	% \bibliographystyle{um-plainnat} %% specific plainnat does not show url for articles
+	% % Use something like https://flamingtempura.github.io/bibtex-tidy/ to clean all your bibtex entries
+	% { 	\scriptsize\bibliography{
+		% chap_intro/introduction_biblio,
+		% chap_surfing/the_surfing_strategy_biblio,
+		% chap_numeric/numerical_methods_biblio,
+		% chap_turbulence/surfing_in_turbulence_biblio,
+		% chap_more/passive_processes_biblio,
+		% chap_more/towards_the_energy_efficiency_problem_biblio,
+		% chap_end/biological_discussion_biblio,
+		% ./article
+	% }}
+	% \printindex
+% }
 
 \end{document}
 
