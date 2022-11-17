@@ -443,6 +443,9 @@ While the model completely overshoots the settling performance, it shows that th
 Similarly to what has been done in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:partial}, one could improve the model by assuming a Gaussian distribution of vorticity and one could apply a similar approach to obtain an estimation that depend on both contributions at the same time.
 As this is not the main interest of this study, we leave these aspects for future research.
 
+\begin{equation}
+	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym, \Direction} \approx \TerminalVelocity \int_{-\infty}^{\infty} p(\FlowVorticityScalar) \frac{2 \, e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) + 1}{\left[ 1 + (\InertialDelay \FlowVorticityScalar/2)^2 \right] \left[ 2 \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) + 1 \right]} d\FlowVorticityScalar.
+\end{equation}
 
 % \subsection{Light inertial settling}
 % 

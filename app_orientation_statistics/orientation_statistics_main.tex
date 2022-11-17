@@ -74,13 +74,13 @@ Note that in practice if the flow vorticity sampled by bottom-heavy swimmers is 
 Similarly, one may then express the expected horizontal component of the swimming direction $\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z}$
 \begin{subequations}
 	\begin{align}
-		\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} &= \frac{\int_{-\infty}^{+\infty} \int_0^{\pi/2} p(\FlowVorticityScalar_x) \sin^2 \theta_{\mathrm{\NameBhShort}} \cos \left( \phi_{\mathrm{\NameBhShort}} - \phi_x \right) \, d \phi_{\mathrm{\NameBhShort}} \, d\FlowVorticityScalar_x}{\int_0^{\pi/2} \sin \theta_{\mathrm{\NameBhShort}} \, d \phi_{\mathrm{\NameBhShort}}},\\
+		\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} &= \frac{\int_{-\omega_{\max}}^{+\omega_{\max}} \int_0^{\pi/2} p(\FlowVorticityScalar_x) \sin^2 \theta_{\mathrm{\NameBhShort}} \cos \left( \phi_{\mathrm{\NameBhShort}} - \phi_x \right) \, d \phi_{\mathrm{\NameBhShort}} \, d\FlowVorticityScalar_x}{\int_0^{\pi/2} \sin \theta_{\mathrm{\NameBhShort}} \, d \phi_{\mathrm{\NameBhShort}}},\\
 		\text{with} \quad \tan \left( \phi_x \right) &= \frac{\FlowVorticityScalar_x}{\FlowVorticityScalar_y},
 	\end{align}
 \end{subequations}
 and using again Eq.~\eqref{app:eq:spherical_bottom_heavy_theta}
 \begin{equation}
-	\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} = \frac{1}{3} \int_{-\infty}^{+\infty} p(\FlowVorticityScalar_x) \ReorientationTime ( \omega_x + 2 \omega_y) \, d\FlowVorticityScalar_x.
+	\left\langle \SwimmingDirection_{\mathrm{\NameBhShort}, x} \right\rangle_{t, \FlowVorticityScalar_x, \FlowVorticityScalar_z} = \frac{1}{3} \int_{-\omega_{\max}}^{+\omega_{\max}} p(\FlowVorticityScalar_x) \ReorientationTime ( \omega_x + 2 \omega_y) \, d\FlowVorticityScalar_x.
 \end{equation}
 Finally, assuming $p(\FlowVorticityScalar_x)$ is centered on $0$, we obtain
 \begin{equation}
@@ -88,7 +88,7 @@ Finally, assuming $p(\FlowVorticityScalar_x)$ is centered on $0$, we obtain
 \end{equation}
 
 Using experimental data to estimate $p(\FlowVorticityScalar_x)$ one can use these expressions to evaluate the expected orientation of bottom-heavy plankters for various reorientation times $\ReorientationTime$.
-It would highlight if the planker considered in experiments exhibits a bottom-heavy behavior.
+It would highlight if the plankter considered in experiments exhibits a bottom-heavy behavior.
 \begin{figure}
 	\centering
 	\input{chap_end/plots/experimental_cues_and_models}
@@ -113,11 +113,45 @@ Based on this expression we can then estimate the expected orientation off surfe
 	\begin{align}
 		\left\langle \ControlDirection_{\mathrm{\NameSurfShort}, x} \right\rangle &= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p \left(\frac{\partial \FlowVelocityScalar_x}{\partial z} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \frac{\TimeHorizon}{\norm{\ControlDirectionOptNN}} \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} - \FlowVorticityScalar_y \right) \, d\frac{\partial \FlowVelocityScalar_x}{\partial z} \, d\frac{\partial \FlowVelocityScalar_z}{\partial y} \, d\frac{\partial \FlowVelocityScalar_z}{\partial z}\\
 		\left\langle \ControlDirection_{\mathrm{\NameSurfShort}, z} \right\rangle &= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} p \left(\frac{\partial \FlowVelocityScalar_x}{\partial z} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right) p \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \frac{1}{\norm{\ControlDirectionOptNN}} \left( 1 + \TimeHorizon \frac{\partial \FlowVelocityScalar_z}{\partial z} \right) \, d\frac{\partial \FlowVelocityScalar_x}{\partial z} \, d\frac{\partial \FlowVelocityScalar_z}{\partial y} \, d\frac{\partial \FlowVelocityScalar_z}{\partial z}\\
-		\text{with} ~~ &\norm{\ControlDirectionOptNN} = \sqrt{1 + \TimeHorizon^2 \left[ \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} \right)^2 + \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right)^2 + \left( \frac{\partial \FlowVelocityScalar_z}{\partial z} \right)^2 \right] + 2 \TimeHorizon \frac{\partial \FlowVelocityScalar_z}{\partial z}}
+		\text{with} ~~ &\norm{\ControlDirectionOptNN} = \sqrt{\TimeHorizon^2 \left( \frac{\partial \FlowVelocityScalar_x}{\partial z} - \FlowVorticityScalar_y \right)^2 + \TimeHorizon^2 \left( \frac{\partial \FlowVelocityScalar_z}{\partial y} \right)^2 + \left(1 + \TimeHorizon \frac{\partial \FlowVelocityScalar_z}{\partial z}\right)^2}
 	\end{align}
 \end{subequations}
 with $p$ denoting the corresponding probability density functions.
 Note that in practice, the statistics of $\partial \FlowVelocityScalar_z / \partial y$ are not accessible in the experiment but can be estimated assuming isotropy $p(\partial \FlowVelocityScalar_z / \partial y) \approx p(\partial \FlowVelocityScalar_z / \partial x)$.
+\begin{figure}
+	\centering
+	\input{chap_end/plots/experimental_cues_and_rtime}
+	\caption[Comparison of analytic models with the proposed experimental cues in simulated turbulence.]{
+		Comparison of analytic models with the proposed experimental cues in simulated turbulence for both simulated surfers and bottom-heavy swimmers.
+	}
+	\label{fig:experimental_cues}
+\end{figure}
+
+\begin{table}
+	\center
+	\begin{tabular}{w{c}{0.15\linewidth}w{c}{0.15\linewidth}w{c}{0.15\linewidth}w{c}{0.15\linewidth}w{c}{0.15\linewidth}}
+		\rowcolor{ColorTabularParameters}
+		stage & $\PlankterSize$ (cm) & $\SwimmingVelocity$ (cm.s$^{-1}$) & $\ReorientationTimeSurf$ (s) & $\ReorientationTimeBh$ (s) \\
+		\rowcolor{ColorTabularValues}
+		early & 0.0488 & 0.18 & 0.09 & 0.12 \\
+		\rowcolor{ColorTabularValues}
+		late & 0.0788 & 0.33 & 0.08 & 0.08 \\
+	\end{tabular}
+	\caption{
+		Parameters of the Crepidula Fornicata used.
+	}
+	\label{tab:snoopy_simulation_parameters}
+\end{table}
+
+\begin{figure}
+	\centering
+	\input{chap_end/plots/average_velocity_sampled}
+	\caption[Evaluation of the proposed experimental cues in simulated turbulence.]{
+		Evaluation of the proposed experimental cues in simulated turbulence for both simulated surfers and bottom-heavy swimmers.
+		Note how these cues would let us differentiate an active surfing-like behavior from a passive bottom-heavy behavior.
+	}
+	\label{fig:experimental_cues}
+\end{figure}
 
 % If only the vorticity is accounted for, the surfing strategy can be expressed as
 % \begin{equation}

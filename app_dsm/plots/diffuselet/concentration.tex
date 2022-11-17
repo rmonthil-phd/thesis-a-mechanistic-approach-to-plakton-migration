@@ -1,0 +1,191 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.66\textwidth,
+			%height=0.33\textwidth,
+		]
+	%\node[anchor=south east] at (1.4,4.3) {$t =$};
+	\nextgroupplot[
+		% y
+		ylabel={$p(C = c)$},
+		ymin=1e-18,
+		ymax=1e-8,
+		ymode=log,
+		% x
+		xlabel=$c$,
+		xmin=0,
+		xmax=1,
+		% layers
+		set layers,
+		% legend
+		legend columns=7,
+		legend cell align=left,
+		legend style={draw=none, fill=none, at={(0.5, 1.1)}, anchor=south},
+	]
+		\addlegendimage{empty legend}\addlegendentry{$t =$}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=diamond
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o0.csv};
+		\addlegendentry{$0$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!83!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o002.csv};
+		\addlegendentry{$0.05 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!67!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o004.csv};
+		\addlegendentry{$0.1 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o008.csv};
+		\addlegendentry{$0.2 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!33!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o016.csv};
+		\addlegendentry{$0.4 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!17!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o032.csv};
+		\addlegendentry{$0.75 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		%mark repeat=4,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+			restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_pdf__pagent__time_0o064.csv};
+		\addlegendentry{$1.5 \KolmogorovTimeScale$}
+	
+	% \nextgroupplot[
+		% % y
+		% ylabel={$\left\langle c \right\rangle$},
+		% ymin=1e-13,
+		% ymax=1e-11,
+		% ymode=log,
+		% % x
+		% xlabel=$t / \KolmogorovTimeScale$,
+		% %xmin=0,
+		% %xmax=1,
+		% % layers
+		% set layers,
+	% ]
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!100!ColorBh,
+		% opacity=1.0,
+		% only marks,%solid,
+		% mark=*
+		% ]
+		% table[
+			% x expr={\thisrowno{0} / 0.0424},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/d_1e-4__s0_1e-2__ds0_1e-1/c_stats__pagent.csv};
+	\end{groupplot}
+\end{tikzpicture}

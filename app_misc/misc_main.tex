@@ -4,29 +4,29 @@ Misc appendix that includes all the preliminary work for the extended edition of
 
 \section{Filtered measure of $\Gradients$}
 
-\subsection{Previous version}
-
-One can then continue the analysis and account for the known energy spectrum of turbulence $E(k) \propto \epsilon^{2/3} k^{-5/3}$ in homogeneous isotropic turbulence [Eq.~\eqref{eq:kolmogorov_spectrum}, Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit}].
-This expression states that the characteristic velocity of flow corresponding to a scale $l = 1/k$ reads $\FlowVelocityScalar_l^2 \propto \epsilon^{2/3} l^{5/3}$.
-By taking the spatial derivative of this expression we deduce that $\FlowVelocityScalar_l \nabla \FlowVelocityScalar_l \propto \epsilon^{2/3} l^{2/3}$
-Finally for a given filter length $\FilterLength$, we expect the filtered gradient intensity to scale with
-\begin{equation}\label{eq:scaling_filtered_gradient}
-	\norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \FilterLength^{-1/6}.
-\end{equation}
-Note that the intensity of the gradient is predicted decrease as function of $\FilterLength$.
-This effect should reduce surfing performance, unless swimming velocity is large enough to pass seamlessly through the smaller scales of the flow.
-The potential flow velocity that can be foraged should then scale with
-\begin{equation}
-	\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \FilterLength^{-1/6}.
-\end{equation}
-Finally, given a swimming velocity $\SwimmingVelocity$, the optimal averaging length should scale with $\FilterLength^* \propto \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}$ for which maximal preferential sampling is reached: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{1/3}  (\FilterLength^*)^{5/6}$.
-Now while the lifetime of Eulerian turbulence features of size $l$ are expected to scale with $\TimeHorizon_l \propto \epsilon^{1/3}  l^{-1/6}$ [same as Eq.~\eqref{eq:scaling_filtered_gradient}], the lifetime of Lagrangian features of size $l$, $\TimeHorizon_{l,\mathrm{corr.}}$, is less clear.
-However using $\TimeHorizon_l$ as an estimate, under the limit of this assumption, we deduce that $\FilterLength^* \propto \epsilon^{2/7} \SwimmingVelocity^{6/7}$ which increases with swimming velocity as observed in Fig.~\ref{fig:surfing_filtered}\textbf{(a)}.
-One may then estimate preferential sampling for the optimal filter length as a function of swimming velocity $\SwimmingVelocity$: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{5/21} \SwimmingVelocity^{5/7}$.
-Even though for high swimming velocities $\SwimmingVelocity$, flow filtering increases surfing performance, the overall preferential sampling with respect to swimming velocity $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \SwimmingVelocity \propto \epsilon^{5/21} \SwimmingVelocity^{-2/7}$ decreases as swimming velocity increases.
-This causes the an overall decrease of performance $\Performance / \SwimmingVelocity$ with swimming speed, regardless of the ability to filter the flow.
-
-\subsection{New version}
+% \subsection{Previous version}
+% 
+% One can then continue the analysis and account for the known energy spectrum of turbulence $E(k) \propto \epsilon^{2/3} k^{-5/3}$ in homogeneous isotropic turbulence [Eq.~\eqref{eq:kolmogorov_spectrum}, Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit}].
+% This expression states that the characteristic velocity of flow corresponding to a scale $l = 1/k$ reads $\FlowVelocityScalar_l^2 \propto \epsilon^{2/3} l^{5/3}$.
+% By taking the spatial derivative of this expression we deduce that $\FlowVelocityScalar_l \nabla \FlowVelocityScalar_l \propto \epsilon^{2/3} l^{2/3}$
+% Finally for a given filter length $\FilterLength$, we expect the filtered gradient intensity to scale with
+% \begin{equation}\label{eq:scaling_filtered_gradient}
+	% \norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \FilterLength^{-1/6}.
+% \end{equation}
+% Note that the intensity of the gradient is predicted decrease as function of $\FilterLength$.
+% This effect should reduce surfing performance, unless swimming velocity is large enough to pass seamlessly through the smaller scales of the flow.
+% The potential flow velocity that can be foraged should then scale with
+% \begin{equation}
+	% \FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \norm{\vec{\nabla} \FlowVelocityScalar_{\DirectionScalar}|_{\FilterLength}} \propto \epsilon^{1/3} \min (\FilterLength, \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}) \FilterLength^{-1/6}.
+% \end{equation}
+% Finally, given a swimming velocity $\SwimmingVelocity$, the optimal averaging length should scale with $\FilterLength^* \propto \SwimmingVelocity \TimeHorizon_{\FilterLength,\mathrm{corr.}}$ for which maximal preferential sampling is reached: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{1/3}  (\FilterLength^*)^{5/6}$.
+% Now while the lifetime of Eulerian turbulence features of size $l$ are expected to scale with $\TimeHorizon_l \propto \epsilon^{1/3}  l^{-1/6}$ [same as Eq.~\eqref{eq:scaling_filtered_gradient}], the lifetime of Lagrangian features of size $l$, $\TimeHorizon_{l,\mathrm{corr.}}$, is less clear.
+% However using $\TimeHorizon_l$ as an estimate, under the limit of this assumption, we deduce that $\FilterLength^* \propto \epsilon^{2/7} \SwimmingVelocity^{6/7}$ which increases with swimming velocity as observed in Fig.~\ref{fig:surfing_filtered}\textbf{(a)}.
+% One may then estimate preferential sampling for the optimal filter length as a function of swimming velocity $\SwimmingVelocity$: $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \propto \epsilon^{5/21} \SwimmingVelocity^{5/7}$.
+% Even though for high swimming velocities $\SwimmingVelocity$, flow filtering increases surfing performance, the overall preferential sampling with respect to swimming velocity $\FlowVelocityScalar_{\DirectionScalar} (\ParticlePosition) \SwimmingVelocity \propto \epsilon^{5/21} \SwimmingVelocity^{-2/7}$ decreases as swimming velocity increases.
+% This causes the an overall decrease of performance $\Performance / \SwimmingVelocity$ with swimming speed, regardless of the ability to filter the flow.
+% 
+% \subsection{New version}
 
 One can then continue the analysis based on the theory of Kolmogorov presented in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:numeric_hit}.
 One of the first step to derive Kolmogorov's theory is to link the turbulent dissipation rate $\epsilon$ to the velocity corresponding to length scale $\FilterLength$ by dimensional analysis

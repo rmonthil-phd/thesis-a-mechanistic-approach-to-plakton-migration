@@ -1,0 +1,92 @@
+\chapter{High Peclet Mixing}\label{app:dsm}
+
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/c_pdfs_time_D.tex}
+    % \caption{
+    	% The diffuselet method in turbulence, influence of $D$. Parameters: $\mathit{Re}_\lambda = 418$, $s_0 = 10^{-1} \Kolmogorov$, $ds_0 = \left( 10^{-1} \Kolmogorov \right)^2$.
+    % }
+% \end{figure}
+% 
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/c_pdfs_time_s0.tex}
+    % \caption{
+    	% The diffuselet method in turbulence, influence of $s_0$. Parameters: $\mathit{Re}_\lambda = 418$, $D = 10^{-1} \nu$, $ds_0 = \left( 10^{-1} \Kolmogorov \right)^2$.
+    % }
+% \end{figure}
+% 
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/c_pdfs_time_ds0.tex}
+    % \caption{
+    	% The diffuselet method in turbulence, influence of $ds_0$. Parameters: $\mathit{Re}_\lambda = 418$, $s_0 = 10^{-1} \Kolmogorov$, $D = 10^{-1} \nu$.
+    % }
+% \end{figure}
+% 
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/time_std_c_D.tex}
+    % \caption{
+    	% Average (left) and standard deviation (right) of the concentration as a function of time for various diffusion coefficients $D$. Parameters: $\mathit{Re}_\lambda = 418$, $s_0 = 10^{-1} \Kolmogorov$, $ds_0 = (10^{-1} \Kolmogorov)^2$.
+    % }
+% \end{figure}
+% 
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/time_std_c_s0.tex}
+    % \caption{
+    	% Average (left) and standard deviation (right) of the concentration as a function of time for various initial surface element thickness $s_0$. Parameters: $\mathit{Re}_\lambda = 418$, $D = 10^{-1} \nu$, $ds_0 = (10^{-1} \Kolmogorov)^2$.
+    % }
+% \end{figure}
+% 
+% \begin{figure}
+    % \centering
+    % \input{app_dsm/plots/time_std_c_ds0.tex}
+    % \caption{
+    	% Average (left) and standard deviation (right) of the concentration as a function of time for various initial surface element surface $ds_0$. Parameters: $\mathit{Re}_\lambda = 418$, $s_0 = 10^{-1} \Kolmogorov$, $D = 10^{-1} \nu$.
+    % }
+% \end{figure}
+
+\section{Diffuselet Method}
+
+The diffuselet method is used to simulate mixing in turbulent flows.
+The probability density function of concentration is showed in Fig.~\ref{fig:diffuselet_concentration} for various times.
+\begin{figure}
+    \centering
+    \input{app_dsm/plots/diffuselet/concentration.tex}
+    \caption{
+    	Parameters: $\mathit{Re}_\lambda = 418$, $D = 10^{-4} \nu$, $s_0 = 10^{-2} \KolmogorovTimeScale$ and $ds_0 = 10^{-2} \KolmogorovScale^2$.
+    }
+    \label{fig:diffuselet_concentration}
+\end{figure}
+
+\section{Experiment}
+
+Experiments were performed in the context of the mixing of scalar filament in a turbulent jet (if I'm not mistaken).
+Data are available from which one may deduce the evolution of concentration.
+At the moment the probability density function of light intensity is shown in Fig~\ref{fig:exp_intensity}.
+\begin{figure}
+    \centering
+    \input{app_dsm/plots/exp/intensity_pdfs_time.tex}
+    \caption{
+		The Plume.tif file. Probability density function of light intensity $I$ for different times (different vertical positions in practice).
+		A few renormalization steps must be done to recover the concentration (I leave it to further discussion.).
+    }
+    \label{fig:exp_intensity}
+\end{figure}
+
+\section{Filament}
+
+The diffuselet theory does not account for ``interactions'' between diffuselets and consider each diffuselet to be completely independant from each other.
+However it is known that scalars tend to form elongated structures (strips or sheets) when advected in flows.
+As a first step to extend the method and account for interactions in the theory, one may study the dynamics of the structure a scalar filament in turbulence.
+Figure \ref{fig:filament_stats} show the first preleinary statistics that can be deduced from our simulations.
+\begin{figure}
+    \centering
+    \input{app_dsm/plots/filament/diff_pdfs_time_d.tex}
+    \caption{
+		Simulating a filament. Probability density function of the initial distance $\varDelta_0$ (left) and the curvilinear distance $\varDelta_s$ of pair of points spaced of a distance less than the Kolmogorov scale $\varDelta_{\vec{X}} < \KolmogorovScale$.
+    }
+    \label{fig:filament_stats}
+\end{figure}

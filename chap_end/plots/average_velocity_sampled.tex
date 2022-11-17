@@ -1,0 +1,72 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				%y descriptions at=edge left,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.47\textwidth,
+			% x
+			%xlabel=$\SwimmingVelocity / \KolmogorovVelocityScale$,
+			%xmin=1,
+			%xmax=8,
+			xlabel=$\epsilon \nu / \SwimmingVelocity^4$,
+			xmode=log,
+			xmin=0.0001,
+			xmax=1,
+			% y
+			%ylabel=$\langle \FlowVelocityScalar_z(\ParticlePosition) \rangle_N / \KolmogorovVelocityScale$,
+			ylabel=$\langle \FlowVelocityScalar_z(\ParticlePosition) \rangle_N / \SwimmingVelocity$,
+			ymin=0,
+			%ymax=5,
+			ymax=2,
+			% layers
+			set layers ,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(0.5, 1.1)}, anchor=south},
+			%legend pos=north east,
+			legend cell align=right,
+			legend columns=4,
+		]
+		% n_{surf, z}
+		\nextgroupplot[
+		]
+			% tau 1.0
+			\addplot[
+				ColorSurf,
+				mark=triangle*,
+				only marks,
+			] table [
+				%x expr={\thisrowno{7}},
+				x expr={1.0/\thisrowno{7}^4},
+				%y expr={\thisrowno{1} / (0.066)},
+				y expr={\thisrowno{1} / (0.066 * \thisrowno{7})},
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers/surfer__max_average_sampled_flow_velocity.csv};
+			%%% 95 CLI
+			\addplot[name path=A, draw=none, forget plot] table [
+				%x expr={\thisrowno{7}},
+				x expr={1.0/\thisrowno{7}^4},
+				%y expr={(\thisrowno{1} - \thisrowno{2}) / (0.066)}, %u_\eta = 0.066
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (0.066 * \thisrowno{7})}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers/surfer__max_average_sampled_flow_velocity.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				%x expr={\thisrowno{7}},
+				x expr={1.0/\thisrowno{7}^4},
+				%y expr={(\thisrowno{1} + \thisrowno{2}) / (0.066)}, %u_\eta = 0.066
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (0.066 * \thisrowno{7})}, %u_\eta = 0.066
+				col sep=comma,
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers/surfer__max_average_sampled_flow_velocity.csv};
+			\addplot[ColorSurf, opacity=0.25, forget plot, on layer=axis background] fill between[of=A and B];
+	\end{groupplot}
+\end{tikzpicture}

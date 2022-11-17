@@ -1,0 +1,139 @@
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 1,
+				%y descriptions at=edge left,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.08\linewidth,
+			},
+			axis on top,
+			% size
+			width=0.47\textwidth,
+			%ymode=log,
+			% layers
+			set layers ,
+			% legend
+			legend style={draw=none, fill=none, /tikz/every even column/.append style={column sep=4pt}, at={(1.0, 1.1)}, anchor=south},
+			%legend pos=north east,
+			legend cell align=right,
+			legend columns=-1,
+		]
+		% n_{surf, z}
+		\nextgroupplot[
+			% x
+			xlabel=$\FlowVorticityScalar_y \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			ylabel=$\langle \SwimmingDirection_{\DirectionScalar} \rangle$,
+			ymin=-1,
+			ymax=1,
+			ytick={-1,0,1},
+		]
+			\addlegendimage{empty legend}\addlegendentry{\NameSurf, $\ReorientationTime =$}
+			% rtime 0.0
+			\addplot[
+				ColorSurf!25!ColorDuration,
+				mark=star,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_1o0__vorticity_z__p_x.csv};
+			\addlegendentry{$0$}
+			% rtime 0.5
+			\addplot[
+				ColorSurf!50!ColorDuration,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__vorticity_z__p_x.csv};
+			\addlegendentry{$\KolmogorovTimeScale/2$}
+			% rtime 1.0
+			\addplot[
+				ColorSurf!75!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_0o5__vorticity_z__p_x.csv};
+			\addlegendentry{$\KolmogorovTimeScale$}
+			% tau 2.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_0o125__vorticity_z__p_x.csv};
+			\addlegendentry{$2\KolmogorovTimeScale$}
+		% n_{surf, x}
+		\nextgroupplot[
+			% x
+			xlabel=$\FlowVorticityScalar_y \KolmogorovTimeScale$,
+			xmin=-2,
+			xmax=2,
+			% y
+			ylabel=$\langle \SwimmingDirection_{x} \rangle$,
+			ymin=-1,
+			ymax=1,
+			ytick={-1,0,1},
+		]
+			% rtime 0.25
+			\addplot[
+				ColorSurf!25!ColorDuration,
+				mark=star,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/surfers__flow__n_128__re_250/surfer__vs_1o0__surftimeconst_1o0__vorticity_z__p_y.csv};
+			% rtime 0.5
+			\addplot[
+				ColorSurf!50!ColorDuration,
+				mark=triangle*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_1o0__vorticity_z__p_y.csv};
+			% rtime 1.0
+			\addplot[
+				ColorSurf!75!ColorDuration,
+				mark=square*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_0o5__vorticity_z__p_y.csv};
+			% rtime 2.0
+			\addplot[
+				ColorSurf!100!ColorDuration,
+				mark=*,
+			] table [
+				x expr={\thisrowno{0}},
+				y expr={\thisrowno{1}},
+				col sep=comma, 
+				comment chars=\#,
+				unbounded coords=discard,
+			] {data/control_surfers__flow__n_128__re_250/control_surfer__vs_1o0__surftimeconst_1o0__omegamax_0o125__vorticity_z__p_y.csv};
+	\end{groupplot}
+\end{tikzpicture}

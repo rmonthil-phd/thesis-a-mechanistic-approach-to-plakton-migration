@@ -1,0 +1,131 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=1 by 1,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.7\textwidth,
+			%height=0.33\textwidth,
+		]
+	%\node[anchor=south east] at (1.4,4.3) {$t =$};
+	\nextgroupplot[
+		% y
+		ylabel={$p(I)$},
+		ymin=1e-4,
+		ymax=1e2,
+		ymode=log,
+		% x
+		xlabel=$I$,
+		xmin=0,
+		xmax=0.4,
+		% layers
+		set layers,
+		% legend
+		legend columns=6,
+		legend cell align=left,
+		legend style={draw=none, fill=none, at={(0.5, 1.1)}, anchor=south},
+	]
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=triangle*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o0.csv};
+		\addlegendentry{$0$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!80!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o01893939393939394.csv};
+
+		\addlegendentry{$0.019 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!60!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o03787878787878788.csv};
+		\addlegendentry{$0.038 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!40!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o056818181818181816.csv};
+		\addlegendentry{$0.057 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!20!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o07575757575757576.csv};
+		\addlegendentry{$0.076 \KolmogorovTimeScale$ \quad}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		%only marks,%solid,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}}, 
+			y expr={\thisrowno{1}},
+			col sep=comma, 
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/exp/intensity_pdf__t_0o0946969696969697.csv};
+		\addlegendentry{$0.095 \KolmogorovTimeScale$}
+	\end{groupplot}
+\end{tikzpicture}
