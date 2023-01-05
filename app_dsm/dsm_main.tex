@@ -50,28 +50,32 @@
 
 \section{Diffuselet Method}
 
-The diffuselet method is used to simulate mixing in turbulent flows.
-The probability density function of concentration is showed in Fig.~\ref{fig:diffuselet_concentration} for various times.
+We use the diffuselet method to simulate mixing in a fully turbulent flow ($\mathit{Re}_{\lambda} = 418$).
+The resulting statistics are showed in Fig.~\ref{fig:diffuselet_theory_check} for various times.
 \begin{figure}
     \centering
-    \input{app_dsm/plots/diffuselet/concentration.tex}
+    \input{app_dsm/plots/diffuselet/theory_check.tex}
     \caption{
-    	Parameters: $\mathit{Re}_\lambda = 418$, $D = 10^{-4} \nu$, $s_0 = 10^{-2} \KolmogorovTimeScale$ and $ds_0 = 10^{-2} \KolmogorovScale^2$.
+    	Probability density function of log stretching
+    	(a) $\mathit{Re_{\lambda}} = 25$,
+    	(b) $\mathit{Re_{\lambda}} = 418$,
+    	both for various simulation times.
+    	In addition the theory that predicts the pdf of log stretching to be gaussian is plotted as comparison with $\lambda \KolmogorovTimeScale = 1.2$ and $V \KolmogorovTimeScale^3 = 3.4 \times 10^{-3} t$.
     }
-    \label{fig:diffuselet_concentration}
+    \label{fig:diffuselet_theory_check}
 \end{figure}
 
 \section{Experiment}
 
 Experiments were performed in the context of the mixing of scalar filament in a turbulent jet (if I'm not mistaken).
 Data are available from which one may deduce the evolution of concentration.
-At the moment the probability density function of light intensity is shown in Fig~\ref{fig:exp_intensity}.
+The probability density function of light intensity is shown in Fig~\ref{fig:exp_intensity}.
 \begin{figure}
     \centering
     \input{app_dsm/plots/exp/intensity_pdfs_time.tex}
     \caption{
 		The Plume.tif file. Probability density function of light intensity $I$ for different times (different vertical positions in practice).
-		A few renormalization steps must be done to recover the concentration (I leave it to further discussion.).
+		A few renormalization steps must be done to recover the concentration (I leave it to further discussion).
     }
     \label{fig:exp_intensity}
 \end{figure}
@@ -80,8 +84,15 @@ At the moment the probability density function of light intensity is shown in Fi
 
 The diffuselet theory does not account for ``interactions'' between diffuselets and consider each diffuselet to be completely independant from each other.
 However it is known that scalars tend to form elongated structures (strips or sheets) when advected in flows.
-As a first step to extend the method and account for interactions in the theory, one may study the dynamics of the structure a scalar filament in turbulence.
-Figure \ref{fig:filament_stats} show the first preleinary statistics that can be deduced from our simulations.
+As a first step to extend the method and account for interactions in the theory, one may study the dynamics of a scalar filament in turbulence.
+Figure \ref{fig:filament_visu} shows a visualisation of the simulation of such a filament and Fig.~\ref{fig:filament_stats} shows the first preliminary statistics that can be computed.
+\begin{figure}
+	\subfloat{\includegraphics[width=0.32\linewidth]{chap_more/visu/filament__400.pdf}} 
+	\subfloat{\includegraphics[width=0.32\linewidth]{chap_more/visu/filament__500.pdf}} 
+	\subfloat{\includegraphics[width=0.32\linewidth]{chap_more/visu/filament__600.pdf}} 
+	\caption{Filament visualisation for $t = 0.4 T_L$, $t = 0.5 T_L$ and $t = 0.6 T_L$}
+	\label{fig:filament_stats}
+\end{figure}
 \begin{figure}
     \centering
     \input{app_dsm/plots/filament/diff_pdfs_time_d.tex}

@@ -36,7 +36,7 @@
 		\nextgroupplot[
 			axis on top,
 		]
-			\node[anchor=east] at (axis cs:9.2,1.82) {Sensing: };
+			\node[anchor=east] at (axis cs:5.0,1.82) {Sensing: };
 			%% full
 			\addplot[name path=A, draw=none, forget plot] table [
 				x index=4, 
@@ -69,7 +69,7 @@
 				col sep=comma,
 				comment chars=\#,
 			]{data/partial_surfers__flow__n_128__re_250/surfer_skew__merge_average_velocity_axis_0.csv};
-			\addplot[ColorSurf!50!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+			\addplot[ColorSurf!66!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
 
 			%% asym orth
 			\addplot[name path=A, draw=none, forget plot] table [
@@ -84,6 +84,24 @@
 				col sep=comma,
 				comment chars=\#,
 			]{data/partial_surfers__flow__n_128__re_250/surfer_skew_orth__merge_average_velocity_axis_0.csv};
+			\addplot[ColorSurf!33!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
+			%% statochist
+			\addplot[name path=A, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} - \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/control_surfers_statochist__flow__n_128__re_250/control_surfer_statochist__merge_average_velocity_axis_0.csv};
+			\addplot[name path=B, draw=none, forget plot] table [
+				x index=4,
+				y expr={(\thisrowno{1} + \thisrowno{2}) / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/control_surfers_statochist__flow__n_128__re_250/control_surfer_statochist__merge_average_velocity_axis_0.csv};
 			\addplot[ColorSurf!00!ColorAsym, opacity=0.25, forget plot] fill between[of=A and B];
 
 			
@@ -108,7 +126,7 @@
 			% asym
 			\addplot
 			[
-			color=ColorSurf!50!ColorAsym,
+			color=ColorSurf!66!ColorAsym,
 			opacity=1.0,
 			only marks,%solid
 			mark=square
@@ -121,10 +139,10 @@
 			]{data/partial_surfers__flow__n_128__re_250/surfer_skew__merge_average_velocity_axis_0.csv};
 			\addlegendentry{$\GradientsAsym$}
 
-			% asym
+			% asym orth
 			\addplot
 			[
-			color=ColorSurf!00!ColorAsym,
+			color=ColorSurf!33!ColorAsym,
 			opacity=1.0,
 			only marks,%solid
 			mark=triangle*
@@ -136,6 +154,23 @@
 				comment chars=\#,
 			]{data/partial_surfers__flow__n_128__re_250/surfer_skew_orth__merge_average_velocity_axis_0.csv};
 			\addlegendentry{$\GradientsAsym^{\bot \Direction}$}
+			% statochist
+			\addplot
+			[
+			color=ColorSurf!00!ColorAsym,
+			opacity=1.0,
+			only marks,%solid
+			mark=asterisk
+			]
+			table[
+				x index=4,
+				y expr={\thisrowno{1} / (\thisrowno{3} * 0.21)}, %u_\eta = 0.21
+				col sep=comma,
+				comment chars=\#,
+				restrict expr to domain={\thisrowno{5}}{2.0:2.0},
+				unbounded coords=discard,
+			]{data/control_surfers_statochist__flow__n_128__re_250/control_surfer_statochist__merge_average_velocity_axis_0.csv};
+			\addlegendentry{$\FlowVorticityScalar \cdot (\Direction \times \SwimmingDirection)$}
 			
 			%% y = x
 			\addplot

@@ -9,7 +9,7 @@
 				vertical sep=0.02\linewidth,
 			},
 			% size
-			width=0.55\textwidth,
+			width=0.5\textwidth,
 			%height=0.33\textwidth,
 			% y
 			ylabel={$p(\varDelta)$},
@@ -19,7 +19,7 @@
 			% layers
 			set layers,
 			% legend
-			legend columns=7,
+			legend columns=-1,
 			legend cell align=left,
 			legend style={draw=none, fill=none, at={(1.0, 1.05)}, anchor=south},
 		]
@@ -30,6 +30,7 @@
 		xmin=0,
 		xmax=1.0,
 	]
+		\addlegendimage{empty legend}\addlegendentry{$t = ~$}
 		% plot
 		\addplot
 		[

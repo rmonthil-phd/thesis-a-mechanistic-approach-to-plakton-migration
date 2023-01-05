@@ -1,0 +1,586 @@
+% Reynolds
+\begin{tikzpicture}
+	\begin{groupplot}[
+			group style={
+				group size=2 by 2,
+				%y descriptions at=edge left,
+				%x descriptions at=edge bottom,
+				horizontal sep=0.14\linewidth,
+				%vertical sep=0.02\linewidth,
+			},
+			% size
+			width=0.48\textwidth,
+			% legend
+			legend columns=4,
+			legend cell align=left,
+			legend style={draw=none, fill=none, at={(0.5, 1.1)}, anchor=south},
+		]
+	% \nextgroupplot[
+		% % y
+		% ylabel={$p(C = c)$},
+		% ymin=1e-9,
+		% ymax=1e-6,
+		% ymode=log,
+		% % x
+		% xlabel=$c$,
+		% xmin=0,
+		% xmax=1,
+		% % layers
+		% set layers,
+		% % legend
+		% legend columns=-1,
+		% legend cell align=left,
+		% legend style={draw=none, fill=none, at={(1.0, 1.1)}, anchor=south},
+	% ]
+		% \addlegendimage{empty legend}\addlegendentry{$t = ~$}
+		% \node[anchor=north west] at (axis cs:0,1e-6) {\textbf{(a)}};
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!00!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=star
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o016__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$0.38 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!17!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=*
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o032__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$0.75 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!33!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=o
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o064__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$1.5 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!50!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=pentagon*
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o128__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$3 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!67!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=pentagon
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o256__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$6 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!83!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=square*
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o512__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$12 \KolmogorovTimeScale$ \quad}
+		% % plot
+		% \addplot
+		% [
+		% color=ColorSurf!100!ColorDuration,
+		% opacity=1.0,
+		% only marks,%solid,
+		% %mark repeat=4,
+		% mark=square
+		% ]
+		% table[
+			% x expr={\thisrowno{0}},
+			% y expr={\thisrowno{1}},
+			% col sep=comma,
+			% comment chars=\#,
+			% unbounded coords=discard,
+			% restrict expr to domain={\thisrowno{0}}{0.001:9.009},
+		% ]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_1o024__sc_100o0__c_pdf.csv};
+		% \addlegendentry{$24 \KolmogorovTimeScale$ \quad}
+
+
+	\nextgroupplot[
+		% y
+		ylabel={$p(\log \rho)$},
+		ymin=1e-4,
+		ymax=1e1,
+		ymode=log,
+		% x
+		xlabel=$\log \rho$,
+		xmin=-5,
+		xmax=50,
+		%xtick={-4.605170185988091, 23.025850929940457, 46.051701859880914, 59.86721241784519},
+		%xticklabels={$10^{-2}$, $10^{10}$, $10^{20}$, $10^{26}$},
+		% layers
+		set layers,
+	]
+		\node[anchor=north west] at (axis cs:-5,1e1) {\scriptsize \textbf{(a)}: $\mathit{Re}_{\lambda} = 25$, $\overline{\lambda} \KolmogorovTimeScale = 0.16$, $V = 0.17 ~ t / \KolmogorovTimeScale$};
+		\addlegendimage{empty legend}\addlegendentry{$t \approx ~$}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_0o128__log_rho_pdf.csv};
+		\addlegendentry{$2 \KolmogorovTimeScale$ \quad}
+		\def\modlambda{2.6}
+		\def\modtvar{1.0}
+		\def\modvar{2.8}
+		\def\modt{0.128}
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!17!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_0o256__log_rho_pdf.csv};
+		\addlegendentry{$4 \KolmogorovTimeScale$ \quad}
+		\def\modt{0.256}
+		\addplot
+		[
+		color=ColorSurf!17!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!33!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_0o512__log_rho_pdf.csv};
+		\addlegendentry{$8 \KolmogorovTimeScale$ \quad}
+		\def\modt{0.512}
+		\addplot
+		[
+		color=ColorSurf!33!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_1o024__log_rho_pdf.csv};
+		\addlegendentry{$16 \KolmogorovTimeScale$ \quad}
+		\def\modt{1.024}
+		\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!67!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=pentagon
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_2o048__log_rho_pdf.csv};
+		\addlegendentry{$32 \KolmogorovTimeScale$ \quad}
+		\def\modt{2.048}
+		\addplot
+		[
+		color=ColorSurf!67!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!83!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=square*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_4o096__log_rho_pdf.csv};
+		\addlegendentry{$64 \KolmogorovTimeScale$ \quad}
+		\def\modt{4.096}
+		\addplot
+		[
+		color=ColorSurf!83!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_25/tracer__time_8o192__log_rho_pdf.csv};
+		\addlegendentry{$128 \KolmogorovTimeScale$ \quad}
+		\def\modt{8.192}
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+
+
+	\nextgroupplot[
+		% y
+		ylabel={$p(\log \rho)$},
+		ymin=1e-4,
+		ymax=1e1,
+		ymode=log,
+		% x
+		xlabel=$\log \rho$,
+		xmin=-5,
+		xmax=50,
+		%xtick={-4.605170185988091, 23.025850929940457, 46.051701859880914, 59.86721241784519},
+		%xticklabels={$10^{-2}$, $10^{10}$, $10^{20}$, $10^{26}$},
+		% layers
+		set layers,
+	]
+		\node[anchor=north west] at (axis cs:-5,1e1) {\scriptsize \textbf{(b)}: $\mathit{Re}_{\lambda} = 418$, $\overline{\lambda} \KolmogorovTimeScale = 0.14$, $V = 0.2 ~ t / \KolmogorovTimeScale$};
+		\addlegendimage{empty legend}\addlegendentry{$t \approx ~$}
+		% plot
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=star
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o128__log_rho_pdf.csv};
+		\addlegendentry{$3 \KolmogorovTimeScale$ \quad}
+		\def\modlambda{3.3}
+		\def\modtvar{1.0}
+		\def\modvar{5.0}
+		\def\modt{0.128}
+		\addplot
+		[
+		color=ColorSurf!00!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!17!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o256__log_rho_pdf.csv};
+		\addlegendentry{$6 \KolmogorovTimeScale$ \quad}
+		\def\modt{0.256}
+		\addplot
+		[
+		color=ColorSurf!17!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!33!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=o
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_0o512__log_rho_pdf.csv};
+		\addlegendentry{$12 \KolmogorovTimeScale$ \quad}
+		\def\modt{0.512}
+		\addplot
+		[
+		color=ColorSurf!33!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=pentagon*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_1o024__log_rho_pdf.csv};
+		\addlegendentry{$25 \KolmogorovTimeScale$ \quad}
+		\def\modt{1.024}
+		\addplot
+		[
+		color=ColorSurf!50!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:10,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!67!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=pentagon
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_2o048__log_rho_pdf.csv};
+		\addlegendentry{$50 \KolmogorovTimeScale$ \quad}
+		\def\modt{2.048}
+		\addplot
+		[
+		color=ColorSurf!67!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot,
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!83!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=square*
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_4o096__log_rho_pdf.csv};
+		\addlegendentry{$100 \KolmogorovTimeScale$ \quad}
+		\def\modt{4.096}
+		\addplot
+		[
+		color=ColorSurf!83!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+		% plot
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		only marks,%solid,
+		mark repeat=10,
+		mark=square
+		]
+		table[
+			x expr={\thisrowno{0}},
+			y expr={\thisrowno{1}},
+			col sep=comma,
+			comment chars=\#,
+			unbounded coords=discard,
+		]{app_dsm/data/diffuselet/re_lambda_418/tracer__time_8o192__log_rho_pdf.csv};
+		\addlegendentry{$200 \KolmogorovTimeScale$ \quad}
+		\def\modt{8.192}
+		\addplot
+		[
+		color=ColorSurf!100!ColorDuration,
+		opacity=1.0,
+		solid,
+		domain=-4:60,
+		samples=128,
+		forget plot
+		]{(1/sqrt(2 * pi * (\modt/\modtvar) * \modvar)) * exp(-(x - \modlambda * \modt)^2/(2*((\modt/\modtvar)*\modvar)))};
+
+
+	\end{groupplot}
+\end{tikzpicture}
