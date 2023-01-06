@@ -168,7 +168,7 @@ The measure of the flow speed and therefore, of their own total speed, is then o
 
 Depending on their sensory organs, the flow information plankters have access to may be even more limited.
 Even when equipped with setae (mechano-sensors) they would not be able to measure flow rotation (vorticity) as they would rotate with it as much as they drift with it.
-This limits the part of the flow they can measure to pure shear (Fig.~\ref{fig:measure_strain}).
+This limits the part of the flow they can measure to pure strain (Fig.~\ref{fig:measure_strain}).
 Moreover as sensing depends on the alignement of the atennules with shear, plankters orientation with respect to the flow strongly impacts sensing capabilities \citep{fields2010orientation}.
 \begin{figure}
 	\centering
@@ -200,7 +200,7 @@ However, this may limit their own active rotation capabilities.
 
 On the other hand, if one only relies on statochists, having a non spherical shape could be helpful.
 The rotation of non spherical particles is also influenced by the shear part of the flow.
-However the challenge then lies in separating the part of rotation due to flow vorticity from the part due to pure shear.
+However the challenge then lies in separating the part of rotation due to flow vorticity from the part due to pure strain\footnote{Note that \textbf{pure strain} (also called pure shear) is not to be confused with \textbf{simple shear} that contains a vortical part.}.
 
 Despite these limitations, many plankton species, such as copepods, are known to use this partial flow information to detect mates, preys and predators \citep{kiorboe1999predator, kiorboe1999hydrodynamic, jiang2002hydrodynamic, kiorboe2018mechanistic}\footnote{The title of this thesis is an homage to the excellent book of \citet{kiorboe2018mechanistic}, that inspired greatly this whole study.}.
 Oyster larvae are even known to be able to measure and forage underwater sounds \citep{williams2022oyster}. 
@@ -234,13 +234,13 @@ Finally the motivation: either avoiding being eaten or feeding.
 To avoid death, the prey is motivated to react regardless of the energy used whereas the predator needs to ensure catching the prey is worth the energy consumed to catch it.
 
 Similar navigation problems, accounting for various of the previously described effects, have already been addressed either using physics-based strategies and reinforcement learning models.
-For instance, accounting for hydrdynamical interactions, \citet{zhu2022optimising} show that optimal control can be used to find the optimal navigation strategy that enables to catch a non-motile point. 
+For instance, accounting for hydrodynamical interactions, \citet{zhu2022optimising} show that optimal control can be used to find the optimal navigation strategy that enables to catch a non-motile point. 
 They also showed that efficient strategies can be found using reinforcement learning to catch finite-size preys and characterize the effect of the size of the prey on the navigation strategy.
 \citet{borra2022reinforcement} additionally account for prey behavior and show that prey-predator systems can display complex dynamics.
 
 However, these strategies do not account for an external flow gradient that could further modify navigation.
 This is one of the aspects that could be explored in future research.
-Note that from this problem also rise the questions of hydrodynamical detection startegies and hydrodynamical stealth strategies, also motivating ongoing research \citep{ren2021bluff}.
+Note that from this problem also rise the questions of hydrodynamical detection strategies and hydrodynamical stealth strategies, also motivating ongoing research \citep{ren2021bluff}.
 
 \subsubsection{Navigating to an odor source: finding a mate}
 
@@ -289,7 +289,7 @@ This navigation problem drawed attention in recent studies. For instance in the 
 However no flow exploitation is considered.
 Flow sensing could lead to the foraging of beneficial currents that could be used to reach (or escape) that visual target faster.
 Reinforcement learning has also been shown to be a promising tool to solve this problems in simplified flow fields \citep{gunnarson2021learning} and using the information of the whole flow field \citep{biferale2019zermelo}.
-However, these approaches are challenged in more complex flows such as time-dependant 3D turbulence \citep{alageshan2020machine}, more representative of the complexity of plankton environment.
+However, these approaches are challenged in more complex flows such as time-dependant 3D turbulence \citep{alageshan2020machine, qiu2022active}, more representative of the complexity of plankton environment.
 
 \subsubsection{Navigating to explore: plankton horizontal dispersion}
 

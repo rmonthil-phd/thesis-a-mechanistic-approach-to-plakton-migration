@@ -417,17 +417,18 @@ Despite Fig.~\ref{fig:surfing_parameter_tau_vs}\textbf{(b)} showing a weak Reyno
 This assumption is discussed below.
 
 To characterize the dependence of the time evolution of the flow sampled by plankters, we plot in Fig.~\ref{fig:surfing_correlation_time}\textbf{(a)} the square root of the module of the temporal Fourier transform $I(\omega_f)$ of $\tr([ \Gradients ]^2)$, an invariant of the flow velocity gradients
-\begin{equation}
+\begin{equation}\label{eq:invar_corr}
 	I(\omega_f) = \sqrt{ \abs*{ \frac{d}{d\omega_f} \tr ( [ \Gradients ]^2 )} },
 \end{equation}
 measured along trajectories of plankters with various swimming velocities. 
 The symbol $\omega_f$ denotes the temporal pulsation associated to the module $I(\omega_f)$.
+The derivative $d/d\omega_f$ then denotes that it is the Fourier transform of the invariant that is considered (independent on time but dependant on $\omega_f$).
 \begin{figure}%[H]
 	\centering
 	\input{chap_turbulence/plots/correlation_time}
 	\caption[Influence of the swimming speed on the time correlations of the flow sampled by plankters.]{
 		Influence of the swimming speed on the time correlations of the flow sampled by plankters.
-		\textbf{(a)} Correlation time $\CorrelationTime$, defined in Eq.~\eqref{eq:corr}, and \textbf{(b)} optimal time horizon $\TimeHorizonOpt$ as a function of swimming velocity ($\TimeHorizonOpt$ is evaluated using the fitted polynomial).
+		\textbf{(a)} Invariant intensity [$I$, Eq.~\eqref{eq:invar_corr}] as a function of the pulsation $\omega_f$ for various plankter swimming speed. \textbf{(b)} Correlation time $\CorrelationTime$, defined in Eq.~\eqref{eq:corr}, and optimal time horizon $\TimeHorizonOpt$ as a function of swimming velocity ($\TimeHorizonOpt$ is evaluated using the fitted polynomial).
 		The optimal time horizon $\TimeHorizonOpt$ is compared to the correlation time $\CorrelationTime$ [Eq.~\eqref{eq:corr}] for various definitions of $I(\omega_f)$ (Tab.~\ref{tab:invariants}) and to the model given by Eq.~\eqref{eq:time_horizon_model}.
 		The simulation case is $\mathit{Re}_{\lambda} = 418$.
 	}
@@ -480,7 +481,7 @@ The value of $\alpha_{\mathrm{swim}} \approx 0.08$ and the prefactor $4.368$ are
 Plotted in Fig.~\ref{fig:surfing_correlation_time}\textbf{(b)}, this model provides a fair prediction in the range of parameters explored here but the simplicity of the model fails to capture all features observed: the concavity of the function for small swimming velocities for instance.
 Therefore models that account for more effects, such as the complex spatial distribution of flow features in turbulence, should be considered in the future.
 
-Overall, the optimal optimal horizon time $\TimeHorizonOpt$ has then two properties: (1) $\TimeHorizonOpt$ is always of the order of the Kolmogorov time scale and (2) increasing the swimming velocity tends to reduce $\TimeHorizonOpt$ (due to shorter Lagrangian decorrelation time induced by Doppler-shifting of frequencies).
+Overall, the optimal horizon time $\TimeHorizonOpt$ has then two properties: (1) $\TimeHorizonOpt$ is always of the order of the Kolmogorov time scale and (2) increasing the swimming velocity tends to reduce $\TimeHorizonOpt$ (due to shorter Lagrangian decorrelation time induced by Doppler-shifting of frequencies).
 
 \subsection{Influence of the Reynolds number $\mathit{Re}_{\lambda}$}
 
@@ -513,15 +514,15 @@ Now that we demonstrated the surfing strategy to be effective, we look for a pro
 To do so, we push further our analysis to determine the role of the symmetric component of the flow and of the skew symmetric one.
 This lets us first assess which component of the flow is responsible for most of the surfing performance.
 Build upon this assessment, we then estimate surfing performance.
-Based on the simplified formulation of the surfing strategy in both a simple vortex flow and a pure shear flow (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_linear}) we then estimate surfing performance.
+Based on the simplified formulation of the surfing strategy in both a simple vortex flow and a pure strain flow (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_linear}) we then estimate surfing performance.
 
 \subsection{Partial surfing performance}\label{sec:partial}
 
-Based on the observation that the surfing strategy behaves differently in a vortex flow than in a pure shear flow, we can expect that different components of the flow contributes differently to surfing performance.
-In linear flows (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_linear}), when the flow corresponds to pure shear (symmetric), $\Gradients = \GradientsSym$, surfers perform only slightly better than bottom-heavy swimmers.
+Based on the observation that the surfing strategy behaves differently in a vortex flow than in a pure strain flow, we can expect that different components of the flow contributes differently to surfing performance.
+In linear flows (cf. Chap.~\ref{chap:the_surfing_strategy}, Sec.~\ref{sec:the_surfing_strategy_linear}), when the flow corresponds to pure strain (symmetric), $\Gradients = \GradientsSym$, surfers perform only slightly better than bottom-heavy swimmers.
 On the contrary, in a vortex flow (skew symmetric), $\Gradients = \GradientsAsym$, bottom-heavy swimmers get trapped into the vortex. 
 Surfers are however able to escape from it and perform much better.
-Based on the observation made for linear flows, we already expect the rotation rate $\GradientsSym$ to contribute more to surfing performance. 
+Based on the observation made for linear flows, we already expect the rotation rate $\GradientsAsym$ to contribute more to surfing performance. 
 But how does these observations translate to a turbulent flow?
 To answer this question, the surfing strategy can be adapted by directly replacing the gradients $\Gradients$ by one of these components in Eq.~\eqref{turb:eq:surfing_swimming_direction_final}.
 
@@ -600,7 +601,7 @@ We now want to model the term $[ \exp ( \TimeHorizon_{\Gradients} \Gradients ) \
 We further assume that the symmetric surfing direction $\ControlDirectionOptSym$ is independent of the rotational part of the flow velocity gradients $\GradientsAsym$.
 In practice, both parts of the symmetric decomposition of the gradient tensor are known to be correlated \citep{buaria2022vorticity} but here our ambition is to obtain a tractable model of surfing performance.
 
-After averaging over possible values of $\GradientsAsym$, the exponential term is expected to be proportional to its value in a pure shear flow
+After averaging over possible values of $\GradientsAsym$, the exponential term is expected to be proportional to its value in a pure strain flow
 \begin{equation}\label{eq:partial_sym_prop}
 	\left\langle \left[ \exp \left( \TimeHorizon_{\Gradients} \Gradients \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction \right\rangle_\GradientsAsym \propto \left[ \exp \left( \TimeHorizon_{\GradientsSym} \GradientsSym \right) \cdot \ControlDirectionOptSym(\TimeHorizon) \right] \cdot \Direction,
 \end{equation}
@@ -748,7 +749,7 @@ The model could certainly be improved further by using a better choice of the pr
 
 Building upon the previous models, we now look for an estimate performance in the case a fully-informed surfer.
 To this end, we restrict our analysis to a particular case: we assume that vorticity is aligned with the second eigenvector $\hat{\vec{e}}_\beta$ of the gradient tensor $\Gradients$ and that the eigenvalues of $\GradientsSym = \sym \Gradients$ are $\delta$, $\delta$ and $-2\delta$.
-This preferential alignment is a property of turbulence \citep{ashurst1987alignment, tsinober1992experimental, gulitski2007velocity}.
+This preferential alignment is a property of 3D turbulence, partly due to vortex stretching \citep{ashurst1987alignment, tsinober1992experimental, gulitski2007velocity}.
 With this assumption the gradient tensor, $\Gradients$, has the form
 \begin{equation}\label{turb:eq:gradient_tensor_model}
 	\Gradients \approx \begin{pmatrix}
@@ -826,5 +827,5 @@ We conclude this chapter by summing up key elements discussed previously
 	\item the flow can be exploited for navigation even in a turbulent flow regardless of turbulence intensity
 	\item surfing performance is due to the preferential flow sampling of the flow
 	\item this strategy can lead to a vertical effective speed that is twice the actual swimming speed: $\Performance \approx 2 \SwimmingVelocity$
-	\item the component of the flow that is responsible for most of the performance is the rotational component $\GradientsAsym$
+	\item the component of the flow that is responsible for most of the performance is the rotational component $\GradientsAsym$, which is the most difficult to sense for organisms (using setae) because it does not yield body stretching (c.f. Chap.~\ref{chap:intro}, App.~\ref{sec:intro_flow_sensing})
 \end{itemize}

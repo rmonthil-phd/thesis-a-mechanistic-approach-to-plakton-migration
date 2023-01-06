@@ -400,13 +400,13 @@ Accounting only for the contribution of the rotational part of the flow, the ave
 \end{equation}
 After simplification, we can write this expression conveniently
 \begin{equation}
-	\left\langle \frac{d \ParticlePosition}{dt} \right\rangle_{\FlowVelocity_0, \partial \FlowVelocity / \partial t, \GradientsSym} \propto \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \matr{S}_{\perp \hat{\FlowVorticity}} ( e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} ) \cdot \exp \left( \TimeHorizon \GradientsAsym \right) \cdot \left( \matr{\mathit{Id}} - \InertialDelay \GradientsAsym \right) \cdot \Direction,
+	\left\langle \frac{d \ParticlePosition}{dt} \right\rangle_{\FlowVelocity_0, \partial \FlowVelocity / \partial t, \GradientsSym} \propto \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \matr{S}_{\perp \hat{\FlowVorticity}} ( e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} ) \cdot \exp \left( \frac{\TimeHorizon \, \GradientsAsym}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \right) \cdot \left( \matr{\mathit{Id}} - \InertialDelay \GradientsAsym \right) \cdot \Direction,
 \end{equation}
 where $\matr{S}_{\perp \hat{\vec{b}}}(a) = a \matr{Id} - (a - 1) \, (\hat{\vec{b}} \times \hat{\vec{b}})$ corresponds to a stretching transformation matrix of intensity $a$ in the plane orthogonal to the unit vector $\hat{\vec{b}}$.
 Note the commutativity of each of the matrix terms above and can be written in any particular order.
 Each of the multiplicative terms contribute differently to the average particle motion:
 \begin{itemize}
-	\item The term $\exp \left( \TimeHorizon \GradientsAsym \right)$ corresponds to the transformation matrix causing a rotation of angle $\TimeHorizon \FlowVorticityScalar / 2$ along the axis $\hat{\FlowVorticity}$. This term characterizes the direct effect of flow vorticity on the trajectory and is the only term that would also affect inertialess settling ($\InertialDelay = 0$).
+	\item The term $\exp \left( \TimeHorizon \GradientsAsym / (1 + (\InertialDelay \FlowVorticityScalar/2)^2) \right)$ corresponds to the transformation matrix causing a rotation of angle $\TimeHorizon \FlowVorticityScalar / (2 + 2 (\InertialDelay \FlowVorticityScalar/2)^2)$ along the axis $\hat{\FlowVorticity}$. This term characterizes the direct effect of flow vorticity on the trajectory and is the only term that would also affect inertialess settling ($\InertialDelay = 0$). Note however that inertia tend to decrease this effect as $\InertialDelay$ increases.
 	\item If particles are weakly inertial $\InertialDelay \FlowVorticityScalar \ll 1$, the term $\matr{\mathit{Id}} - \InertialDelay \GradientsAsym$ actually corresponds to a counter rotation compared to the previous term $\matr{\mathit{Id}} - \InertialDelay \GradientsAsym = \exp \left( - \InertialDelay \GradientsAsym \right) + O(\InertialDelay \FlowVorticityScalar)$. 
 		Note the similitude with the skew-symmetric surfing strategy: $\ControlDirectionOptAsym = \exp \left( - \InertialDelay \GradientsAsym \right) \cdot \Direction$. 
 		As previously described for surfing, this term is responsible of preferential flow sampling that leads eventually to enhanced settling.
@@ -423,18 +423,18 @@ Note well that these result are based on the assumption that $d^2 \ParticlePosit
 This is only expected to be valid for $\InertialDelay \lesssim \TimeHorizon$.
 
 We now compute the expected settling speed by computing the dot product $\partial \ParticlePosition / \partial t \cdot \Direction$. 
-Note that we use $\matr{\mathit{Id}} - \InertialDelay \GradientsAsym \approx \exp \left( -\TimeHorizon \GradientsAsym \right)$ for the sake of simplicity.
+Note that we use $\matr{\mathit{Id}} - \InertialDelay \GradientsAsym \approx \exp \left( -\InertialDelay \GradientsAsym \right)$ for the sake of simplicity.
 With this simplification, we obtain
 \begin{equation}
-	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym} \propto \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \left[e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) \, \DirectionScalar_{\perp \hat{\FlowVorticity}}^2 + \DirectionScalar_\FlowVorticityScalar^2 \right].
+	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym} \propto \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \left[e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos \left(\FlowVorticityScalar \left[\frac{\TimeHorizon}{1 + (\InertialDelay \FlowVorticityScalar / 2)^2} - \InertialDelay \right] / 2 \right) \, \DirectionScalar_{\perp \hat{\FlowVorticity}}^2 + \DirectionScalar_\FlowVorticityScalar^2 \right].
 \end{equation}
 When averaged over all possible orientation of $\Direction$, the settling reads
 \begin{equation}
-	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym, \Direction} \propto \frac{1}{3} \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \left[ 2 \, e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) + 1 \right].
+	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym, \Direction} \propto \frac{1}{3} \frac{\TerminalVelocity}{1 + (\InertialDelay \FlowVorticityScalar/2)^2} \left[ 2 \, e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos \left(\FlowVorticityScalar \left[\frac{\TimeHorizon}{1 + (\InertialDelay \FlowVorticityScalar / 2)^2} - \InertialDelay \right] / 2 \right) + 1 \right].
 \end{equation}
 The proportionality coefficient is finally obtained by evaluating the performance for inertialess particles and the settling speed is expressed as
 \begin{equation}
-	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym, \Direction} \approx \TerminalVelocity \frac{2 \, e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) + 1}{\left[ 1 + (\InertialDelay \FlowVorticityScalar/2)^2 \right] \left[ 2 \cos(\FlowVorticityScalar [\TimeHorizon - \InertialDelay] / 2) + 1 \right]}.
+	\left\langle \Performance \right\rangle_{\FlowVelocity, \partial \FlowVelocity / \partial t, \GradientsAsym, \GradientsSym, \Direction} \approx \TerminalVelocity \frac{2 \, e^{\frac{\TimeHorizon \InertialDelay (\FlowVorticityScalar/2)^2}{1 + (\InertialDelay \FlowVorticityScalar/2)^2}} \cos \left(\FlowVorticityScalar \left[\frac{\TimeHorizon}{1 + (\InertialDelay \FlowVorticityScalar / 2)^2} - \InertialDelay \right] / 2 \right) + 1}{\left[ 1 + (\InertialDelay \FlowVorticityScalar/2)^2 \right] \left[ 2 \cos(\FlowVorticityScalar \TimeHorizon / 2) + 1 \right]}.
 \end{equation}
 
 This model is plotted in Fig.~\ref{fig:passive_inertial_delay} with the value of $\omega$ and $\TimeHorizon$ used for the plot are those obtained by fitting in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:partial}.

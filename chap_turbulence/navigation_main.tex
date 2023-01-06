@@ -106,7 +106,7 @@ Moreover, despite some recent efforts to take into account a maximal curvature c
 \section{Shortest path problem}\label{sec:shortest_path}
 
 Introduced by \citet{dijkstra1959note}, the shortest path problem consists in finding the shortest path between two vertices of a graph.
-For instance, such graph can represent a road network in the context of land navigation, where roads a represented by graph edges and crossroads by graph vertices.
+For instance, such graph can represent a road network in the context of land navigation, where roads are represented by graph edges and crossroads by graph vertices.
 Then, which path should be taken to minimize arrival time at destination?
 \begin{figure}
 	\centering
@@ -254,7 +254,7 @@ Highly flexible, this method enables edges weights to allow for any cost functio
 While the method works for travel time minimization, one may also add for instance fuel consumption and risk level into the equation.
 Particularly flexible, this method further allows to remove the vertices of the graph with respect to various constraints.
 For instance, graph vertices corresponding to the harshest weather conditions can be removed from the graph to ensure the safety of the planned route.
-In the contexte of marine navigation, the presence of storm, wave risk or collision risk among others can easily be taken into account.
+In the context of marine navigation, the presence of storm, wave risk or collision risk among others can easily be taken into account.
 
 The \citet{dijkstra1959note} algorithm is not the sole algorithm that solves shortest path problems.
 Indeed this algorithm is actually a particular case of dynamic programming introduced later by \citet{bellman1966dynamic}.
@@ -297,7 +297,7 @@ For instance many rely on genetic algorithms \citep{avgouleas2014fuel, vettor201
 The methods previously described can be referred to \textit{global} optimization methods \citep{todorov2009iterative}.
 While in theory, these methods lead to optimal solutions, they may face the \textit{curse of dimensionality},  previously described, and lead to poor performance in practice.
 
-To overcome this difficulty, an interesting approaches involves reducing the global problem to a ``local'' problem that can be solved at a lower cost.
+To overcome this difficulty, an interesting approach involves reducing the global problem to a ``local'' problem that can be solved at a lower cost.
 Solving such a problem iteratively along a swimmers trajectory leads to an approximate optimal solution.
 Iterative dynamic programming and its derivatives lie into this class of solutions \citep{todorov2009iterative, luus2019iterative}.
 While the solution is not guaranteed to be optimal anymore, it solves the issue caused by the \textit{curse of dimensionality} and is also widely used in marine navigation \citep{avgouleas2008optimal, avgouleas2014fuel}.
@@ -441,7 +441,7 @@ For instance, using reinforcement learning, \citet{reddy2016learning} show that 
 In the context of the vertical migration of microswimmers, \citet{colabrese2017flow} demonstrates that smart navigation is possible in Taylor-Green vortices through reinforcement learning.
 Since then studies looked to quantify the performance of these methods of point to point navigation in more complex flows such as: 2D turbulent flows \citep{biferale2019zermelo, alageshan2020machine, qiu2022navigation}, 2D cylinder vortical wakes \citep{gunnarson2021learning}, 2D random flow fields \citep{qiu2022navigation} and in the 3D ABC flow \citep{gustavsson2017finding} among others.
 Overall the results show reinforcement learning to be a promising tool to solve such navigation problems.
-However, its application to more complex flows such as 3D turbulence remains challenging \citep{alageshan2020machine}.
+However, its application to more complex flows such as 3D turbulence remains challenging \citep{alageshan2020machine, qiu2022active}.
 Moreover the resulting strategies are often difficult to interpret, known as the ``black box'' issue.
 
 % Reinforcement learning methods can be seen as an extension of dynamic programming but rather than looking for approximate solutions rather than optimal ones.
@@ -518,7 +518,7 @@ The parameters $\lambda_{\mathrm{learn.}}$ and $\gamma_{\mathrm{learn.}}$ are tw
 The parameter $\lambda_{\mathrm{learn.}}$ characterizes how fast $\mathcal{Q}(a, s)$ is updated.
 This boils down to averaging the reward $\mathcal{R}_a(s, s')$ approximately over $1/\lambda_{\mathrm{learn.}}$ iterations.
 If the problem is completely deterministic, $\lambda_{\mathrm{learn.}}$ is set to $1$ as no average is needed but the more probabilistic it becomes, the lower the value $\lambda_{\mathrm{learn.}}$ is set to enhance the learning process.
-The parameter $\gamma_{\mathrm{learn.}}$ characterizes the fact that rewards obtained late in the future reward are discounted with respect to the rewards obtained in a close future.
+The parameter $\gamma_{\mathrm{learn.}}$ characterizes the fact that rewards obtained late in the future are discounted with respect to the rewards obtained in a close future.
 The method then only accounts for an iteration horizon of the order of $1/\gamma_{\mathrm{learn.}}$ rather than looking for an optimal solution over an infinite number of iterations.
 
 We now know how the quality value $\mathcal{Q}$ can be built from experience.
@@ -561,7 +561,7 @@ Whenever the agent changes of space, the naive swimmer is then reset at the posi
 The reward is then defined as $\mathcal{R}(t) = \TargetDistance_{\mathrm{naive}}(t) - \TargetDistance_{\mathrm{smart}}(t)$ with $\TargetDistance$ the distance to the target.
 
 Due to the more complex nature of the problem they address compared to the problem of vertical migration, the choice of a performance metric is not obvious.
-They metric chosen by \citet{Alageshan2020} is the average time to reach the fixed target. 
+The metric chosen by \citet{Alageshan2020} is the average time to reach the fixed target. 
 This metric requires the addition of a parameter, the size of the target. 
 Moreover this metric do not account for the agents that do not reach the target.
 To overcome these issues and compare the performance of the learnt strategy they obtain to the surfing strategy, we consider the target to reached is placed at infinity.

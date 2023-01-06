@@ -149,7 +149,7 @@
 		on layer=axis background,
 		domain=0:7,
 		]{(2.0 * exp(\moddelta * \modtimesym / (1.0 + x * \moddelta)) / (1.0 + x * \moddelta) + exp(-2.0 * \moddelta * \modtimesym / (1.0 - 2.0 * x * \moddelta)) / (1.0 - 2.0 * x * \moddelta)) / (2.0 * exp(\moddelta * \modtimesym) + exp(-2.0 * \moddelta * \modtimesym))};
-		\addlegendentry{Eq.~(A.22)}
+		\addlegendentry{Eq.~(A.23)}
 		%% model
 		\def\modomega{1.0}
 		\def\modtimeasym{2.5}
@@ -159,8 +159,8 @@
 		dotted, 
 		on layer=axis background,
 		domain=0:3.5,
-		]{(2 * exp(x * \modtimeasym * (0.5 * \modomega)^2 / (1.0 + (x * \modomega * 0.5)^2)) * cos(deg(0.5 * \modomega * (\modtimeasym - x))) + 1) / ((1.0 + (x * \modomega * 0.5)^2) * (2 * cos(deg(0.5 * \modomega * \modtimeasym)) + 1))};
-		\addlegendentry{Eq.~(A.28)}
+		]{(2 * exp(x * \modtimeasym * (0.5 * \modomega)^2 / (1.0 + (x * \modomega * 0.5)^2)) * cos(deg(0.5 * \modomega * (\modtimeasym/(1.0 + (x * \modomega * 0.5)^2) - x))) + 1) / ((1.0 + (x * \modomega * 0.5)^2) * (2 * cos(deg(0.5 * \modomega * \modtimeasym)) + 1))};
+		\addlegendentry{Eq.~(A.29)}
 		%% y = x
 		\addplot
 		[

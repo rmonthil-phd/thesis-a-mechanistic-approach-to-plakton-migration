@@ -64,14 +64,14 @@ where $\vec{f}_{\mathrm{plank.}}$ denotes the volumic force exerted by the plank
 Note that the force exerted by the flow on the plankter $\vec{F}_{\mathrm{flow}}$ matches the volume integral of the volumic force exerted by the plankter on the flow $\vec{F}_{\mathrm{flow}} = -\iiint \vec{f}_{\mathrm{plank.}} dV$.
 
 Thanks to the spherical shape of the plankter and the linearity of Stokes equation, the nearby flow velocity can be computed analytically (illustrated in Fig.~\ref{fig:stokes_flow}).
-This leads to the expression of the drag force exerted on the plankter \citep{stokes1851effect}
+This leads to the expression of the force exerted on the plankter \citep{stokes1851effect}
 \begin{equation}\label{eq:stokes_drag}
 	\vec{F}_{\mathrm{flow.}} = 3 \pi \mu \PlankterSize \left( \FlowVelocity - \frac{d\ParticlePosition}{dt} \right),
 \end{equation}
 with $\mu$ the dynamic viscosity of the flow.
 Injecting Eq~\eqref{eq:stokes_drag} into the equation of motion [Eq~\eqref{eq:newton_motion}], we obtain
 \begin{equation}\label{eq:stokes_motion}
-	\frac{d^2 \ParticlePosition}{d t^2} = \frac{1}{\InertialDelay} \left[ \FlowVelocity - \frac{d\ParticlePosition}{dt} \right] \quad \text{with} \quad \InertialDelay = \frac{\rho_p d^2}{18 \mu},
+	\frac{d^2 \ParticlePosition}{d t^2} = \frac{1}{\InertialDelay} \left[ \FlowVelocity - \frac{d\ParticlePosition}{dt} \right] \quad \text{with} \quad \InertialDelay = \frac{(\rho_p + \rho_f/2) d^2}{18 \mu},
 \end{equation}
 with $\rho_p = \pi d^3/(6 M_p)$ the density of the plankter, assumed to be \textbf{homogeneously distributed} in the body of the plankter.
 The value $\InertialDelay$ denotes the characteristic time needed for the particle to reach a constant velocity when $\FlowVelocity$ varies in time\footnote{Strictly speaking, Eq.~\eqref{eq:stokes_motion} is only valid in a steady uniform flow. Unsteadiness and irregularities cause the apparition of other flow induced forces \citep{maxey1987motion, wang2012unsteady, more2020motion}.}.
@@ -291,7 +291,7 @@ The first term of the series simply corresponds to the target direction $\Direct
 It translates the fact that a surfer partly swims directly in the target direction.
 The second term is in the direction of the gradient of the vertical velocity $\vec{\nabla} \FlowVelocityScalar_z$ [Fig.~\ref{fig:physical_interpretation}\textbf{(b)}]. 
 This term corresponds to a gradient ascent of the vertical flow velocity $\FlowVelocityScalar_z$.
-It characterizes the fact that surfers, seeking to to get carried by the flow, also swim in the direction that leads to the nearest beneficial current, in the direction of $\vec{\nabla} ( \FlowVelocity \cdot \vec{\nabla} \FlowVelocityScalar_\DirectionScalar )$.
+It characterizes the fact that surfers, seeking to get carried by the flow, also swim in the direction that leads to the nearest beneficial current, in the direction of $\vec{\nabla} ( \FlowVelocity \cdot \vec{\nabla} \FlowVelocityScalar_\DirectionScalar )$.
 So to maximize vertical displacement, surfer also have to maximize displacement in the direction $\vec{\nabla} ( \FlowVelocity \cdot \vec{\nabla} \FlowVelocityScalar_\DirectionScalar )$.
 And thus to do so, the next term of the series takes the form of the gradient of the velocity component in that direction [Fig.~\ref{fig:physical_interpretation}\textbf{(c)}].
 Not content with the exploitation of ascending currents, given a large enough surfing time horizon $\TimeHorizon$, surfers also seek to exploit horizontal currents that would push them towards those upwellings.
@@ -311,19 +311,14 @@ The steady flow velocity can then be expressed as the following:
 The surfing strategy [Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] is the exact solution of the vertical migration problem in any linear flow.
 Thus, such flows already provide an interesting framework to assess the behavior of the surfing strategy.
 For that purpose, we compare surfer trajectories [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}], to bottom-heavy swimmers trajectories, which always swim upwards ($\SwimmingDirection_{\mathrm{\NameBhShort}} = \Direction$), and to passive particle trajectories ($\SwimmingVelocity = 0$).
-
-Trajectories are integrated numerically using a fifth-order Runge-Kutta method \citep{dormand1980family} thanks to the \textit{scipy.integrate.solve_ivp} function of the \textit{scipy} python library \footnote{The various Python scripts used to integrate 2D trajectories are provided at \url{http://www.github.com/C0PEP0D}.}.
-A description of the principle of the Runge-Kutta method is provided in App.~\ref{app:runge_kutta_method}.
-Unless mentioned otherwise, all trajectories integrated in 2D flows throughout this study are performed using this same procedure (as opposed to the 3D flows introduced below).
-As incompressibility is an important property of plankton flow environment, we further restrict our initial analysis to steady 2D incompressible linear flows.
-
+%\afterpage{
 \begin{figure}[p]
 	\centering
 	\input{chap_surfing/plots/various_linear_flows}
 	\caption[The surfing strategy performing in linear flows.]{
 		The surfing strategy performing in linear flows.
 		Comparison of simulated surfers trajectories with bottom-heavy swimmers and passive particle trajectories in various linear flows.
-		Simulations parameters are provided in Tab.~\ref{tab:linear_flows_simulation_parameters}.
+		Simulations parameters are provided in Tab.~\ref{tab:linear_flows_simulation_parameters}. Note that $\TimeHorizon = \FinalTime - t$ is time dependant.
 	}
 	\label{fig:various_linear_flows}
 \end{figure}
@@ -349,6 +344,13 @@ As incompressibility is an important property of plankton flow environment, we f
 	}
 	\label{tab:linear_flows_simulation_parameters}
 \end{table}
+%}
+
+Trajectories are integrated numerically using a fifth-order Runge-Kutta method \citep{dormand1980family} thanks to the \textit{scipy.integrate.solve_ivp} function of the \textit{scipy} python library \footnote{The various Python scripts used to integrate 2D trajectories are provided at \url{http://www.github.com/C0PEP0D}.}.
+A description of the principle of the Runge-Kutta method is provided in App.~\ref{app:runge_kutta_method}.
+Unless mentioned otherwise, all trajectories integrated in 2D flows throughout this study are performed using this same procedure (as opposed to the 3D flows introduced below).
+As incompressibility is an important property of plankton flow environment, we further restrict our initial analysis to steady 2D incompressible linear flows.
+
 Figure \ref{fig:various_linear_flows}\textbf{(a)} shows a counter intuitive solution where the surfer (red) starts by swimming downwards going around the vortex to end up in a beneficial current that propels it upwards.
 Note how this strategy helps avoiding being trapped in the vortex as the bottom-heavy swimmer (blue) that ends up being propelled downwards while always swimming upwards.
 This illustrates how flow information can be used to optimize navigation significantly.
@@ -373,7 +375,7 @@ Each part is known to behave differently in turbulence \citep{meneveau2011lagran
 	\label{fig:decomposition}
 \end{figure}
 
-\subsubsection{Pure shear}\label{sec:the_surfing_strategy_linear_sym}
+\subsubsection{Pure strain}\label{sec:the_surfing_strategy_linear_sym}
 
 \paragraph{2D case.}
 Assuming the flow is symmetric $\Gradients = \GradientsSym$, one can write all quantities in the orthonormal basis $(\hat{\vec{e}}_{\alpha}, \hat{\vec{e}}_{\beta})$, composed of the flow velocity gradients eigenvectors\footnote{This claim is the result of Cauchy's finite-dimensional spectral theorem, \citep{hawkins1975cauchy}.}.
@@ -397,12 +399,13 @@ This alignment is controlled by the time horizon $\TimeHorizon$.
 \begin{figure}
 	\centering
 	\input{chap_surfing/plots/linear_sym_surf}
-	\caption[In a pure shear flow, the surfing direction tends to align with the extension axis.]{
-		In a pure shear flow, the surfing direction tends to align with the extension axis.
-		Influence of the time horizon $\TimeHorizon$ on the surfing strategy in a pure shear flow.
+	\caption[In a pure strain flow, the surfing direction tends to align with the extension axis.]{
+		In a pure strain flow, the surfing direction tends to align with the extension axis.
+		Influence of the time horizon $\TimeHorizon$ on the surfing strategy in a pure strain flow.
 		\textbf{(a)} Comparison of surfers trajectories for various final times $\FinalTime$.
 		\textbf{(b)} Surfing direction as a function of the surfing time horizon $\TimeHorizon$.
 		Simulations parameters are provided in Tab.~\ref{tab:linear_sym_simulation_parameters}.
+		For reference, the bottom-heavy case is evaluated for $\FinalTime \delta = 5$.
 	}
 	\label{fig:linear_sym_surf}
 \end{figure}
@@ -497,6 +500,7 @@ Furthermore, when compared to the expected trajectory of a bottom-heavy swimmer 
 		\textbf{(a)} $\Direction$ is aligned with the shear axis.
 		\textbf{(b)} $\Direction$ is not aligned with the shear axis: $\theta_{\gamma_{\mathrm{sh.}}} = \pi/4$. 
 		Swimming speed is set to $\SwimmingVelocity = 0.5$ (arbitrary units).
+		For reference, the bottom-heavy case is evaluated for $\FinalTime \gamma_{\mathrm{sh.}} = 3$. 
 	}
 	\label{fig:simple_shear_surf}
 \end{figure}
@@ -543,7 +547,8 @@ If it is not the case, as we observe in Fig.~\ref{fig:simple_shear_surf}\textbf{
 		Comparison of surfer trajectories [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] with variation of the parameter $\TimeHorizon$, for various initial positions.
 		Trajectories of perfectly bottom-heavy plankters ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
 		The plankter swimming speed $\SwimmingVelocity = \FlowVelocityScalar_{\max} / 2$ and the final time $\FinalTime = 22 / \FlowVorticityScalar_{\max}$ are kept constant for each simulation.
-		Initial positions are provided in Tab.~\ref{tab:taylor_green_surf_simulation_parameters}. 
+		Initial positions are provided in Tab.~\ref{tab:taylor_green_surf_simulation_parameters}.
+		Note that for clarity, the end of the trajectories of the case $\TimeHorizon \FlowVelocityScalar_{\max} = 2 \pi$ are not displayed when they get out of the displayed domain (occurring in \textbf{(b)} and {(c)}).
 	}
 	\label{fig:taylor_green_vortex_surf}
 \end{figure}
@@ -656,14 +661,14 @@ Then once found, upwards currents let surfers catch up and eventually outdistanc
 \end{figure}
 Performance of surfers increase as function of time before converging towards a constant value for large times [Fig.~\ref{fig:taylor_green_vortex_time_performance_tau_and_tau_performance_final_time}\textbf{(a)}].
 As a consequence, we notice in Fig.~\ref{fig:taylor_green_vortex_time_performance_tau_and_tau_performance_final_time}\textbf{(b)} that the value of $\TimeHorizon$ for which the performance is maximal changes as a function of the final time $\FinalTime$.
-Note that in practice, migrating planktonic organisms may travel over large distances through the water column \citep{hardy1954experimental, williamson2011toward, prairie2012biophysical}.
-We focus then on the case of large final times $\FinalTime \to +\infty$ in the following [Eq.~\eqref{eq:surfing_performance}].
+Note that in practice, migrating planktonic organisms may travel through the water column over a large distance $\varLambda$ \citep{hardy1954experimental, williamson2011toward, prairie2012biophysical}.
+We focus then on the case of large distance migration ($\varLambda \to \infty$) corresponding to large final times ($\FinalTime = \varLambda/\Performance \to +\infty$) in the following [Eq.~\eqref{eq:surfing_performance}].
 We observe that surfers reach effective velocities $\Performance/\SwimmingVelocity \approx 1.7$ for $\FinalTime \to \infty$ while bottom-heavy swimmers are unable to harness favorable flow currents so that their effective velocity is approximately equal to their swimming velocity.
 
 The swimming speed of actual planktonic organisms varies over several orders of magnitudes, from $10^{-3}$ cm.s$^{-1}$ for bacteria to $1$ cm.s$^{-1}$ for fish larvae \citep{peters2000effects, fuchs2016seascape}.
 So, how does this strategy adapts to this range of swimming speed?
 First, as one increase its swimming speed with respect of the flow velocity, one may expect upwards currents being less beneficial.
-Indeed the the larger the swimming speed, the weaker is the flow compared to their own swimming skills.
+Indeed the larger the swimming speed, the weaker is the flow compared to their own swimming skills.
 As a consequence, performance increase due to flow exploitation should drop, until it becomes marginal.
 \begin{figure}%[H]
 	\centering
@@ -697,7 +702,7 @@ Compared to the constant target direction case, this averaged performance, noted
 The optimal surfing time horizon $\TimeHorizonOpt$ increases however.
 Not necessarily aligned with the target direction $\Direction$, beneficial currents are certainly harder to exploit.
 Moreover, the increase of $\TimeHorizonOpt$ means that surfers tend to align more with the stretching directions.
-This is in agreement with the observations made previously in linear flows: the pure shear part (symmetric) of the flow cannot be exploited if stretching is either parallel or orthogonal to $\Direction$. 
+This is in agreement with the observations made previously in linear flows: the pure strain part (symmetric) of the flow cannot be exploited if stretching is either parallel or orthogonal to $\Direction$. 
 Note that the performance ($\Performance / \SwimmingVelocity$) remains larger than 2 for the optimal time horizon $\TimeHorizon$ and for the slowest swimmers $\SwimmingVelocity = \ \FlowVelocityScalar_{\max}/4$.
 \afterpage{
 \begin{figure}
@@ -708,7 +713,7 @@ Note that the performance ($\Performance / \SwimmingVelocity$) remains larger th
 		Comparison of surfer trajectories [$\SwimmingDirection = \ControlDirectionOpt$, Eq.~\eqref{eq:surfing_optimal_swimming_direction_continuous}] with variation of the parameter $\TimeHorizon$, for various flow orientation $\phi_{\Direction}$ with respect to $\Direction$.
 		Trajectories of perfectly bottom-heavy plankters ($\SwimmingDirection = \Direction$) are plotted in blue for reference.
 		The plankter swimming speed $\SwimmingVelocity = \FlowVelocityScalar_{\max}/2$, the plankter initial position $\ParticlePosition_0 = (0 ~~ 0)$ and the final time $\FinalTime = 22 / \FlowVorticityScalar_{\max}$ is kept constant for each simulation.
-		Simulations parameters are provided in Tab.~\ref{tab:taylor_green_surf_direction_simulation_parameters}.
+		Additional simulations parameters are provided in Tab.~\ref{tab:taylor_green_surf_direction_simulation_parameters}.
 	}
 	\label{fig:taylor_green_vortex_surf_direction}
 \end{figure}

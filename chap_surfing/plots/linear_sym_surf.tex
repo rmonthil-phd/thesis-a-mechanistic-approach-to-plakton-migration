@@ -65,6 +65,34 @@
 		contour gnuplot={levels={-4.0, -3.6, -3.2, -2.8, -2.4, -2.0, -1.6, -1.2, -0.8, -0.4, 0.0, 0.4, 0.8, 1.6, 2.0, 2.4, 2.8, 3.2, 3.6, 4.0}, labels=false, draw color=black!20!white},
 	] {0.027285712258823203 * x * y + -0.706580136931777 * y^2 / 2.0 - -0.706580136931777 * x^2 / 2.0 + 0.0 * y - 0.0 * x} % axy + by^2/2 - cx^2/2 + u_x y - u_y x
 	[arrow/.list={0.3}] [marrow/.list={0.0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0}];
+	% % bh
+	\addplot
+		[
+		color=ColorBh,
+		mark=*,
+		mark options={mark indices={41}},
+		line width=1pt,
+		mark size=0.6mm
+		]
+		table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_sym_flow/flow_symmetric_linear_incompressible_parameters__seed_3__initial_position_0o_0o__direction_angle_0o0__swimming_velocity_0o5__final_time_5o0__bottom_heavy_trajectory.csv} node[pos=0.75, anchor=south west, xshift=+4pt]{\NameBhShort};
+	\addplot3 [ColorBh,opacity=1.0,very thick,-stealth,quiver={
+		u={\thisrowno{3}},
+		v={\thisrowno{4}},
+		scale arrows=0.8
+		}] table[
+		x index=1,
+		y index=2,
+		col sep=comma,
+		comment chars=\#,
+		each nth point={10},
+		unbounded coords=discard,
+		]{chap_surfing/data/linear_sym_flow/flow_symmetric_linear_incompressible_parameters__seed_3__initial_position_0o_0o__direction_angle_0o0__swimming_velocity_0o5__final_time_5o0__bottom_heavy_trajectory.csv};
 	% time 1.0
 	\addplot
 		[
@@ -151,7 +179,6 @@
 		each nth point={10},
 		unbounded coords=discard,
 		]{chap_surfing/data/linear_sym_flow/flow_symmetric_linear_incompressible_parameters__seed_3__final_time_5o0__surfer_trajectory.csv};
-
 	% start position
 	\addplot[mark=*, mark size=1.2mm] coordinates {(0,0)} node[black, text opacity=1, below, pos=1, anchor=west, xshift=+0.01\linewidth]{start};
 	\draw[black,->,-stealth] (axis cs:-4.5,0.0) -- (axis cs:-4.5,1.4) node [anchor=east, pos=0.5, text opacity=1] {$\Direction$};

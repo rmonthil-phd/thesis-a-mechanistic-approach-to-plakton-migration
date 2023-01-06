@@ -15,7 +15,7 @@ This behavior enables simulated plankters to forage beneficial currents and get 
 % Finally we compared the surfing strategy to other navigation methods that could be used to solve the same navigation problem (cf. Chap.~\ref{chap:navigation}).
 
 Based on an optimality-driven approach the expression given in Eq.~\ref{end:eq:surfing_swimming_direction_final} aims to model plankter behavior in the context of vertical migrations.
-While we showed this strategy to be \textbf{beneficial in turbulence} (Chap.~\ref{chap:surfing_on_turbulence}) while being \textbf{robust to various limitations} (Chap.~\ref{chap:surfing_robustness}), we observed surfing performance to be impact various parameters. 
+While we showed this strategy to be \textbf{beneficial in turbulence} (Chap.~\ref{chap:surfing_on_turbulence}) while being \textbf{robust to various limitations} (Chap.~\ref{chap:surfing_robustness}), we observed surfing performance to be impacted by various parameters. 
 In particular, performance is impacted by the ratio of the plankter swimming velocity and the Kolmogorov velocity scale $\SwimmingVelocity/\KolmogorovVelocityScale$ and the ratio of the reorientation time and the Kolmogorov time scale $\ReorientationTime/\KolmogorovTimeScale$ [the Kolmogorov scales correspond to the smallest scales of turbulence defined in Chap.~\ref{chap:surfing_on_turbulence}, Sec.~\ref{sec:simulating_turbulent_flows}, Eq.~\eqref{eq:kolmogorov}].
 
 As both these ratios are impacted by the local turbulence intensity and the plankter properties, one need to check if these ratios corresponds to values for which surfing is beneficial for actual plankters in actual plankton habitats.
@@ -248,8 +248,7 @@ Considering organisms as spheres, the metabolic power consumption can then be co
 	P_{\mathrm{meta.}} = \left( \frac{\pi}{6} \right)^{3/4} \alpha_{\mathrm{meta.}} \rho_{\mathrm{p}}^{3/4} d^{9/4}
 \end{equation}
 with $\rho_{\mathrm{p}} = 6 M_{\mathrm{p}} / \pi d^3$ the density of the plankter.
-Then assuming that most planktonic organisms are roughly as dense as water $\rho_{\mathrm{p}} \approx \rho_{\mathrm{water}}$, the problem depends on two parameters alone: the rotation velocity $\SwimmingAngularVelocity$ and the plankter size (diameter) $\PlankterSize$.
-One can then evaluate these coefficients with $\mu = \mu_{\mathrm{water}} = 10^{-3}$ kg m$^{-1}$ s$^{-1}$ and $\rho_{\mathrm{p}} \approx \rho_{\mathrm{water}} = 10^{3}$ kg m$^{-3}$.
+Then assuming that most planktonic organisms are roughly as dense as water $\rho_{\mathrm{p}} \approx \rho_{\mathrm{water}}$, one can evaluate these coefficients with $\mu = \mu_{\mathrm{water}} = 10^{-3}$ kg m$^{-1}$ s$^{-1}$ and $\rho_{\mathrm{p}} \approx \rho_{\mathrm{water}} = 10^{3}$ kg m$^{-3}$.
 In the limit of the previously described assumptions, the total power is only function of the swimming velocity $\SwimmingVelocity$, the active angular velocity $\SwimmingAngularVelocity$ and the plankter size $\PlankterSize$.
 
 To get an idea of the order of magnitudes of this total power for actual plankters, we take the example of the larvae of the gastropod \textit{Crepidula fornicata} \citep{dibenedetto2022responding}.
@@ -286,7 +285,7 @@ Such experiment would provide a fine control on the direction of migration of pl
 
 \subsubsection{Brief description of the setup}
 
-\citet{dibenedetto2022responding} observed the behavior of plaktonic larvae, specifically the veliger larvae of the gastropod \textit{Crepidula fornicata}, in a jet-stirred turbulence tank (Fig.~\ref{fig:tank}).
+\citet{dibenedetto2022responding} observed the behavior of planktonic larvae, specifically the veliger larvae of the gastropod \textit{Crepidula fornicata}, in a jet-stirred turbulence tank (Fig.~\ref{fig:tank}).
 \begin{figure}%[H]
 	\centering
 	\def\svgwidth{0.9\textwidth}

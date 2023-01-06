@@ -125,7 +125,7 @@ This shows that this strategy is robust to turbulence heterogeneities.
 Surprisingly however, the improvement provided by the adaptive strategy is marginal.
 
 To understand why, we need to look closer to how performance distributes along the vertical position $x_2$.
-We plot then the effective vertical velocity $\Performance$ as a function of the vertical position $x_2$ for surfers with a constant time horizon $\TimeHorizon$ in Fig.~\ref{fig:channel_perf_y}\textbf{(a)} and for adaptive surfers in Fig.~\ref{fig:channel_perf_y}\textbf{(b)}.
+We plot then the effective vertical velocity $\Performance$ as a function of the vertical position $x_2$ for surfers with a constant time horizon $\TimeHorizon$ in Fig.~\ref{fig:channel_binned_velocity_y}\textbf{(a)} and for adaptive surfers in Fig.~\ref{fig:channel_binned_velocity_y}\textbf{(b)}.
 Note the logarithmic scale of the vertical position.
 The bottom of the figure corresponds to the near wall region and the top of the figure corresponds to the centerline of the channel.
 \begin{figure}
@@ -267,7 +267,7 @@ with $\GradientsAsym^{\bot \Direction} = \asym (\FlowVorticity - \FlowVorticityS
 Evaluated in our simulation of homogeneous isotropic turbulence of $\mathit{Re}_{\lambda} = 11$, the vertical effective velocity $\Performance$ reached by such surfers ($\GradientsAsym^{\bot \Direction}$) is plotted as a function of the time horizon $\TimeHorizon$ in Fig.~\ref{fig:statochist}.
 This performance is compared to that of surfers either using the full vorticity ($\GradientsAsym$) and the full velocity gradient tensor ($\Gradients$).
 The maximal performance (for $\TimeHorizon \approx 2.5$) is barely affected by this limitation when compared to the performance of surfers that use the full vorticity.
-This can be understood by the fact that horizontal vorticity does not provide any information concerning gradients of vertical velocity.
+This can be understood by the fact that vertical vorticity does not provide any information concerning gradients of vertical velocity.
 As such the vertical vorticity component $\FlowVorticity_z$ would only contribute to the high-order terms ($n > 1$) of the surfing strategy.
 As shown in the previous section (cf. Fig.~\ref{fig:surfing_exp_order}), the high-order terms do not contribute much to the overall performance.
 
@@ -368,6 +368,7 @@ For each of these intermediate positions, the value of the gradient is obtained 
 These operations constitute the main bottleneck of our simulation code \textit{Sheld0n} in terms of computation time efficiency.
 Increasing the averaging length $\FilterLength$ then drastically impacts the computational cost of our simulations.
 This influenced the uncertainty of our results and the range of parameters we explored.
+Note that flow filtering and gradient estimate could be done in Fourier space to decrease time complexity.
 
 Overall this result suggests that accessing larger scales of the flow could be beneficial for navigation as the swimming speed of the organisms increases.
 This statement is yet to be confirmed with future research, but if confirmed, this might have implications when taking into account the size of the plankters.
