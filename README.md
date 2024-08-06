@@ -3,6 +3,9 @@
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 My PhD thesis, feel free to use any of this if it can be of any use for you.
+
+**If you just want to read my thesis**, just download the pdf [here](https://github.com/rmonthil-phd/thesis-a-mechanistic-approach-to-plakton-migration/releases/download/v1.0-comments-addressed/thesis_a_mechanistic_approach_to_plankton_migration_v1.pdf).
+
 This thesis is based of the awesome [template of Dr Jean-Paul Ebejer (University of Malta)](https://github.com/jp-um/university_of_malta_LaTeX_dissertation_template).
 If you are looking for a template, you should definitely check out his project before checking this one and most of the "template aspects" of this project should be credited to him.
 
